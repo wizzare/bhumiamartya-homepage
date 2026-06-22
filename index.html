@@ -1211,70 +1211,100 @@
             border-radius: 5px;
         }
 
-        /* Section: Founder */
-        .founder-grid {
+        /* Section: Team/Founder */
+        .team-grid {
             display: grid;
-            grid-template-columns: 0.85fr 1.15fr;
-            gap: 5rem;
-            align-items: center;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 2rem;
         }
 
-        .founder-visual {
+        .team-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.05);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            transition: var(--transition);
         }
 
-        .founder-img-container {
-            width: 320px;
-            height: 320px;
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        .team-img-wrapper {
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            position: relative;
             background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-dark) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 8px solid var(--white);
-            box-shadow: var(--shadow-lg);
+            margin-bottom: 1.75rem;
+            border: 5px solid var(--bg-secondary);
+            box-shadow: var(--shadow-sm);
+            position: relative;
         }
 
-        .founder-img-container::before {
+        .team-img-wrapper::after {
             content: '';
             position: absolute;
-            top: -12px;
-            left: -12px;
-            right: -12px;
-            bottom: -12px;
-            border: 1px solid var(--earth-gold);
+            inset: -8px;
+            border: 1px dashed var(--earth-gold);
             border-radius: 50%;
+            opacity: 0.6;
         }
 
-        .founder-avatar-placeholder {
-            width: 80%;
-            height: 80%;
+        .team-avatar-placeholder {
+            width: 70%;
+            height: 70%;
             color: var(--bg-primary);
-            opacity: 0.95;
+            opacity: 0.9;
         }
 
-        .founder-info h3 {
-            font-size: 2.25rem;
-            margin-bottom: 0.5rem;
+        .team-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            align-items: center;
         }
 
-        .founder-title {
+        .team-name {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }
+
+        .team-role {
             font-family: var(--font-body);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--gold-dark);
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             font-weight: 600;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.25rem;
         }
 
-        .founder-bio {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
+        .team-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
             color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .team-btn {
+            width: 100%;
+            padding: 0.6rem 1.25rem;
+            font-size: 0.85rem;
+            margin-top: auto;
         }
 
         /* Section: Download App CTA */
@@ -1570,6 +1600,9 @@
             .hero-headline {
                 font-size: 3.25rem;
             }
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
@@ -1620,14 +1653,12 @@
                 gap: 1.75rem;
             }
 
-            .founder-grid {
+            .team-grid {
                 grid-template-columns: 1fr;
-                gap: 3rem;
-                text-align: center;
-            }
-
-            .founder-visual {
-                justify-content: center;
+                gap: 2rem;
+                max-width: 400px;
+                margin-left: auto;
+                margin-right: auto;
             }
 
             .cta-title {
@@ -2497,30 +2528,76 @@
         </div>
     </section>
 
-    <!-- 8. TENTANG FOUNDER -->
+    <!-- 8. DI BALIK BHUMI (TEAM) -->
     <section class="section section-alt" id="founder">
-        <div class="container founder-grid">
-            <div class="founder-visual reveal">
-                <div class="founder-img-container">
-                    <!-- Elegant Abstract Outline of a tree of life inside the circular photo placeholder -->
-                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="founder-avatar-placeholder">
-                        <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-                        <path d="M50 90 L50 45" stroke="currentColor" stroke-width="2.5"/>
-                        <path d="M50 45 C50 45, 65 30, 75 40 C75 40, 70 25, 50 35 C50 35, 30 25, 25 40 C25 40, 35 30, 50 45 Z" fill="currentColor"/>
-                        <path d="M50 60 C50 60, 68 50, 72 65 C50 55, 50 60, 50 60 Z" fill="currentColor"/>
-                        <path d="M50 65 C50 65, 32 55, 28 70 C50 60, 50 65, 50 65 Z" fill="currentColor"/>
-                    </svg>
-                </div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Di Balik Bhumi</span>
+                <h2 class="section-title">Tim & Kolaborator Kami</h2>
+                <p class="section-desc">Jiwa-jiwa yang mendedikasikan perjalanannya untuk menghadirkan ruang kesadaran dan membantu Anda kembali pulang ke diri.</p>
             </div>
 
-            <div class="founder-info reveal" style="transition-delay: 0.2s;">
-                <span class="section-tag">Di Balik Bhumi</span>
-                <h3>Widhi Wedhaswara</h3>
-                <p class="founder-title">Founder Bhumi Amartya</p>
-                <p class="founder-bio">
-                    Seorang penggiat pengembangan diri, edukator, dan tech developer yang mendedikasikan perjalanannya untuk menyatukan teknologi analitis dengan kearifan filosofis refleksi diri. Melalui Bhumi Amartya, ia ingin menyediakan jembatan yang rasional dan membumi bagi setiap jiwa untuk mengenali potensi sejati mereka dan menemukan rasa damai di dalam diri.
-                </p>
-                <a href="https://wedhaswara.my.id" target="_blank" rel="noopener" class="btn btn-outline">Kunjungi Wedhaswara.my.id</a>
+            <div class="team-grid">
+                <!-- Card 1: Widhi Wedhaswara -->
+                <div class="team-card reveal">
+                    <div class="team-img-wrapper">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="team-avatar-placeholder">
+                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
+                            <path d="M50 90 L50 45" stroke="currentColor" stroke-width="2.5"/>
+                            <path d="M50 45 C50 45, 65 30, 75 40 C75 40, 70 25, 50 35 C50 35, 30 25, 25 40 C25 40, 35 30, 50 45 Z" fill="currentColor"/>
+                            <path d="M50 60 C50 60, 68 50, 72 65 C50 55, 50 60, 50 60 Z" fill="currentColor"/>
+                            <path d="M50 65 C50 65, 32 55, 28 70 C50 60, 50 65, 50 65 Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <div class="team-body">
+                        <h3 class="team-name">Widhi Wedhaswara</h3>
+                        <p class="team-role">Founder Bhumi Amartya</p>
+                        <p class="team-bio">
+                            Seorang penggiat pengembangan diri, edukator, penulis, dan tech developer yang menggabungkan teknologi, refleksi diri, serta berbagai sistem pemetaan potensi manusia ke dalam satu ekosistem bernama Bhumi Amartya. Melalui Bhumi, ia berupaya menghadirkan ruang yang membumi, rasional, dan mudah diakses untuk membantu setiap orang mengenali dirinya lebih dalam dan bertumbuh dengan kesadaran.
+                        </p>
+                        <a href="https://wedhaswara.my.id" target="_blank" rel="noopener" class="btn btn-outline team-btn">Kunjungi Wedhaswara.my.id</a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Firna Firdaus -->
+                <div class="team-card reveal" style="transition-delay: 0.1s;">
+                    <div class="team-img-wrapper">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="team-avatar-placeholder">
+                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
+                            <path d="M50 90 L50 50" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="50" cy="35" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M30 65 C30 50, 45 45, 50 50 C55 45, 70 50, 70 65" stroke="currentColor" stroke-width="2"/>
+                            <path d="M50 25 C52 20, 48 15, 50 10 C52 15, 48 20, 50 25 Z" fill="#D4AF37"/>
+                        </svg>
+                    </div>
+                    <div class="team-body">
+                        <h3 class="team-name">Firna Firdaus</h3>
+                        <p class="team-role">Soul Alchemist</p>
+                        <p class="team-bio">
+                            Firna Firdaus adalah pendamping transformasi diri yang berfokus pada perjalanan kesadaran, penyembuhan batin, dan integrasi pengalaman hidup menjadi sumber kebijaksanaan. Melalui pendekatan yang hangat dan reflektif, ia membantu individu kembali terhubung dengan diri sejati mereka, menemukan makna di balik setiap proses kehidupan, serta membuka ruang untuk pertumbuhan yang lebih autentik dan selaras.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Coming Soon -->
+                <div class="team-card reveal" style="transition-delay: 0.2s;">
+                    <div class="team-img-wrapper">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="team-avatar-placeholder" style="opacity: 0.5;">
+                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/>
+                            <circle cx="50" cy="40" r="12" fill="currentColor"/>
+                            <path d="M30 75 C30 60, 40 58, 50 58 C60 58, 70 60, 70 75" fill="currentColor"/>
+                            <path d="M50 20 L50 15" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M45 17.5 L55 17.5" stroke="currentColor" stroke-width="1.5"/>
+                        </svg>
+                    </div>
+                    <div class="team-body">
+                        <h3 class="team-name">Coming Soon</h3>
+                        <p class="team-role">Team Member</p>
+                        <p class="team-bio">
+                            Saat ini Bhumi Amartya terus bertumbuh dan membuka ruang kolaborasi bagi individu yang memiliki visi serupa dalam bidang edukasi, pengembangan diri, teknologi, maupun wellness. Profil anggota tim berikutnya akan segera hadir.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
