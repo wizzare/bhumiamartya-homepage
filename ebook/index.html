@@ -5,24 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
-    <title>Kalkulator Weton Jawa | Bhumi Amartya</title>
-    <meta name="description" content="Kalkulator Weton Jawa Bhumi Amartya. Telusuri hari Jawa, pasaran, neptu, wuku, pranata mangsa, hingga khodam pendamping simbolik Anda untuk mengenal blueprint diri Anda.">
-    <meta name="keywords" content="Bhumi Amartya, weton jawa, kalkulator weton, neptu, wuku, pranata mangsa, khodam pendamping, pengembangan diri, refleksi diri">
+    <title>Ebook Refleksi Diri | Bhumi Amartya</title>
+    <meta name="description" content="Koleksi Ebook Refleksi Diri Bhumi Amartya. Panduan tematik perjalanan kesadaran untuk mengenali, menerima, menghadapi bayangan batin, dan pulang ke diri Anda secara utuh.">
+    <meta name="keywords" content="Bhumi Amartya, ebook refleksi diri, inner child, hello darkside, shadow self, pengembangan diri, pemulihan luka, spiritualitas">
     <meta name="author" content="Widhi Wedhaswara">
-    <link rel="canonical" href="https://bhumiamartya.my.id/weton">
+    <link rel="canonical" href="https://bhumiamartya.my.id/ebook">
 
     <!-- Open Graph / Facebook Meta Tags -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://bhumiamartya.my.id/weton">
-    <meta property="og:title" content="Kalkulator Weton Jawa | Bhumi Amartya">
-    <meta property="og:description" content="Telusuri hari Jawa, pasaran, neptu, wuku, pranata mangsa, dan khodam pendamping Anda melalui kearifan kalender Jawa.">
+    <meta property="og:url" content="https://bhumiamartya.my.id/ebook">
+    <meta property="og:title" content="Ebook Refleksi Diri | Bhumi Amartya">
+    <meta property="og:description" content="Koleksi Ebook Refleksi Diri Bhumi Amartya. Panduan batin langkah demi langkah perjalanan kesadaran Anda.">
     <meta property="og:image" content="https://bhumiamartya.my.id/assets/og-image.jpg">
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://bhumiamartya.my.id/weton">
-    <meta name="twitter:title" content="Kalkulator Weton Jawa | Bhumi Amartya">
-    <meta name="twitter:description" content="Telusuri hari Jawa, pasaran, neptu, wuku, pranata mangsa, dan khodam pendamping Anda melalui kearifan kalender Jawa.">
+    <meta name="twitter:url" content="https://bhumiamartya.my.id/ebook">
+    <meta name="twitter:title" content="Ebook Refleksi Diri | Bhumi Amartya">
+    <meta name="twitter:description" content="Koleksi Ebook Refleksi Diri Bhumi Amartya. Panduan batin langkah demi langkah perjalanan kesadaran Anda.">
     <meta name="twitter:image" content="https://bhumiamartya.my.id/assets/og-image.jpg">
 
     <!-- Favicon & Fonts -->
@@ -3763,28 +3763,17 @@
         }
     
         /* =====================================================================
-           WETON CALCULATOR SUBPAGE CUSTOM STYLES
+           EBOOK LIBRARY SUBPAGE CUSTOM STYLES
            ===================================================================== */
-        .weton-section {
+        .journey-section {
             padding: 8rem 0 6rem 0;
             min-height: calc(100vh - 350px);
             position: relative;
             background-color: var(--bg-primary);
             overflow: hidden;
         }
-        
-        .weton-batik-bg {
-            position: absolute;
-            inset: 0;
-            background-image: url('images/batik-ornament.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.04;
-            pointer-events: none;
-            z-index: 1;
-        }
 
-        .weton-container {
+        .journey-container {
             position: relative;
             z-index: 2;
             width: 100%;
@@ -3863,381 +3852,186 @@
             color: var(--text-secondary);
         }
 
-        /* Form styling */
-        .weton-form-card {
-            background-color: var(--white);
-            border: 1px solid rgba(45, 75, 52, 0.08);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: var(--shadow-md);
-            max-width: 750px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-
-        .weton-form-grid {
+        /* Ebook Timeline Grid */
+        .ebook-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .weton-form-group.full-width {
-            grid-column: span 3;
-        }
-
-        .weton-form-group.two-thirds {
-            grid-column: span 2;
-        }
-
-        .weton-form-group label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .weton-form-group label svg {
-            color: var(--earth-gold);
-            width: 16px;
-            height: 16px;
-            stroke-width: 2;
-        }
-
-        .weton-input {
-            width: 100%;
-            padding: 0.85rem 1rem;
-            border: 1px solid rgba(45, 75, 52, 0.15);
-            border-radius: 12px;
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            background-color: var(--bg-primary);
-            transition: var(--transition);
-        }
-
-        .weton-input:focus {
-            outline: none;
-            border-color: var(--earth-gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-            background-color: var(--white);
-        }
-
-        .weton-helper-text {
-            margin-top: 1.25rem;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: start;
-            gap: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .weton-helper-text svg {
-            margin-top: 2px;
-            flex-shrink: 0;
-            color: var(--earth-gold);
-            width: 14px;
-            height: 14px;
-        }
-
-        .weton-error-text {
-            margin-top: 1rem;
-            color: #C53030;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .weton-submit-btn {
-            margin-top: 1.5rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        /* Results Container */
-        .weton-results-wrapper {
-            margin-top: 4rem;
-            scroll-margin-top: 8rem;
-            display: none;
-        }
-
-        .weton-results-wrapper.active {
-            display: block;
-        }
-
-        .weton-results-placeholder {
-            text-align: center;
-            color: var(--text-secondary);
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 3rem;
-            padding: 3rem 0;
-            border: 1px dashed rgba(45, 75, 52, 0.15);
-            border-radius: 20px;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .weton-results-placeholder svg {
-            color: var(--earth-gold);
-            width: 18px;
-            height: 18px;
-        }
-
-        /* Result Identity Card */
-        .weton-result-identity {
-            background: linear-gradient(to bottom, rgba(45, 75, 52, 0.05), transparent);
-            border: 1px solid rgba(45, 75, 52, 0.15);
-            border-radius: 24px;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-bottom: 2.5rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
             position: relative;
-            overflow: hidden;
+            margin-top: 4rem;
+            margin-bottom: 4rem;
         }
 
-        .weton-result-identity::before {
+        /* Connecting timeline line on desktop */
+        .ebook-grid::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background-image: url('images/batik-ornament.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.02;
-            pointer-events: none;
+            top: 200px; /* middle of the covers */
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(to right, rgba(212, 175, 55, 0.1) 0%, var(--earth-gold) 50%, rgba(212, 175, 55, 0.1) 100%);
+            z-index: 1;
         }
 
-        .weton-result-identity .weton-result-tag {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.25em;
-            color: var(--text-secondary);
-            font-weight: 600;
+        .ebook-card {
+            background-color: var(--white);
+            border-radius: 24px;
+            border: 1px solid rgba(45, 75, 52, 0.05);
+            box-shadow: var(--shadow-sm);
+            padding: 2.25rem 1.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
         }
 
-        .weton-result-identity .weton-result-title {
-            font-size: 4rem;
-            color: var(--forest-green);
-            margin: 0.5rem 0;
-            font-weight: 700;
-            font-family: var(--font-headings);
+        .ebook-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(212, 175, 55, 0.2);
         }
 
-        .weton-result-identity .weton-result-name {
-            font-size: 1.35rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-        }
-
-        .weton-result-identity .weton-result-meta {
+        .ebook-cover-wrapper {
+            width: 100%;
+            height: 260px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            position: relative;
+            perspective: 1000px;
         }
 
-        .weton-result-identity .weton-result-meta-item {
+        .ebook-cover {
+            height: 100%;
+            max-width: 90%;
+            object-fit: contain;
+            border-radius: 4px 12px 12px 4px;
+            box-shadow: 5px 8px 20px rgba(26, 47, 32, 0.15);
+            transition: var(--transition);
+        }
+
+        .ebook-card:hover .ebook-cover {
+            transform: rotateY(-12deg) translateZ(10px) scale(1.03);
+            box-shadow: 12px 16px 28px rgba(26, 47, 32, 0.25);
+        }
+
+        .journey-step {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--white);
+            color: var(--forest-green);
+            border: 2px solid var(--earth-gold);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .weton-result-identity .weton-result-meta-item svg {
-            color: var(--earth-gold);
-            width: 16px;
-            height: 16px;
-        }
-
-        .weton-result-shift-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .weton-result-shift-badge.shifted {
-            background-color: rgba(212, 175, 55, 0.15);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            color: var(--text-primary);
-        }
-
-        .weton-result-shift-badge.normal {
-            background-color: rgba(45, 75, 52, 0.05);
-            border: 1px solid rgba(45, 75, 52, 0.15);
-            color: var(--text-primary);
-        }
-
-        /* Weton Cards Grid */
-        .weton-results-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .weton-stat-card {
-            background-color: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(45, 75, 52, 0.08);
-            border-radius: 20px;
-            padding: 1.5rem;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            font-family: var(--font-body);
+            margin-bottom: 0.4rem;
             box-shadow: var(--shadow-sm);
             transition: var(--transition);
         }
 
-        .weton-stat-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(45, 75, 52, 0.15);
+        .ebook-card:hover .step-num {
+            background-color: var(--earth-gold);
+            color: var(--white);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
         }
 
-        .weton-stat-card.highlighted {
-            border-color: rgba(212, 175, 55, 0.4);
-            background-color: rgba(212, 175, 55, 0.05);
-        }
-
-        .weton-stat-card .stat-label {
+        .step-narrative {
+            font-family: var(--font-body);
             font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-            font-weight: 600;
+            letter-spacing: 0.08em;
+            color: var(--gold-dark);
         }
 
-        .weton-stat-card .stat-value {
-            font-family: var(--font-headings);
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 0.5rem;
-            line-height: 1.2;
-        }
-
-        .weton-stat-card.highlighted .stat-value {
-            color: var(--forest-green);
-        }
-
-        .weton-stat-card .stat-hint {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-            font-weight: 500;
-        }
-
-        /* Detail Sections */
-        .weton-detail-section {
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(45, 75, 52, 0.08);
-            border-radius: 24px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .weton-detail-section.khodam-section {
-            background-color: rgba(212, 175, 55, 0.03);
-            border-color: rgba(212, 175, 55, 0.15);
-        }
-
-        .weton-detail-section h4 {
-            font-size: 1.85rem;
+        .ebook-body {
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--forest-green);
-            margin-bottom: 1.25rem;
+            flex-direction: column;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .ebook-title {
             font-family: var(--font-headings);
-        }
-
-        .weton-detail-section h4 svg {
-            color: var(--earth-gold);
-            width: 20px;
-            height: 20px;
-            stroke-width: 2;
-        }
-
-        .weton-detail-section.khodam-section h4 {
-            color: var(--text-primary);
-        }
-
-        .weton-detail-section p {
-            font-size: 1rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
-        }
-
-        .weton-detail-section .khodam-name {
-            font-family: var(--font-headings);
-            font-size: 2rem;
-            color: var(--earth-gold);
+            font-size: 1.6rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+            margin-bottom: 0.25rem;
         }
 
-        .weton-disclaimer {
-            margin-top: 1.5rem;
-            padding: 1.25rem;
-            background-color: var(--white);
-            border: 1px solid rgba(45, 75, 52, 0.08);
-            border-radius: 12px;
+        .ebook-subtitle {
+            font-family: var(--font-body);
             font-size: 0.8rem;
             color: var(--text-secondary);
-            display: flex;
-            align-items: start;
-            gap: 0.75rem;
-            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: 0.85rem;
+            line-height: 1.4;
         }
 
-        .weton-disclaimer svg {
-            color: var(--earth-gold);
-            margin-top: 2px;
-            flex-shrink: 0;
+        .ebook-desc {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .ebook-btn {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.85rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .ebook-btn-coming {
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            cursor: not-allowed;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .ebook-btn-coming svg {
             width: 14px;
             height: 14px;
+            color: var(--text-secondary);
+            opacity: 0.7;
         }
 
-        /* Weton App CTA section */
+        /* App CTA Section */
         .weton-app-cta {
             text-align: center;
             padding: 4rem 2rem;
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: linear-gradient(to bottom right, rgba(45, 75, 52, 0.03), rgba(212, 175, 55, 0.03));
             border-radius: 28px;
-            margin-top: 4rem;
             position: relative;
             overflow: hidden;
-        }
-
-        .weton-app-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: url('images/batik-ornament.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.015;
-            pointer-events: none;
         }
 
         .weton-app-cta h3 {
@@ -4268,44 +4062,28 @@
         }
 
         /* Media Queries */
-        @media (max-width: 992px) {
-            .weton-results-grid {
+        @media (max-width: 1024px) {
+            .ebook-grid::before {
+                display: none;
+            }
+            .ebook-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
             }
         }
 
         @media (max-width: 768px) {
-            .weton-section {
+            .journey-section {
                 padding: 6rem 0 4rem 0;
             }
             .weton-header h1 {
                 font-size: 2.75rem;
             }
-            .weton-form-card {
-                padding: 1.75rem;
-            }
-            .weton-form-grid {
+            .ebook-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .weton-form-group.full-width {
-                grid-column: span 1;
-            }
-            .weton-form-group.two-thirds {
-                grid-column: span 1;
-            }
-            .weton-result-identity {
-                padding: 2rem 1.25rem;
-            }
-            .weton-result-identity .weton-result-title {
-                font-size: 3rem;
-            }
-            .weton-results-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-            .weton-detail-section {
-                padding: 1.75rem;
+                gap: 2.5rem;
+                max-width: 360px;
+                margin: 3rem auto 0 auto;
             }
             .weton-app-cta {
                 padding: 3rem 1.25rem;
@@ -4334,7 +4112,7 @@
                     <li class="dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="./" class="dropdown-item">Weton Jawa</a></li>
+                            <li><a href="../weton/" class="dropdown-item">Weton Jawa</a></li>
                             <li><a href="#" class="dropdown-item">Compatibility</a></li>
                             <li><a href="#" class="dropdown-item">Tes Kenali Diri</a></li>
                         </ul>
@@ -4343,7 +4121,7 @@
                     <li><a href="../#produk" class="nav-link">Produk</a></li>
                     <li><a href="../#youtube" class="nav-link">Youtube</a></li>
                     <li><a href="../#artikel" class="nav-link">Ngopi Ilmu</a></li>
-                    <li><a href="../ebook/" class="nav-link">Ebook</a></li>
+                    <li><a href="./" class="nav-link">Ebook</a></li>
                     <li><a href="../#testimoni" class="nav-link">Testimoni</a></li>
                     <li><a href="../#founder" class="nav-link">Founder</a></li>
                     <li><a href="../#kontak" class="nav-link">Kontak</a></li>
@@ -4360,131 +4138,133 @@
     </header>
 
     <!-- MAIN CONTENT SECTION -->
-    <main class="weton-section">
-        <div class="weton-batik-bg"></div>
-        <div class="weton-container">
+    <main class="journey-section">
+        <div class="journey-container">
             
             <!-- Breadcrumbs -->
             <nav class="weton-breadcrumbs reveal" aria-label="Breadcrumbs">
                 <ol class="breadcrumb-list">
                     <li class="breadcrumb-item"><a href="../#beranda">Beranda</a></li>
-                    <li class="breadcrumb-item">Kenali Diri</li>
-                    <li class="breadcrumb-item active" aria-current="page">Weton Jawa</li>
+                    <li class="breadcrumb-item active" aria-current="page">Ebook</li>
                 </ol>
             </nav>
             
             <!-- Hero Header -->
             <header class="weton-header reveal">
                 <span class="weton-tag">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 2px;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    Bhumi Amartya Tools
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 2px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20M4 19.5V3a2.5 2.5 0 0 1 2.5-2.5H20v16.5H6.5a2.5 2.5 0 0 0-2.5 2.5z"/></svg>
+                    Bhumi Ebook Library
                 </span>
-                <h1>Kalkulator Weton Jawa</h1>
+                <h1>Perjalanan Pulang ke Diri</h1>
                 <p>
-                    Telusuri hari Jawa, pasaran, neptu, wuku, pranata mangsa, hingga khodam pendamping simbolik Anda. Sebuah perjalanan reflektif memahami diri melalui kearifan kalender Jawa tradisional.
+                    Kumpulan ebook refleksi diri untuk menemani perjalanan mengenal, menerima, dan memulihkan diri. Didesain secara tematik sebagai panduan langkah demi langkah perjalanan kesadaran Anda.
                 </p>
             </header>
 
-            <!-- Form Card -->
-            <div class="weton-form-card reveal" style="transition-delay: 0.1s;">
-                <form id="weton-form">
-                    <div class="weton-form-grid">
-                        
-                        <!-- Nama Lengkap -->
-                        <div class="weton-form-group full-width">
-                            <label for="nama">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                                Nama Lengkap
-                            </label>
-                            <input type="text" id="nama" class="weton-input" placeholder="Misal: Raden Aji Pamungkas" autocomplete="name">
-                        </div>
-
-                        <!-- Tanggal Lahir -->
-                        <div class="weton-form-group two-thirds">
-                            <label for="tanggal">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                                Tanggal Lahir
-                            </label>
-                            <input type="date" id="tanggal" class="weton-input" required>
-                        </div>
-
-                        <!-- Jam Lahir -->
-                        <div class="weton-form-group">
-                            <label for="jam">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                Jam Lahir
-                            </label>
-                            <input type="time" id="jam" class="weton-input" value="12:00" required>
-                        </div>
-
+            <!-- Ebook Timeline Grid -->
+            <div class="ebook-grid">
+                <!-- Card 1: Inner Child -->
+                <article class="ebook-card reveal">
+                    <div class="journey-step">
+                        <div class="step-num">1</div>
+                        <div class="step-narrative">Mengenali Luka</div>
                     </div>
-
-                    <!-- Helper Info -->
-                    <div class="weton-helper-text">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                        <span>Jika lahir pukul 18.00 atau lebih, hari Jawa dihitung sebagai hari berikutnya (pergantian hari menurut penanggalan Jawa terjadi saat matahari terbenam/Maghrib).</span>
+                    <div class="ebook-cover-wrapper">
+                        <img src="../assets/ebook-innerchild.png" alt="Ebook Inner Child Cover" class="ebook-cover" loading="lazy">
                     </div>
+                    <div class="ebook-body">
+                        <h3 class="ebook-title">Inner Child</h3>
+                        <p class="ebook-subtitle">Si Anak Kecil Dalam Tubuh Dewasa</p>
+                        <p class="ebook-desc">
+                            Sebuah panduan refleksi diri untuk berdamai dengan masa lalu, mengenali luka pengasuhan, dan memeluk kembali sang anak kecil di dalam diri Anda agar dapat tumbuh lebih utuh.
+                        </p>
+                        <button class="btn ebook-btn ebook-btn-coming" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Segera Hadir
+                        </button>
+                    </div>
+                </article>
 
-                    <!-- Error Output -->
-                    <div id="weton-error" class="weton-error-text" style="display: none;"></div>
+                <!-- Card 2: Nggak Apa-Apa Nggak Baik-Baik Aja -->
+                <article class="ebook-card reveal" style="transition-delay: 0.1s;">
+                    <div class="journey-step">
+                        <div class="step-num">2</div>
+                        <div class="step-narrative">Menerima Luka</div>
+                    </div>
+                    <div class="ebook-cover-wrapper">
+                        <img src="../assets/ebook-nggakapaapa.png" alt="Ebook Nggak Apa-Apa Nggak Baik-Baik Aja Cover" class="ebook-cover" loading="lazy">
+                    </div>
+                    <div class="ebook-body">
+                        <h3 class="ebook-title">Nggak Apa-Apa Nggak Baik-Baik Aja</h3>
+                        <p class="ebook-subtitle">Menerima dan Merayakan Ketidaksempurnaan</p>
+                        <p class="ebook-desc">
+                            Buku reflektif tentang pentingnya memberi ruang bagi emosi negatif. Menyadari bahwa ketidaksempurnaan dan kesedihan adalah bagian alami dari proses penyembuhan diri.
+                        </p>
+                        <button class="btn ebook-btn ebook-btn-coming" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Segera Hadir
+                        </button>
+                    </div>
+                </article>
 
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary weton-submit-btn">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/><line x1="12" y1="9" x2="12" y2="17"/></svg>
-                        Hitung Weton
-                    </button>
-                </form>
+                <!-- Card 3: Hello Darkside -->
+                <article class="ebook-card reveal" style="transition-delay: 0.2s;">
+                    <div class="journey-step">
+                        <div class="step-num">3</div>
+                        <div class="step-narrative">Menghadapi Bayangan</div>
+                    </div>
+                    <div class="ebook-cover-wrapper">
+                        <img src="../assets/ebook-hellodarkside.png" alt="Ebook Hello Darkside Cover" class="ebook-cover" loading="lazy">
+                    </div>
+                    <div class="ebook-body">
+                        <h3 class="ebook-title">Hello Darkside</h3>
+                        <p class="ebook-subtitle">A Psychological Journey Through the Self</p>
+                        <p class="ebook-desc">
+                            Menjelajahi sisi bayangan (shadow self) dari psikologi Carl Jung. Mengenali aspek-aspek tersembunyi diri untuk diintegrasikan demi kedamaian batin.
+                        </p>
+                        <button class="btn ebook-btn ebook-btn-coming" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Segera Hadir
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 4: Pulang -->
+                <article class="ebook-card reveal" style="transition-delay: 0.3s;">
+                    <div class="journey-step">
+                        <div class="step-num">4</div>
+                        <div class="step-narrative">Pulang ke Diri</div>
+                    </div>
+                    <div class="ebook-cover-wrapper">
+                        <img src="../assets/ebook-pulang.jpg" alt="Ebook Pulang Cover" class="ebook-cover" loading="lazy">
+                    </div>
+                    <div class="ebook-body">
+                        <h3 class="ebook-title">Pulang</h3>
+                        <p class="ebook-subtitle">Untuk Kamu yang Sedang Lelah Menjadi Kuat</p>
+                        <p class="ebook-desc">
+                            Sebuah tempat teduh dalam bentuk tulisan untuk melepas lelah, melepaskan ekspektasi berlebih, dan menemukan jalan pulang yang damai ke dalam diri sendiri.
+                        </p>
+                        <button class="btn ebook-btn ebook-btn-coming" disabled>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            Segera Hadir
+                        </button>
+                    </div>
+                </article>
             </div>
-
-            <!-- Pre-Result Placeholder -->
-            <div id="weton-placeholder" class="weton-results-placeholder reveal" style="transition-delay: 0.2s;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                <span>Isi data di atas lalu klik <strong>Hitung Weton</strong> untuk melihat hasil analisis.</span>
-            </div>
-
-            <!-- Results Output Container -->
-            <div id="weton-results" class="weton-results-wrapper">
-                
-                <!-- 1. Identity Box -->
-                <div class="weton-result-identity" id="result-identity-box">
-                    <!-- Loaded via JS -->
+            
+            <!-- App Call To Action -->
+            <div class="weton-app-cta reveal" style="margin-top: 5rem;">
+                <h3>Lanjutkan Refleksi Bersama Aplikasi Bhumi</h3>
+                <p>Unduh aplikasi Bhumi Amartya sekarang di Google Play Store untuk mengakses jurnal refleksi harian terintegrasi, audio healing penyelarasan frekuensi gelombang otak, serta panduan meditasi kesadaran yang disesuaikan secara khusus dengan proses perjalanan batin Anda.</p>
+                <div class="weton-app-cta-btns">
+                    <a href="https://play.google.com/store/apps/details?id=id.my.bhumiamartya" target="_blank" rel="noopener" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3 5.27v13.46c0 .94.76 1.7 1.7 1.7.35 0 .69-.11.97-.31l11.45-8.15-11.45-8.15c-.28-.2-.62-.31-.97-.31-.94 0-1.7.76-1.7 1.7zM18.8 11l-2.68 1.91 2.68 1.91c.71-.5 1.2-1.34 1.2-2.3 0-.96-.49-1.8-1.2-2.31v.78z"/>
+                        </svg>
+                        Download Aplikasi
+                    </a>
+                    <a href="../#tentang" class="btn btn-outline">Pelajari Bhumi</a>
                 </div>
-
-                <!-- 2. Detail Stat Cards -->
-                <div class="weton-results-grid" id="result-stats-grid">
-                    <!-- Loaded via JS -->
-                </div>
-
-                <!-- 3. Makna Weton -->
-                <div class="weton-detail-section" id="result-makna-box">
-                    <!-- Loaded via JS -->
-                </div>
-
-                <!-- 4. Pranata Mangsa -->
-                <div class="weton-detail-section" id="result-mangsa-box">
-                    <!-- Loaded via JS -->
-                </div>
-
-                <!-- 5. Khodam Pendamping -->
-                <div class="weton-detail-section khodam-section" id="result-khodam-box">
-                    <!-- Loaded via JS -->
-                </div>
-
-                <!-- Weton App Call To Action -->
-                <div class="weton-app-cta" id="weton-cta-box">
-                    <h3>Lihat Analisis Lengkap di Aplikasi Bhumi</h3>
-                    <p>Unduh aplikasi Bhumi Amartya sekarang di Google Play Store untuk mendapatkan peta kesadaran yang lebih mendalam, termasuk peta potensi, kecocokan pasangan (sinastri), ramalan peruntungan tahunan, serta panduan meditasi harian yang disesuaikan khusus dengan weton lahir Anda.</p>
-                    <div class="weton-app-cta-btns">
-                        <a href="https://play.google.com/store/apps/details?id=id.my.bhumiamartya" target="_blank" rel="noopener" class="btn btn-primary" style="display: flex; align-items: center; gap: 0.5rem;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3 5.27v13.46c0 .94.76 1.7 1.7 1.7.35 0 .69-.11.97-.31l11.45-8.15-11.45-8.15c-.28-.2-.62-.31-.97-.31-.94 0-1.7.76-1.7 1.7zM18.8 11l-2.68 1.91 2.68 1.91c.71-.5 1.2-1.34 1.2-2.3 0-.96-.49-1.8-1.2-2.31v.78z"/>
-                            </svg>
-                            Download Aplikasi
-                        </a>
-                        <a href="../#tentang" class="btn btn-outline">Pelajari Bhumi</a>
-                    </div>
-                </div>
-
             </div>
 
         </div>
@@ -4525,11 +4305,11 @@
                 <ul class="footer-links-list">
                     <li><a href="../#beranda" class="footer-link">Beranda</a></li>
                     <li><a href="../#tentang" class="footer-link">Tentang Bhumi</a></li>
-                    <li><a href="./" class="footer-link">Kenali Diri</a></li>
+                    <li><a href="../weton/" class="footer-link">Kenali Diri</a></li>
                     <li><a href="../#produk" class="footer-link">Produk</a></li>
                     <li><a href="../#youtube" class="footer-link">Youtube</a></li>
                     <li><a href="../#artikel" class="footer-link">Ngopi Ilmu</a></li>
-                    <li><a href="../ebook/" class="footer-link">Ebook</a></li>
+                    <li><a href="./" class="footer-link">Ebook</a></li>
                     <li><a href="../#testimoni" class="footer-link">Testimoni</a></li>
                 </ul>
             </div>
@@ -4567,8 +4347,6 @@
 
     <!-- SCRIPT LOADING & EVENT HANDLERS -->
     <script type="module">
-        import { hitungWeton } from './lib/weton.js';
-
         document.addEventListener('DOMContentLoaded', () => {
             
             // --- 1. NAVBAR ACTION (BURGER MENU) ---
@@ -4643,190 +4421,6 @@
             revealElements.forEach(element => {
                 revealOnScroll.observe(element);
             });
-
-            // --- 4. WETON CALCULATOR ACTIONS ---
-            const form = document.getElementById('weton-form');
-            const errorDiv = document.getElementById('weton-error');
-            const placeholderDiv = document.getElementById('weton-placeholder');
-            const resultsDiv = document.getElementById('weton-results');
-            
-            // Output sections
-            const identityBox = document.getElementById('result-identity-box');
-            const statsGrid = document.getElementById('result-stats-grid');
-            const maknaBox = document.getElementById('result-makna-box');
-            const mangsaBox = document.getElementById('result-mangsa-box');
-            const khodamBox = document.getElementById('result-khodam-box');
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const nama = document.getElementById('nama').value;
-                const tanggal = document.getElementById('tanggal').value;
-                const jam = document.getElementById('jam').value;
-
-                if (!tanggal) {
-                    showError("Mohon isi tanggal lahir terlebih dahulu.");
-                    return;
-                }
-                if (!jam) {
-                    showError("Mohon isi jam lahir terlebih dahulu.");
-                    return;
-                }
-
-                // Reset state
-                errorDiv.style.display = 'none';
-                errorDiv.innerText = '';
-
-                try {
-                    // Execute calculation
-                    const hasil = hitungWeton(nama, tanggal, jam);
-                    
-                    // Render outputs
-                    renderWetonResults(hasil);
-                    
-                    // Show result container
-                    placeholderDiv.style.display = 'none';
-                    resultsDiv.classList.add('active');
-                    
-                    // Scroll to results softly
-                    setTimeout(() => {
-                        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 50);
-
-                } catch (err) {
-                    console.error("Calculation error:", err);
-                    showError("Terjadi kesalahan perhitungan. Pastikan format input benar.");
-                }
-            });
-
-            function showError(msg) {
-                errorDiv.innerText = msg;
-                errorDiv.style.display = 'block';
-                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-
-            function renderWetonResults(hasil) {
-                // 1. Render identity box
-                const badgeHtml = hasil.bergeserHari 
-                    ? `<span class="weton-result-shift-badge shifted">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-                        Lahir setelah pukul 18.00 — hari Jawa bergeser ke hari berikutnya
-                       </span>`
-                    : `<span class="weton-result-shift-badge normal">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        Lahir sebelum pukul 18.00 — menggunakan hari masehi
-                       </span>`;
-
-                identityBox.innerHTML = `
-                    <p class="weton-result-tag">Weton Anda</p>
-                    <h3 class="weton-result-title">${hasil.weton}</h3>
-                    <p class="weton-result-name">${escapeHtml(hasil.nama)}</p>
-                    <div class="weton-result-meta">
-                        <div class="weton-result-meta-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                            <span>${hasil.tanggalMasehi}</span>
-                        </div>
-                        <div class="weton-result-meta-item">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <span>Pukul ${hasil.jamLahir} WIB</span>
-                        </div>
-                    </div>
-                    ${badgeHtml}
-                `;
-
-                // 2. Render stat cards (Grid)
-                statsGrid.innerHTML = `
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Hari Jawa</div>
-                        <div class="stat-value">${hasil.hariJawa}</div>
-                        <div class="stat-hint">Hari masehi efektif</div>
-                    </div>
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Pasaran</div>
-                        <div class="stat-value">${hasil.pasaran}</div>
-                        <div class="stat-hint">Pancawara Jawa</div>
-                    </div>
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Weton</div>
-                        <div class="stat-value" style="font-size: 1.6rem;">${hasil.weton}</div>
-                        <div class="stat-hint">Kombinasi hari & pasaran</div>
-                    </div>
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Neptu Hari</div>
-                        <div class="stat-value">${hasil.neptuHari}</div>
-                        <div class="stat-hint">Nilai hari ${hasil.hariJawa}</div>
-                    </div>
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Neptu Pasaran</div>
-                        <div class="stat-value">${hasil.neptuPasaran}</div>
-                        <div class="stat-hint">Nilai pasaran ${hasil.pasaran}</div>
-                    </div>
-                    <div class="weton-stat-card highlighted">
-                        <div class="stat-label">Total Neptu</div>
-                        <div class="stat-value">${hasil.totalNeptu}</div>
-                        <div class="stat-hint">Neptu Hari + Neptu Pasaran</div>
-                    </div>
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Wuku</div>
-                        <div class="stat-value">${hasil.wuku}</div>
-                        <div class="stat-hint">Siklus wuku mingguan</div>
-                    </div>
-                    <div class="weton-stat-card">
-                        <div class="stat-label">Pranata Mangsa</div>
-                        <div class="stat-value" style="font-size: 1.6rem;">${hasil.pranataMangsa.nama}</div>
-                        <div class="stat-hint">${hasil.pranataMangsa.periode}</div>
-                    </div>
-                    <div class="weton-stat-card highlighted">
-                        <div class="stat-label">Khodam Pendamping</div>
-                        <div class="stat-value" style="font-size: 1.6rem;">${hasil.khodam.nama}</div>
-                        <div class="stat-hint">Simbolik batiniah</div>
-                    </div>
-                `;
-
-                // 3. Render Makna Weton
-                maknaBox.innerHTML = `
-                    <h4>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        Makna Weton ${hasil.weton}
-                    </h4>
-                    <p>${hasil.makna}</p>
-                `;
-
-                // 4. Render Pranata Mangsa
-                mangsaBox.innerHTML = `
-                    <h4>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 6v6l4 2"/></svg>
-                        Pranata Mangsa — ${hasil.pranataMangsa.nama}
-                    </h4>
-                    <p style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--earth-gold); margin-bottom:0.75rem; font-weight:600;">Periode: ${hasil.pranataMangsa.periode}</p>
-                    <p>${hasil.pranataMangsa.deskripsi}</p>
-                `;
-
-                // 5. Render Khodam Pendamping
-                khodamBox.innerHTML = `
-                    <h4>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        Khodam Pendamping Simbolik
-                    </h4>
-                    <div class="khodam-name">${hasil.khodam.nama}</div>
-                    <p style="margin-bottom:1.5rem;">${hasil.khodam.sifat}</p>
-                    <div class="weton-disclaimer">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                        <span><strong>Catatan Reflektif:</strong> Hasil pembacaan khodam pendamping ini bersifat simbolis-spiritual dan dimaksudkan sebagai sarana pengenalan watak batiniah/hiburan batin, bukan suatu kepastian ilmiah atau akidah mutlak.</span>
-                    </div>
-                `;
-            }
-
-            function escapeHtml(text) {
-                const map = {
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                };
-                return text.replace(/[&<>"']/g, function(m) { return map[m]; });
-            }
 
         });
     </script>
