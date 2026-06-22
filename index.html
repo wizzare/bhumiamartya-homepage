@@ -25,8 +25,11 @@
     <meta name="twitter:description" content="Platform pengembangan diri terintegrasi yang menggabungkan psikologi, refleksi, spiritualitas, dan teknologi untuk perjalanan pulang mengenal diri Anda secara utuh.">
     <meta name="twitter:image" content="https://bhumiamartya.my.id/assets/og-image.jpg">
 
-    <!-- Favicon (SVG for modern browsers, responsive) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%232D4B34'/><path d='M50 20 C60 40, 60 60, 50 80 C40 60, 40 40, 50 20 Z' fill='%23D4AF37'/><circle cx='50' cy='50' r='10' fill='%23FAF8F5'/></svg>">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1628,12 +1631,7 @@
     <header class="header" id="header">
         <div class="container nav-container">
             <a href="#beranda" class="logo">
-                <!-- Customized lotus/seed logo -->
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2"/>
-                    <path d="M50 15 C55 35, 65 45, 85 50 C65 55, 55 65, 50 85 C45 65, 35 55, 15 50 C35 45, 45 35, 50 15 Z" fill="currentColor"/>
-                    <circle cx="50" cy="50" r="8" fill="var(--bg-primary)"/>
-                </svg>
+                <img src="assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32" style="object-fit: contain;">
                 <span>Bhumi Amartya</span>
             </a>
             
@@ -1679,13 +1677,7 @@
                     <div class="mandala-outer"></div>
                     <div class="mandala-inner"></div>
                     <div class="mandala-core">
-                        <!-- Lotus style representation icon -->
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 10 C50 10, 68 35, 68 55 C68 65, 60 73, 50 73 C40 73, 32 65, 32 55 C32 35, 50 10, 50 10 Z" stroke="currentColor" stroke-width="2"/>
-                            <path d="M50 25 C50 25, 60 45, 60 58 C60 64, 55 69, 50 69 C45 69, 40 64, 40 58 C40 45, 50 25, 50 25 Z" fill="currentColor"/>
-                            <path d="M50 73 L50 90" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="50" cy="55" r="3" fill="var(--white)"/>
-                        </svg>
+                        <img src="assets/logo.png" alt="Bhumi Amartya Logo" style="width: 75%; height: 75%; object-fit: contain;">
                     </div>
                     <div class="floating-deco deco-1">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
@@ -2256,7 +2248,10 @@
     <footer class="footer" id="kontak">
         <div class="container footer-grid">
             <div class="footer-about">
-                <h4>Bhumi Amartya</h4>
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <img src="assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38" style="object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
+                    <h4 style="margin: 0; font-size: 1.75rem; color: var(--white);">Bhumi Amartya</h4>
+                </div>
                 <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
                 <div class="footer-socials">
                     <!-- Instagram -->
@@ -2312,7 +2307,8 @@
 
         <div class="container footer-bottom">
             <p>&copy; 2026 Bhumi Amartya. Hak Cipta Dilindungi.</p>
-            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener" style="color: var(--earth-gold); font-weight: 500;">Amartya Creative
+            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener" style="color: var(--earth-gold); font-weight: 500;">Amartya Creative</a></p>
+        </div>
     </footer>
 
     <!-- Back to Top Button -->
