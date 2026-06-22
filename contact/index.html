@@ -310,7 +310,7 @@
             const revealOnScroll = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('reveal-visible');
+                        entry.target.classList.add('show');
                         observer.unobserve(entry.target);
                     }
                 });
