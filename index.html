@@ -2005,8 +2005,8 @@
                 <p class="section-desc">Pojok literasi Bhumi Amartya. Menghidangkan tulisan-tulisan reflektif untuk menemani secangkir kopi pagi dan refleksi batin Anda.</p>
             </div>
 
-            <!-- Preconfigured feed selector for future WordPress dynamic integration -->
-            <div class="articles-grid" id="articles-feed-container" data-article-feed="https://bhumi-wordpress.local/wp-json/wp/v2/posts?_embed&per_page=3">
+            <!-- Preconfigured feed selector for WordPress dynamic integration -->
+            <div class="articles-grid" id="articles-feed-container" data-article-feed="https://wedhaswara.my.id/wp-json/wp/v2/posts?_embed&per_page=3">
                 <!-- Article 1 -->
                 <article class="article-card reveal">
                     <div class="article-img-wrapper">
@@ -2021,6 +2021,7 @@
                     </div>
                     <div class="article-body">
                         <h3 class="article-title">Tubuh Tidak Pernah Bohong</h3>
+                        <div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">20 Juni 2026</div>
                         <p class="article-excerpt">Bagaimana emosi yang tidak terproses tersimpan di dalam fisik kita, dan cara merilisnya melalui kesadaran gerak serta penerimaan batin.</p>
                         <a href="https://wedhaswara.my.id/tubuh-tidak-pernah-bohong" target="_blank" rel="noopener" class="article-link" aria-label="Baca artikel lengkap Tubuh Tidak Pernah Bohong">
                             <span>Baca Artikel</span>
@@ -2042,6 +2043,7 @@
                     </div>
                     <div class="article-body">
                         <h3 class="article-title">Mengenali Shadow Diri</h3>
+                        <div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">18 Juni 2026</div>
                         <p class="article-excerpt">Menguak bagian diri yang tersembunyi, ditolak, atau ditekan untuk mencapai keutuhan diri yang sejati melalui panduan shadow work terarah.</p>
                         <a href="https://wedhaswara.my.id/mengenali-shadow-diri" target="_blank" rel="noopener" class="article-link" aria-label="Baca artikel lengkap Mengenali Shadow Diri">
                             <span>Baca Artikel</span>
@@ -2064,6 +2066,7 @@
                     </div>
                     <div class="article-body">
                         <h3 class="article-title">Belajar Melepaskan Kontrol</h3>
+                        <div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">15 Juni 2026</div>
                         <p class="article-excerpt">Seni berserah (surrender) di tengah ketidakpastian dunia modern untuk menemukan kejernihan batin dan kestabilan fokus yang hakiki.</p>
                         <a href="https://wedhaswara.my.id/belajar-melepaskan-kontrol" target="_blank" rel="noopener" class="article-link" aria-label="Baca artikel lengkap Belajar Melepaskan Kontrol">
                             <span>Baca Artikel</span>
@@ -2520,11 +2523,13 @@
                 });
             });
 
-            // --- 6. WORDPRESS RSS / API INTEGRATION HOOK PREPARATION ---
+            // --- 6. WORDPRESS REST API INTEGRATION ---
             /*
                Ngopi Ilmu (Articles) are statically pre-rendered above.
-               This JS function serves as a hook to dynamically load articles from a WordPress API
-               if the container's data-article-feed endpoint is updated in the future.
+               This JS function fetches the latest 3 posts from the WordPress REST API,
+               decodes HTML entities, formats the publication dates, handles featured media
+               with fallbacks, and replaces the static cards. It fails silently and preserves
+               the static cards if the API is unreachable.
             */
             async function fetchWordPressPosts() {
                 const container = document.getElementById('articles-feed-container');
@@ -2538,6 +2543,13 @@
                     return;
                 }
                 
+                // Decode HTML entities (e.g., &#8217;, &amp;, &nbsp;)
+                const decodeHtml = (html) => {
+                    const txt = document.createElement("textarea");
+                    txt.innerHTML = html;
+                    return txt.value;
+                };
+
                 try {
                     const response = await fetch(feedUrl);
                     if (!response.ok) throw new Error('WordPress API Network response was not ok');
@@ -2549,12 +2561,29 @@
                     container.innerHTML = '';
                     
                     posts.forEach((post, index) => {
-                        // Extracting variables safely from WP API JSON
-                        const title = post.title?.rendered || 'Catatan Kesadaran';
+                        // Extract variables safely with fallbacks
+                        const title = decodeHtml(post.title?.rendered || 'Catatan Kesadaran');
                         const link = post.link || '#';
-                        const excerpt = post.excerpt?.rendered 
-                            ? post.excerpt.rendered.replace(/<[^>]*>/g, '').substring(0, 120) + '...' 
+                        
+                        // Extract excerpt and clean HTML/decode entities
+                        let excerpt = post.excerpt?.rendered 
+                            ? post.excerpt.rendered.replace(/<[^>]*>/g, '')
                             : 'Baca selengkapnya seputar refleksi batin di artikel ini.';
+                        excerpt = decodeHtml(excerpt);
+                        if (excerpt.length > 120) {
+                            excerpt = excerpt.substring(0, 120) + '...';
+                        }
+                        
+                        // Format publication date in Indonesian
+                        let formattedDate = '';
+                        if (post.date) {
+                            const dateObj = new Date(post.date);
+                            formattedDate = dateObj.toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                            });
+                        }
                         
                         // Extract featured image if embedded
                         let imgHtml = `
@@ -2588,6 +2617,7 @@
                             </div>
                             <div class="article-body">
                                 <h3 class="article-title">${title}</h3>
+                                ${formattedDate ? `<div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">${formattedDate}</div>` : ''}
                                 <p class="article-excerpt">${excerpt}</p>
                                 <a href="${link}" target="_blank" rel="noopener" class="article-link" aria-label="Baca artikel lengkap ${title}">
                                     <span>Baca Artikel</span>
