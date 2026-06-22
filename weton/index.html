@@ -324,6 +324,73 @@
             width: 100%;
         }
 
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background-color: var(--white);
+            min-width: 180px;
+            border-radius: 12px;
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            z-index: 100;
+            list-style: none;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.6rem 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            color: var(--forest-green);
+            background-color: var(--bg-secondary);
+            padding-left: 1.5rem;
+        }
+
+        .chevron {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-right: 1.5px solid var(--text-secondary);
+            border-bottom: 1.5px solid var(--text-secondary);
+            transform: rotate(45deg);
+            margin-left: 6px;
+            margin-bottom: 3px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover .chevron,
+        .dropdown:hover .chevron {
+            border-color: var(--forest-green);
+            transform: rotate(225deg);
+            margin-bottom: -1px;
+        }
+
         .burger-menu {
             display: none;
             flex-direction: column;
@@ -1637,6 +1704,48 @@
 
             .nav-link::after {
                 display: none;
+            }
+
+            /* Mobile Dropdown styles */
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding: 0.25rem 0 0.5rem 1rem;
+                margin-left: 0.25rem;
+                border-left: 1px solid var(--earth-gold);
+                display: block;
+                width: 100%;
+                list-style: none;
+            }
+
+            .dropdown-item {
+                display: block;
+                padding: 0.6rem 0;
+                font-family: var(--font-body);
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: var(--text-secondary);
+                border-bottom: 1px solid rgba(45, 75, 52, 0.03);
+            }
+
+            .dropdown-item:hover {
+                color: var(--forest-green);
+                padding-left: 0.5rem;
+                background-color: transparent;
+            }
+
+            .chevron {
+                transform: rotate(45deg);
+                margin-bottom: 4px;
             }
 
             /* Animation Hamburger */
@@ -2035,6 +2144,73 @@
             width: 100%;
         }
 
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(15px);
+            background-color: var(--white);
+            min-width: 180px;
+            border-radius: 12px;
+            padding: 0.5rem 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            z-index: 100;
+            list-style: none;
+        }
+
+        .dropdown:hover .dropdown-menu,
+        .dropdown:focus-within .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.6rem 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            white-space: nowrap;
+            text-align: left;
+        }
+
+        .dropdown-item:hover {
+            color: var(--forest-green);
+            background-color: var(--bg-secondary);
+            padding-left: 1.5rem;
+        }
+
+        .chevron {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-right: 1.5px solid var(--text-secondary);
+            border-bottom: 1.5px solid var(--text-secondary);
+            transform: rotate(45deg);
+            margin-left: 6px;
+            margin-bottom: 3px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover .chevron,
+        .dropdown:hover .chevron {
+            border-color: var(--forest-green);
+            transform: rotate(225deg);
+            margin-bottom: -1px;
+        }
+
         .burger-menu {
             display: none;
             flex-direction: column;
@@ -3350,6 +3526,48 @@
                 display: none;
             }
 
+            /* Mobile Dropdown styles */
+            .dropdown {
+                width: 100%;
+            }
+
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                background-color: transparent;
+                padding: 0.25rem 0 0.5rem 1rem;
+                margin-left: 0.25rem;
+                border-left: 1px solid var(--earth-gold);
+                display: block;
+                width: 100%;
+                list-style: none;
+            }
+
+            .dropdown-item {
+                display: block;
+                padding: 0.6rem 0;
+                font-family: var(--font-body);
+                font-size: 0.95rem;
+                font-weight: 500;
+                color: var(--text-secondary);
+                border-bottom: 1px solid rgba(45, 75, 52, 0.03);
+            }
+
+            .dropdown-item:hover {
+                color: var(--forest-green);
+                padding-left: 0.5rem;
+                background-color: transparent;
+            }
+
+            .chevron {
+                transform: rotate(45deg);
+                margin-bottom: 4px;
+            }
+
             /* Animation Hamburger */
             .burger-menu.open .burger-bar:nth-child(1) {
                 transform: rotate(45deg) translate(2px, 2px);
@@ -3511,6 +3729,40 @@
             max-width: var(--container-width);
             margin: 0 auto;
             padding: 0 1.5rem;
+        }
+
+        /* Breadcrumbs Styles */
+        .weton-breadcrumbs {
+            margin-bottom: 2rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: var(--font-body);
+        }
+        .breadcrumb-list {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+        .breadcrumb-item a {
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+        .breadcrumb-item a:hover {
+            color: var(--forest-green);
+        }
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: ">";
+            margin-right: 0.5rem;
+            color: var(--text-secondary);
+            opacity: 0.7;
+        }
+        .breadcrumb-item.active {
+            color: var(--gold-dark);
+            font-weight: 600;
         }
 
         .weton-header {
@@ -4017,12 +4269,22 @@
             <nav>
                 <ul class="nav-menu" id="nav-menu">
                     <li><a href="../#beranda" class="nav-link">Beranda</a></li>
-                    <li><a href="../#sistem" class="nav-link">Tools</a></li>
-                    <li><a href="../#artikel" class="nav-link">Ngopi Ilmu</a></li>
-                    <li><a href="../#youtube" class="nav-link">Video</a></li>
-                    <li><a href="../#produk" class="nav-link">Ebook</a></li>
-                    <li><a href="../#download-cta" class="btn btn-outline" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; border-radius: 50px; margin-left: 0.5rem; border-color: var(--earth-gold); color: var(--earth-gold);">Download App</a></li>
-        </ul>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="./" class="dropdown-item">Weton Jawa</a></li>
+                            <li><a href="#" class="dropdown-item">Compatibility</a></li>
+                            <li><a href="#" class="dropdown-item">Tes Kenali Diri</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#tentang" class="nav-link">Tentang Bhumi</a></li>
+                    <li><a href="#produk" class="nav-link">Produk</a></li>
+                    <li><a href="#youtube" class="nav-link">Youtube</a></li>
+                    <li><a href="#artikel" class="nav-link">Ngopi Ilmu</a></li>
+                    <li><a href="#testimoni" class="nav-link">Testimoni</a></li>
+                    <li><a href="#founder" class="nav-link">Founder</a></li>
+                    <li><a href="#kontak" class="nav-link">Kontak</a></li>
+                </ul>
             </nav>
 
             <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
@@ -4038,6 +4300,15 @@
     <main class="weton-section">
         <div class="weton-batik-bg"></div>
         <div class="weton-container">
+            
+            <!-- Breadcrumbs -->
+            <nav class="weton-breadcrumbs reveal" aria-label="Breadcrumbs">
+                <ol class="breadcrumb-list">
+                    <li class="breadcrumb-item"><a href="../#beranda">Beranda</a></li>
+                    <li class="breadcrumb-item">Kenali Diri</li>
+                    <li class="breadcrumb-item active" aria-current="page">Weton Jawa</li>
+                </ol>
+            </nav>
             
             <!-- Hero Header -->
             <header class="weton-header reveal">
@@ -4191,7 +4462,7 @@
                 <ul class="footer-links-list">
                     <li><a href="../#beranda" class="footer-link">Beranda</a></li>
                     <li><a href="../#tentang" class="footer-link">Tentang Bhumi</a></li>
-                    <li><a href="../#sistem" class="footer-link">8 Sistem Bhumi</a></li>
+                    <li><a href="weton/" class="footer-link">Kenali Diri</a></li>
                     <li><a href="../#produk" class="footer-link">Produk</a></li>
                     <li><a href="../#youtube" class="footer-link">Youtube</a></li>
                     <li><a href="../#artikel" class="footer-link">Ngopi Ilmu</a></li>
@@ -4239,7 +4510,7 @@
             // --- 1. NAVBAR ACTION (BURGER MENU) ---
             const burgerBtn = document.getElementById('burger-menu');
             const navMenu = document.getElementById('nav-menu');
-            const navLinks = document.querySelectorAll('.nav-link');
+            const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
 
             const toggleMenu = () => {
                 burgerBtn.classList.toggle('open');
@@ -4254,7 +4525,11 @@
             burgerBtn.addEventListener('click', toggleMenu);
 
             navLinks.forEach(link => {
-                link.addEventListener('click', () => {
+                link.addEventListener('click', (e) => {
+                    if (link.classList.contains('dropdown-toggle')) {
+                        e.preventDefault();
+                        return;
+                    }
                     if (navMenu.classList.contains('open')) {
                         toggleMenu();
                     }
