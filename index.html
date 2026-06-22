@@ -771,17 +771,48 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(rgba(45, 75, 52, 0.4), rgba(45, 75, 52, 0.7)), 
-                        radial-gradient(circle at center, var(--forest-green) 0%, var(--forest-dark) 100%);
+            background-color: var(--forest-dark);
             color: var(--white);
+            overflow: hidden;
             transition: var(--transition);
         }
 
-        .video-placeholder:hover {
-            filter: brightness(1.1);
+        .video-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(26, 47, 32, 0.35) 0%, rgba(26, 47, 32, 0.8) 100%);
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .video-placeholder:hover::after {
+            background: linear-gradient(to bottom, rgba(26, 47, 32, 0.2) 0%, rgba(26, 47, 32, 0.7) 100%);
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.65;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .video-placeholder:hover .video-thumbnail {
+            transform: scale(1.05);
+            opacity: 0.8;
         }
 
         .play-btn {
+            position: relative;
+            z-index: 3;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -809,6 +840,8 @@
         }
 
         .video-placeholder-tag {
+            position: relative;
+            z-index: 3;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -818,6 +851,8 @@
         }
 
         .video-placeholder-title {
+            position: relative;
+            z-index: 3;
             font-family: var(--font-headings);
             font-size: 1.5rem;
             text-align: center;
@@ -1616,12 +1651,98 @@
             .testimonial-text {
                 font-size: 1.25rem;
             }
+        }
 
-            .footer-bottom {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+        /* Video Modal Lightbox */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .video-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .video-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(26, 47, 32, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .video-modal-container {
+            position: relative;
+            width: 90%;
+            max-width: 900px;
+            background-color: var(--text-primary);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            z-index: 2010;
+            transform: scale(0.9);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .video-modal.open .video-modal-container {
+            transform: scale(1);
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 2rem;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 2020;
+            line-height: 1;
+            transition: var(--transition);
+        }
+
+        .video-modal-close:hover {
+            color: var(--earth-gold);
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .video-modal-close {
+                top: 1rem;
+                right: 1.5rem;
+                font-size: 2.5rem;
             }
+        }
+
+        .video-modal-iframe-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+        }
+
+        .video-modal-iframe-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
     </style>
 </head>
@@ -1931,17 +2052,17 @@
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-tag">Konten Edukasi Visual</span>
-                <h2 class="section-title">Video Terbaru</h2>
-                <p class="section-desc">Saksikan pembahasan mendalam seputar kesehatan mental, meditasi, dan filosofi hidup bersama para praktisi pengembangan diri.</p>
+                <h2 class="section-title">Video Terbaru Bhumi</h2>
+                <p class="section-desc">Saksikan pembahasan mendalam seputar kesehatan mental, meditasi, dan filosofi hidup dari official playlist Bhumi Amartya.</p>
             </div>
 
-            <!-- YouTube Video Grid: uses lazy load click triggers to save data and speed up page load -->
-            <div class="youtube-grid">
-                <!-- Video 1: Sleep Healing -->
-                <div class="video-card reveal">
+            <!-- YouTube Video Grid: Loaded dynamically from official playlist. Fallback to 6 static cards if API is offline. -->
+            <div class="youtube-grid" id="youtube-playlist-container" data-playlist-feed="https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fplaylist_id%3DPLN0jIpB58Ed4g2pL8I6n8C05eaC1Fqvhx">
+                <!-- Fallback Video 1: Sleep Healing -->
+                <div class="video-card reveal" data-video-id="eU-v9u1XGZc">
                     <div class="video-wrapper">
-                        <!-- Play button trigger. Swap data-video-id with actual YouTube Video ID -->
-                        <div class="video-placeholder" data-video-id="eU-v9u1XGZc" aria-label="Putar video Sleep Healing">
+                        <div class="video-placeholder" aria-label="Putar video Sleep Healing">
+                            <img src="https://img.youtube.com/vi/eU-v9u1XGZc/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Sleep Healing">
                             <div class="play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -1951,14 +2072,15 @@
                     </div>
                     <div class="video-info">
                         <h4 class="video-info-title">Sleep Healing</h4>
-                        <p class="video-info-desc">Frekuensi khusus untuk memandu pikiran masuk ke fase tidur nyenyak dan menstimulasi regenerasi sel tubuh secara alami.</p>
+                        <p class="video-info-desc">Frekuensi khusus memandu pikiran masuk ke fase tidur nyenyak dan regenerasi sel tubuh secara alami.</p>
                     </div>
                 </div>
 
-                <!-- Video 2: Emotional Healing -->
-                <div class="video-card reveal" style="transition-delay: 0.1s;">
+                <!-- Fallback Video 2: Emotional Healing -->
+                <div class="video-card reveal" style="transition-delay: 0.1s;" data-video-id="U7-8Z6-t7F0">
                     <div class="video-wrapper">
-                        <div class="video-placeholder" data-video-id="U7-8Z6-t7F0" aria-label="Putar video Emotional Healing">
+                        <div class="video-placeholder" aria-label="Putar video Emotional Healing">
+                            <img src="https://img.youtube.com/vi/U7-8Z6-t7F0/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Emotional Healing">
                             <div class="play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -1968,14 +2090,15 @@
                     </div>
                     <div class="video-info">
                         <h4 class="video-info-title">Emotional Healing</h4>
-                        <p class="video-info-desc">Panduan pelepasan emosi negatif terpendam melalui teknik pernapasan (breathwork) dan afirmasi kesadaran.</p>
+                        <p class="video-info-desc">Panduan pelepasan emosi negatif terpendam melalui teknik pernapasan dan afirmasi kesadaran.</p>
                     </div>
                 </div>
 
-                <!-- Video 3: Warkop Jiwa -->
-                <div class="video-card reveal" style="transition-delay: 0.2s;">
+                <!-- Fallback Video 3: Warkop Jiwa -->
+                <div class="video-card reveal" style="transition-delay: 0.2s;" data-video-id="Qc6J7x3Vl_k">
                     <div class="video-wrapper">
-                        <div class="video-placeholder" data-video-id="Qc6J7x3Vl_k" aria-label="Putar video Warkop Jiwa">
+                        <div class="video-placeholder" aria-label="Putar video Warkop Jiwa">
+                            <img src="https://img.youtube.com/vi/Qc6J7x3Vl_k/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Warkop Jiwa">
                             <div class="play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
@@ -1985,16 +2108,72 @@
                     </div>
                     <div class="video-info">
                         <h4 class="video-info-title">Warkop Jiwa</h4>
-                        <p class="video-info-desc">Bincang santai membahas spiritualitas praktis dalam keseharian tanpa dogma yang kaku bersama tamu undangan.</p>
+                        <p class="video-info-desc">Bincang santai membahas spiritualitas praktis dalam keseharian tanpa dogma kaku bersama tamu undangan.</p>
+                    </div>
+                </div>
+
+                <!-- Fallback Video 4: Meditasi Hening -->
+                <div class="video-card reveal" style="transition-delay: 0.3s;" data-video-id="77M6yPjTq3Q">
+                    <div class="video-wrapper">
+                        <div class="video-placeholder" aria-label="Putar video Meditasi Hening">
+                            <img src="https://img.youtube.com/vi/77M6yPjTq3Q/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Meditasi Hening">
+                            <div class="play-btn">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <span class="video-placeholder-tag">Mindfulness Meditation</span>
+                            <span class="video-placeholder-title">Meditasi Hening</span>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h4 class="video-info-title">Meditasi Hening</h4>
+                        <p class="video-info-desc">Latihan kesadaran murni untuk menenangkan pikiran bising dan masuk ke dalam keheningan diri.</p>
+                    </div>
+                </div>
+
+                <!-- Fallback Video 5: Penyelarasan Cakra -->
+                <div class="video-card reveal" style="transition-delay: 0.4s;" data-video-id="wN30Ea9k_uA">
+                    <div class="video-wrapper">
+                        <div class="video-placeholder" aria-label="Putar video Penyelarasan Cakra">
+                            <img src="https://img.youtube.com/vi/wN30Ea9k_uA/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Penyelarasan Cakra">
+                            <div class="play-btn">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <span class="video-placeholder-tag">Energy Balancing</span>
+                            <span class="video-placeholder-title">Penyelarasan Cakra</span>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h4 class="video-info-title">Penyelarasan Cakra</h4>
+                        <p class="video-info-desc">Panduan visualisasi suara untuk menyelaraskan pusat-pusat energi utama di sepanjang tulang belakang.</p>
+                    </div>
+                </div>
+
+                <!-- Fallback Video 6: Filosofi Berserah -->
+                <div class="video-card reveal" style="transition-delay: 0.5s;" data-video-id="z4P1J18e5bA">
+                    <div class="video-wrapper">
+                        <div class="video-placeholder" aria-label="Putar video Filosofi Berserah">
+                            <img src="https://img.youtube.com/vi/z4P1J18e5bA/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Filosofi Berserah">
+                            <div class="play-btn">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <span class="video-placeholder-tag">Surrender Philosophy</span>
+                            <span class="video-placeholder-title">Filosofi Berserah</span>
+                        </div>
+                    </div>
+                    <div class="video-info">
+                        <h4 class="video-info-title">Filosofi Berserah</h4>
+                        <p class="video-info-desc">Memahami esensi berserah diri (surrender) untuk melepaskan beban kontrol ego dan mengikuti aliran kehidupan.</p>
                     </div>
                 </div>
             </div>
 
             <div class="youtube-cta reveal">
-                <a href="https://youtube.com/@BhumiAmartya" target="_blank" rel="noopener" class="btn btn-outline">Kunjungi Channel YouTube Kami</a>
+                <a href="https://youtube.com/playlist?list=PLN0jIpB58Ed4g2pL8I6n8C05eaC1Fqvhx" target="_blank" rel="noopener" class="btn btn-outline">Lihat Semua Video</a>
             </div>
         </div>
     </section>
+
+
 
     <!-- 6. NGOPI ILMU TERBARU (ARTICLES) -->
     <section class="section section-alt" id="artikel">
@@ -2501,27 +2680,122 @@
             // Init slider
             startAutoplay();
 
-            // --- 5. LAZY LOAD YOUTUBE VIDEOS ---
-            const videoPlaceholders = document.querySelectorAll('.video-placeholder');
+            // --- 5. YOUTUBE LIGHTBOX MODAL & DYNAMIC PLAYLIST FETCH ---
+            const videoModal = document.getElementById('video-modal');
+            const videoIframe = document.getElementById('video-modal-iframe');
+            const videoOverlay = document.getElementById('video-modal-overlay');
+            const videoClose = document.getElementById('video-modal-close');
 
-            videoPlaceholders.forEach(placeholder => {
-                placeholder.addEventListener('click', function() {
-                    const videoId = this.getAttribute('data-video-id');
-                    
-                    // Create iframe
-                    const iframe = document.createElement('iframe');
-                    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
-                    iframe.setAttribute('title', 'YouTube video player');
-                    iframe.setAttribute('frameborder', '0');
-                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-                    iframe.setAttribute('allowfullscreen', 'true');
-                    
-                    // Replace placeholder with iframe
-                    const wrapper = this.parentElement;
-                    wrapper.innerHTML = '';
-                    wrapper.appendChild(iframe);
-                });
+            const openVideoModal = (videoId) => {
+                if (!videoId) return;
+                videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                videoModal.classList.add('open');
+                videoModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden'; // Lock scrolling
+            };
+
+            const closeVideoModal = () => {
+                videoModal.classList.remove('open');
+                videoModal.setAttribute('aria-hidden', 'true');
+                videoIframe.src = '';
+                document.body.style.overflow = ''; // Unlock scrolling
+            };
+
+            videoClose.addEventListener('click', closeVideoModal);
+            videoOverlay.addEventListener('click', closeVideoModal);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && videoModal.classList.contains('open')) {
+                    closeVideoModal();
+                }
             });
+
+            // Initialize click triggers on static/fallback cards
+            const initVideoClickTriggers = () => {
+                const videoCards = document.querySelectorAll('.video-card');
+                videoCards.forEach(card => {
+                    const videoId = card.getAttribute('data-video-id');
+                    const clickArea = card.querySelector('.video-placeholder');
+                    if (clickArea && videoId) {
+                        clickArea.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            openVideoModal(videoId);
+                        });
+                    }
+                });
+            };
+
+            // Fetch latest 6 videos from playlist via RSS-to-JSON
+            async function fetchYouTubeVideos() {
+                const container = document.getElementById('youtube-playlist-container');
+                if (!container) return;
+                
+                const feedUrl = container.getAttribute('data-playlist-feed');
+                
+                try {
+                    const response = await fetch(feedUrl);
+                    if (!response.ok) throw new Error('YouTube Playlist API response was not ok');
+                    
+                    const data = await response.json();
+                    if (data.status !== 'ok' || !data.items || data.items.length === 0) {
+                        throw new Error('YouTube Playlist RSS feed parsing failed');
+                    }
+                    
+                    // Clear fallbacks and render latest 6 items
+                    container.innerHTML = '';
+                    
+                    // Limit to 6
+                    const playlistItems = data.items.slice(0, 6);
+                    
+                    const getVideoId = (url) => {
+                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                        const match = url.match(regExp);
+                        return (match && match[2].length === 11) ? match[2] : null;
+                    };
+                    
+                    playlistItems.forEach((item, index) => {
+                        const videoId = getVideoId(item.link) || item.guid.split(':').pop();
+                        const title = item.title || 'Video Terbaru';
+                        const thumbnail = item.thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+                        const category = 'Edukasi Kesadaran'; 
+                        
+                        const card = document.createElement('div');
+                        card.className = 'video-card reveal reveal-visible';
+                        card.style.transitionDelay = `${index * 0.1}s`;
+                        card.setAttribute('data-video-id', videoId);
+                        
+                        card.innerHTML = `
+                            <div class="video-wrapper">
+                                <div class="video-placeholder" aria-label="Putar video ${title}">
+                                    <img src="${thumbnail}" class="video-thumbnail" loading="lazy" alt="${title}">
+                                    <div class="play-btn">
+                                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                    <span class="video-placeholder-tag">${category}</span>
+                                    <span class="video-placeholder-title">${title}</span>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h4 class="video-info-title">${title}</h4>
+                                <p class="video-info-desc">Klik untuk menonton video terbaru dari playlist official Bhumi Amartya.</p>
+                            </div>
+                        `;
+                        
+                        // Hook up click to modal directly
+                        const clickArea = card.querySelector('.video-placeholder');
+                        clickArea.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            openVideoModal(videoId);
+                        });
+                        
+                        container.appendChild(card);
+                    });
+                    
+                } catch (error) {
+                    console.error('Bhumi Amartya YouTube Feed API Error:', error);
+                    // Fall back to static cards, just initialize their modal click hooks
+                    initVideoClickTriggers();
+                }
+            }
 
             // --- 6. WORDPRESS REST API INTEGRATION ---
             /*
@@ -2637,7 +2911,23 @@
 
             // Execute the WordPress hook fetch
             fetchWordPressPosts();
+            
+            // Execute the YouTube hook fetch
+            fetchYouTubeVideos();
         });
     </script>
+
+    <!-- YouTube Lightbox Modal -->
+    <div id="video-modal" class="video-modal" aria-hidden="true">
+        <div class="video-modal-overlay" id="video-modal-overlay"></div>
+        <button class="video-modal-close" id="video-modal-close" aria-label="Tutup video">&times;</button>
+        <div class="video-modal-container">
+            <div class="video-modal-content">
+                <div class="video-modal-iframe-wrapper">
+                    <iframe id="video-modal-iframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
