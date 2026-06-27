@@ -404,7 +404,7 @@
                         <div class="result-eyebrow">Hasil awal cek aura</div>
                         <h2 class="result-title" id="result-title"></h2>
                         <p class="result-summary">Warna ini adalah simbol pembacaan energi dari pola lahirmu, bukan klaim visual mutlak.</p>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Nuansa Energi</h3>
+                        <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Jenis dan Arah Aura</h3>
                         <div class="identity-grid" id="identity-grid"></div>
                         <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Sintesis Aura</h3>
                         <div class="synthesis-copy" id="synthesis-copy"></div>
@@ -847,6 +847,7 @@
                     name: 'Hijau Bumi',
                     swatch: '#6F8F72',
                     keywords: ['healing', 'growth', 'grounding'],
+                    direction: 'Penyembuhan, stabilitas, dan pertumbuhan perlahan',
                     dominant: 'membumi dan menumbuhkan',
                     working: 'tenang, merawat, dan butuh ritme yang terasa alami',
                     growth: 'berani menerima dukungan tanpa merasa harus memulihkan semuanya sendiri'
@@ -855,6 +856,7 @@
                     name: 'Emas Hangat',
                     swatch: '#C99A32',
                     keywords: ['confidence', 'visibility', 'vitality'],
+                    direction: 'Kepemimpinan, vitalitas, dan keberanian terlihat',
                     dominant: 'percaya diri dan menghidupkan ruang',
                     working: 'bergerak saat ada arah yang jelas dan ruang untuk terlihat',
                     growth: 'menjaga cahaya diri tanpa harus selalu membuktikan sesuatu'
@@ -863,6 +865,7 @@
                     name: 'Biru Tenang',
                     swatch: '#5D8492',
                     keywords: ['communication', 'clarity', 'calm'],
+                    direction: 'Komunikasi, kejernihan, dan ketenangan batin',
                     dominant: 'jernih dan menenangkan',
                     working: 'memahami pola lewat kata, jarak yang cukup, dan suasana yang tidak terburu-buru',
                     growth: 'mengungkapkan kebutuhan dengan lebih lugas dan lembut'
@@ -871,6 +874,7 @@
                     name: 'Ungu Dalam',
                     swatch: '#75618B',
                     keywords: ['intuition', 'meaning', 'inner wisdom'],
+                    direction: 'Intuisi, makna, dan kebijaksanaan batin',
                     dominant: 'intuitif dan mencari makna',
                     working: 'mendalam, reflektif, dan kuat saat punya ruang hening',
                     growth: 'membawa kebijaksanaan batin ke langkah sederhana yang bisa dijalani'
@@ -879,6 +883,7 @@
                     name: 'Merah Tanah',
                     swatch: '#9A5142',
                     keywords: ['action', 'courage', 'survival energy'],
+                    direction: 'Perlindungan, keberanian, dan daya hidup',
                     dominant: 'berani dan menggerakkan',
                     working: 'langsung, responsif, dan membutuhkan kanal tindakan yang sehat',
                     growth: 'menata dorongan bergerak agar tidak berubah menjadi tekanan pada diri'
@@ -887,6 +892,7 @@
                     name: 'Putih Lembut',
                     swatch: '#E8E1D3',
                     keywords: ['clarity', 'reset', 'spiritual openness'],
+                    direction: 'Spiritualitas, kejernihan, dan awal baru',
                     dominant: 'jernih dan membuka ruang baru',
                     working: 'peka pada suasana, mudah menangkap arah, dan butuh kesederhanaan',
                     growth: 'membedakan intuisi yang tenang dari rasa ingin menyelamatkan semua hal'
@@ -895,6 +901,7 @@
                     name: 'Cokelat Akar',
                     swatch: '#7A5D43',
                     keywords: ['stability', 'responsibility', 'structure'],
+                    direction: 'Stabilitas, tanggung jawab, dan struktur',
                     dominant: 'stabil dan membangun',
                     working: 'perlahan, konsisten, dan butuh arah yang konkret',
                     growth: 'lebih lentur, tidak memikul semuanya sendiri'
@@ -903,9 +910,28 @@
                     name: 'Jingga Kreatif',
                     swatch: '#C8753D',
                     keywords: ['creativity', 'relationship warmth', 'expression'],
+                    direction: 'Kreativitas, kehangatan relasi, dan ekspresi',
                     dominant: 'hangat, kreatif, dan ekspresif',
                     working: 'hidup saat ada relasi, gerak, dan ruang mencipta',
                     growth: 'menjaga kehangatan tanpa kehilangan batas pribadi'
+                },
+                {
+                    name: 'Biru Malam',
+                    swatch: '#2F4964',
+                    keywords: ['transformation', 'depth', 'protection'],
+                    direction: 'Transformasi, perlindungan, dan kedalaman rasa',
+                    dominant: 'dalam, peka, dan protektif',
+                    working: 'kuat saat punya ruang aman untuk mengolah rasa sebelum bertindak',
+                    growth: 'membiarkan perubahan terjadi tanpa menutup diri terlalu rapat'
+                },
+                {
+                    name: 'Putih Perak',
+                    swatch: '#C9CDD0',
+                    keywords: ['service', 'clarity', 'devotion'],
+                    direction: 'Pelayanan, kejernihan, dan kepekaan spiritual',
+                    dominant: 'lembut, jernih, dan berorientasi pelayanan',
+                    working: 'mudah menangkap kebutuhan sekitar dan butuh batas agar tidak terkuras',
+                    growth: 'melayani dari ruang yang utuh, bukan dari rasa wajib menyenangkan semua orang'
                 }
             ];
 
@@ -944,6 +970,8 @@
                 if (text.includes('kreatif') || text.includes('ekspresi') || text.includes('relasi') || text.includes('hangat')) addScore(7, 2);
                 if (text.includes('healing') || text.includes('tumbuh') || text.includes('membumi')) addScore(0, 2);
                 if (text.includes('reset') || text.includes('terbuka') || text.includes('lembut')) addScore(5, 2);
+                if (text.includes('transformasi') || text.includes('tantangan') || text.includes('kedalaman') || text.includes('protektif')) addScore(8, 2);
+                if (text.includes('pelayanan') || text.includes('welas') || text.includes('sadar') || text.includes('mendengar tubuh')) addScore(9, 2);
 
                 scores.sort((a, b) => b.score - a.score || a.index - b.index);
                 return AURA_COLORS[scores[0].index];
@@ -956,20 +984,20 @@
 
                 return {
                     color,
-                    title: `${nameText}Warna Aura Utama: ${color.name}`,
+                    title: `${nameText}Aura kamu cenderung ${color.name}`,
                     tags: [
-                        { label: 'Energi dominan', value: color.dominant },
-                        { label: 'Cara diri bekerja', value: color.working },
-                        { label: 'Arah bertumbuh', value: color.growth }
+                        { label: 'Jenis Aura', value: color.name },
+                        { label: 'Cenderung ke Arah', value: color.direction },
+                        { label: 'Kecenderungan Arah Energi', value: color.dominant }
                     ],
-                    synthesis: `Dari keseluruhan pola lahirmu, aura yang terbaca lebih dekat dengan energi ${color.dominant}. Ini menggambarkan cara dirimu membawa warna tertentu ke sekitar: ${color.working}. Ruang bertumbuhmu adalah ${color.growth}.`,
+                    synthesis: `Dari pola yang terbaca, aura kamu cenderung membawa energi ${color.dominant}. Warna ini menggambarkan seseorang yang ${color.working}. Secara simbolik, ${color.name} mengajakmu untuk ${color.growth}.`,
                     areas: [
-                        { label: 'Energi Diri', text: `Dirimu cenderung memancarkan energi ${color.dominant} saat berada dalam ritme yang tidak dipaksakan.` },
-                        { label: 'Relasi', text: 'Dalam relasi, kamu bisa jadi lebih selaras saat kebutuhan dan batas dibicarakan dengan hangat.' },
-                        { label: 'Karir dan Rezeki', text: 'Dalam karya, energimu menguat saat fokus dipilih dengan sadar dan dijalankan langkah demi langkah.' },
-                        { label: 'Emosi', text: 'Secara emosi, tubuh dan rasa membutuhkan jeda agar responsmu tidak sekadar reaktif.' },
-                        { label: 'Spiritual', text: 'Secara spiritual, warna ini mengajakmu membawa makna ke kebiasaan kecil yang membumi.' },
-                        { label: 'Tantangan', text: `Tantangan utamanya bisa muncul saat ${color.growth} belum diberi ruang yang cukup.` }
+                        { label: 'Diri', text: `Kuat saat ${color.working}.` },
+                        { label: 'Relasi', text: 'Memberi rasa hadir bagi sekitar, tapi tetap perlu batas sehat.' },
+                        { label: 'Karir/Rejeki', text: 'Cocok membangun sesuatu bertahap saat arah dan ritmenya terasa jelas.' },
+                        { label: 'Emosi', text: 'Sensitif terhadap suasana sekitar dan butuh jeda untuk kembali jernih.' },
+                        { label: 'Spiritual', text: 'Tumbuh lewat kebiasaan sederhana yang menghubungkan tubuh, rasa, dan makna.' },
+                        { label: 'Tantangan', text: `Jangan terlalu sering menahan semuanya sendiri; ruang bertumbuhmu adalah ${color.growth}.` }
                     ]
                 };
             };
