@@ -439,6 +439,24 @@
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
+            align-items: stretch;
+            max-width: 560px;
+        }
+
+        .hero-btns .btn {
+            min-height: 50px;
+            min-width: 0;
+            padding: 0.95rem 1.4rem;
+            text-align: center;
+        }
+
+        .hero-btns .btn:not(.btn-primary) {
+            background-color: rgba(255, 255, 255, 0.72);
+            border-color: rgba(45, 75, 52, 0.16);
+        }
+
+        .hero-btns .btn:not(.btn-primary):hover {
+            background-color: var(--forest-light);
         }
 
         .hero-visual {
@@ -1633,6 +1651,16 @@
 
             .hero-btns {
                 justify-content: center;
+                width: 100%;
+                max-width: 420px;
+            }
+
+            .hero-btns .btn-primary {
+                flex: 1 1 100%;
+            }
+
+            .hero-btns .btn:not(.btn-primary) {
+                flex: 1 1 calc(50% - 0.5rem);
             }
 
             .about-grid {
@@ -1773,6 +1801,14 @@
                 grid-template-columns: 1fr;
             }
             
+            .hero-btns {
+                max-width: 100%;
+            }
+
+            .hero-btns .btn {
+                flex: 1 1 100%;
+                width: 100%;
+            }
             .hero-headline {
                 font-size: 2.25rem;
             }
@@ -1941,7 +1977,10 @@
                 </p>
                 <div class="hero-btns">
                     <a href="#download-cta" class="btn btn-primary">Download Aplikasi</a>
-                    <a href="#tentang" class="btn btn-secondary">Pelajari Bhumi</a>
+                    <a href="/tes-kenali-diri/" class="btn btn-outline">Tes Kenali Diri</a>
+                    <a href="/weton/" class="btn btn-outline">Cek Weton</a>
+                    <a href="/cek-aura/" class="btn btn-outline">Cek Aura</a>
+                    <a href="/kalkulator-cinta/" class="btn btn-outline">Kalkulator Cinta</a>
                 </div>
             </div>
             
