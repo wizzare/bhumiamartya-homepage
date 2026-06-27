@@ -44,7 +44,7 @@ img{max-width:100%;height:auto;display:block}
 .logo{display:flex;align-items:center;gap:.75rem;font-family:var(--font-headings);font-size:1.5rem;font-weight:600;color:var(--forest-green);text-decoration:none}
 .logo img{width:32px;height:32px;object-fit:contain;transition:var(--transition)}
 .logo:hover img{transform:rotate(15deg) scale(1.05)}
-.nav-menu{display:flex;align-items:center;gap:1.75rem;list-style:none}
+.nav-menu{display:flex;align-items:center;gap:1.35rem;list-style:none}
 .nav-link{font-family:var(--font-body);font-size:.9rem;font-weight:500;color:var(--text-secondary);position:relative;padding:.25rem 0;text-decoration:none}
 .nav-link::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background-color:var(--earth-gold);transition:var(--transition)}
 .nav-link:hover{color:var(--forest-green)}
