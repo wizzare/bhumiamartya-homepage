@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-0971666335614952">
+    <title>Kalkulator Cinta | Bhumi Amartya</title>
+    <meta name="description" content="Kalkulator Cinta Bhumi Amartya membaca dinamika hubungan kalian dari pola lahir dan sintesis Blueprint Bhumi sebagai pembacaan awal yang reflektif.">
+    <meta name="keywords" content="Kalkulator Cinta, Bhumi Amartya, relasi, hubungan, blueprint reading, love language">
+    <meta name="author" content="Widhi Wedhaswara">
+    <link rel="canonical" href="https://www.bhumiamartya.my.id/kalkulator-cinta/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.bhumiamartya.my.id/kalkulator-cinta/">
+    <meta property="og:title" content="Kalkulator Cinta | Bhumi Amartya">
+    <meta property="og:description" content="Baca dinamika hubungan kalian dari pola lahir dan sintesis Blueprint Bhumi.">
+    <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.bhumiamartya.my.id/kalkulator-cinta/">
+    <meta name="twitter:title" content="Kalkulator Cinta | Bhumi Amartya">
+    <meta name="twitter:description" content="Baca dinamika hubungan kalian dari pola lahir dan sintesis Blueprint Bhumi.">
+    <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/bhumi-design-system.css">
+
+    <style>
+        .love-section {
+            padding: 5rem 0 6rem;
+        }
+
+        .love-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .love-card,
+        .love-result,
+        .love-note {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .love-card {
+            padding: 2rem;
+        }
+
+        .love-person {
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+        }
+
+        .love-person:last-of-type {
+            border-bottom: 0;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0;
+        }
+
+        .love-person h2 {
+            color: var(--forest-green);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .love-card .btn {
+            margin-top: 0.75rem;
+            width: 100%;
+        }
+
+        .optional-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .love-note {
+            background-color: var(--forest-light);
+            padding: 1.5rem;
+        }
+
+        .love-note h2 {
+            color: var(--forest-green);
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .love-note p,
+        .love-error,
+        .love-loading {
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .love-loading,
+        .love-error {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 14px;
+        }
+
+        .love-loading {
+            background-color: var(--forest-light);
+            color: var(--forest-green);
+        }
+
+        .love-error {
+            background-color: #FFF5F0;
+            color: #8A3A24;
+        }
+
+        .love-result {
+            display: none;
+            padding: 2rem;
+            border-top: 4px solid var(--earth-gold);
+        }
+
+        .love-result.show {
+            display: block;
+        }
+
+        .result-eyebrow {
+            color: var(--gold-dark);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .result-title {
+            color: var(--forest-green);
+            font-family: var(--font-headings);
+            font-size: 2.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .energy-pair {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .energy-card,
+        .reading-card {
+            background-color: var(--bg-primary);
+            border: 1px solid rgba(45, 75, 52, 0.07);
+            border-radius: 16px;
+            padding: 1.2rem;
+        }
+
+        .energy-card h3,
+        .reading-card h3 {
+            color: var(--forest-green);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 0.85rem;
+        }
+
+        .energy-list {
+            display: grid;
+            gap: 0.55rem;
+            list-style: none;
+        }
+
+        .energy-list li {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.45;
+        }
+
+        .energy-list strong {
+            color: var(--text-primary);
+        }
+
+        .bond-card {
+            background-color: var(--forest-light);
+            border-radius: 18px;
+            margin: 1.5rem 0;
+            padding: 1.25rem;
+        }
+
+        .bond-badge {
+            background-color: rgba(212, 175, 55, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 999px;
+            color: var(--gold-dark);
+            display: inline-flex;
+            font-size: 0.86rem;
+            font-weight: 800;
+            margin: 0.5rem 0 0.8rem;
+            padding: 0.45rem 0.85rem;
+        }
+
+        .reading-grid {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .reading-card p,
+        .bond-card p,
+        .care-list li,
+        .safety-note {
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+            line-height: 1.7;
+        }
+
+        .care-list {
+            display: grid;
+            gap: 0.5rem;
+            margin-left: 1.2rem;
+        }
+
+        .safety-note {
+            background-color: var(--forest-light);
+            border-radius: 14px;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .premium-cta {
+            background-color: var(--bg-secondary);
+            border-radius: 18px;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .premium-cta h3 {
+            color: var(--forest-green);
+            font-family: var(--font-headings);
+            font-size: 1.75rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .premium-cta p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 860px) {
+            .love-layout,
+            .energy-pair {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .love-card,
+            .love-result {
+                padding: 1.5rem;
+            }
+
+            .result-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="../#beranda" class="logo">
+                <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32" style="object-fit: contain;">
+                <span>Bhumi Amartya</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../#beranda" class="nav-link">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
+                            <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
+                            <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="./" class="dropdown-item">Kalkulator Cinta</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../#tentang" class="nav-link">Tentang Bhumi</a></li>
+                    <li><a href="../#produk" class="nav-link">Produk</a></li>
+                    <li><a href="../#youtube" class="nav-link">Youtube</a></li>
+                    <li><a href="../#artikel" class="nav-link">Ngopi Ilmu</a></li>
+                    <li><a href="../ebook/" class="nav-link">Ebook</a></li>
+                    <li><a href="../#testimoni" class="nav-link">Testimoni</a></li>
+                    <li><a href="../#founder" class="nav-link">Founder</a></li>
+                    <li><a href="../#kontak" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+
+            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero-inner">
+                <div class="breadcrumb">
+                    <a href="../">Beranda</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-item active">Kalkulator Cinta</span>
+                </div>
+                <h1>Kalkulator Cinta</h1>
+                <p class="page-tagline">Baca dinamika hubungan kalian dari pola lahir dan sintesis Blueprint Bhumi.</p>
+                <p class="page-tagline" style="font-size:0.95rem; margin-top:0.75rem;">Hasil ini adalah pembacaan awal, bukan kepastian mutlak.</p>
+            </div>
+        </section>
+
+        <section class="love-section">
+            <div class="container love-layout">
+                <form class="love-card" id="love-form">
+                    <section class="love-person">
+                        <h2>Data Kamu</h2>
+                        <div class="form-group">
+                            <label for="name-a">Nama panggilan <span class="req">*</span></label>
+                            <input class="form-control" type="text" id="name-a" autocomplete="given-name" required placeholder="Contoh: Tara">
+                        </div>
+                        <div class="form-group">
+                            <label for="date-a">Tanggal lahir <span class="req">*</span></label>
+                            <input class="form-control" type="date" id="date-a" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="time-a">Jam lahir <span class="optional-label">optional</span></label>
+                                <input class="form-control" type="time" id="time-a">
+                            </div>
+                            <div class="form-group">
+                                <label for="city-a">Kota lahir <span class="optional-label">optional</span></label>
+                                <input class="form-control" type="text" id="city-a" autocomplete="address-level2" placeholder="Contoh: Jakarta">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="love-person">
+                        <h2>Data Dia</h2>
+                        <div class="form-group">
+                            <label for="name-b">Nama panggilan <span class="req">*</span></label>
+                            <input class="form-control" type="text" id="name-b" autocomplete="given-name" required placeholder="Contoh: Arga">
+                        </div>
+                        <div class="form-group">
+                            <label for="date-b">Tanggal lahir <span class="req">*</span></label>
+                            <input class="form-control" type="date" id="date-b" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="time-b">Jam lahir <span class="optional-label">optional</span></label>
+                                <input class="form-control" type="time" id="time-b">
+                            </div>
+                            <div class="form-group">
+                                <label for="city-b">Kota lahir <span class="optional-label">optional</span></label>
+                                <input class="form-control" type="text" id="city-b" autocomplete="address-level2" placeholder="Contoh: Bandung">
+                            </div>
+                        </div>
+                    </section>
+
+                    <p class="form-note">Hasil tetap bisa dibaca, tetapi jam dan kota lahir dapat membantu beberapa bagian menjadi lebih presisi.</p>
+                    <button class="btn btn-primary" type="submit">Hitung Cinta Kami</button>
+                    <div class="love-loading" id="love-loading">Sedang membaca pola hubungan kalian...</div>
+                    <div class="love-error" id="love-error">Maaf, pembacaan belum bisa dimuat. Coba lagi sebentar lagi.</div>
+                </form>
+
+                <div>
+                    <div class="love-note" id="love-note">
+                        <h2>Ruang Aman Membaca Relasi</h2>
+                        <p>Kalkulator Cinta memakai data lahir sebagai pintu awal untuk melihat pola hubungan secara simbolik. Hasilnya ringan, reflektif, dan tidak dimaksudkan untuk menentukan keputusan hidup secara mutlak.</p>
+                    </div>
+
+                    <article class="love-result" id="love-result" aria-live="polite">
+                        <div class="result-eyebrow">Hasil awal dinamika cinta</div>
+                        <h2 class="result-title" id="result-title"></h2>
+                        <section>
+                            <h3 class="section-title" style="font-size:1.45rem;">Ringkasan Dua Energi</h3>
+                            <p style="font-size:0.94rem; color:var(--text-secondary); line-height:1.7;">Dua data ini dibaca sebagai pintu awal untuk melihat pola hubungan kalian secara simbolik.</p>
+                            <div class="energy-pair" id="energy-pair"></div>
+                        </section>
+                        <section class="bond-card" id="bond-card"></section>
+                        <div class="reading-grid" id="reading-grid"></div>
+                        <section class="premium-cta">
+                            <h3>Mau Dibaca Lebih Dalam?</h3>
+                            <p>Hasil ini adalah pembacaan awal. Untuk melihat dinamika hubungan kalian lebih lengkap melalui 8 sistem Blueprint Bhumi, lanjutkan ke Kalkulator Cinta Premium via WhatsApp.</p>
+                            <a class="btn btn-primary" href="https://wa.me/6285810531892?text=Halo%20Bhumi%2C%20saya%20ingin%20Kalkulator%20Cinta%20Premium%20untuk%20membaca%20hubungan%20saya%20lebih%20dalam." target="_blank" rel="noopener">Lanjut Reading Premium via WhatsApp</a>
+                        </section>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="kontak">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="footer-brand">
+                    <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38">
+                    <h4>Bhumi Amartya</h4>
+                </div>
+                <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Menu</h5>
+                <ul>
+                    <li><a href="../#beranda" class="footer-link">Beranda</a></li>
+                    <li><a href="../tes-kenali-diri/" class="footer-link">Tes Kenali Diri</a></li>
+                    <li><a href="../cek-aura/" class="footer-link">Cek Aura</a></li>
+                    <li><a href="../weton/" class="footer-link">Cek Weton</a></li>
+                    <li><a href="./" class="footer-link">Kalkulator Cinta</a></li>
+                    <li><a href="../ebook/" class="footer-link">Ebook</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h5>Hubungi Kami</h5>
+                <div class="contact-item"><span>halo@bhumiamartya.my.id</span></div>
+                <div class="contact-item"><span>+62 858-1053-1892</span></div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Bhumi Amartya. All rights reserved.</p>
+            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener">Amartya Creative</a></p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerBtn = document.getElementById('burger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
+            const header = document.getElementById('header');
+            const backToTopBtn = document.getElementById('back-to-top');
+            const form = document.getElementById('love-form');
+            const loading = document.getElementById('love-loading');
+            const errorBox = document.getElementById('love-error');
+            const result = document.getElementById('love-result');
+            const note = document.getElementById('love-note');
+            const resultTitle = document.getElementById('result-title');
+            const energyPair = document.getElementById('energy-pair');
+            const bondCard = document.getElementById('bond-card');
+            const readingGrid = document.getElementById('reading-grid');
+            const submitBtn = form.querySelector('button[type="submit"]');
+
+            const toggleMenu = () => {
+                burgerBtn.classList.toggle('open');
+                navMenu.classList.toggle('open');
+                document.body.classList.toggle('menu-open', navMenu.classList.contains('open'));
+            };
+
+            burgerBtn.addEventListener('click', toggleMenu);
+            navLinks.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    if (link.classList.contains('dropdown-toggle')) {
+                        event.preventDefault();
+                        return;
+                    }
+                    if (navMenu.classList.contains('open')) toggleMenu();
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('header-scrolled', window.scrollY > 50);
+                backToTopBtn.classList.toggle('show', window.scrollY > 500);
+            });
+            backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            const getValue = (id) => document.getElementById(id).value.trim();
+            const escapeHtml = (text) => String(text || '').replace(/[&<>"']/g, (char) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+            }[char]));
+
+            const parseNumber = (value) => {
+                const match = String(value || '').match(/\d+/);
+                return match ? Number(match[0]) : 0;
+            };
+
+            const calculateScore = (a, b) => {
+                const lpA = parseNumber(a.identity.lifePath);
+                const lpB = parseNumber(b.identity.lifePath);
+                const arcA = parseNumber(a.identity.arcanaCenter);
+                const arcB = parseNumber(b.identity.arcanaCenter);
+                const text = `${Object.values(a.identity).join(' ')} ${Object.values(b.identity).join(' ')} ${a.canonicalSynthesis.summary} ${b.canonicalSynthesis.summary}`.toLowerCase();
+                const diff = Math.abs(lpA - lpB) + Math.abs(arcA - arcB) / 2;
+                let stable = 0;
+                let learning = 0;
+                let intensity = 0;
+
+                if (diff <= 4) stable += 4;
+                if (diff > 7) learning += 4;
+                if (a.identity.natalSun === b.identity.natalSun) stable += 2;
+                if (a.identity.weton === b.identity.weton) intensity += 2;
+                if (text.includes('struktur') || text.includes('stabil') || text.includes('harmoni') || text.includes('membumi')) stable += 2;
+                if (text.includes('tantangan') || text.includes('batas') || text.includes('tanggung jawab') || text.includes('reaktif')) learning += 2;
+                if (text.includes('transformasi') || text.includes('kedalaman') || text.includes('intuisi') || text.includes('cosmic')) intensity += 2;
+
+                if (intensity >= 6 && learning >= 4) return 'Twin Flame';
+                if (learning > stable + 2) return 'Karmic';
+                return 'Soulmate';
+            };
+
+            const bondDefinition = (type) => ({
+                Karmic: 'Hubungan karmic bukan berarti buruk. Ia sering hadir sebagai cermin untuk melihat pola lama, luka yang belum selesai, dan pelajaran tentang batas diri.',
+                Soulmate: 'Soulmate bukan berarti hubungan tanpa masalah. Ia menggambarkan ikatan yang memberi ruang aman untuk saling bertumbuh dan menjadi diri sendiri.',
+                'Twin Flame': 'Twin Flame dalam pembacaan ini dipakai sebagai simbol relasi yang intens dan saling memantulkan diri. Ini bukan klaim mutlak bahwa seseorang adalah pasangan takdir.'
+            }[type]);
+
+            const loveLanguage = (a, b) => {
+                const lpA = parseNumber(a.identity.lifePath);
+                const lpB = parseNumber(b.identity.lifePath);
+                const first = lpA % 2 === 0 ? 'waktu dan kehadiran' : 'kata-kata yang menguatkan';
+                const second = lpB % 3 === 0 ? 'tindakan nyata' : 'perhatian kecil yang konsisten';
+                return `Salah satu dari kalian cenderung merasa dicintai lewat ${first}, sementara yang lain lebih mudah menunjukkan cinta lewat ${second}. Kuncinya adalah menerjemahkan cinta, bukan memaksakan cara sendiri.`;
+            };
+
+            const buildReading = (a, b, type) => {
+                const nameA = a.requestName;
+                const nameB = b.requestName;
+                const shared = `${nameA} dan ${nameB}`;
+                const general = `Dari pola yang terbaca, ${shared} mempertemukan dua energi yang sama-sama membawa kebutuhan untuk dipahami, tetapi mengekspresikannya dengan cara yang bisa berbeda. Ada potensi saling menguatkan jika komunikasi dijaga, tetapi bisa terasa berat jika salah satu terlalu sering menebak isi hati yang lain.`;
+                return [
+                    { title: 'Pembacaan Umum', body: general },
+                    { title: 'Rejeki', body: 'Dalam urusan rejeki, hubungan ini cenderung kuat jika kalian punya tujuan yang jelas dan pembagian peran yang sehat. Tantangannya adalah jangan mencampur emosi sesaat dengan keputusan finansial.' },
+                    { title: 'Asmara', body: 'Dalam asmara, ada tarikan yang cukup kuat, tetapi kedekatan perlu dibangun lewat kejujuran kecil yang konsisten. Jangan menunggu pasangan menebak semua isi hati.' },
+                    { title: 'Love Language', body: loveLanguage(a, b) },
+                    { title: 'Tantangan', body: 'Ruang belajar kalian ada pada cara mengelola ekspektasi. Hubungan ini bisa terasa berat jika keduanya sama-sama menunggu dipahami tanpa berani menjelaskan kebutuhan.' },
+                    { title: 'Yang Perlu Dirawat', bullets: ['Bicara sebelum kecewa menumpuk.', 'Jangan saling menebak kebutuhan.', 'Pisahkan luka lama dari masalah hari ini.'] }
+                ];
+            };
+
+            const renderEnergyCard = (person) => `
+                <section class="energy-card">
+                    <h3>${escapeHtml(person.requestName)}</h3>
+                    <ul class="energy-list">
+                        <li><strong>Life Path:</strong> ${escapeHtml(person.identity.lifePath)}</li>
+                        <li><strong>Arcana Center:</strong> ${escapeHtml(person.identity.arcanaCenter)}</li>
+                        <li><strong>Human Design Type:</strong> ${escapeHtml(person.identity.humanDesignType)}</li>
+                        <li><strong>Sun Natal Chart:</strong> ${escapeHtml(person.identity.natalSun)}</li>
+                        <li><strong>Weton:</strong> ${escapeHtml(person.identity.weton)}</li>
+                    </ul>
+                </section>
+            `;
+
+            const renderResult = (a, b) => {
+                const type = calculateScore(a, b);
+                const reading = buildReading(a, b, type);
+                resultTitle.textContent = `${a.requestName} dan ${b.requestName}`;
+                energyPair.innerHTML = renderEnergyCard(a) + renderEnergyCard(b);
+                bondCard.innerHTML = `
+                    <h3 class="section-title" style="font-size:1.45rem; margin-bottom:0.4rem;">Jenis Ikatan</h3>
+                    <div class="bond-badge">Hubungan Ini Cenderung: ${type}</div>
+                    <p>${bondDefinition(type)}</p>
+                    ${type !== 'Soulmate' ? '<p class="safety-note">Label ini tidak dimaksudkan untuk membenarkan hubungan yang menyakiti. Jika sebuah hubungan membuatmu tidak aman, kehilangan diri, atau terus terluka, batas diri tetap lebih penting daripada label apa pun.</p>' : ''}
+                `;
+                readingGrid.innerHTML = reading.map((item) => `
+                    <section class="reading-card">
+                        <h3>${item.title}</h3>
+                        ${item.body ? `<p>${item.body}</p>` : `<ul class="care-list">${item.bullets.map((bullet) => `<li>${bullet}</li>`).join('')}</ul>`}
+                    </section>
+                `).join('');
+                note.style.display = 'none';
+                result.classList.add('show');
+                result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+
+            const callApi = async (payload) => {
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                const url = isLocal ? 'http://localhost:3000/api/tes-kenali-diri' : 'https://bhumi-amartya-clean.vercel.app/api/tes-kenali-diri';
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) throw new Error(`API status ${response.status}`);
+                const data = await response.json();
+                if (!data || !data.ok) throw new Error(data?.reason || 'API failed');
+                return data;
+            };
+
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const personA = {
+                    requestName: getValue('name-a'),
+                    name: getValue('name-a'),
+                    birthDate: getValue('date-a'),
+                    birthTime: getValue('time-a') || undefined,
+                    birthCity: getValue('city-a') || undefined
+                };
+                const personB = {
+                    requestName: getValue('name-b'),
+                    name: getValue('name-b'),
+                    birthDate: getValue('date-b'),
+                    birthTime: getValue('time-b') || undefined,
+                    birthCity: getValue('city-b') || undefined
+                };
+
+                loading.style.display = 'block';
+                errorBox.style.display = 'none';
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Membaca Hubungan...';
+
+                try {
+                    const [dataA, dataB] = await Promise.all([callApi(personA), callApi(personB)]);
+                    renderResult(
+                        { ...dataA, requestName: personA.requestName },
+                        { ...dataB, requestName: personB.requestName }
+                    );
+                } catch (error) {
+                    console.warn('[KALKULATOR CINTA] Failed:', error);
+                    errorBox.style.display = 'block';
+                } finally {
+                    loading.style.display = 'none';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Hitung Cinta Kami';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
