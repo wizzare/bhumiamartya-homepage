@@ -19,7 +19,13 @@ export type WetonResult = {
   totalNeptu: number
   wuku: string
   pranataMangsa: { nama: string; periode: string; deskripsi: string }
-  khodam: { nama: string; sifat: string }
+  khodam: {
+    nama: string
+    jenisHewan: string
+    warnaEnergi: string
+    arketipe: string
+    pesan: string
+  }
   makna: string
 }
 
@@ -79,18 +85,68 @@ const WUKU = [
   "Watugunung",
 ]
 
-const KHODAM = [
-  { nama: "Macan Putih", sifat: "Pemberani, berwibawa, dan menjadi pelindung bagi orang-orang terdekat." },
-  { nama: "Naga Bumi", sifat: "Bijaksana, penuh kesabaran, dan menyimpan kekuatan yang tenang namun dalam." },
-  { nama: "Harimau Loreng", sifat: "Tegas, gigih, dan tak mudah menyerah dalam menghadapi tantangan." },
-  { nama: "Kijang Emas", sifat: "Lembut, lincah, dan membawa keberuntungan serta rezeki yang mengalir." },
-  { nama: "Garuda Jiwa", sifat: "Bercita-cita tinggi, visioner, dan mampu memimpin dengan kemuliaan." },
-  { nama: "Ular Naga", sifat: "Penuh intuisi, misterius, dan piawai membaca situasi di sekitarnya." },
-  { nama: "Semar Pangayom", sifat: "Pengayom, rendah hati, dan menjadi sumber ketenangan bagi sesama." },
-  { nama: "Ratu Kidul Simbolik", sifat: "Berkharisma, anggun, dan memancarkan daya tarik yang memikat." },
-  { nama: "Kera Putih", sifat: "Cerdas, kreatif, dan selalu menemukan jalan keluar yang tak terduga." },
-  { nama: "Burung Hantu Penjaga", sifat: "Penuh kewaspadaan, bijak, dan tajam dalam mengamati kehidupan." },
+const KHODAM_POOL = [
+  "Harimau Hitam", "Macan Putih", "Naga Biru", "Garuda Emas", "Kijang Putih",
+  "Kura-Kura Tua", "Elang Jawa", "Serigala Abu", "Rusa Cokelat", "Kucing Hutan",
+  "Burung Hantu", "Banteng Merah", "Ular Hijau", "Gajah Bumi", "Merak Emas",
+  "Rajawali Perak", "Kuda Cokelat", "Ikan Koi Emas", "Kerbau Hitam", "Angsa Putih",
 ]
+
+const JENIS_HEWAN = [
+  "Hewan Penjaga", "Hewan Penuntun", "Hewan Penyembuh", "Hewan Pelindung", "Hewan Pembuka Jalan",
+  "Hewan Penyeimbang", "Hewan Pembaca Tanda", "Hewan Penjaga Akar", "Hewan Transformasi", "Hewan Pembawa Pesan",
+]
+
+const WARNA_ENERGI = [
+  "Hitam Emas", "Putih Perak", "Hijau Bumi", "Biru Malam", "Merah Tanah",
+  "Cokelat Akar", "Ungu Dalam", "Emas Hangat", "Jingga Senja", "Abu Kabut",
+  "Hijau Lumut", "Biru Laut", "Kuning Padi", "Merah Bata", "Perak Bulan",
+]
+
+const ARKETIPE_LELUHUR = [
+  "Sang Penjaga Gerbang", "Sang Penenun Nasib", "Sang Pembuka Jalan", "Sang Perawat Luka", "Sang Guru Sunyi",
+  "Sang Penjaga Api", "Sang Peneduh Rumah", "Sang Pengelana Batin", "Sang Pemanggul Cahaya", "Sang Penjaga Akar",
+  "Sang Penyembuh Rasa", "Sang Panglima Tenang", "Sang Penjaga Mata Air", "Sang Pembaca Tanda", "Sang Penjaga Hutan",
+  "Sang Penjaga Padi", "Sang Penjaga Malam", "Sang Penabuh Langit", "Sang Penjaga Rasa", "Sang Penuntun Pulang",
+]
+
+const KHODAM_OVERRIDES: Record<string, WetonResult["khodam"]> = {
+  "Sabtu Legi": {
+    nama: "Harimau Hitam",
+    jenisHewan: "Hewan Penjaga",
+    warnaEnergi: "Hitam Emas",
+    arketipe: "Sang Penjaga Gerbang",
+    pesan: "Secara simbolik, Harimau Hitam menggambarkan ketahanan, batas diri, dan keberanian yang tidak perlu banyak suara. Sosok Sang Penjaga Gerbang hadir sebagai arketipe untuk mengingatkanmu agar tidak mengecilkan kekuatan diri.",
+  },
+  "Jumat Kliwon": {
+    nama: "Naga Biru",
+    jenisHewan: "Hewan Transformasi",
+    warnaEnergi: "Biru Malam",
+    arketipe: "Sang Pengelana Batin",
+    pesan: "Secara simbolik, Naga Biru menggambarkan kedalaman rasa, intuisi, dan kemampuan membaca suasana yang tidak selalu terlihat. Sosok Sang Pengelana Batin mengingatkanmu untuk mengolah perubahan dengan tenang.",
+  },
+  "Rabu Wage": {
+    nama: "Kijang Putih",
+    jenisHewan: "Hewan Penyembuh",
+    warnaEnergi: "Putih Perak",
+    arketipe: "Sang Perawat Luka",
+    pesan: "Secara simbolik, Kijang Putih menggambarkan kelembutan, kepekaan, dan kemampuan menenangkan ruang yang sedang gaduh. Sosok Sang Perawat Luka mengingatkanmu menjaga hati tanpa kehilangan batas.",
+  },
+  "Minggu Pon": {
+    nama: "Garuda Emas",
+    jenisHewan: "Hewan Pembuka Jalan",
+    warnaEnergi: "Emas Hangat",
+    arketipe: "Sang Pembuka Jalan",
+    pesan: "Secara simbolik, Garuda Emas menggambarkan keberanian tampil, visi, dan dorongan untuk membawa arah baru. Sosok Sang Pembuka Jalan mengingatkanmu memakai keberanian dengan hati yang jernih.",
+  },
+  "Senin Pahing": {
+    nama: "Kura-Kura Tua",
+    jenisHewan: "Hewan Penjaga Akar",
+    warnaEnergi: "Cokelat Akar",
+    arketipe: "Sang Penjaga Akar",
+    pesan: "Secara simbolik, Kura-Kura Tua menggambarkan kesabaran, daya tahan, dan kemampuan merawat sesuatu sampai matang. Sosok Sang Penjaga Akar mengingatkanmu bahwa langkah pelan tetap bisa membawa hasil.",
+  },
+}
 
 const PRANATA_MANGSA = [
   { nama: "Kasa", periode: "22 Jun – 1 Agu", deskripsi: "Musim kemarau dimulai, daun-daun mulai berguguran." },
@@ -172,9 +228,20 @@ function hitungPranataMangsa(d: Date) {
   return PRANATA_MANGSA[6] // fallback Kapitu
 }
 
-function hitungKhodam(totalNeptu: number, pasaranIdx: number, hariIdx: number): { nama: string; sifat: string } {
+function hitungKhodam(totalNeptu: number, pasaranIdx: number, hariIdx: number, weton: string): WetonResult["khodam"] {
+  if (KHODAM_OVERRIDES[weton]) return KHODAM_OVERRIDES[weton]
   const seed = totalNeptu * 3 + pasaranIdx * 7 + hariIdx * 5
-  return KHODAM[seed % KHODAM.length]
+  const nama = KHODAM_POOL[seed % KHODAM_POOL.length]
+  const jenisHewan = JENIS_HEWAN[(seed + totalNeptu) % JENIS_HEWAN.length]
+  const warnaEnergi = WARNA_ENERGI[(seed + pasaranIdx) % WARNA_ENERGI.length]
+  const arketipe = ARKETIPE_LELUHUR[(seed + hariIdx) % ARKETIPE_LELUHUR.length]
+  return {
+    nama,
+    jenisHewan,
+    warnaEnergi,
+    arketipe,
+    pesan: `Secara simbolik, ${nama} menggambarkan energi pendamping yang cenderung membantu membaca karakter, menjaga ritme, dan mengenali kekuatan batin. Sosok ${arketipe} hadir sebagai arketipe reflektif untuk mengingatkanmu merawat arah diri dengan lebih sadar.`,
+  }
 }
 
 export function hitungWeton(nama: string, tanggal: string, jam: string): WetonResult {
@@ -200,7 +267,7 @@ export function hitungWeton(nama: string, tanggal: string, jam: string): WetonRe
   const weton = `${hariJawa} ${pasaran}`
   const wuku = hitungWuku(efektif)
   const pranataMangsa = hitungPranataMangsa(base) // mangsa berdasarkan tanggal masehi asli
-  const khodam = hitungKhodam(totalNeptu, pasaranIdx, hariIdx)
+  const khodam = hitungKhodam(totalNeptu, pasaranIdx, hariIdx, weton)
 
   const tanggalFmt = base.toLocaleDateString("id-ID", {
     weekday: "long",

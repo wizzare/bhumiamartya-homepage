@@ -4196,6 +4196,58 @@
             margin-bottom: 0.75rem;
         }
 
+        .khodam-symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .khodam-symbol-item {
+            background-color: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 16px;
+            padding: 1rem;
+        }
+
+        .khodam-symbol-label {
+            color: var(--gold-dark);
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .khodam-symbol-value {
+            color: var(--text-primary);
+            font-size: 0.96rem;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .khodam-color-badge {
+            align-items: center;
+            background-color: rgba(212, 175, 55, 0.12);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 999px;
+            color: var(--gold-dark);
+            display: inline-flex;
+            font-size: 0.84rem;
+            font-weight: 700;
+            gap: 0.45rem;
+            margin-bottom: 1rem;
+            padding: 0.45rem 0.8rem;
+        }
+
+        .khodam-color-dot {
+            background: linear-gradient(135deg, #1F1A14, var(--earth-gold));
+            border-radius: 999px;
+            height: 0.72rem;
+            width: 0.72rem;
+        }
+
         .weton-disclaimer {
             margin-top: 1.5rem;
             padding: 1.25rem;
@@ -4307,6 +4359,9 @@
             }
             .weton-detail-section {
                 padding: 1.75rem;
+            }
+            .khodam-symbol-grid {
+                grid-template-columns: 1fr;
             }
             .weton-app-cta {
                 padding: 3rem 1.25rem;
@@ -4809,13 +4864,35 @@
                 khodamBox.innerHTML = `
                     <h4>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        Khodam Pendamping Simbolik
+                        Khodam / Simbol Pendamping Wetonmu
                     </h4>
+                    <p style="font-size:0.85rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-dark); margin-bottom:0.75rem; font-weight:700;">Seru-seruan reflektif berbasis weton</p>
                     <div class="khodam-name">${hasil.khodam.nama}</div>
-                    <p style="margin-bottom:1.5rem;">${hasil.khodam.sifat}</p>
+                    <span class="khodam-color-badge"><span class="khodam-color-dot" aria-hidden="true"></span>Warna Energi: ${hasil.khodam.warnaEnergi}</span>
+                    <div class="khodam-symbol-grid">
+                        <div class="khodam-symbol-item">
+                            <span class="khodam-symbol-label">Khodam / Simbol Pendamping</span>
+                            <div class="khodam-symbol-value">${hasil.khodam.nama}</div>
+                        </div>
+                        <div class="khodam-symbol-item">
+                            <span class="khodam-symbol-label">Jenis Hewan</span>
+                            <div class="khodam-symbol-value">${hasil.khodam.jenisHewan}</div>
+                        </div>
+                        <div class="khodam-symbol-item">
+                            <span class="khodam-symbol-label">Sosok Leluhur / Arketipe</span>
+                            <div class="khodam-symbol-value">${hasil.khodam.arketipe}</div>
+                        </div>
+                    </div>
+                    <h5 style="font-size:1rem; color:var(--forest-green); margin:1.25rem 0 0.5rem; font-weight:700;">Pesan Singkat</h5>
+                    <p style="margin-bottom:1.5rem;">${hasil.khodam.pesan}</p>
                     <div class="weton-disclaimer">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                        <span><strong>Catatan Reflektif:</strong> Hasil pembacaan khodam pendamping ini bersifat simbolis-spiritual dan dimaksudkan sebagai sarana pengenalan watak batiniah/hiburan batin, bukan suatu kepastian ilmiah atau akidah mutlak.</span>
+                        <span><strong>Catatan Reflektif:</strong> Pembacaan ini dibuat sebagai hiburan reflektif berbasis weton. Gunakan sebagai bahan mengenali karakter dan energi simbolik, bukan sebagai kepastian.</span>
+                    </div>
+                    <div class="weton-app-cta-btns" style="justify-content:flex-start; margin-top:1.5rem;">
+                        <a href="../tes-kenali-diri/" class="btn btn-primary">Coba Tes Kenali Diri</a>
+                        <a href="../cek-aura/" class="btn btn-outline">Cek Aura</a>
+                        <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20Blueprint%20Reading" target="_blank" rel="noopener" class="btn btn-outline">Pesan Blueprint Reading</a>
                     </div>
                 `;
             }
