@@ -468,6 +468,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
     </button>
 
+    <script src="../assets/bhumi-analytics.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burgerBtn = document.getElementById('burger-menu');
@@ -643,6 +644,8 @@
                     birthCity: getValue('city-b') || undefined
                 };
 
+                window.BhumiAnalytics?.trackOnce('kalkulator_cinta_started', { feature: 'kalkulator-cinta', status: 'started' });
+
                 loading.style.display = 'block';
                 errorBox.style.display = 'none';
                 submitBtn.disabled = true;
@@ -654,6 +657,13 @@
                         { ...dataA, requestName: personA.requestName },
                         { ...dataB, requestName: personB.requestName }
                     );
+                    window.BhumiAnalytics?.track('kalkulator_cinta_submitted', {
+                        feature: 'kalkulator-cinta',
+                        status: 'submitted',
+                        resultOk: true,
+                        hasBirthTime: Boolean(personA.birthTime || personB.birthTime),
+                        hasBirthCity: Boolean(personA.birthCity || personB.birthCity)
+                    });
                 } catch (error) {
                     console.warn('[KALKULATOR CINTA] Failed:', error);
                     errorBox.style.display = 'block';

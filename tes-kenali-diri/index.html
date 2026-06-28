@@ -490,6 +490,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
     </button>
 
+    <script src="../assets/bhumi-analytics.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burgerBtn = document.getElementById('burger-menu');
@@ -968,6 +969,8 @@
                     return;
                 }
 
+                window.BhumiAnalytics?.trackOnce('tes_kenali_diri_started', { feature: 'tes-kenali-diri', status: 'started' });
+
                 const resolvedCityData = selectedCity || resolveCityFallback(birthcity);
                 const structuredInput = createBhumiStructuredInput({
                     nickname,
@@ -1056,12 +1059,26 @@
                     introNote.style.display = 'none';
                     resultCard.classList.add('show');
                     resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
+                        feature: 'tes-kenali-diri',
+                        status: 'submitted',
+                        resultOk: true,
+                        hasBirthTime: Boolean(birthtime),
+                        hasBirthCity: Boolean(birthcity)
+                    });
 
                 } catch (error) {
                     console.warn('[TES KENALI DIRI API] Failed, running offline fallback:', error);
                     // Show error fallback notification
                     alert('Maaf, hasil lengkap dari server belum bisa dimuat. Menggunakan kalkulasi lokal sebagai cadangan.');
                     runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
+                    window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
+                        feature: 'tes-kenali-diri',
+                        status: 'submitted',
+                        resultOk: false,
+                        hasBirthTime: Boolean(birthtime),
+                        hasBirthCity: Boolean(birthcity)
+                    });
                 } finally {
                     if (submitBtn) {
                         submitBtn.disabled = false;

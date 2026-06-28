@@ -4644,6 +4644,7 @@
     </button>
 
     <!-- SCRIPT LOADING & EVENT HANDLERS -->
+    <script src="../assets/bhumi-analytics.js" defer></script>
     <script type="module">
         import { hitungWeton } from './lib/weton.js';
 
@@ -4770,6 +4771,13 @@
                     setTimeout(() => {
                         resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 50);
+
+                    window.BhumiAnalytics?.track('weton_checked', {
+                        feature: 'weton',
+                        status: 'submitted',
+                        resultOk: true,
+                        hasBirthTime: Boolean(jam)
+                    });
 
                 } catch (err) {
                     console.error("Calculation error:", err);

@@ -490,6 +490,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
     </button>
 
+    <script src="../assets/bhumi-analytics.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burgerBtn = document.getElementById('burger-menu');
@@ -1136,6 +1137,8 @@
                     return;
                 }
 
+                window.BhumiAnalytics?.trackOnce('cek_aura_started', { feature: 'cek-aura', status: 'started' });
+
                 const resolvedCityData = selectedCity || resolveCityFallback(birthcity);
                 const structuredInput = createBhumiStructuredInput({
                     nickname,
@@ -1194,12 +1197,26 @@
                         synthesis: data.canonicalSynthesis
                     });
                     renderAuraReading(auraReading);
+                    window.BhumiAnalytics?.track('cek_aura_submitted', {
+                        feature: 'cek-aura',
+                        status: 'submitted',
+                        resultOk: true,
+                        hasBirthTime: Boolean(birthtime),
+                        hasBirthCity: Boolean(birthcity)
+                    });
 
                 } catch (error) {
                     console.warn('[CEK AURA API] Failed, running offline fallback:', error);
                     // Show error fallback notification
                     alert('Maaf, hasil lengkap dari server belum bisa dimuat. Menggunakan kalkulasi lokal sebagai cadangan.');
                     runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
+                    window.BhumiAnalytics?.track('cek_aura_submitted', {
+                        feature: 'cek-aura',
+                        status: 'submitted',
+                        resultOk: false,
+                        hasBirthTime: Boolean(birthtime),
+                        hasBirthCity: Boolean(birthcity)
+                    });
                 } finally {
                     if (submitBtn) {
                         submitBtn.disabled = false;
