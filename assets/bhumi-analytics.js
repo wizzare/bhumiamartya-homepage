@@ -47,6 +47,7 @@
       hasBirthCity: true,
       ebookSlug: true,
       ebookTitle: true,
+      resultType: true,
       ctaType: true
     };
     var safe = {};

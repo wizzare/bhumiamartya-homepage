@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-0971666335614952">
+    <title>Tes MBTI Online - Bhumi Amartya</title>
+    <meta name="description" content="Ikuti tes MBTI reflektif untuk mengenali kecenderungan energi sosial, cara berpikir, pengambilan keputusan, dan gaya hidupmu.">
+    <meta name="keywords" content="Tes MBTI Online, MBTI Indonesia, Tes Kepribadian, Bhumi Amartya, Refleksi Diri">
+    <meta name="author" content="Widhi Wedhaswara">
+    <link rel="canonical" href="https://www.bhumiamartya.my.id/kenali-diri/mbti/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.bhumiamartya.my.id/kenali-diri/mbti/">
+    <meta property="og:title" content="Tes MBTI Online - Bhumi Amartya">
+    <meta property="og:description" content="Kenali kecenderungan cara kamu mengisi energi, memproses informasi, mengambil keputusan, dan menjalani hidup.">
+    <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.bhumiamartya.my.id/kenali-diri/mbti/">
+    <meta name="twitter:title" content="Tes MBTI Online - Bhumi Amartya">
+    <meta name="twitter:description" content="Kenali kecenderungan cara kamu mengisi energi, memproses informasi, mengambil keputusan, dan menjalani hidup.">
+    <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/bhumi-design-system.css">
+
+    <style>
+        .mbti-hero {
+            padding: 9rem 0 4.5rem;
+            background: radial-gradient(circle at 80% 16%, rgba(212, 175, 55, 0.08) 0%, transparent 42%),
+                        radial-gradient(circle at 14% 80%, rgba(45, 75, 52, 0.06) 0%, transparent 48%),
+                        var(--bg-secondary);
+            text-align: center;
+        }
+
+        .mbti-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.42rem 1.1rem;
+            margin-bottom: 1.25rem;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.28);
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--gold-dark);
+            font-size: 0.84rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .mbti-title {
+            font-family: var(--font-headings);
+            font-size: 3.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .mbti-subtitle {
+            max-width: 780px;
+            margin: 0 auto 1.25rem;
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .mbti-note {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 1rem 1.25rem;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            background: rgba(255, 255, 255, 0.74);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .mbti-section { padding: 4.5rem 0; }
+
+        .explain-card,
+        .test-card,
+        .result-card {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .explain-card { padding: 2.5rem; }
+
+        .explain-card h2,
+        .test-card h2,
+        .result-card h2 {
+            font-family: var(--font-headings);
+            font-size: 2.2rem;
+            font-weight: 500;
+            margin-bottom: 0.9rem;
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .dimension-card {
+            min-height: 164px;
+            padding: 1.35rem;
+            border-radius: 18px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+        }
+
+        .dimension-code {
+            display: inline-flex;
+            margin-bottom: 0.8rem;
+            color: var(--forest-green);
+            font-weight: 800;
+            letter-spacing: 0.1em;
+        }
+
+        .test-card { padding: 2rem; }
+
+        .progress-wrap {
+            position: sticky;
+            top: 76px;
+            z-index: 20;
+            margin: -2rem -2rem 2rem;
+            padding: 1.35rem 2rem;
+            background: rgba(255, 255, 255, 0.94);
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 24px 24px 0 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            width: 100%;
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: var(--forest-light);
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--forest-green), var(--earth-gold));
+            transition: width 0.25s ease;
+        }
+
+        .question-list {
+            display: grid;
+            gap: 1.1rem;
+        }
+
+        .question-card {
+            padding: 1.45rem;
+            border-radius: 18px;
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            background: #FFFEFB;
+        }
+
+        .question-text {
+            margin-bottom: 1.2rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.55;
+        }
+
+        .scale-row {
+            display: grid;
+            grid-template-columns: 92px minmax(0, 1fr) 112px;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .scale-label {
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            font-weight: 800;
+        }
+
+        .scale-label.agree { color: #3D7650; text-align: right; }
+        .scale-label.disagree { color: #69527D; }
+
+        .choice-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .choice-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: var(--size);
+            height: var(--size);
+            flex: 0 0 var(--size);
+            border-radius: 50%;
+            border: 2px solid var(--choice-color);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            transition: transform 0.18s ease, background-color 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .choice-btn:hover,
+        .choice-btn:focus-visible {
+            outline: none;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(45, 75, 52, 0.1);
+        }
+
+        .choice-btn.selected {
+            background: var(--choice-color);
+        }
+
+        .choice-btn::after {
+            content: "";
+            width: 8px;
+            height: 13px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg) translate(-1px, -1px);
+            opacity: 0;
+        }
+
+        .choice-btn.selected::after { opacity: 1; }
+
+        .submit-area {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .error-message {
+            min-height: 1.5rem;
+            margin-top: 0.9rem;
+            color: #9A4B32;
+            font-size: 0.92rem;
+            font-weight: 700;
+        }
+
+        .result-card {
+            display: none;
+            margin-top: 2rem;
+            padding: 2.5rem;
+        }
+
+        .result-card.show { display: block; }
+
+        .result-hero {
+            text-align: center;
+            padding-bottom: 2rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+        }
+
+        .result-type {
+            color: var(--forest-green);
+            font-family: var(--font-headings);
+            font-size: 4rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .result-name {
+            margin-top: 0.5rem;
+            color: var(--text-primary);
+            font-size: 1.55rem;
+            font-weight: 800;
+        }
+
+        .result-local {
+            margin-top: 0.35rem;
+            color: var(--gold-dark);
+            font-family: var(--font-headings);
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
+
+        .balance-note {
+            display: none;
+            max-width: 760px;
+            margin: 1.3rem auto 0;
+            padding: 0.85rem 1rem;
+            border-radius: 14px;
+            background: var(--forest-light);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .balance-note.show { display: block; }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .result-block {
+            padding: 1.35rem;
+            border-radius: 18px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(45, 75, 52, 0.07);
+        }
+
+        .result-block h3 {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gold-dark);
+            margin-bottom: 0.65rem;
+        }
+
+        .result-block p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        .mbti-cta {
+            padding: 4.5rem 0;
+            background: linear-gradient(135deg, var(--forest-green), var(--forest-dark));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .mbti-cta h2 {
+            color: var(--white);
+            font-family: var(--font-headings);
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 0.9rem;
+        }
+
+        .mbti-cta p {
+            max-width: 680px;
+            margin: 0 auto 2rem;
+            color: rgba(253, 251, 247, 0.84);
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--forest-green);
+        }
+
+        .btn-light:hover {
+            background: var(--bg-secondary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 960px) {
+            .dimension-grid,
+            .result-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 720px) {
+            .mbti-hero { padding-top: 7.5rem; }
+            .mbti-title { font-size: 2.35rem; }
+            .explain-card,
+            .test-card,
+            .result-card { padding: 1.35rem; }
+            .progress-wrap {
+                position: static;
+                margin: -1.35rem -1.35rem 1.35rem;
+                padding: 1rem 1.35rem;
+            }
+            .dimension-grid,
+            .result-grid { grid-template-columns: 1fr; }
+            .scale-row {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .scale-label.agree,
+            .scale-label.disagree { text-align: center; }
+            .choice-row { gap: 0.42rem; }
+            .choice-btn { transform: scale(0.92); }
+            .choice-btn:hover,
+            .choice-btn:focus-visible { transform: scale(0.92) translateY(-2px); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="/#beranda" class="logo">
+                <img src="/assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32">
+                <span>Bhumi Amartya</span>
+            </a>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="/#beranda" class="nav-link">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
+                            <li><a href="/cek-aura/" class="dropdown-item">Cek Aura</a></li>
+                            <li><a href="/weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="/kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="/kenali-diri/mbti/" class="dropdown-item">MBTI</a></li>
+                            <li><a href="/kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
+                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
+                            <li><a href="/ebook/" class="dropdown-item">Ebook</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Konten <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#youtube" class="dropdown-item">Youtube</a></li>
+                            <li><a href="/#artikel" class="dropdown-item">Ngopi Ilmu</a></li>
+                            <li><a href="/#testimoni" class="dropdown-item">Testimoni</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tentang <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about/" class="dropdown-item">Tentang Bhumi</a></li>
+                            <li><a href="/#founder" class="dropdown-item">Our Team</a></li>
+                            <li><a href="/#founder" class="dropdown-item">Founder</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/contact/" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="mbti-hero">
+            <div class="container">
+                <div class="mbti-badge">Refleksi Preferensi Diri</div>
+                <h1 class="mbti-title">Tes MBTI Online</h1>
+                <p class="mbti-subtitle">Kenali kecenderungan cara kamu mengisi energi, memproses informasi, mengambil keputusan, dan menjalani hidup.</p>
+                <p class="mbti-note">MBTI adalah alat refleksi diri, bukan diagnosis psikologis atau label tetap yang membatasi siapa kamu. Tes ini bukan asesmen MBTI resmi dan bukan tes resmi dari 16Personalities.</p>
+            </div>
+        </section>
+
+        <section class="mbti-section">
+            <div class="container">
+                <div class="explain-card">
+                    <h2>Apa yang dibaca dari MBTI?</h2>
+                    <p>Tes ini membaca kecenderunganmu melalui empat pasangan preferensi: cara mengisi energi, cara menangkap informasi, cara mengambil keputusan, dan cara menjalani hidup sehari-hari. Hasilnya bukan label mutlak, melainkan cermin reflektif untuk mengenali pola diri.</p>
+                    <div class="dimension-grid">
+                        <div class="dimension-card"><span class="dimension-code">E / I</span><p>Energi sosial: dari interaksi atau dari ruang pribadi.</p></div>
+                        <div class="dimension-card"><span class="dimension-code">S / N</span><p>Cara menangkap informasi: fakta konkret atau pola dan kemungkinan.</p></div>
+                        <div class="dimension-card"><span class="dimension-code">T / F</span><p>Cara mengambil keputusan: logika objektif atau pertimbangan rasa dan nilai.</p></div>
+                        <div class="dimension-card"><span class="dimension-code">J / P</span><p>Gaya menjalani hidup: struktur yang jelas atau fleksibilitas yang terbuka.</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mbti-section section-alt">
+            <div class="container">
+                <div class="test-card">
+                    <div class="progress-wrap">
+                        <div class="progress-top">
+                            <span>Tes MBTI Reflektif</span>
+                            <span id="progress-count">0 dari 32 pernyataan terjawab</span>
+                        </div>
+                        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+                    </div>
+                    <h2>Jawab sesuai yang paling terasa dekat</h2>
+                    <p style="margin-bottom: 1.75rem;">Tidak ada jawaban benar atau salah. Pilih respons yang paling menggambarkan kecenderunganmu akhir-akhir ini.</p>
+                    <div class="question-list" id="question-list"></div>
+                    <div class="submit-area">
+                        <button type="button" class="btn btn-primary" id="submit-btn">Lihat Hasil MBTI</button>
+                        <div class="error-message" id="error-message" role="status" aria-live="polite"></div>
+                    </div>
+                    <div class="result-card" id="result-card" aria-live="polite">
+                        <div class="result-hero">
+                            <div class="result-type" id="result-type">INFJ</div>
+                            <div class="result-name" id="result-name">Advocate</div>
+                            <div class="result-local" id="result-local">Sang Penjaga Makna</div>
+                            <p id="result-intro" style="max-width: 780px; margin: 1.25rem auto 0;"></p>
+                            <div class="balance-note" id="balance-note">Beberapa dimensi terlihat seimbang. Hasil ini bisa berubah sesuai konteks hidupmu.</div>
+                        </div>
+                        <div class="result-grid" id="result-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mbti-cta">
+            <div class="container">
+                <h2>Lanjutkan Peta Diri Kamu</h2>
+                <p>Gunakan hasil ini sebagai pintu masuk, lalu perdalam refleksi melalui tes lain, Blueprint Reading, atau aplikasi Bhumi.</p>
+                <div class="cta-buttons">
+                    <a href="/tes-kenali-diri/" class="btn btn-light" data-cta-type="tes-kenali-diri">Lanjut Tes Kenali Diri</a>
+                    <a href="/produk/blueprint-reading/" class="btn btn-cta-outline" data-cta-type="blueprint-reading">Pesan Blueprint Reading</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-playstore" data-cta-type="play-store">Download Aplikasi Bhumi</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="kontak">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="footer-brand">
+                    <img src="/assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38">
+                    <h4>Bhumi Amartya</h4>
+                </div>
+                <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Menu</h5>
+                <ul>
+                    <li><a href="/#beranda" class="footer-link">Beranda</a></li>
+                    <li><a href="/tes-kenali-diri/" class="footer-link">Tes Kenali Diri</a></li>
+                    <li><a href="/cek-aura/" class="footer-link">Cek Aura</a></li>
+                    <li><a href="/weton/" class="footer-link">Cek Weton</a></li>
+                    <li><a href="/kenali-diri/human-design/" class="footer-link">Human Design</a></li>
+                    <li><a href="/kenali-diri/mbti/" class="footer-link">MBTI</a></li>
+                    <li><a href="/kalkulator-cinta/" class="footer-link">Kalkulator Cinta</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h5>Kontak</h5>
+                <p>Email: salam@bhumiamartya.my.id</p>
+                <p>WhatsApp: +62 858-1053-1892</p>
+                <p>Lokasi: Jakarta, Indonesia</p>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Bhumi Amartya. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="/privacy-policy/" class="footer-link">Kebijakan Privasi</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/bhumi-analytics.js" defer></script>
+    <script>
+        const QUESTIONS = [
+            { text: "Aku merasa lebih berenergi setelah bertemu dan ngobrol dengan banyak orang.", direction: "E" },
+            { text: "Aku merasa paling pulih saat punya waktu sendiri tanpa banyak gangguan.", direction: "I" },
+            { text: "Saat punya ide, aku lebih mudah memahaminya dengan membicarakannya.", direction: "E" },
+            { text: "Aku lebih nyaman mengamati situasi terlebih dahulu sebelum ikut terlibat.", direction: "I" },
+            { text: "Aku cukup mudah memulai percakapan dengan orang baru.", direction: "E" },
+            { text: "Aku lebih suka membagikan isi pikiranku kepada orang yang benar-benar aku percaya.", direction: "I" },
+            { text: "Aktivitas ramai sering membuatku merasa hidup dan terhubung.", direction: "E" },
+            { text: "Terlalu banyak interaksi dalam satu hari bisa membuat energiku cepat habis.", direction: "I" },
+            { text: "Aku lebih percaya pada informasi yang jelas, nyata, dan bisa dibuktikan.", direction: "S" },
+            { text: "Aku sering menangkap pola atau makna tersembunyi dari sebuah kejadian.", direction: "N" },
+            { text: "Aku menyukai instruksi yang praktis, runtut, dan langsung bisa dilakukan.", direction: "S" },
+            { text: "Aku lebih tertarik memahami gambaran besar daripada detail kecil di awal.", direction: "N" },
+            { text: "Aku biasanya fokus pada apa yang sedang terjadi saat ini.", direction: "S" },
+            { text: "Pikiranku sering melompat ke kemungkinan masa depan.", direction: "N" },
+            { text: "Aku merasa nyaman memakai cara yang sudah terbukti berhasil.", direction: "S" },
+            { text: "Aku senang mencoba pendekatan baru meskipun belum banyak orang melakukannya.", direction: "N" },
+            { text: "Saat mengambil keputusan, aku berusaha melihat mana yang paling logis dan objektif.", direction: "T" },
+            { text: "Saat mengambil keputusan, aku sangat mempertimbangkan dampaknya pada perasaan orang lain.", direction: "F" },
+            { text: "Aku lebih mudah menerima kritik jika alasannya jelas dan masuk akal.", direction: "T" },
+            { text: "Aku cenderung berhati-hati agar ucapanku tidak melukai orang lain.", direction: "F" },
+            { text: "Dalam konflik, aku ingin masalahnya dijelaskan secara jernih dan rasional.", direction: "T" },
+            { text: "Dalam konflik, aku ingin perasaan masing-masing pihak benar-benar didengar.", direction: "F" },
+            { text: "Aku menghargai keputusan yang adil dan konsisten.", direction: "T" },
+            { text: "Aku menghargai keputusan yang mempertimbangkan situasi personal seseorang.", direction: "F" },
+            { text: "Aku merasa lebih tenang ketika rencana sudah tersusun dengan jelas.", direction: "J" },
+            { text: "Aku merasa lebih bebas ketika masih ada ruang untuk berubah arah.", direction: "P" },
+            { text: "Aku suka menyelesaikan tugas lebih dulu sebelum benar-benar bersantai.", direction: "J" },
+            { text: "Aku bisa tetap nyaman meski beberapa hal berjalan spontan.", direction: "P" },
+            { text: "Aku merasa terbantu dengan jadwal, daftar tugas, atau struktur yang rapi.", direction: "J" },
+            { text: "Aku lebih suka mengikuti alur dan menyesuaikan diri sambil berjalan.", direction: "P" },
+            { text: "Aku cenderung ingin segera membuat keputusan agar semuanya jelas.", direction: "J" },
+            { text: "Aku cenderung membiarkan pilihan tetap terbuka sampai waktunya terasa tepat.", direction: "P" }
+        ];
+
+        const SCALE = [
+            { value: 3, label: "Sangat Setuju", size: 42, color: "#4F8A60" },
+            { value: 2, label: "Setuju", size: 36, color: "#5E9B6E" },
+            { value: 1, label: "Sedikit Setuju", size: 30, color: "#76AD82" },
+            { value: 0, label: "Netral", size: 28, color: "#9CA3AF" },
+            { value: -1, label: "Sedikit Tidak Setuju", size: 30, color: "#8D73A6" },
+            { value: -2, label: "Tidak Setuju", size: 36, color: "#7D6098" },
+            { value: -3, label: "Sangat Tidak Setuju", size: 42, color: "#6D5188" }
+        ];
+
+        const TYPE_META = {
+            INTJ: ["Architect", "Sang Arsitek Strategi"], INTP: ["Logician", "Sang Perumus Ide"], ENTJ: ["Commander", "Sang Pengarah Gerak"], ENTP: ["Debater", "Sang Pemantik Kemungkinan"],
+            INFJ: ["Advocate", "Sang Penjaga Makna"], INFP: ["Mediator", "Sang Pemimpi Penyembuh"], ENFJ: ["Protagonist", "Sang Penuntun Hati"], ENFP: ["Campaigner", "Sang Penjelajah Jiwa"],
+            ISTJ: ["Logistician", "Sang Penjaga Struktur"], ISFJ: ["Defender", "Sang Perawat Sunyi"], ESTJ: ["Executive", "Sang Pengatur Sistem"], ESFJ: ["Consul", "Sang Penjaga Kehangatan"],
+            ISTP: ["Virtuoso", "Sang Pemecah Masalah"], ISFP: ["Adventurer", "Sang Seniman Rasa"], ESTP: ["Entrepreneur", "Sang Penggerak Aksi"], ESFP: ["Entertainer", "Sang Penyala Suasana"]
+        };
+
+        const TYPE_COPY = {
+            INTJ: ["pola strategis, mandiri, dan senang merancang arah jangka panjang", "kejernihan visi, daya analisis, dan kemampuan melihat celah sistem", "membiarkan proses tidak selalu sempurna serta membuka ruang kolaborasi emosional", "membutuhkan relasi yang menghargai kedalaman, batas sehat, dan percakapan yang jujur", "cocok dengan ruang yang memberi otonomi, riset, perencanaan, dan perbaikan sistem", "Di bagian mana kamu sedang terlalu keras pada rencana yang sebenarnya masih bisa tumbuh?"],
+            INTP: ["pola ingin memahami prinsip di balik sesuatu sebelum bergerak", "rasa ingin tahu, keluwesan berpikir, dan kemampuan merumuskan ide kompleks", "membumikan ide menjadi langkah kecil yang bisa diuji", "lebih mudah dekat saat ada kebebasan berpikir dan rasa aman untuk menjadi unik", "cocok dengan analisis, eksperimen, teknologi, strategi, atau riset konseptual", "Ide mana yang sudah cukup matang untuk dicoba, meski belum sempurna?"],
+            ENTJ: ["pola terarah, tegas, dan mudah membaca langkah yang perlu diambil", "kepemimpinan, keberanian mengambil keputusan, dan kemampuan menggerakkan orang", "melambat untuk mendengar nuansa rasa sebelum menyimpulkan", "membawa energi jelas dalam relasi, namun tetap perlu ruang lembut untuk mendengar", "cocok dengan manajemen, bisnis, strategi, dan peran yang menuntut keputusan besar", "Apa yang berubah jika kekuatanmu juga memberi ruang bagi kelembutan?"],
+            ENTP: ["pola eksploratif, cepat menangkap peluang, dan senang menguji ide", "kreativitas, keberanian berdialog, dan kemampuan melihat banyak kemungkinan", "menyelesaikan satu jalur sebelum membuka terlalu banyak pintu baru", "relasi terasa hidup ketika ada percakapan terbuka, humor, dan ruang bertumbuh", "cocok dengan inovasi, komunikasi, produk, kampanye, atau pemecahan masalah dinamis", "Kemungkinan mana yang benar-benar meminta komitmenmu sekarang?"],
+            INFJ: ["pola intuitif, reflektif, dan peka terhadap makna di balik pengalaman", "kedalaman empati, visi personal, dan kemampuan membaca arah batin seseorang", "menjaga batas agar tidak menanggung terlalu banyak emosi sekitar", "mencari relasi yang jujur, mendalam, dan selaras dengan nilai batin", "cocok dengan konseling, penulisan, pendidikan, strategi bermakna, atau karya penyembuhan", "Makna apa yang sedang kamu jaga, dan apakah ia juga menjagamu kembali?"],
+            INFP: ["pola lembut, imajinatif, dan sangat terhubung dengan nilai personal", "kepekaan rasa, kreativitas, dan kemampuan melihat sisi manusiawi dari banyak hal", "membuat struktur sederhana agar inspirasi tidak menguap terlalu cepat", "membutuhkan relasi yang menerima kejujuran emosi dan keunikan cara merasa", "cocok dengan seni, penulisan, healing, komunitas, atau kerja berbasis nilai", "Nilai apa yang paling ingin kamu hidupi lewat pilihan kecil hari ini?"],
+            ENFJ: ["pola hangat, suportif, dan mudah menangkap kebutuhan kelompok", "kemampuan memandu, menyemangati, dan membuat orang merasa terlihat", "tidak melupakan kebutuhan sendiri saat sedang merawat arah orang lain", "membangun relasi lewat perhatian, komunikasi, dan komitmen yang terasa hidup", "cocok dengan edukasi, komunitas, kepemimpinan manusiawi, atau komunikasi publik", "Dukungan apa yang juga perlu kamu izinkan datang untuk dirimu?"],
+            ENFP: ["pola antusias, penuh kemungkinan, dan bergerak lewat rasa terinspirasi", "kehangatan, imajinasi sosial, dan kemampuan menyalakan harapan baru", "memilih fokus agar energi kreatif punya bentuk yang bisa selesai", "relasi terasa subur saat ada kebebasan, kejujuran, dan petualangan batin", "cocok dengan karya kreatif, brand, komunitas, edukasi, atau peran penghubung", "Dari semua hal yang menarik, mana yang paling selaras dengan hatimu saat ini?"],
+            ISTJ: ["pola teliti, bertanggung jawab, dan menghargai hal yang jelas terbukti", "konsistensi, ketahanan, dan kemampuan menjaga sistem tetap berjalan", "memberi ruang pada perubahan yang tidak langsung punya peta lengkap", "menunjukkan sayang lewat kesetiaan, bantuan nyata, dan kehadiran yang stabil", "cocok dengan operasional, administrasi, keuangan, hukum, atau sistem kualitas", "Struktur mana yang mendukung hidupmu, dan mana yang mulai terlalu sempit?"],
+            ISFJ: ["pola penuh perhatian, tenang, dan peka terhadap kebutuhan konkret orang dekat", "ketulusan merawat, ingatan detail, dan kemampuan menciptakan rasa aman", "mengungkapkan kebutuhan sendiri sebelum tubuh atau hati terasa penuh", "relasi dibangun lewat perhatian konsisten, kepercayaan, dan kehangatan sederhana", "cocok dengan pelayanan, kesehatan, pendidikan, administrasi, atau dukungan komunitas", "Apa yang kamu butuhkan agar perhatianmu tidak habis hanya keluar?"],
+            ESTJ: ["pola praktis, terstruktur, dan mudah melihat apa yang perlu dibereskan", "ketegasan, tanggung jawab, dan kemampuan mengatur sumber daya", "mendengar konteks personal sebelum memperbaiki semuanya terlalu cepat", "membawa stabilitas dalam relasi lewat kejelasan, komitmen, dan tindakan nyata", "cocok dengan manajemen, operasional, pemerintahan, bisnis, atau koordinasi tim", "Bagaimana caramu memimpin tanpa kehilangan ruang mendengar?"],
+            ESFJ: ["pola ramah, kooperatif, dan peka pada harmoni lingkungan", "kehangatan sosial, kepedulian praktis, dan kemampuan menyatukan orang", "tidak menjadikan penerimaan orang lain sebagai satu-satunya kompas", "relasi terasa penting, hangat, dan perlu dirawat lewat komunikasi rutin", "cocok dengan pelayanan, event, edukasi, hospitality, komunitas, atau HR", "Kapan terakhir kamu memilih dirimu tanpa merasa harus meminta izin?"],
+            ISTP: ["pola tenang, mandiri, dan cepat memahami cara kerja sesuatu", "ketangkasan memecahkan masalah, observasi, dan keberanian bertindak efisien", "membagikan proses batin agar orang dekat tidak hanya menebak dari tindakan", "membutuhkan relasi yang memberi ruang, percaya, dan tidak terlalu mengekang", "cocok dengan teknis, desain produk, troubleshooting, craft, atau kerja lapangan", "Masalah mana yang sedang meminta kehadiranmu, bukan hanya kecerdikanmu?"],
+            ISFP: ["pola lembut, estetis, dan bergerak dari rasa yang autentik", "kepekaan artistik, kehadiran tenang, dan kemampuan menikmati momen", "menyuarakan batas dan keinginan tanpa menunggu semuanya terasa aman dulu", "relasi tumbuh lewat penerimaan, tindakan kecil, dan ruang untuk menjadi diri sendiri", "cocok dengan seni, desain, healing, alam, kuliner, atau kerja yang menyentuh rasa", "Ekspresi apa yang ingin keluar dari dirimu dengan lebih jujur?"],
+            ESTP: ["pola spontan, realistis, dan cepat membaca peluang di depan mata", "keberanian aksi, adaptasi, dan kemampuan membuat situasi bergerak", "memikirkan dampak jangka panjang sebelum mengambil risiko besar", "relasi terasa hidup lewat pengalaman bersama, kejujuran, dan energi yang nyata", "cocok dengan bisnis, sales, event, olahraga, lapangan, atau peran cepat tanggap", "Aksi apa yang tetap berani, tetapi juga menghormati masa depanmu?"],
+            ESFP: ["pola ekspresif, hangat, dan mudah menghidupkan suasana sekitar", "keceriaan, kepekaan sosial, dan kemampuan hadir penuh di momen sekarang", "membangun arah jangka panjang agar energi besar punya pijakan", "relasi dirawat lewat kehadiran, tawa, perhatian, dan pengalaman yang terasa nyata", "cocok dengan hiburan, komunikasi, hospitality, edukasi, komunitas, atau seni performatif", "Kegembiraan mana yang juga membawa kamu lebih dekat pada arah hidupmu?"]
+        };
+
+        const answers = new Array(QUESTIONS.length).fill(null);
+        let mbtiStarted = false;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            setupMenu();
+            renderQuestions();
+            document.getElementById("submit-btn").addEventListener("click", showResult);
+            document.querySelectorAll("[data-cta-type]").forEach(function (link) {
+                link.addEventListener("click", function () {
+                    window.BhumiAnalytics?.track("mbti_cta_clicked", { ctaType: link.dataset.ctaType });
+                });
+            });
+        });
+
+        function setupMenu() {
+            const burger = document.getElementById("burger-menu");
+            const nav = document.getElementById("nav-menu");
+            if (!burger || !nav) return;
+            burger.addEventListener("click", function () {
+                burger.classList.toggle("open");
+                nav.classList.toggle("open");
+                document.body.classList.toggle("menu-open", nav.classList.contains("open"));
+            });
+        }
+
+        function renderQuestions() {
+            const list = document.getElementById("question-list");
+            QUESTIONS.forEach(function (question, index) {
+                const card = document.createElement("article");
+                card.className = "question-card";
+                card.innerHTML = `
+                    <div class="question-text">${index + 1}. ${question.text}</div>
+                    <div class="scale-row">
+                        <div class="scale-label agree">Setuju</div>
+                        <div class="choice-row" role="radiogroup" aria-label="Pernyataan ${index + 1}"></div>
+                        <div class="scale-label disagree">Tidak setuju</div>
+                    </div>
+                `;
+                const row = card.querySelector(".choice-row");
+                SCALE.forEach(function (choice) {
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.className = "choice-btn";
+                    button.setAttribute("aria-label", choice.label);
+                    button.style.setProperty("--size", choice.size + "px");
+                    button.style.setProperty("--choice-color", choice.color);
+                    button.addEventListener("click", function () { selectAnswer(index, choice.value, card); });
+                    row.appendChild(button);
+                });
+                list.appendChild(card);
+            });
+        }
+
+        function selectAnswer(index, value, card) {
+            answers[index] = value;
+            card.querySelectorAll(".choice-btn").forEach(function (button) {
+                button.classList.remove("selected");
+                button.setAttribute("aria-checked", "false");
+            });
+            const selected = Array.from(card.querySelectorAll(".choice-btn")).find(function (_, i) {
+                return SCALE[i].value === value;
+            });
+            if (selected) {
+                selected.classList.add("selected");
+                selected.setAttribute("aria-checked", "true");
+            }
+            if (!mbtiStarted) {
+                mbtiStarted = true;
+                window.BhumiAnalytics?.track("mbti_started", { status: "started" });
+            }
+            document.getElementById("error-message").textContent = "";
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answered = answers.filter(function (answer) { return answer !== null; }).length;
+            document.getElementById("progress-count").textContent = answered + " dari " + QUESTIONS.length + " pernyataan terjawab";
+            document.getElementById("progress-fill").style.width = (answered / QUESTIONS.length * 100) + "%";
+        }
+
+        function showResult() {
+            if (answers.some(function (answer) { return answer === null; })) {
+                document.getElementById("error-message").textContent = "Jawab semua pernyataan dulu agar hasilnya lebih utuh.";
+                return;
+            }
+            const result = calculateResult();
+            renderResult(result);
+            window.BhumiAnalytics?.track("mbti_completed", { resultType: result.type });
+        }
+
+        function calculateResult() {
+            const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            const counts = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+            let balanced = false;
+
+            QUESTIONS.forEach(function (question, index) {
+                const value = answers[index];
+                const magnitude = Math.abs(value);
+                const opposite = getOpposite(question.direction);
+                counts[question.direction] += 1;
+                if (value > 0) scores[question.direction] += magnitude;
+                if (value < 0) scores[opposite] += magnitude;
+            });
+
+            function choose(a, b, fallback) {
+                if (scores[a] > scores[b]) return a;
+                if (scores[b] > scores[a]) return b;
+                balanced = true;
+                if (counts[a] > counts[b]) return a;
+                if (counts[b] > counts[a]) return b;
+                return fallback;
+            }
+
+            const type = choose("E", "I", "I") + choose("S", "N", "N") + choose("T", "F", "F") + choose("J", "P", "P");
+            return { type, balanced };
+        }
+
+        function getOpposite(direction) {
+            return ({ E: "I", I: "E", S: "N", N: "S", T: "F", F: "T", J: "P", P: "J" })[direction];
+        }
+
+        function renderResult(result) {
+            const meta = TYPE_META[result.type];
+            const copy = TYPE_COPY[result.type];
+            document.getElementById("result-type").textContent = result.type;
+            document.getElementById("result-name").textContent = meta[0];
+            document.getElementById("result-local").textContent = meta[1];
+            document.getElementById("result-intro").textContent = "Dalam nama populer internasional, " + result.type + " sering dikenal sebagai " + meta[0] + ". Di Bhumi, tipe ini dibaca sebagai pribadi yang cenderung " + copy[0] + ".";
+            document.getElementById("balance-note").classList.toggle("show", result.balanced);
+
+            const sections = [
+                ["Ringkasan singkat", "Pola yang tampak menunjukkan kecenderungan " + copy[0] + ". Ini bisa menjadi cermin awal, bukan batas akhir dari cara kamu memahami diri."],
+                ["Kekuatan alami", "Kekuatan yang biasanya mudah muncul adalah " + copy[1] + "."],
+                ["Area bertumbuh", "Area bertumbuh yang bisa diperhatikan adalah " + copy[2] + "."],
+                ["Pola relasi", "Dalam relasi, kamu cenderung " + copy[3] + "."],
+                ["Pola kerja / karier", "Dalam kerja, kamu bisa lebih selaras pada ruang seperti " + copy[4] + "."],
+                ["Pertanyaan refleksi", copy[5]]
+            ];
+
+            const grid = document.getElementById("result-grid");
+            grid.innerHTML = "";
+            sections.forEach(function (section) {
+                const block = document.createElement("div");
+                block.className = "result-block";
+                block.innerHTML = "<h3>" + section[0] + "</h3><p>" + section[1] + "</p>";
+                grid.appendChild(block);
+            });
+
+            const card = document.getElementById("result-card");
+            card.classList.add("show");
+            card.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    </script>
+</body>
+</html>
