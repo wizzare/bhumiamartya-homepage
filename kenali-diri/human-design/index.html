@@ -325,6 +325,86 @@
             flex-wrap: wrap;
         }
 
+        .gate-channel-summary {
+            margin-top: 1.5rem;
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 18px;
+            padding: 1.35rem;
+            text-align: left;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gate-channel-header {
+            margin-bottom: 1rem;
+        }
+
+        .gate-channel-title {
+            font-family: var(--font-heading);
+            font-size: 1.45rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+            line-height: 1.25;
+        }
+
+        .gate-channel-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .gate-channel-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .gate-channel-card {
+            background: #FAF9F6;
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 14px;
+            padding: 1rem;
+            min-width: 0;
+        }
+
+        .gate-channel-card h4 {
+            margin: 0 0 0.75rem;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gold-dark);
+        }
+
+        .chip-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .gate-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 28px;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            background: rgba(212, 175, 55, 0.14);
+            border: 1px solid rgba(184, 134, 11, 0.2);
+            color: #6F5010;
+            font-size: 0.82rem;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .summary-empty {
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
         .pdf-exporting .no-pdf,
         #hd-pdf-export .no-pdf {
             display: none !important;
@@ -418,6 +498,27 @@
             font-size: 8px;
         }
 
+        #hd-pdf-export .gate-channel-summary {
+            margin-top: 14px;
+            padding: 14px;
+            box-shadow: none;
+        }
+
+        #hd-pdf-export .gate-channel-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        #hd-pdf-export .gate-channel-card {
+            padding: 9px;
+        }
+
+        #hd-pdf-export .gate-chip {
+            min-height: 22px;
+            padding: 2px 7px;
+            font-size: 9px;
+        }
+
         .loading-spinner {
             display: none;
             text-align: center;
@@ -460,6 +561,9 @@
                 order: 3;
                 max-width: 340px;
                 width: 100%;
+            }
+            .gate-channel-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -672,6 +776,27 @@
                                             <button onclick="resetHumanDesign()" class="btn btn-primary" style="padding: 0.75rem 2rem;">Hitung Ulang</button>
                                         </div>
                                     </div>
+
+                                    <section class="gate-channel-summary pdf-page-break-avoid" aria-labelledby="gate-channel-title">
+                                        <div class="gate-channel-header">
+                                            <h3 id="gate-channel-title" class="gate-channel-title">Gate &amp; Channel Aktif</h3>
+                                            <p class="gate-channel-subtitle">Ringkasan gate, channel, dan hanging gate yang terbaca dari bodygraph kamu.</p>
+                                        </div>
+                                        <div class="gate-channel-grid">
+                                            <div class="gate-channel-card">
+                                                <h4>Gate Aktif</h4>
+                                                <div id="active-gates-list" class="chip-list"></div>
+                                            </div>
+                                            <div class="gate-channel-card">
+                                                <h4>Channel Aktif</h4>
+                                                <div id="defined-channels-list" class="chip-list"></div>
+                                            </div>
+                                            <div class="gate-channel-card">
+                                                <h4>Hanging Gates</h4>
+                                                <div id="hanging-gates-list" class="chip-list"></div>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
                             </div>
                         </div>
@@ -894,6 +1019,7 @@
 
             // Render Bodygraph SVG
             renderBodygraphSVG(data.bodygraph || {});
+            renderGateChannelSummary(data);
 
             const mainGrid = document.querySelector('.hd-main-grid');
             if (mainGrid) mainGrid.classList.add('has-result');
@@ -941,6 +1067,116 @@
         function planetSymbol(name) {
             const found = PLANETS.find(p => p.name.toLowerCase() === String(name || '').toLowerCase());
             return found ? found.symbol : '';
+        }
+
+        function renderGateChannelSummary(data) {
+            const designActivations = normalizeActivations(data.design);
+            const personalityActivations = normalizeActivations(data.personality);
+            const activationGateLines = [...designActivations, ...personalityActivations]
+                .map(item => item.gateLine)
+                .filter(Boolean);
+            const bodygraphGates = (data.bodygraph?.gates || [])
+                .map(Number)
+                .filter(Number.isFinite);
+            const activeGateNumbers = collectActiveGateNumbers(activationGateLines, bodygraphGates);
+            const activeGateLabels = activationGateLines.length > 0
+                ? uniqueStrings(activationGateLines).sort(sortGateLines)
+                : activeGateNumbers.map(String).sort(sortGateNumbers);
+            const definedChannels = resolveDefinedChannelsList(data.bodygraph?.channels || [], activeGateNumbers);
+            const hangingGates = resolveHangingGates(activeGateNumbers);
+
+            renderChipList('active-gates-list', activeGateLabels, 'Tidak ada gate aktif yang terbaca dari data saat ini.');
+            renderChipList('defined-channels-list', definedChannels, 'Tidak ada channel aktif yang terbaca dari data saat ini.');
+            renderChipList('hanging-gates-list', hangingGates.map(String), 'Tidak ada hanging gate yang terbaca dari data saat ini.');
+        }
+
+        function collectActiveGateNumbers(gateLines, bodygraphGates) {
+            const numbers = new Set(bodygraphGates);
+            gateLines.forEach(value => {
+                const gate = parseGateNumber(value);
+                if (Number.isFinite(gate)) numbers.add(gate);
+            });
+            return Array.from(numbers).sort((a, b) => a - b);
+        }
+
+        function parseGateNumber(value) {
+            const match = String(value || '').match(/^(\d+)/);
+            return match ? Number(match[1]) : NaN;
+        }
+
+        function resolveDefinedChannelsList(apiChannels, activeGateNumbers) {
+            const active = new Set(activeGateNumbers);
+            const channels = new Set();
+
+            apiChannels.forEach(channel => {
+                const normalized = normalizeChannel(channel);
+                if (normalized && normalized !== 'NaN') channels.add(normalized);
+            });
+
+            CHANNELS.forEach(channel => {
+                const [a, b] = channel.split('-').map(Number);
+                if (active.has(a) && active.has(b)) channels.add(normalizeChannel(channel));
+            });
+
+            return Array.from(channels).sort(sortChannels).map(formatChannel);
+        }
+
+        function resolveHangingGates(activeGateNumbers) {
+            const active = new Set(activeGateNumbers);
+            const hanging = new Set();
+
+            CHANNELS.forEach(channel => {
+                const [a, b] = channel.split('-').map(Number);
+                if (active.has(a) && !active.has(b)) hanging.add(a);
+                if (active.has(b) && !active.has(a)) hanging.add(b);
+            });
+
+            return Array.from(hanging).sort((a, b) => a - b);
+        }
+
+        function renderChipList(containerId, values, emptyText) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (!values || values.length === 0) {
+                const empty = document.createElement('p');
+                empty.className = 'summary-empty';
+                empty.textContent = emptyText;
+                container.appendChild(empty);
+                return;
+            }
+
+            values.forEach(value => {
+                const chip = document.createElement('span');
+                chip.className = 'gate-chip';
+                chip.textContent = value;
+                container.appendChild(chip);
+            });
+        }
+
+        function uniqueStrings(values) {
+            return Array.from(new Set(values.map(value => String(value).trim()).filter(Boolean)));
+        }
+
+        function sortGateLines(a, b) {
+            const [gateA, lineA = 0] = String(a).split('.').map(Number);
+            const [gateB, lineB = 0] = String(b).split('.').map(Number);
+            return gateA - gateB || lineA - lineB;
+        }
+
+        function sortGateNumbers(a, b) {
+            return Number(a) - Number(b);
+        }
+
+        function sortChannels(a, b) {
+            const [a1, a2] = a.split('-').map(Number);
+            const [b1, b2] = b.split('-').map(Number);
+            return a1 - b1 || a2 - b2;
+        }
+
+        function formatChannel(channel) {
+            return channel.replace('-', '–');
         }
 
         function escapeHtml(value) {
