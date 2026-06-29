@@ -3127,7 +3127,15 @@
                     const articles = Array.isArray(data.articles) ? data.articles.slice(0, 3) : [];
 
                     if (!articles.length) {
-                        container.style.display = 'none';
+                        container.innerHTML = `
+                            <article class="article-card reveal reveal-visible">
+                                <div class="article-body">
+                                    <span class="article-meta">Segera Hadir</span>
+                                    <h3 class="article-title">Artikel Bhumi sedang disiapkan</h3>
+                                    <p class="article-excerpt">Founder dapat menerbitkan artikel baru dari dashboard. Sambil menunggu, arsip Wedhaswara tetap tersedia di bawah.</p>
+                                </div>
+                            </article>
+                        `;
                         return;
                     }
 
@@ -3173,7 +3181,15 @@
                     });
                 } catch (error) {
                     console.error('Bhumi Amartya Articles API Error:', error);
-                    container.style.display = 'none';
+                    container.innerHTML = `
+                        <article class="article-card reveal reveal-visible">
+                            <div class="article-body">
+                                <span class="article-meta">Offline</span>
+                                <h3 class="article-title">Artikel Bhumi belum bisa dimuat</h3>
+                                <p class="article-excerpt">Arsip Wedhaswara tetap tersedia di bawah sebagai bacaan reflektif sementara.</p>
+                            </div>
+                        </article>
+                    `;
                 }
             }
 
