@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/articles/:slug",
+      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+    },
+    {
+      "source": "/articles/:slug/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+    }
+  ]
+}

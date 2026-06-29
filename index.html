@@ -2393,35 +2393,18 @@
 
 
 
-    <!-- 6. BHUMI ARTICLES -->
+    <!-- 6. BUKU CATATAN KESADARAN (BHUMI & WEDHASWARA ARTICLES) -->
     <section class="section section-alt" id="artikel">
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-tag">Buku Catatan Kesadaran</span>
-                <h2 class="section-title">Artikel Terbaru dari Bhumi</h2>
-                <p class="section-desc">Tulisan terbaru dari Bhumi Amartya untuk menemani proses pulang, refleksi, dan mengenali diri secara lebih utuh.</p>
+                <h2 class="section-title">Buku Catatan Kesadaran</h2>
+                <p class="section-desc">Tulisan reflektif dari Bhumi Amartya dan arsip Wedhaswara untuk menemani proses pulang, mengenal diri, dan membaca hidup dengan lebih utuh.</p>
             </div>
 
             <div class="articles-grid" id="bhumi-articles-container" data-bhumi-article-feed="https://bhumi-amartya-clean.vercel.app/api/articles?limit=3">
-                <article class="article-card reveal">
-                    <div class="article-body">
-                        <span class="article-meta">Memuat</span>
-                        <h3 class="article-title">Artikel Bhumi sedang disiapkan</h3>
-                        <p class="article-excerpt">Jika belum ada artikel yang dipublikasikan, bagian ini akan otomatis tersembunyi dan arsip Wedhaswara tetap tampil.</p>
-                    </div>
-                </article>
-            </div>
-
-            <div class="section-header reveal" style="margin-top: 5rem;">
-                <span class="section-tag">Arsip Wedhaswara</span>
-                <h2 class="section-title">Ngopi Ilmu</h2>
-                <p class="section-desc">Arsip tulisan reflektif dari Wedhaswara tetap hadir selama masa transisi konten Bhumi.</p>
-            </div>
-
-            <!-- Preconfigured feed selector for WordPress dynamic integration -->
-            <div class="articles-grid" id="articles-feed-container" data-article-feed="https://wedhaswara.my.id/wp-json/wp/v2/posts?_embed&per_page=3">
-                <!-- Article 1 -->
-                <article class="article-card reveal">
+                <!-- Wedhaswara Archive Card 1 -->
+                <article class="article-card reveal" data-article-source="wedhaswara" data-article-slug="tubuh-tidak-pernah-bohong">
                     <div class="article-img-wrapper">
                         <div class="article-img-placeholder">
                             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2430,21 +2413,22 @@
                                 <path d="M50 35 L50 65" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                         </div>
+                        <span class="article-meta" style="background: rgba(214, 169, 74, 0.2); color: #6A4B13; font-weight: 700; margin-right: 0.3rem;">Arsip Wedhaswara</span>
                         <span class="article-meta">Kesehatan Tubuh</span>
                     </div>
                     <div class="article-body">
                         <h3 class="article-title">Tubuh Tidak Pernah Bohong</h3>
                         <div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">20 Juni 2026</div>
                         <p class="article-excerpt">Bagaimana emosi yang tidak terproses tersimpan di dalam fisik kita, dan cara merilisnya melalui kesadaran gerak serta penerimaan batin.</p>
-                        <a href="https://wedhaswara.my.id/tubuh-tidak-pernah-bohong" target="_blank" rel="noopener noreferrer" class="article-link" aria-label="Baca artikel lengkap Tubuh Tidak Pernah Bohong">
+                        <a href="https://wedhaswara.my.id/tubuh-tidak-pernah-bohong" target="_blank" rel="noopener noreferrer" class="article-link wedhaswara-article-link" data-article-source="wedhaswara" data-article-slug="tubuh-tidak-pernah-bohong" aria-label="Baca artikel lengkap Tubuh Tidak Pernah Bohong">
                             <span>Baca Artikel</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
                     </div>
                 </article>
 
-                <!-- Article 2 -->
-                <article class="article-card reveal" style="transition-delay: 0.1s;">
+                <!-- Wedhaswara Archive Card 2 -->
+                <article class="article-card reveal" style="transition-delay: 0.1s;" data-article-source="wedhaswara" data-article-slug="mengenali-shadow-diri">
                     <div class="article-img-wrapper">
                         <div class="article-img-placeholder">
                             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2452,21 +2436,22 @@
                                 <path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/>
                             </svg>
                         </div>
+                        <span class="article-meta" style="background: rgba(214, 169, 74, 0.2); color: #6A4B13; font-weight: 700; margin-right: 0.3rem;">Arsip Wedhaswara</span>
                         <span class="article-meta">Shadow Work</span>
                     </div>
                     <div class="article-body">
                         <h3 class="article-title">Mengenali Shadow Diri</h3>
                         <div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">18 Juni 2026</div>
                         <p class="article-excerpt">Menguak bagian diri yang tersembunyi, ditolak, atau ditekan untuk mencapai keutuhan diri yang sejati melalui panduan shadow work terarah.</p>
-                        <a href="https://wedhaswara.my.id/mengenali-shadow-diri" target="_blank" rel="noopener noreferrer" class="article-link" aria-label="Baca artikel lengkap Mengenali Shadow Diri">
+                        <a href="https://wedhaswara.my.id/mengenali-shadow-diri" target="_blank" rel="noopener noreferrer" class="article-link wedhaswara-article-link" data-article-source="wedhaswara" data-article-slug="mengenali-shadow-diri" aria-label="Baca artikel lengkap Mengenali Shadow Diri">
                             <span>Baca Artikel</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
                     </div>
                 </article>
 
-                <!-- Article 3 -->
-                <article class="article-card reveal" style="transition-delay: 0.2s;">
+                <!-- Wedhaswara Archive Card 3 -->
+                <article class="article-card reveal" style="transition-delay: 0.2s;" data-article-source="wedhaswara" data-article-slug="belajar-melepaskan-kontrol">
                     <div class="article-img-wrapper">
                         <div class="article-img-placeholder">
                             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2475,13 +2460,14 @@
                                 <circle cx="50" cy="50" r="3" fill="currentColor"/>
                             </svg>
                         </div>
+                        <span class="article-meta" style="background: rgba(214, 169, 74, 0.2); color: #6A4B13; font-weight: 700; margin-right: 0.3rem;">Arsip Wedhaswara</span>
                         <span class="article-meta">Filsafat Berserah</span>
                     </div>
                     <div class="article-body">
                         <h3 class="article-title">Belajar Melepaskan Kontrol</h3>
                         <div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">15 Juni 2026</div>
                         <p class="article-excerpt">Seni berserah (surrender) di tengah ketidakpastian dunia modern untuk menemukan kejernihan batin dan kestabilan fokus yang hakiki.</p>
-                        <a href="https://wedhaswara.my.id/belajar-melepaskan-kontrol" target="_blank" rel="noopener noreferrer" class="article-link" aria-label="Baca artikel lengkap Belajar Melepaskan Kontrol">
+                        <a href="https://wedhaswara.my.id/belajar-melepaskan-kontrol" target="_blank" rel="noopener noreferrer" class="article-link wedhaswara-article-link" data-article-source="wedhaswara" data-article-slug="belajar-melepaskan-kontrol" aria-label="Baca artikel lengkap Belajar Melepaskan Kontrol">
                             <span>Baca Artikel</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                         </a>
@@ -3120,76 +3106,66 @@
                     return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
                 };
 
+                const setupAnalytics = () => {
+                    container.querySelectorAll('.article-link').forEach((link) => {
+                        link.addEventListener('click', () => {
+                            if (window.BhumiAnalytics) {
+                                window.BhumiAnalytics.track('article_card_clicked', {
+                                    source: link.getAttribute('data-article-source') || (link.classList.contains('wedhaswara-article-link') ? 'wedhaswara' : 'bhumi'),
+                                    slug: link.getAttribute('data-article-slug') || '',
+                                    ctaType: 'homepage_article_card'
+                                });
+                            }
+                        });
+                    });
+                };
+
+                // Attach analytics to initial static cards
+                setupAnalytics();
+
                 try {
                     const response = await fetch(feedUrl);
                     if (!response.ok) throw new Error('Bhumi Articles API response was not ok');
                     const data = await response.json();
                     const articles = Array.isArray(data.articles) ? data.articles.slice(0, 3) : [];
 
-                    if (!articles.length) {
-                        container.innerHTML = `
-                            <article class="article-card reveal reveal-visible">
-                                <div class="article-body">
-                                    <span class="article-meta">Segera Hadir</span>
-                                    <h3 class="article-title">Artikel Bhumi sedang disiapkan</h3>
-                                    <p class="article-excerpt">Founder dapat menerbitkan artikel baru dari dashboard. Sambil menunggu, arsip Wedhaswara tetap tersedia di bawah.</p>
-                                </div>
-                            </article>
-                        `;
-                        return;
+                    if (articles.length) {
+                        const wedhaswaraHtml = container.innerHTML;
+                        const bhumiCardsHtml = articles.map((article, index) => {
+                            const title = escapeHtml(article.title || 'Artikel Bhumi');
+                            const excerpt = escapeHtml(article.excerpt || 'Baca catatan refleksi terbaru dari Bhumi Amartya.');
+                            const category = escapeHtml(article.category || 'Artikel');
+                            const date = formatDate(article.publishedAt);
+                            const url = escapeHtml(article.url || '#');
+                            const cover = article.coverImageUrl
+                                ? `<img src="${escapeHtml(article.coverImageUrl)}" alt="${title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">`
+                                : `<div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>`;
+
+                            return `
+                                <article class="article-card reveal reveal-visible" style="transition-delay: ${index * 0.1}s;" data-article-source="bhumi" data-article-slug="${escapeHtml(article.slug || '')}">
+                                    <div class="article-img-wrapper">
+                                        ${cover}
+                                        <span class="article-meta" style="background: rgba(49, 73, 54, 0.15); color: #314936; font-weight: 700; margin-right: 0.3rem;">Bhumi Amartya</span>
+                                        <span class="article-meta">${category}</span>
+                                    </div>
+                                    <div class="article-body">
+                                        <h3 class="article-title">${title}</h3>
+                                        ${date ? `<div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">${date}</div>` : ''}
+                                        <p class="article-excerpt">${excerpt}</p>
+                                        <a href="${url}" class="article-link bhumi-article-link" data-article-source="bhumi" data-article-slug="${escapeHtml(article.slug || '')}" aria-label="Baca artikel lengkap ${title}">
+                                            <span>Baca Artikel</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                        </a>
+                                    </div>
+                                </article>
+                            `;
+                        }).join('');
+
+                        container.innerHTML = bhumiCardsHtml + wedhaswaraHtml;
+                        setupAnalytics();
                     }
-
-                    container.innerHTML = articles.map((article, index) => {
-                        const title = escapeHtml(article.title || 'Artikel Bhumi');
-                        const excerpt = escapeHtml(article.excerpt || 'Baca catatan refleksi terbaru dari Bhumi Amartya.');
-                        const category = escapeHtml(article.category || 'Artikel');
-                        const date = formatDate(article.publishedAt);
-                        const url = escapeHtml(article.url || '#');
-                        const cover = article.coverImageUrl
-                            ? `<img src="${escapeHtml(article.coverImageUrl)}" alt="${title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">`
-                            : `<div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>`;
-
-                        return `
-                            <article class="article-card reveal reveal-visible" style="transition-delay: ${index * 0.1}s;">
-                                <div class="article-img-wrapper">
-                                    ${cover}
-                                    <span class="article-meta">${category}</span>
-                                </div>
-                                <div class="article-body">
-                                    <h3 class="article-title">${title}</h3>
-                                    ${date ? `<div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">${date}</div>` : ''}
-                                    <p class="article-excerpt">${excerpt}</p>
-                                    <a href="${url}" class="article-link bhumi-article-link" data-article-slug="${escapeHtml(article.slug || '')}" aria-label="Baca artikel lengkap ${title}">
-                                        <span>Baca Artikel</span>
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                    </a>
-                                </div>
-                            </article>
-                        `;
-                    }).join('');
-
-                    container.querySelectorAll('.bhumi-article-link').forEach((link) => {
-                        link.addEventListener('click', () => {
-                            if (window.BhumiAnalytics) {
-                                window.BhumiAnalytics.track('article_card_clicked', {
-                                    ctaType: 'homepage_articles',
-                                    feature: 'article',
-                                    articleSlug: link.getAttribute('data-article-slug') || ''
-                                });
-                            }
-                        });
-                    });
                 } catch (error) {
                     console.error('Bhumi Amartya Articles API Error:', error);
-                    container.innerHTML = `
-                        <article class="article-card reveal reveal-visible">
-                            <div class="article-body">
-                                <span class="article-meta">Offline</span>
-                                <h3 class="article-title">Artikel Bhumi belum bisa dimuat</h3>
-                                <p class="article-excerpt">Arsip Wedhaswara tetap tersedia di bawah sebagai bacaan reflektif sementara.</p>
-                            </div>
-                        </article>
-                    `;
                 }
             }
 
