@@ -1,12 +1,36 @@
 {
   "rewrites": [
     {
-      "source": "/articles/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:path*"
+      "source": "/articles",
+      "destination": "https://bhumi-amartya-clean.vercel.app/articles"
     },
     {
-      "source": "/ebooks/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:path*"
+      "source": "/articles/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/articles"
+    },
+    {
+      "source": "/articles/:slug",
+      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+    },
+    {
+      "source": "/articles/:slug/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+    },
+    {
+      "source": "/ebooks",
+      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks"
+    },
+    {
+      "source": "/ebooks/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks"
+    },
+    {
+      "source": "/ebooks/:slug",
+      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
+    },
+    {
+      "source": "/ebooks/:slug/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
     }
   ]
 }
