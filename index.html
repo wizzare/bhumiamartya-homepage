@@ -2007,6 +2007,7 @@
                     <a href="/cek-aura/" class="btn btn-primary hero-tool-btn">Cek Aura</a>
                     <a href="/kalkulator-cinta/" class="btn btn-primary hero-tool-btn">Kalkulator Cinta</a>
                     <a href="/kenali-diri/human-design/" class="btn btn-primary hero-tool-btn">Human Design</a>
+                    <a href="/kenali-diri/mbti/" class="btn btn-primary hero-tool-btn" id="hero-mbti-cta">MBTI</a>
                 </div>
             </div>
             
@@ -2790,6 +2791,13 @@
             };
 
             burgerBtn.addEventListener('click', toggleMenu);
+
+            const mbtiHeroCta = document.getElementById('hero-mbti-cta');
+            if (mbtiHeroCta && window.BhumiAnalytics) {
+                mbtiHeroCta.addEventListener('click', () => {
+                    window.BhumiAnalytics.track('mbti_cta_clicked', { ctaType: 'homepage_hero' });
+                });
+            }
 
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
