@@ -2393,13 +2393,29 @@
 
 
 
-    <!-- 6. NGOPI ILMU TERBARU (ARTICLES) -->
+    <!-- 6. BHUMI ARTICLES -->
     <section class="section section-alt" id="artikel">
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-tag">Buku Catatan Kesadaran</span>
+                <h2 class="section-title">Artikel Terbaru dari Bhumi</h2>
+                <p class="section-desc">Tulisan terbaru dari Bhumi Amartya untuk menemani proses pulang, refleksi, dan mengenali diri secara lebih utuh.</p>
+            </div>
+
+            <div class="articles-grid" id="bhumi-articles-container" data-bhumi-article-feed="https://bhumi-amartya-clean.vercel.app/api/articles?limit=3">
+                <article class="article-card reveal">
+                    <div class="article-body">
+                        <span class="article-meta">Memuat</span>
+                        <h3 class="article-title">Artikel Bhumi sedang disiapkan</h3>
+                        <p class="article-excerpt">Jika belum ada artikel yang dipublikasikan, bagian ini akan otomatis tersembunyi dan arsip Wedhaswara tetap tampil.</p>
+                    </div>
+                </article>
+            </div>
+
+            <div class="section-header reveal" style="margin-top: 5rem;">
+                <span class="section-tag">Arsip Wedhaswara</span>
                 <h2 class="section-title">Ngopi Ilmu</h2>
-                <p class="section-desc">Pojok literasi Bhumi Amartya. Menghidangkan tulisan-tulisan reflektif untuk menemani secangkir kopi pagi dan refleksi batin Anda.</p>
+                <p class="section-desc">Arsip tulisan reflektif dari Wedhaswara tetap hadir selama masa transisi konten Bhumi.</p>
             </div>
 
             <!-- Preconfigured feed selector for WordPress dynamic integration -->
@@ -3081,7 +3097,87 @@
                 }
             }
 
-            // --- 6. WORDPRESS REST API INTEGRATION ---
+            // --- 6. BHUMI ARTICLES API INTEGRATION ---
+            async function fetchBhumiArticles() {
+                const container = document.getElementById('bhumi-articles-container');
+                if (!container) return;
+
+                const feedUrl = container.getAttribute('data-bhumi-article-feed');
+                if (!feedUrl) return;
+
+                const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#039;'
+                }[char]));
+
+                const formatDate = (value) => {
+                    if (!value) return '';
+                    const date = new Date(value);
+                    if (Number.isNaN(date.getTime())) return '';
+                    return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                };
+
+                try {
+                    const response = await fetch(feedUrl);
+                    if (!response.ok) throw new Error('Bhumi Articles API response was not ok');
+                    const data = await response.json();
+                    const articles = Array.isArray(data.articles) ? data.articles.slice(0, 3) : [];
+
+                    if (!articles.length) {
+                        container.style.display = 'none';
+                        return;
+                    }
+
+                    container.innerHTML = articles.map((article, index) => {
+                        const title = escapeHtml(article.title || 'Artikel Bhumi');
+                        const excerpt = escapeHtml(article.excerpt || 'Baca catatan refleksi terbaru dari Bhumi Amartya.');
+                        const category = escapeHtml(article.category || 'Artikel');
+                        const date = formatDate(article.publishedAt);
+                        const url = escapeHtml(article.url || '#');
+                        const cover = article.coverImageUrl
+                            ? `<img src="${escapeHtml(article.coverImageUrl)}" alt="${title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">`
+                            : `<div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>`;
+
+                        return `
+                            <article class="article-card reveal reveal-visible" style="transition-delay: ${index * 0.1}s;">
+                                <div class="article-img-wrapper">
+                                    ${cover}
+                                    <span class="article-meta">${category}</span>
+                                </div>
+                                <div class="article-body">
+                                    <h3 class="article-title">${title}</h3>
+                                    ${date ? `<div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">${date}</div>` : ''}
+                                    <p class="article-excerpt">${excerpt}</p>
+                                    <a href="${url}" class="article-link bhumi-article-link" data-article-slug="${escapeHtml(article.slug || '')}" aria-label="Baca artikel lengkap ${title}">
+                                        <span>Baca Artikel</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </a>
+                                </div>
+                            </article>
+                        `;
+                    }).join('');
+
+                    container.querySelectorAll('.bhumi-article-link').forEach((link) => {
+                        link.addEventListener('click', () => {
+                            if (window.BhumiAnalytics) {
+                                window.BhumiAnalytics.track('article_card_clicked', {
+                                    ctaType: 'homepage_articles',
+                                    feature: 'article',
+                                    articleSlug: link.getAttribute('data-article-slug') || ''
+                                });
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error('Bhumi Amartya Articles API Error:', error);
+                    container.style.display = 'none';
+                }
+            }
+
+            // --- 7. WORDPRESS REST API INTEGRATION ---
             /*
                Ngopi Ilmu (Articles) are statically pre-rendered above.
                This JS function fetches the latest 3 posts from the WordPress REST API,
@@ -3194,6 +3290,7 @@
             }
 
             // Execute the WordPress hook fetch
+            fetchBhumiArticles();
             fetchWordPressPosts();
             
             // Execute the YouTube hook fetch
