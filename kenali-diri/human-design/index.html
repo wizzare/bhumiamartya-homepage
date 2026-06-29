@@ -78,21 +78,11 @@
         }
 
         .hd-main-grid.has-result {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
+            display: block;
         }
 
-        .hd-main-grid.has-result > div:nth-child(2) {
-            order: 1;
-            width: 100%;
-        }
-
-        .hd-main-grid.has-result > div:nth-child(1) {
-            order: 2;
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
+        .hd-main-grid.has-result .hd-form-card {
+            display: none;
         }
 
         .form-card {
@@ -234,7 +224,7 @@
 
         .bodygraph-interactive-grid {
             display: grid;
-            grid-template-columns: 130px minmax(300px, 1fr) 130px;
+            grid-template-columns: 150px minmax(320px, 1fr) 150px;
             gap: 1.25rem;
             align-items: center;
             justify-items: center;
@@ -247,6 +237,7 @@
             padding: 0.75rem 0.5rem;
             border: 1px solid rgba(45, 75, 52, 0.06);
             font-size: 0.8rem;
+            align-self: stretch;
         }
 
         .act-col-title {
@@ -264,10 +255,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.2rem 0.3rem;
+            padding: 0.24rem 0.35rem;
             font-family: monospace;
             font-size: 0.78rem;
+            border-bottom: 1px dashed rgba(45, 75, 52, 0.06);
         }
+
+        .act-item:last-child { border-bottom: none; }
 
         .act-item span.planet { color: #64748B; font-size: 0.75rem; }
         .act-item span.gate { font-weight: 700; }
@@ -276,8 +270,8 @@
 
         .bodygraph-svg-container {
             width: 100%;
-            max-width: 440px;
-            min-height: 440px;
+            max-width: 560px;
+            min-height: 620px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -292,7 +286,43 @@
         .bodygraph-svg-container svg {
             width: 100%;
             height: auto;
-            max-height: 540px;
+            max-height: 720px;
+        }
+
+        .bodygraph-center {
+            transition: fill 0.2s ease, stroke 0.2s ease;
+        }
+
+        .bodygraph-gate {
+            font-family: var(--font-body);
+            font-size: 8px;
+            font-weight: 800;
+            text-anchor: middle;
+            dominant-baseline: middle;
+            fill: #64748B;
+        }
+
+        .bodygraph-gate.active {
+            fill: var(--text-primary);
+        }
+
+        .bodygraph-gate-dot {
+            fill: #FFFFFF;
+            stroke: #CBD5E1;
+            stroke-width: 1;
+        }
+
+        .bodygraph-gate-dot.active {
+            fill: var(--earth-gold);
+            stroke: #8A6612;
+        }
+
+        .bodygraph-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
         }
 
         .loading-spinner {
@@ -324,8 +354,8 @@
             }
             .bodygraph-svg-container {
                 order: 1;
-                max-width: 380px;
-                min-height: 380px;
+                max-width: 460px;
+                min-height: 520px;
                 width: 100%;
             }
             .act-col.design {
@@ -376,6 +406,7 @@
             .bodygraph-svg-container {
                 max-width: 100% !important;
                 border: none !important;
+                min-height: auto !important;
             }
         }
     </style>
@@ -455,7 +486,7 @@
 
                 <div class="hd-main-grid">
                     <!-- INPUT FORM CARD -->
-                    <div class="form-card">
+                    <div class="form-card hd-form-card">
                         <h2 style="font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 1.25rem; color: var(--text-primary);">Data Kelahiran</h2>
                         <form id="hd-form" onsubmit="handleFormSubmit(event)">
                             <div class="form-group">
@@ -530,7 +561,7 @@
 
                                             <!-- BODYGRAPH SVG -->
                                             <div class="bodygraph-svg-container">
-                                                <svg id="bodygraph-svg" viewBox="0 0 300 420" style="width:100%; height:auto; overflow:visible;"></svg>
+                                                <svg id="bodygraph-svg" viewBox="0 0 420 620" role="img" aria-label="Human Design BodyGraph dengan center, gate, dan channel" style="width:100%; height:auto; overflow:visible;"></svg>
                                             </div>
 
                                             <!-- PERSONALITY COLUMN -->
@@ -540,11 +571,12 @@
                                             </div>
                                         </div>
 
-                                        <div style="margin-top: 1.5rem; text-align: center;">
+                                        <div class="bodygraph-actions">
                                             <button onclick="downloadPDF()" class="btn btn-secondary" style="padding: 0.75rem 2rem; display: inline-flex; align-items: center; gap: 0.5rem;">
                                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                                 Download PDF
                                             </button>
+                                            <button onclick="resetHumanDesign()" class="btn btn-primary" style="padding: 0.75rem 2rem;">Hitung Ulang</button>
                                         </div>
                                     </div>
                                 </div>
@@ -644,7 +676,8 @@
             { key: "saturn", name: "Saturn", symbol: "♄" },
             { key: "uranus", name: "Uranus", symbol: "♅" },
             { key: "neptune", name: "Neptune", symbol: "♆" },
-            { key: "pluto", name: "Pluto", symbol: "♇" }
+            { key: "pluto", name: "Pluto", symbol: "♇" },
+            { key: "chiron", name: "Chiron", symbol: "⚷" }
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -705,6 +738,8 @@
             // Resolve city coordinates if typed manually
             let cityInfo = CITIES.find(c => c.name.toLowerCase() === birthCity.toLowerCase()) || selectedCityData;
 
+            const mainGrid = document.querySelector('.hd-main-grid');
+            if (mainGrid) mainGrid.classList.remove('has-result');
             document.getElementById('loading-box').style.display = 'block';
             document.getElementById('result-box').classList.remove('show');
 
@@ -775,116 +810,155 @@
         function renderActivationColumn(containerId, actObj) {
             const container = document.getElementById(containerId);
             container.innerHTML = '';
-            if (!actObj) return;
+            const activations = normalizeActivations(actObj);
+            if (activations.length === 0) {
+                container.innerHTML = '<div class="act-item"><span class="planet">-</span><span class="gate">-</span></div>';
+                return;
+            }
 
-            PLANETS.forEach(p => {
-                const itemData = actObj[p.key];
-                if (itemData) {
-                    const row = document.createElement('div');
-                    row.className = 'act-item';
-                    row.innerHTML = `<span class="planet">${p.symbol} ${p.name}</span> <span class="gate">${itemData.gate}.${itemData.line}</span>`;
-                    container.appendChild(row);
-                }
+            activations.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'act-item';
+                row.innerHTML = `<span class="planet">${escapeHtml(item.symbol || '')} ${escapeHtml(item.planet || '')}</span> <span class="gate">${escapeHtml(item.gateLine || '-')}</span>`;
+                container.appendChild(row);
             });
         }
 
+        function normalizeActivations(raw) {
+            if (!raw) return [];
+            if (Array.isArray(raw)) {
+                return raw.map(item => ({
+                    planet: item.planet || item.name || '',
+                    symbol: item.symbol || planetSymbol(item.planet || item.name),
+                    gateLine: item.gateLine || (item.gate && item.line ? `${item.gate}.${item.line}` : '')
+                })).filter(item => item.gateLine);
+            }
+            return PLANETS.map(p => {
+                const item = raw[p.key];
+                if (!item) return null;
+                return {
+                    planet: p.name,
+                    symbol: p.symbol,
+                    gateLine: item.gateLine || (item.gate && item.line ? `${item.gate}.${item.line}` : '')
+                };
+            }).filter(Boolean);
+        }
+
+        function planetSymbol(name) {
+            const found = PLANETS.find(p => p.name.toLowerCase() === String(name || '').toLowerCase());
+            return found ? found.symbol : '';
+        }
+
+        function escapeHtml(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+            }[char]));
+        }
+
+        const GATE_CENTER = {
+            64:'head',61:'head',63:'head',
+            47:'ajna',24:'ajna',4:'ajna',17:'ajna',43:'ajna',11:'ajna',
+            62:'throat',23:'throat',56:'throat',16:'throat',35:'throat',12:'throat',45:'throat',33:'throat',31:'throat',8:'throat',20:'throat',
+            1:'g',2:'g',7:'g',10:'g',13:'g',15:'g',25:'g',46:'g',
+            21:'ego',26:'ego',40:'ego',51:'ego',
+            5:'sacral',14:'sacral',29:'sacral',34:'sacral',27:'sacral',42:'sacral',3:'sacral',9:'sacral',59:'sacral',
+            6:'solarPlexus',22:'solarPlexus',30:'solarPlexus',36:'solarPlexus',37:'solarPlexus',49:'solarPlexus',55:'solarPlexus',
+            48:'spleen',57:'spleen',44:'spleen',50:'spleen',32:'spleen',28:'spleen',18:'spleen',
+            53:'root',60:'root',52:'root',54:'root',38:'root',58:'root',39:'root',19:'root',41:'root'
+        };
+
+        const GATE_POS = {
+            64:[184,32],61:[210,28],63:[236,32],
+            47:[176,92],24:[210,86],4:[244,92],17:[178,126],43:[210,130],11:[242,126],
+            62:[166,185],23:[188,176],56:[210,174],16:[232,176],35:[254,185],12:[267,206],45:[253,228],33:[231,236],31:[210,240],8:[189,236],20:[167,228],
+            1:[210,275],2:[210,318],7:[179,296],10:[187,333],13:[241,296],15:[233,333],25:[252,314],46:[210,350],
+            21:[292,262],26:[306,286],40:[300,322],51:[276,294],
+            5:[178,405],14:[210,392],29:[242,405],34:[176,435],27:[244,435],42:[178,465],3:[210,478],9:[242,465],59:[210,432],
+            6:[304,398],22:[314,366],30:[333,431],36:[312,466],37:[282,374],49:[282,456],55:[342,398],
+            48:[116,366],57:[108,398],44:[136,374],50:[138,456],32:[94,431],28:[108,466],18:[78,398],
+            53:[172,545],60:[210,526],52:[248,545],54:[172,575],38:[194,588],58:[226,588],39:[248,575],19:[286,560],41:[134,560]
+        };
+
+        const CHANNELS = [
+            '64-47','61-24','63-4','17-62','43-23','11-56','16-48','20-57','20-34','20-10','31-7','8-1','33-13','45-21','26-44','51-25','10-57','10-34','2-14','5-15','29-46','59-6','37-40','35-36','12-22','42-53','3-60','9-52','27-50','28-38','18-58','39-55','19-49','41-30','54-32'
+        ];
+
         function renderBodygraphSVG(bgData) {
             const svg = document.getElementById('bodygraph-svg');
-            const definedCenters = bgData.centers || {};
-            const activeChannels = bgData.channels || [];
-            const activeGates = bgData.gates || [];
-
-            // Centers Coordinates & Shapes
-            const centers = {
-                head: { type: 'head', x: 150, y: 35, defined: !!definedCenters.head },
-                ajna: { type: 'ajna', x: 150, y: 85, defined: !!definedCenters.ajna },
-                throat: { type: 'square', x: 150, y: 145, defined: !!definedCenters.throat },
-                g: { type: 'diamond', x: 150, y: 215, defined: !!definedCenters.g },
-                ego: { type: 'triangle', x: 205, y: 225, defined: !!definedCenters.ego },
-                spleen: { type: 'spleen', x: 85, y: 280, defined: !!definedCenters.spleen },
-                sacral: { type: 'square', x: 150, y: 295, defined: !!definedCenters.sacral },
-                solarPlexus: { type: 'solar', x: 215, y: 280, defined: !!definedCenters.solarPlexus },
-                root: { type: 'square', x: 150, y: 370, defined: !!definedCenters.root }
-            };
-
-            // Define Channels connecting centers
-            const channelDefs = [
-                { id: "64-47", from: "head", to: "ajna", fx: 140, fy: 48, tx: 140, ty: 72 },
-                { id: "61-24", from: "head", to: "ajna", fx: 150, fy: 48, tx: 150, ty: 72 },
-                { id: "63-4", from: "head", to: "ajna", fx: 160, fy: 48, tx: 160, ty: 72 },
-
-                { id: "17-62", from: "ajna", to: "throat", fx: 140, fy: 98, tx: 140, ty: 130 },
-                { id: "43-23", from: "ajna", to: "throat", fx: 150, fy: 98, tx: 150, ty: 130 },
-                { id: "11-56", from: "ajna", to: "throat", fx: 160, fy: 98, tx: 160, ty: 130 },
-
-                { id: "7-31", from: "throat", to: "g", fx: 140, fy: 160, tx: 140, ty: 198 },
-                { id: "1-8", from: "throat", to: "g", fx: 147, fy: 160, tx: 147, ty: 198 },
-                { id: "13-33", from: "throat", to: "g", fx: 153, fy: 160, tx: 153, ty: 198 },
-                { id: "15-5", from: "throat", to: "g", fx: 160, fy: 160, tx: 160, ty: 198 },
-
-                { id: "45-21", from: "throat", to: "ego", fx: 165, fy: 155, tx: 195, ty: 215 },
-                { id: "12-22", from: "throat", to: "solarPlexus", fx: 165, fy: 158, tx: 215, ty: 265 },
-                { id: "57-20", from: "throat", to: "spleen", fx: 135, fy: 158, tx: 85, ty: 265 },
-                { id: "16-48", from: "throat", to: "spleen", fx: 135, fy: 152, tx: 75, ty: 265 },
-                { id: "35-36", from: "throat", to: "solarPlexus", fx: 165, fy: 152, tx: 225, ty: 265 },
-
-                { id: "25-51", from: "g", to: "ego", fx: 168, fy: 215, tx: 192, ty: 222 },
-                { id: "10-34", from: "g", to: "sacral", fx: 142, fy: 232, tx: 142, ty: 280 },
-                { id: "2-14", from: "g", to: "sacral", fx: 150, fy: 232, tx: 150, ty: 280 },
-                { id: "46-29", from: "g", to: "sacral", fx: 158, fy: 232, tx: 158, ty: 280 },
-
-                { id: "44-26", from: "spleen", to: "ego", fx: 98, fy: 270, tx: 195, ty: 232 },
-                { id: "37-40", from: "solarPlexus", to: "ego", fx: 202, fy: 270, tx: 212, ty: 235 },
-
-                { id: "50-27", from: "spleen", to: "sacral", fx: 98, fy: 285, tx: 135, ty: 288 },
-                { id: "32-54", from: "spleen", to: "root", fx: 85, fy: 295, tx: 135, ty: 360 },
-                { id: "28-38", from: "spleen", to: "root", fx: 75, fy: 290, tx: 135, ty: 375 },
-                { id: "18-58", from: "spleen", to: "root", fx: 65, fy: 285, tx: 135, ty: 385 },
-
-                { id: "6-59", from: "solarPlexus", to: "sacral", fx: 202, fy: 285, tx: 165, ty: 288 },
-                { id: "49-19", from: "solarPlexus", to: "root", fx: 215, fy: 295, tx: 165, ty: 360 },
-                { id: "55-39", from: "solarPlexus", to: "root", fx: 225, fy: 290, tx: 165, ty: 375 },
-                { id: "30-41", from: "solarPlexus", to: "root", fx: 235, fy: 285, tx: 165, ty: 385 },
-
-                { id: "53-42", from: "sacral", to: "root", fx: 140, fy: 310, tx: 140, ty: 355 },
-                { id: "5-15", from: "sacral", to: "root", fx: 150, fy: 310, tx: 150, ty: 355 },
-                { id: "9-52", from: "sacral", to: "root", fx: 160, fy: 310, tx: 160, ty: 355 }
-            ];
-
+            const activeGates = new Set((bgData.gates || []).map(Number));
+            const apiChannels = new Set((bgData.channels || []).map(normalizeChannel));
+            const fullChannels = new Set(CHANNELS.filter(id => {
+                const [a, b] = id.split('-').map(Number);
+                return apiChannels.has(normalizeChannel(id)) || (activeGates.has(a) && activeGates.has(b));
+            }).map(normalizeChannel));
+            const definedCenters = resolveDefinedCenters(bgData.centers, fullChannels);
             let html = '';
 
-            // Render Channels
-            channelDefs.forEach(ch => {
-                const isActive = activeChannels.includes(ch.id);
-                const color = isActive ? '#D4AF37' : '#E2E8F0';
-                const width = isActive ? '5' : '2.5';
-                html += `<line x1="${ch.fx}" y1="${ch.fy}" x2="${ch.tx}" y2="${ch.ty}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" />`;
+            CHANNELS.forEach(id => {
+                const [a, b] = id.split('-').map(Number);
+                const p1 = GATE_POS[a];
+                const p2 = GATE_POS[b];
+                const isFull = fullChannels.has(normalizeChannel(id));
+                const isHanging = !isFull && (activeGates.has(a) || activeGates.has(b));
+                const color = isFull ? '#B8860B' : (isHanging ? '#B9A36A' : '#D9DEE7');
+                const width = isFull ? 5 : (isHanging ? 4 : 2.4);
+                const opacity = isFull ? 1 : (isHanging ? 0.82 : 0.55);
+                html += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="${color}" stroke-width="${width}" stroke-linecap="round" opacity="${opacity}" />`;
             });
 
-            // Render Centers
-            Object.keys(centers).forEach(key => {
-                const c = centers[key];
-                const fillColor = c.defined ? '#D4AF37' : '#FFFFFF';
-                const strokeColor = c.defined ? '#B8860B' : '#64748B';
+            html += renderCenters(definedCenters);
 
-                if (c.type === 'head') {
-                    html += `<polygon points="${c.x},${c.y-18} ${c.x-22},${c.y+18} ${c.x+22},${c.y+18}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                } else if (c.type === 'ajna') {
-                    html += `<polygon points="${c.x-22},${c.y-18} ${c.x+22},${c.y-18} ${c.x},${c.y+18}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                } else if (c.type === 'square') {
-                    html += `<rect x="${c.x-18}" y="${c.y-18}" width="36" height="36" rx="4" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                } else if (c.type === 'diamond') {
-                    html += `<polygon points="${c.x},${c.y-22} ${c.x+22},${c.y} ${c.x},${c.y+22} ${c.x-22},${c.y}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                } else if (c.type === 'triangle') {
-                    html += `<polygon points="${c.x-14},${c.y-14} ${c.x+14},${c.y} ${c.x-14},${c.y+14}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                } else if (c.type === 'spleen') {
-                    html += `<polygon points="${c.x-18},${c.y-18} ${c.x+18},${c.y} ${c.x-18},${c.y+18}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                } else if (c.type === 'solar') {
-                    html += `<polygon points="${c.x+18},${c.y-18} ${c.x-18},${c.y} ${c.x+18},${c.y+18}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />`;
-                }
+            Object.keys(GATE_POS).forEach(gate => {
+                const [x, y] = GATE_POS[gate];
+                const active = activeGates.has(Number(gate));
+                html += `<circle class="bodygraph-gate-dot${active ? ' active' : ''}" cx="${x}" cy="${y}" r="${active ? 9 : 8}" />`;
+                html += `<text class="bodygraph-gate${active ? ' active' : ''}" x="${x}" y="${y}">${gate}</text>`;
             });
 
             svg.innerHTML = html;
+        }
+
+        function normalizeChannel(id) {
+            return String(id).split('-').map(Number).sort((a, b) => a - b).join('-');
+        }
+
+        function resolveDefinedCenters(apiCenters, fullChannels) {
+            const centers = {};
+            if (apiCenters && Object.keys(apiCenters).length > 0) {
+                Object.keys(apiCenters).forEach(key => { centers[key] = !!apiCenters[key]; });
+                return centers;
+            }
+            fullChannels.forEach(channel => {
+                channel.split('-').map(Number).forEach(gate => {
+                    centers[GATE_CENTER[gate]] = true;
+                });
+            });
+            return centers;
+        }
+
+        function renderCenters(definedCenters) {
+            const fill = key => definedCenters[key] ? '#D4AF37' : '#FFFFFF';
+            const stroke = key => definedCenters[key] ? '#8A6612' : '#64748B';
+            return `
+                <polygon class="bodygraph-center" points="210,48 174,104 246,104" fill="${fill('head')}" stroke="${stroke('head')}" stroke-width="2.5" />
+                <polygon class="bodygraph-center" points="174,118 246,118 210,166" fill="${fill('ajna')}" stroke="${stroke('ajna')}" stroke-width="2.5" />
+                <rect class="bodygraph-center" x="170" y="186" width="80" height="64" rx="8" fill="${fill('throat')}" stroke="${stroke('throat')}" stroke-width="2.5" />
+                <polygon class="bodygraph-center" points="210,260 264,314 210,368 156,314" fill="${fill('g')}" stroke="${stroke('g')}" stroke-width="2.5" />
+                <polygon class="bodygraph-center" points="282,260 326,292 282,324" fill="${fill('ego')}" stroke="${stroke('ego')}" stroke-width="2.5" />
+                <polygon class="bodygraph-center" points="74,370 146,392 146,464 74,486" fill="${fill('spleen')}" stroke="${stroke('spleen')}" stroke-width="2.5" />
+                <rect class="bodygraph-center" x="166" y="394" width="88" height="88" rx="8" fill="${fill('sacral')}" stroke="${stroke('sacral')}" stroke-width="2.5" />
+                <polygon class="bodygraph-center" points="274,370 346,392 346,464 274,486" fill="${fill('solarPlexus')}" stroke="${stroke('solarPlexus')}" stroke-width="2.5" />
+                <rect class="bodygraph-center" x="166" y="528" width="88" height="72" rx="8" fill="${fill('root')}" stroke="${stroke('root')}" stroke-width="2.5" />
+            `;
+        }
+
+        function resetHumanDesign() {
+            const mainGrid = document.querySelector('.hd-main-grid');
+            if (mainGrid) mainGrid.classList.remove('has-result');
+            document.getElementById('result-box').classList.remove('show');
+            document.getElementById('loading-box').style.display = 'none';
+            document.getElementById('bodygraph-svg').innerHTML = '';
+            document.getElementById('hd-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function downloadPDF() {
