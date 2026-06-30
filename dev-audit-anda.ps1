@@ -1,0 +1,1 @@
+Get-ChildItem -Path $args[0] -Recurse -Include *.ts,*.tsx -File | Where-Object { $_.FullName -notlike '*node_modules*' } | Select-String -Pattern '\bAnda\b' | ForEach-Object { Write-Host ('--- ' + $_.Path); Write-Host ($_.Line.Trim()) }

@@ -4403,7 +4403,7 @@
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="../#produk" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
                             <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
                             <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
                         </ul>
@@ -4737,7 +4737,7 @@
             const mangsaBox = document.getElementById('result-mangsa-box');
             const khodamBox = document.getElementById('result-khodam-box');
 
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 
                 const nama = document.getElementById('nama').value;
@@ -4757,29 +4757,76 @@
                 errorDiv.style.display = 'none';
                 errorDiv.innerText = '';
 
+                // Try API first (canonical app engine)
                 try {
-                    // Execute calculation
+                    const apiResponse = await fetch('https://bhumi-amartya-clean.vercel.app/api/weton', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ birthDate: tanggal, birthTime: jam, name: nama }),
+                    });
+                    const apiData = await apiResponse.json();
+                    if (apiData.ok && apiData.weton) {
+                        // Map API response to match the local hitungWeton output format
+                        const hasil = {
+                            nama: nama,
+                            tanggalLahir: tanggal,
+                            jamLahir: jam,
+                            hariLahir: apiData.weton.day,
+                            pasaran: apiData.weton.pasaran,
+                            weton: apiData.weton.weton,
+                            neptuHari: apiData.weton.neptuDay,
+                            neptuPasaran: apiData.weton.neptuPasaran,
+                            totalNeptu: apiData.weton.totalNeptu,
+                            wuku: apiData.weton.wuku?.name || '-',
+                            wukuIndex: apiData.weton.wuku?.index || 0,
+                            wukuDescription: apiData.weton.wuku?.description || '',
+                            pranataMangsa: apiData.weton.pranataMangsa?.name || '-',
+                            pranataMangsaDescription: apiData.weton.pranataMangsa?.description || '',
+                            watak: apiData.weton.watak || '',
+                            strengths: apiData.weton.strengths || [],
+                            challenges: apiData.weton.challenges || [],
+                            lifeMission: apiData.weton.lifeMission || '',
+                            relationshipStyle: apiData.weton.relationshipStyle || '',
+                            workStyle: apiData.weton.workStyle || '',
+                            moneyStyle: apiData.weton.moneyStyle || '',
+                            bergeserHari: jam ? Number(jam.split(':')[0]) >= 18 : false,
+                            summary: apiData.summary || [],
+                        };
+                        renderWetonResults(hasil);
+                        placeholderDiv.style.display = 'none';
+                        resultsDiv.classList.add('active');
+                        setTimeout(() => {
+                            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 50);
+                        window.BhumiAnalytics?.track('weton_checked', {
+                            feature: 'weton',
+                            status: 'submitted',
+                            resultOk: true,
+                            source: 'api',
+                            hasBirthTime: Boolean(jam)
+                        });
+                        return;
+                    }
+                } catch (apiErr) {
+                    console.warn('[WETON API] Failed, using local fallback:', apiErr);
+                }
+
+                // Fallback to local library (last resort)
+                try {
                     const hasil = hitungWeton(nama, tanggal, jam);
-                    
-                    // Render outputs
                     renderWetonResults(hasil);
-                    
-                    // Show result container
                     placeholderDiv.style.display = 'none';
                     resultsDiv.classList.add('active');
-                    
-                    // Scroll to results softly
                     setTimeout(() => {
                         resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }, 50);
-
                     window.BhumiAnalytics?.track('weton_checked', {
                         feature: 'weton',
                         status: 'submitted',
                         resultOk: true,
+                        source: 'local-fallback',
                         hasBirthTime: Boolean(jam)
                     });
-
                 } catch (err) {
                     console.error("Calculation error:", err);
                     showError("Terjadi kesalahan perhitungan. Pastikan format input benar.");

@@ -342,7 +342,7 @@
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="../#produk" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
                             <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
                             <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
                         </ul>
@@ -908,47 +908,30 @@
 
             const runOfflineFallback = (nickname, birthdate, birthtime, birthcity, structuredInput) => {
                 const [year, month, day] = birthdate.split('-').map(Number);
-                const date = new Date(year, month - 1, day);
                 const lifePath = calculateLifePathNumber(birthdate);
                 const arcanaNumber = calculateArcanaCenter(year, month, day);
                 const arcanaName = ARCANA[arcanaNumber - 1];
                 const sun = sunSign(month, day);
-                const baziIdentity = calculateBaziIdentity(year, month, day, birthtime);
-                const baziElement = baziIdentity?.element || BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)];
-                const tzolkinIdentity = calculateTzolkinIdentity(birthdate);
-                const precisionFallback = 'Butuh jam dan kota lahir untuk membaca lebih presisi.';
-                const resolvedCity = structuredInput.blueprintInput.birthCity ? {
-                    formattedCity: structuredInput.blueprintInput.birthCity,
-                    latitude: structuredInput.blueprintInput.latitude,
-                    longitude: structuredInput.blueprintInput.longitude,
-                    country: structuredInput.blueprintInput.birthCountry,
-                    timezone: structuredInput.blueprintInput.timezone
-                } : null;
-                const hdFallback = birthtime && birthcity
-                    ? 'Butuh timezone dan koordinat kota terverifikasi dari engine Human Design untuk membaca lebih presisi.'
-                    : precisionFallback;
-                const vedicFallback = birthtime && birthcity
-                    ? 'Butuh engine Vedic aplikasi untuk membaca Moon/Rashi/Nakshatra secara presisi.'
-                    : precisionFallback;
+                const unavailableMsg = 'Hasil belum bisa dimuat dari server. Silakan coba lagi nanti.';
                 const canonicalSynthesis = buildCanonicalSynthesis({
                     nickname,
                     lifePath,
                     arcanaName,
                     sun,
-                    baziElement,
-                    hasPreciseCity: Boolean(resolvedCity?.latitude != null && resolvedCity?.longitude != null)
+                    baziElement: BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
+                    hasPreciseCity: false
                 });
 
                 resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
                 renderIdentity([
                     { label: 'Life Path', value: `${displayLifePath(lifePath)} - ${LIFE_PATH_THEMES[lifePath] || 'pola hidup personal'}` },
                     { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
-                    { label: 'Type Human Design', value: hdFallback },
+                    { label: 'Type Human Design', value: unavailableMsg },
                     { label: 'Sun Natal Chart', value: sun },
-                    { label: 'Weton', value: wetonName(date, birthtime) },
-                    { label: 'BaZi', value: baziIdentity ? `Day Master: ${baziIdentity.label}` : precisionFallback },
-                    { label: 'Vedic', value: vedicFallback },
-                    { label: 'Tzolkin', value: tzolkinIdentity }
+                    { label: 'Weton', value: unavailableMsg },
+                    { label: 'BaZi', value: unavailableMsg },
+                    { label: 'Vedic', value: unavailableMsg },
+                    { label: 'Tzolkin', value: unavailableMsg }
                 ]);
                 renderSynthesis(canonicalSynthesis);
                 renderSummary(createReadingFromSynthesis(canonicalSynthesis));

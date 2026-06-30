@@ -35,6 +35,14 @@
     {
       "source": "/ebooks/:slug/",
       "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
+    },
+    {
+      "source": "/ngopi-ilmu",
+      "destination": "https://bhumi-amartya-clean.vercel.app/konten/ngopi-ilmu"
+    },
+    {
+      "source": "/ngopi-ilmu/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/konten/ngopi-ilmu"
     }
   ]
 }
