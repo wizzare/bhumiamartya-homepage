@@ -37,6 +37,14 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
     },
     {
+      "source": "/founder",
+      "destination": "https://bhumi-amartya-clean.vercel.app/founder"
+    },
+    {
+      "source": "/founder/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/founder/:path*"
+    },
+    {
       "source": "/ngopi-ilmu",
       "destination": "https://bhumi-amartya-clean.vercel.app/konten/ngopi-ilmu"
     },
