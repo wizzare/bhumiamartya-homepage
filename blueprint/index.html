@@ -664,6 +664,7 @@
                         </div>
                     </div>
 
+                    <div id="city-validation-error" style="display:none; padding:0.85rem; background:#fef3e2; border-radius:10px; border:1px solid #f0d9b5; margin-top:1rem; line-height:1.5; font-weight:500; font-size:0.9rem; color:#8a6d3b;">Pilih kota kelahiran dari daftar saran agar koordinat dan zona waktu dapat dibaca dengan tepat.</div>
                     <button class="btn btn-primary" type="submit" id="submitBtn">Hitung Blueprint</button>
                 </form>
 
@@ -904,9 +905,10 @@
                             </section>
 
                             <!-- 6. HUMAN DESIGN -->
-                            <section class="result-section">
+                            <section class="result-section" id="res-hd-section">
                                 <h2>Human Design</h2>
-                                <table class="matrix-table">
+                                <div class="hd-status-error" id="res-hd-status-error" style="display:none; padding:1rem; background:#fef3e2; border-radius:12px; border:1px solid #f0d9b5; margin-bottom:1rem; line-height:1.6; font-weight:500; color:#8a6d3b;"></div>
+                                <table class="matrix-table" id="res-hd-table">
                                     <tbody>
                                         <tr>
                                             <td class="label-cell">Type</td>
@@ -1113,6 +1115,7 @@
             const errorMessage = document.getElementById('error-message');
             const errorReason = document.getElementById('error-reason');
             const submitBtn = document.getElementById('submitBtn');
+            const cityValidationError = document.getElementById('city-validation-error');
 
             // Navigation trigger
             const toggleMenu = () => {
@@ -1223,6 +1226,7 @@
             };
 
             birthcityInput.addEventListener('input', () => {
+                cityValidationError.style.display = 'none';
                 window.clearTimeout(citySearchTimer);
                 citySearchTimer = window.setTimeout(() => loadCitySuggestions(birthcityInput.value), 350);
             });
@@ -1286,6 +1290,92 @@
                 
                 html += '</tbody></table>';
                 container.innerHTML = html;
+            }
+
+            // ── HUMAN DESIGN VIEW MODEL NORMALIZER ──
+            // Canonical view model yang diharapkan renderer halaman.
+            // Normalizer menerima bentuk apapun dari engine dan mengeluarkan
+            // bentuk yang bisa langsung dirender (seluruh field berupa string).
+            // Fields:
+            //   type, strategy, authority, profile, signature, notSelfTheme,
+            //   incarnationCross, definition, digestion, environment,
+            //   motivation, cognition   → string, fallback "-"
+            //   definedChannels          → string[]
+
+            function normalizeHumanDesign(raw) {
+              if (!raw || typeof raw !== 'object') {
+                return {
+                  type: '-', strategy: '-', authority: '-', profile: '-',
+                  signature: '-', notSelfTheme: '-', incarnationCross: '-',
+                  definition: '-', digestion: '-', environment: '-',
+                  motivation: '-', cognition: '-', definedChannels: []
+                };
+              }
+
+              const safeString = (v) => {
+                if (v === null || v === undefined) return null;
+                if (typeof v === 'string' && v.trim()) return v.trim();
+                if (typeof v === 'number') return String(v);
+                return null;
+              };
+
+              const fallbackDash = '-';
+
+              // --- Primary fields ---
+              const type         = safeString(raw.type) ?? fallbackDash;
+              const strategy     = safeString(raw.strategy) ?? fallbackDash;
+              const authority    = safeString(raw.authority) ?? fallbackDash;
+              const profile      = safeString(raw.profile) ?? fallbackDash;
+              const signature    = safeString(raw.signature) ?? fallbackDash;
+              const notSelfTheme = safeString(raw.notSelfTheme) ?? fallbackDash;
+              const definition   = safeString(raw.definition) ?? fallbackDash;
+
+              // --- Incarnation Cross ---
+              // raw.incarnationCross bisa berupa:
+              //   { name: "Right Angle Cross of ...", gates: [...] }  ← object dgn name
+              //   { name: null, gates: [] }                           ← pending chart
+              //   "((38, 39), (48, 21))-RAC"                          ← string langsung
+              //   undefined / null
+              let incarnationCross = fallbackDash;
+              const ic = raw.incarnationCross;
+              if (ic) {
+                if (typeof ic === 'string') {
+                  incarnationCross = ic.trim() || fallbackDash;
+                } else if (typeof ic === 'object') {
+                  const name = ic.name;
+                  if (typeof name === 'string' && name.trim()) {
+                    incarnationCross = name.trim();
+                  } else if (typeof ic.title === 'string' && ic.title.trim()) {
+                    incarnationCross = ic.title.trim();
+                  } else if (typeof ic.type === 'string') {
+                    const gatesPart = Array.isArray(ic.gates)
+                      ? ic.gates.join(', ')
+                      : '';
+                    incarnationCross = [ic.type, gatesPart].filter(Boolean).join(' ') || fallbackDash;
+                  }
+                }
+              }
+
+              // --- Variables (digestion, environment, motivation, cognition) ---
+              const vars = raw.variables && typeof raw.variables === 'object' ? raw.variables : {};
+
+              const digestion    = safeString(raw.digestion) ?? safeString(vars.digestion) ?? fallbackDash;
+              const environment  = safeString(raw.environment) ?? safeString(vars.environment) ?? fallbackDash;
+              const motivation   = safeString(raw.motivation) ?? safeString(vars.motivation) ?? fallbackDash;
+              const cognition    = safeString(raw.cognition) ?? safeString(vars.cognition) ?? fallbackDash;
+
+              // --- Defined Channels ---
+              const channels = Array.isArray(raw.channels) ? raw.channels : [];
+              const definedChannels = channels
+                .filter(function (c) { return c != null; })
+                .map(function (c) { return typeof c === 'string' ? c.trim() : String(c); })
+                .filter(Boolean);
+
+              return {
+                type, strategy, authority, profile, signature, notSelfTheme,
+                incarnationCross, definition, digestion, environment,
+                motivation, cognition, definedChannels
+              };
             }
 
             // RENDER FUNCTION (Frontend murni thin client)
@@ -1419,30 +1509,56 @@
                 document.getElementById('res-ss-earth').textContent = ss.earthpoint || '-';
                 document.getElementById('res-ss-spiritual').textContent = ss.generalpurpose || '-';
 
-                // 6. Human Design
-                const hd = bp.humanDesign || {};
-                document.getElementById('res-hd-type').textContent = hd.type || '-';
-                document.getElementById('res-hd-strategy').textContent = hd.strategy || '-';
-                document.getElementById('res-hd-authority').textContent = hd.authority || '-';
-                document.getElementById('res-hd-profile').textContent = hd.profile || '-';
-                document.getElementById('res-hd-signature').textContent = hd.signature || '-';
-                document.getElementById('res-hd-notself').textContent = hd.notSelfTheme || hd.notSelf || '-';
-                document.getElementById('res-hd-cross').textContent = hd.incarnationCross?.name || hd.incarnationCross || '-';
-                document.getElementById('res-hd-definition').textContent = hd.definition || '-';
-                
-                // Variables
-                const vars = hd.variables || {};
-                document.getElementById('res-hd-digestion').textContent = hd.digestion || vars.digestion || '-';
-                document.getElementById('res-hd-environment').textContent = hd.environment || vars.environment || '-';
-                document.getElementById('res-hd-motivation').textContent = hd.motivation || vars.motivation || '-';
-                document.getElementById('res-hd-cognition').textContent = hd.cognition || vars.cognition || '-';
-                
-                // Defined Channels
-                const chanContainer = document.getElementById('res-hd-channels');
-                chanContainer.innerHTML = (hd.channels || []).map(c => `<span class="hd-channel-badge">${c}</span>`).join('');
+                // 6. Human Design — gunakan canonical view model
+                const hdStatus = bp.humanDesign?.status;
+                const hdCalculationStatus = bp.humanDesign?.calculationStatus;
+                const hdIsReady = hdStatus === 'ready' && hdCalculationStatus === 'completed';
 
-                // Human Design Generic fields
-                renderGenericTable(hd, 'hd-generic', ['channels', 'gates', 'variables', 'incarnationCross', 'centers']);
+                const hdStatusError = document.getElementById('res-hd-status-error');
+                const hdTable = document.getElementById('res-hd-table');
+                const hdChannelsContainer = document.getElementById('res-hd-channels');
+                const hdGenericToggle = document.querySelector('#res-hd-section .generic-fields-toggle');
+                const hdGenericContainer = document.getElementById('hd-generic');
+
+                if (!hdIsReady) {
+                    // Tampilkan pesan error yang manusiawi
+                    let failureMessage = 'Data Blueprint lainnya berhasil dihitung, tetapi Human Design belum dapat diproses saat ini. Silakan coba kembali beberapa saat lagi.';
+                    if (hdStatus === 'needs_verified_timezone' || hdCalculationStatus === 'needs_verified_timezone') {
+                        failureMessage = 'Human Design membutuhkan data zona waktu yang akurat. Silakan pilih kota dari daftar saran dan coba kembali.';
+                    }
+                    hdStatusError.textContent = failureMessage;
+                    hdStatusError.style.display = 'block';
+                    if (hdTable) hdTable.style.display = 'none';
+                    if (hdChannelsContainer) hdChannelsContainer.style.display = 'none';
+                    if (hdGenericToggle) hdGenericToggle.style.display = 'none';
+                    if (hdGenericContainer) hdGenericContainer.style.display = 'none';
+                } else {
+                    hdStatusError.style.display = 'none';
+                    if (hdTable) hdTable.style.display = '';
+                    if (hdChannelsContainer) hdChannelsContainer.style.display = '';
+                    if (hdGenericToggle) hdGenericToggle.style.display = '';
+                    if (hdGenericContainer) hdGenericContainer.style.display = '';
+
+                    const hd = normalizeHumanDesign(bp.humanDesign);
+                    document.getElementById('res-hd-type').textContent = hd.type;
+                    document.getElementById('res-hd-strategy').textContent = hd.strategy;
+                    document.getElementById('res-hd-authority').textContent = hd.authority;
+                    document.getElementById('res-hd-profile').textContent = hd.profile;
+                    document.getElementById('res-hd-signature').textContent = hd.signature;
+                    document.getElementById('res-hd-notself').textContent = hd.notSelfTheme;
+                    document.getElementById('res-hd-cross').textContent = hd.incarnationCross;
+                    document.getElementById('res-hd-definition').textContent = hd.definition;
+                    document.getElementById('res-hd-digestion').textContent = hd.digestion;
+                    document.getElementById('res-hd-environment').textContent = hd.environment;
+                    document.getElementById('res-hd-motivation').textContent = hd.motivation;
+                    document.getElementById('res-hd-cognition').textContent = hd.cognition;
+
+                    // Defined Channels
+                    hdChannelsContainer.innerHTML = hd.definedChannels.map(c => `<span class="hd-channel-badge">${c}</span>`).join('');
+
+                    // Human Design Generic fields (masih raw object dari engine untuk debugging)
+                    renderGenericTable(bp.humanDesign, 'hd-generic', ['channels', 'gates', 'variables', 'incarnationCross', 'centers']);
+                }
 
                 // 7. Natal Chart
                 const astro = bp.astrology || bp.natalChart || {};
@@ -1571,6 +1687,28 @@
                     return;
                 }
 
+                // Validasi: user harus memilih kota dari daftar saran agar
+                // latitude, longitude, dan timezone terisi.
+                if (!selectedCity || typeof selectedCity.latitude !== 'number' || typeof selectedCity.timezone !== 'string') {
+                    cityValidationError.style.display = 'block';
+                    birthcityInput.focus();
+                    birthcityInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    return;
+                }
+                cityValidationError.style.display = 'none';
+
+                // Reset HD error state
+                const hdStatusError = document.getElementById('res-hd-status-error');
+                if (hdStatusError) hdStatusError.style.display = 'none';
+                const hdTable = document.getElementById('res-hd-table');
+                if (hdTable) hdTable.style.display = '';
+                const hdChannelsContainer = document.getElementById('res-hd-channels');
+                if (hdChannelsContainer) hdChannelsContainer.style.display = '';
+                const hdGenericToggle = document.querySelector('#res-hd-section .generic-fields-toggle');
+                if (hdGenericToggle) hdGenericToggle.style.display = '';
+                const hdGenericContainer = document.getElementById('hd-generic');
+                if (hdGenericContainer) hdGenericContainer.style.display = '';
+
                 errorMessage.classList.remove('show');
                 placeholderCard.style.display = 'none';
                 resultsWrapper.classList.remove('show');
@@ -1579,8 +1717,8 @@
                 // Disable form inputs
                 Array.from(form.elements).forEach(el => el.disabled = true);
 
-                // Resolve city properties
-                const resolvedCity = selectedCity || resolveCityFallback(birthCity);
+                // City properties sudah pasti valid dari selectedCity
+                const resolvedCity = selectedCity;
 
                 // Backend call
                 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
