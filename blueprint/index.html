@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blueprint Calculator | Bhumi Amartya</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/bhumi-design-system.css">
+
+    <style>
+        .blueprint-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 6rem;
+        }
+
+        .blueprint-title-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            margin-top: 4rem;
+        }
+
+        .blueprint-title-section h1 {
+            font-size: 3rem;
+            color: var(--forest-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .blueprint-title-section p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .form-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .form-card h2 {
+            font-size: 1.5rem;
+            color: var(--forest-green);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+            padding-bottom: 0.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-group .req {
+            color: #d9534f;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(45, 75, 52, 0.15);
+            background-color: var(--bg-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--forest-green);
+            outline: none;
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(45, 75, 52, 0.08);
+        }
+
+        .gender-radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .gender-radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .gender-radio-label input {
+            cursor: pointer;
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: var(--forest-green);
+        }
+
+        .city-suggestions {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            display: none;
+            position: absolute;
+            z-index: 100;
+            width: calc(100% - 4rem);
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 0.25rem;
+        }
+
+        .city-suggestions.show {
+            display: block;
+        }
+
+        .city-option {
+            background: transparent;
+            border: 0;
+            color: var(--text-primary);
+            cursor: pointer;
+            display: block;
+            font: inherit;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .city-option:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .city-note {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 0.35rem;
+        }
+
+        .form-card button[type="submit"] {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .results-wrapper {
+            display: none;
+        }
+
+        .results-wrapper.show {
+            display: block;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background-color: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            border: 1px solid rgba(45, 75, 52, 0.05);
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-title {
+            margin-right: auto;
+            font-weight: 700;
+            color: var(--forest-green);
+            font-size: 1.1rem;
+        }
+
+        .results-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .result-section {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            padding: 2.25rem;
+        }
+
+        .result-section h2 {
+            font-family: var(--font-headings);
+            font-size: 2rem;
+            color: var(--forest-green);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--forest-light);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .profile-item {
+            background-color: var(--bg-primary);
+            border: 1px solid rgba(45, 75, 52, 0.05);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .profile-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gold-dark);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .profile-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .traits-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .trait-tag {
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .trait-tag.positive {
+            background-color: var(--forest-light);
+            color: var(--forest-green);
+        }
+
+        .trait-tag.negative {
+            background-color: #fce8e6;
+            color: #a94442;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .matrix-table th, .matrix-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--bg-secondary);
+            text-align: left;
+        }
+
+        .matrix-table th {
+            font-weight: 700;
+            color: var(--forest-green);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .matrix-table td.label-cell {
+            font-weight: 600;
+            color: var(--text-secondary);
+            width: 35%;
+        }
+
+        .matrix-table td.value-cell {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .generic-fields-toggle {
+            display: block;
+            margin-top: 1.5rem;
+            color: var(--gold-dark);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: right;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .generic-fields-container {
+            display: none;
+            margin-top: 1rem;
+            border-top: 1px dashed rgba(45, 75, 52, 0.15);
+            padding-top: 1rem;
+        }
+
+        .generic-fields-container.show {
+            display: block;
+        }
+
+        .chakra-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .chakra-table th, .chakra-table td {
+            padding: 0.75rem 1rem;
+            text-align: center;
+        }
+
+        .chakra-table th {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .chakra-table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .chakra-row {
+            color: white;
+            font-weight: 600;
+        }
+
+        .chakra-row td:first-child {
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .total-row {
+            background-color: #D6D0C7;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .total-row td:first-child {
+            text-align: left;
+        }
+
+        .hd-channels-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .hd-channel-badge {
+            background-color: var(--bg-secondary);
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .debug-panel {
+            margin-top: 3rem;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #fcfcfc;
+            overflow: hidden;
+        }
+
+        .debug-header {
+            background-color: #f1f1f1;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .debug-header h3 {
+            font-size: 1rem;
+            margin: 0;
+            color: #555;
+            font-weight: 700;
+            margin-right: auto;
+        }
+
+        .debug-raw {
+            display: none;
+            padding: 1.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+            background-color: #272822;
+            color: #f8f8f2;
+            white-space: pre-wrap;
+            border-top: 1px solid #ddd;
+        }
+
+        .loading-container {
+            display: none;
+            text-align: center;
+            padding: 6rem 2rem;
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .loading-container.show {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--forest-light);
+            border-top: 4px solid var(--forest-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        .placeholder-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            padding: 6rem 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .placeholder-card h3 {
+            font-family: var(--font-headings);
+            font-size: 2.25rem;
+            color: var(--forest-green);
+            margin-bottom: 0.75rem;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            color: #a94442;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 992px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-card {
+                position: static;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: #white !important;
+                color: #000 !important;
+                font-size: 11pt !important;
+            }
+            .header, .footer, .back-to-top, .form-card, .toolbar, .debug-panel, .page-hero, .placeholder-card, .generic-fields-toggle {
+                display: none !important;
+            }
+            .generic-fields-container {
+                display: block !important;
+            }
+            .calculator-grid {
+                display: block !important;
+            }
+            .blueprint-container {
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+            }
+            .results-wrapper {
+                display: block !important;
+            }
+            .result-section {
+                page-break-inside: avoid;
+                page-break-after: auto;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                margin-bottom: 2rem !important;
+                padding: 1.5rem !important;
+            }
+            .chakra-row {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+
+        /* PDF and Temp Container styles */
+        .temp-pdf-container {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 800px;
+            background: #ffffff;
+            color: #000000;
+        }
+        
+        .pdf-render {
+            background: #ffffff !important;
+            color: #000000 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+        
+        .pdf-render .result-section {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+            border: 1px solid #E8E9E5 !important;
+            background: #ffffff !important;
+            box-shadow: none !important;
+            margin-bottom: 20px !important;
+            padding: 20px !important;
+        }
+        
+        .pdf-render table {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="../#beranda" class="logo">
+                <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32" style="object-fit: contain;">
+                <span>Bhumi Amartya</span>
+            </a>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../#beranda" class="nav-link">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
+                            <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
+                            <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
+                            <li><a href="../produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
+                            <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../contact/" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero-inner">
+                <div class="breadcrumb">
+                    <a href="../">Beranda</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-item active">Blueprint Calculator</span>
+                </div>
+                <h1>Blueprint Calculator</h1>
+                <p class="page-tagline">Alat internal wrapper kalkulasi Blueprint resmi menggunakan Engine Bhumi.</p>
+            </div>
+        </section>
+
+        <div class="blueprint-container">
+            <div class="error-message" id="error-message">
+                Blueprint tidak dapat dihitung.<br>
+                <span id="error-reason">Silakan periksa data yang dimasukkan.</span>
+            </div>
+
+            <div class="calculator-grid">
+                <!-- FORM CARD -->
+                <form class="form-card" id="blueprint-form">
+                    <h2>Input Parameter</h2>
+                    
+                    <div class="form-group">
+                        <label for="fullName">Nama Lengkap <span class="req">*</span></label>
+                        <input class="form-control" type="text" id="fullName" required placeholder="Nama Lengkap">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthDate">Tanggal Lahir <span class="req">*</span></label>
+                        <input class="form-control" type="date" id="birthDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="birthTime">Jam Lahir <span class="req">*</span></label>
+                        <input class="form-control" type="time" id="birthTime" required>
+                    </div>
+
+                    <div class="form-group" style="position: relative;">
+                        <label for="birthCity">Kota Lahir <span class="req">*</span></label>
+                        <input class="form-control" type="text" id="birthCity" required placeholder="Ketik kota..." autocomplete="off">
+                        <div class="city-suggestions" id="city-suggestions" role="listbox"></div>
+                        <p class="city-note" id="city-note">Ketik nama kota dan pilih dari saran untuk koordinat & timezone presisi.</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Gender <span class="req">*</span></label>
+                        <div class="gender-radio-group">
+                            <label class="gender-radio-label">
+                                <input type="radio" name="gender" value="Male" checked>
+                                Male
+                            </label>
+                            <label class="gender-radio-label">
+                                <input type="radio" name="gender" value="Female">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit" id="submitBtn">Hitung Blueprint</button>
+                </form>
+
+                <!-- RESULTS PANEL -->
+                <div>
+                    <!-- PLACEHOLDER -->
+                    <div class="placeholder-card" id="placeholder-card">
+                        <h3>Bhumi Engine</h3>
+                        <p>Silakan isi parameter lahir secara lengkap dan klik tombol "Hitung Blueprint" untuk menampilkan data.</p>
+                    </div>
+
+                    <!-- LOADING -->
+                    <div class="loading-container" id="loading-container">
+                        <div class="spinner"></div>
+                        <p style="font-weight: 600; color: var(--forest-green);">Menghubungi Engine Bhumi...</p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.25rem;">Proses kalkulasi numerologi, astrologi, human design, dan matrix.</p>
+                    </div>
+
+                    <!-- RESULTS WRAPPER -->
+                    <div class="results-wrapper" id="results-wrapper">
+                        <!-- TOOLBAR -->
+                        <div class="toolbar">
+                            <span class="toolbar-title">Hasil Kalkulasi</span>
+                            <button class="btn btn-outline" id="copyRawBtn" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Salin JSON (Engine)</button>
+                            <button class="btn btn-outline" id="exportPdfBtn" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; margin-right: 0.5rem;">Export PDF</button>
+                            <button class="btn btn-primary" id="printBtn" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Cetak Hasil</button>
+                        </div>
+
+                        <div class="results-container">
+                            <!-- 1. PROFILE -->
+                            <section class="result-section">
+                                <h2>Profil Kelahiran</h2>
+                                <div class="profile-grid">
+                                    <div class="profile-item">
+                                        <span class="profile-label">Nama</span>
+                                        <span class="profile-value" id="res-name">-</span>
+                                    </div>
+                                    <div class="profile-item">
+                                        <span class="profile-label">Tanggal Lahir</span>
+                                        <span class="profile-value" id="res-birthdate">-</span>
+                                    </div>
+                                    <div class="profile-item">
+                                        <span class="profile-label">Jam Lahir</span>
+                                        <span class="profile-value" id="res-birthtime">-</span>
+                                    </div>
+                                    <div class="profile-item">
+                                        <span class="profile-label">Kota</span>
+                                        <span class="profile-value" id="res-city">-</span>
+                                    </div>
+                                    <div class="profile-item">
+                                        <span class="profile-label">Gender</span>
+                                        <span class="profile-value" id="res-gender">-</span>
+                                    </div>
+                                    <div class="profile-item">
+                                        <span class="profile-label">Usia</span>
+                                        <span class="profile-value" id="res-age">-</span>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- 2. LIFE PATH -->
+                            <section class="result-section">
+                                <h2>Life Path</h2>
+                                <table class="matrix-table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="label-cell">Life Path</td>
+                                            <td class="value-cell" id="res-lp-display">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Perhitungan</td>
+                                            <td class="value-cell" id="res-lp-calculation">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="margin-top: 1.5rem; display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap;">
+                                    <div style="flex: 1; min-width: 250px;">
+                                        <h3 style="font-size: 1.35rem; color: var(--forest-green); margin-bottom: 0.5rem;" id="res-lp-role">-</h3>
+                                        <div>
+                                            <span class="profile-label">Positive Traits</span>
+                                            <div class="traits-container" id="res-lp-pos"></div>
+                                        </div>
+                                        <div style="margin-top: 1rem;">
+                                            <span class="profile-label">Negative Traits</span>
+                                            <div class="traits-container" id="res-lp-neg"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span class="generic-fields-toggle" onclick="toggleGeneric('lp-generic')">Tampilkan Semua Parameter</span>
+                                <div class="generic-fields-container" id="lp-generic"></div>
+                            </section>
+
+                            <!-- 3. DESTINY MATRIX -->
+                            <section class="result-section">
+                                <h2>Destiny Matrix</h2>
+                                
+                                <!-- Ringkasan Energi Inti -->
+                                <div class="dm-ringkasan" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem;">
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1.25rem;text-align:center;">
+                                        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#7B8776;margin-bottom:0.5rem;">Arcana Center</div>
+                                        <div id="res-dm-center" style="font-size:2rem;font-weight:700;color:#4F5E52;">-</div>
+                                    </div>
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1.25rem;text-align:center;">
+                                        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#7B8776;margin-bottom:0.5rem;">Common Energy</div>
+                                        <div id="res-dm-common" style="font-size:1.5rem;font-weight:700;color:#4F5E52;">-</div>
+                                    </div>
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1.25rem;text-align:center;">
+                                        <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:#7B8776;margin-bottom:0.5rem;">Personal Qualities</div>
+                                        <div id="res-dm-qualities" style="font-size:1.5rem;font-weight:700;color:#4F5E52;">-</div>
+                                    </div>
+                                </div>
+
+                                <!-- Karmic Tail, Love, Financial, Family -->
+                                <table class="matrix-table" style="margin-bottom:1.5rem;">
+                                    <thead><tr><th>Aspek</th><th>Nilai</th></tr></thead>
+                                    <tbody>
+                                        <tr><td class="label-cell">Karmic Tail</td><td class="value-cell" id="res-dm-karmic">-</td></tr>
+                                        <tr><td class="label-cell">Jalur Cinta</td><td class="value-cell" id="res-dm-love">-</td></tr>
+                                        <tr><td class="label-cell">Angka &hearts;</td><td class="value-cell" id="res-dm-heart">-</td></tr>
+                                        <tr><td class="label-cell">Jalur Ekonomi</td><td class="value-cell" id="res-dm-economy">-</td></tr>
+                                        <tr><td class="label-cell">Angka $</td><td class="value-cell" id="res-dm-dollar">-</td></tr>
+                                        <tr><td class="label-cell">Karma Ayah</td><td class="value-cell" id="res-dm-fkarma">-</td></tr>
+                                        <tr><td class="label-cell">Karma Ibu</td><td class="value-cell" id="res-dm-mkarma">-</td></tr>
+                                        <tr><td class="label-cell">Bakat Ayah</td><td class="value-cell" id="res-dm-ftalent">-</td></tr>
+                                        <tr><td class="label-cell">Bakat Ibu</td><td class="value-cell" id="res-dm-mtalent">-</td></tr>
+                                        <tr><td class="label-cell">Bakat Agung</td><td class="value-cell" id="res-dm-gtalent">-</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Purpose Channel -->
+                                <div class="dm-subsection" style="margin-bottom:1.5rem;">
+                                    <div style="font-weight:700;color:#4F5E52;margin-bottom:0.75rem;">Purpose Channel</div>
+                                    <table class="matrix-table">
+                                        <thead><tr><th>Kategori Tujuan Jiwa</th><th>Nilai Arcana</th></tr></thead>
+                                        <tbody id="res-dm-purpose-body">
+                                            <tr><td class="label-cell">Personal Purpose</td><td class="value-cell" id="res-dm-purpose-personal">-</td></tr>
+                                            <tr><td class="label-cell">Social Purpose</td><td class="value-cell" id="res-dm-purpose-social">-</td></tr>
+                                            <tr><td class="label-cell">Sky Purpose</td><td class="value-cell" id="res-dm-purpose-sky">-</td></tr>
+                                            <tr><td class="label-cell">Earth Purpose</td><td class="value-cell" id="res-dm-purpose-earth">-</td></tr>
+                                            <tr><td class="label-cell">Spiritual Purpose</td><td class="value-cell" id="res-dm-purpose-spiritual">-</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Current Age Energy / Forecasting -->
+                                <div class="dm-subsection" style="margin-bottom:1.5rem;">
+                                    <div style="font-weight:700;color:#4F5E52;margin-bottom:0.75rem;">Forecasting Destiny Matrix</div>
+                                    <table class="matrix-table">
+                                        <tbody>
+                                            <tr><td class="label-cell">Current Age Energy</td><td class="value-cell" id="res-dm-age-energy" style="color:#B8860B;font-weight:700;">-</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <span class="generic-fields-toggle" onclick="toggleGeneric('dm-generic')">Tampilkan Semua Parameter</span>
+                                <div class="generic-fields-container" id="dm-generic"></div>
+                            </section>
+
+                            <!-- 4. HEALTH CARD -->
+                            <section class="result-section">
+                                <h2>Health Card</h2>
+                                <div style="overflow-x: auto;">
+                                    <table class="chakra-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Chakra</th>
+                                                <th>Physics</th>
+                                                <th>Energy</th>
+                                                <th>Emotion</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="chakra-table-body">
+                                            <!-- Dynamic rows colored by chakra name -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+
+                            <!-- 5. SOUL SEARCHING -->
+                            <section class="result-section">
+                                <h2>Soul Searching</h2>
+                                <table class="matrix-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kategori Tujuan Jiwa</th>
+                                            <th>Nilai Arcana</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="label-cell">
+                                                <strong>Soul Searching (Tujuan Pribadi)</strong>
+                                                <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal; margin-top: 0.25rem;">
+                                                    Mix of male and female. Building relationships. Skills.
+                                                </div>
+                                            </td>
+                                            <td class="value-cell" id="res-ss-soul" style="font-weight: 700;">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">
+                                                <strong>Socialization (Tujuan Sosial)</strong>
+                                                <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal; margin-top: 0.25rem;">
+                                                    Social and family systems. Result and public acceptance.
+                                                </div>
+                                            </td>
+                                            <td class="value-cell" id="res-ss-social" style="font-weight: 700;">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">
+                                                <strong>Sky (Tujuan Langit)</strong>
+                                            </td>
+                                            <td class="value-cell" id="res-ss-sky" style="font-weight: 700;">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">
+                                                <strong>Earth (Tujuan Bumi)</strong>
+                                            </td>
+                                            <td class="value-cell" id="res-ss-earth" style="font-weight: 700;">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">
+                                                <strong>Spiritual Knowledge (Tujuan Spiritual)</strong>
+                                                <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal; margin-top: 0.25rem;">
+                                                    Spiritual exam. Who am I for the God? Do I have anything spiritual inside?
+                                                </div>
+                                            </td>
+                                            <td class="value-cell" id="res-ss-spiritual" style="font-weight: 700;">-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <!-- 6. HUMAN DESIGN -->
+                            <section class="result-section">
+                                <h2>Human Design</h2>
+                                <table class="matrix-table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="label-cell">Type</td>
+                                            <td class="value-cell" id="res-hd-type">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Strategy</td>
+                                            <td class="value-cell" id="res-hd-strategy">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Authority</td>
+                                            <td class="value-cell" id="res-hd-authority">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Profile</td>
+                                            <td class="value-cell" id="res-hd-profile">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Signature</td>
+                                            <td class="value-cell" id="res-hd-signature">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Not Self Theme</td>
+                                            <td class="value-cell" id="res-hd-notself">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Incarnation Cross</td>
+                                            <td class="value-cell" id="res-hd-cross">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Definition</td>
+                                            <td class="value-cell" id="res-hd-definition">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Digestion</td>
+                                            <td class="value-cell" id="res-hd-digestion">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Environment</td>
+                                            <td class="value-cell" id="res-hd-environment">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Motivation</td>
+                                            <td class="value-cell" id="res-hd-motivation">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="label-cell">Cognition</td>
+                                            <td class="value-cell" id="res-hd-cognition">-</td>
+                                        </tr>
+                                        <tr><td class="label-cell">Gates Personality</td><td class="value-cell" id="res-hd-gatespersonality">-</td></tr>
+                                        <tr><td class="label-cell">Gates Design</td><td class="value-cell" id="res-hd-gatesdesign">-</td></tr>
+                                        <tr><td class="label-cell">Diagnostic</td><td class="value-cell" id="res-hd-diagnostic">-</td></tr>
+                                        <tr><td class="label-cell">Personality Activations</td><td class="value-cell" id="res-hd-personalityactivations">-</td></tr>
+                                        <tr><td class="label-cell">Design Activations</td><td class="value-cell" id="res-hd-designactivations">-</td></tr>
+                                        <tr><td class="label-cell">Raw Personality Gates</td><td class="value-cell" id="res-hd-rawpersonalitygates">-</td></tr>
+                                        <tr><td class="label-cell">Raw Design Gates</td><td class="value-cell" id="res-hd-rawdesigngates">-</td></tr>
+                                        <tr><td class="label-cell">Status</td><td class="value-cell" id="res-hd-status">-</td></tr>
+                                        <tr><td class="label-cell">Source</td><td class="value-cell" id="res-hd-source">-</td></tr>
+                                        <tr><td class="label-cell">Accuracy</td><td class="value-cell" id="res-hd-accuracy">-</td></tr>
+                                        <tr><td class="label-cell">Calculation Quality</td><td class="value-cell" id="res-hd-calculationquality">-</td></tr>
+                                        <tr><td class="label-cell">HD Engine Version</td><td class="value-cell" id="res-hd-hdengineversion">-</td></tr>
+                                        <tr><td class="label-cell">HD Audit Status</td><td class="value-cell" id="res-hd-hdauditstatus">-</td></tr>
+                                        <tr><td class="label-cell">Generated At</td><td class="value-cell" id="res-hd-generatedat">-</td></tr>
+                                        <tr><td class="label-cell">Updated At</td><td class="value-cell" id="res-hd-updatedat">-</td></tr>
+                                        <tr><td class="label-cell">Calculation Status</td><td class="value-cell" id="res-hd-calculationstatus">-</td></tr>
+                                        <tr><td class="label-cell">Timezone</td><td class="value-cell" id="res-hd-timezone">-</td></tr>
+                                        <tr><td class="label-cell">Calculated At</td><td class="value-cell" id="res-hd-calculatedat">-</td></tr>
+                                        <tr><td class="label-cell">Note</td><td class="value-cell" id="res-hd-note">-</td></tr>
+                                    </tbody>
+                                </table>
+                                <div style="margin-top: 1.5rem;">
+                                    <span class="profile-label" style="margin-bottom: 0.5rem;">Defined Channels</span>
+                                    <div class="hd-channels-container" id="res-hd-channels"></div>
+                                </div>
+                                <span class="generic-fields-toggle" onclick="toggleGeneric('hd-generic')">Tampilkan Semua Parameter</span>
+                                <div class="generic-fields-container" id="hd-generic"></div>
+                            </section>
+
+                            <!-- 7. NATAL CHART -->
+                            <section class="result-section">
+                                <h2>Natal Chart</h2>
+                                
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin-bottom: 1rem; margin-top: 1rem;">Planet Positions</h3>
+                                <table class="matrix-table" style="margin-bottom: 2rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>Planet / Node</th>
+                                            <th>Sign & Degree</th>
+                                            <th>Retrograde</th>
+                                            <th>House</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="natal-planets-body">
+                                        <!-- Dynamic planet rows -->
+                                    </tbody>
+                                </table>
+
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin-bottom: 1rem;">Placidus Houses</h3>
+                                <table class="matrix-table" style="margin-bottom: 2rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>House</th>
+                                            <th>Zodiac Sign & Degree</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="natal-houses-body">
+                                        <!-- Dynamic house rows -->
+                                    </tbody>
+                                </table>
+
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin-bottom: 1rem;">Planet in Houses</h3>
+                                <table class="matrix-table" style="margin-bottom: 2rem;">
+                                    <thead>
+                                        <tr>
+                                            <th>House</th>
+                                            <th>Planets</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="res-natal-planet-in-houses">
+                                        <!-- Dynamic planets grouped by house -->
+                                    </tbody>
+                                </table>
+
+                                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                                    <div>
+                                        <h3 style="font-size: 1.2rem; color: var(--forest-green); margin-bottom: 0.75rem;">Elements</h3>
+                                        <table class="matrix-table">
+                                            <tbody id="res-natal-elements"></tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <h3 style="font-size: 1.2rem; color: var(--forest-green); margin-bottom: 0.75rem;">Modalities</h3>
+                                        <table class="matrix-table">
+                                            <tbody id="res-natal-modalities"></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <span class="generic-fields-toggle" onclick="toggleGeneric('natal-generic')">Tampilkan Semua Parameter</span>
+                                <div class="generic-fields-container" id="natal-generic"></div>
+                            </section>
+                        </div>
+
+                        <!-- DEBUG PANEL -->
+                        <div class="debug-panel">
+                            <div class="debug-header">
+                                <h3>Debug Panel (JSON Output)</h3>
+                                <button class="btn btn-outline" id="copyResponseBtn" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; border-radius: 6px;" type="button">Copy Response</button>
+                                <button class="btn btn-outline" id="copyRawEngineBtn" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; border-radius: 6px;" type="button">Copy Raw Engine JSON</button>
+                                <button class="btn btn-outline" id="debugToggleBtn" style="padding: 0.35rem 0.85rem; font-size: 0.8rem; border-radius: 6px;" type="button">Tampilkan Debug JSON</button>
+                            </div>
+                            <pre class="debug-raw" id="debugRawJson"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" id="kontak">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="footer-brand">
+                    <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38">
+                    <h4>Bhumi Amartya</h4>
+                </div>
+                <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
+            </div>
+            <div class="footer-contact">
+                <h5>Hubungi Kami</h5>
+                <div class="contact-item">
+                    <span>halo@bhumiamartya.my.id</span>
+                </div>
+                <div class="contact-item">
+                    <span>+62 858-1053-1892</span>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Bhumi Amartya. All rights reserved.</p>
+            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener noreferrer">Amartya Creative</a></p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="../assets/bhumi-analytics.js" defer></script>
+    <script>
+        // Global toggle helper
+        function toggleGeneric(id) {
+            const container = document.getElementById(id);
+            if (container) {
+                container.classList.toggle('show');
+                const trigger = container.previousElementSibling;
+                if (trigger) {
+                    trigger.textContent = container.classList.contains('show') 
+                        ? 'Sembunyikan Semua Parameter' 
+                        : 'Tampilkan Semua Parameter';
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerBtn = document.getElementById('burger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const header = document.getElementById('header');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // Autocomplete elements
+            const birthcityInput = document.getElementById('birthCity');
+            const citySuggestions = document.getElementById('city-suggestions');
+            const cityNote = document.getElementById('city-note');
+            let selectedCity = null;
+            let citySearchTimer = null;
+
+            // Form & State elements
+            const form = document.getElementById('blueprint-form');
+            const placeholderCard = document.getElementById('placeholder-card');
+            const loadingContainer = document.getElementById('loading-container');
+            const resultsWrapper = document.getElementById('results-wrapper');
+            const errorMessage = document.getElementById('error-message');
+            const errorReason = document.getElementById('error-reason');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Navigation trigger
+            const toggleMenu = () => {
+                burgerBtn.classList.toggle('open');
+                navMenu.classList.toggle('open');
+                document.body.classList.toggle('menu-open', navMenu.classList.contains('open'));
+            };
+            burgerBtn.addEventListener('click', toggleMenu);
+
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('header-scrolled', window.scrollY > 50);
+                backToTopBtn.classList.toggle('show', window.scrollY > 500);
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // City suggestions fallback database
+            const fallbackCities = {
+                jakarta: { formattedCity: 'Jakarta, Indonesia', latitude: -6.2088, longitude: 106.8456, country: 'Indonesia', timezone: '+07:00' },
+                bandung: { formattedCity: 'Bandung, Jawa Barat, Indonesia', latitude: -6.9175, longitude: 107.6191, country: 'Indonesia', timezone: '+07:00' },
+                surabaya: { formattedCity: 'Surabaya, Jawa Timur, Indonesia', latitude: -7.2575, longitude: 112.7521, country: 'Indonesia', timezone: '+07:00' },
+                yogyakarta: { formattedCity: 'Yogyakarta, Indonesia', latitude: -7.7956, longitude: 110.3695, country: 'Indonesia', timezone: '+07:00' },
+                denpasar: { formattedCity: 'Denpasar, Bali, Indonesia', latitude: -8.6500, longitude: 115.2167, country: 'Indonesia', timezone: '+08:00' },
+                makassar: { formattedCity: 'Makassar, Sulawesi Selatan, Indonesia', latitude: -5.1477, longitude: 119.4327, country: 'Indonesia', timezone: '+08:00' },
+                medan: { formattedCity: 'Medan, Sumatera Utara, Indonesia', latitude: 3.5952, longitude: 98.6722, country: 'Indonesia', timezone: '+07:00' },
+                semarang: { formattedCity: 'Semarang, Jawa Tengah, Indonesia', latitude: -6.9667, longitude: 110.4167, country: 'Indonesia', timezone: '+07:00' },
+                malang: { formattedCity: 'Malang, Jawa Timur, Indonesia', latitude: -7.9666, longitude: 112.6326, country: 'Indonesia', timezone: '+07:00' },
+                lombok: { formattedCity: 'Lombok, Nusa Tenggara Barat, Indonesia', latitude: -8.6506, longitude: 116.5304, country: 'Indonesia', timezone: '+08:00' }
+            };
+
+            const resolveTimezoneFromLongitude = (longitude) => {
+                if (typeof longitude !== 'number' || !Number.isFinite(longitude)) return null;
+                const hours = Math.round(longitude / 15);
+                const sign = hours >= 0 ? '+' : '-';
+                return `${sign}${String(Math.abs(hours)).padStart(2, '0')}:00`;
+            };
+
+            const normalizeCity = (value) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+
+            const resolveCityFallback = (value) => {
+                const normalized = normalizeCity(value || '');
+                const key = Object.keys(fallbackCities).find((item) => normalized.includes(item));
+                return key ? fallbackCities[key] : null;
+            };
+
+            const renderCitySuggestions = (suggestions) => {
+                citySuggestions.innerHTML = suggestions.map((suggestion, index) => `
+                    <button class="city-option" type="button" data-index="${index}" role="option">${suggestion.formattedCity}</button>
+                `).join('');
+                citySuggestions.classList.toggle('show', suggestions.length > 0);
+                citySuggestions.querySelectorAll('.city-option').forEach((button) => {
+                    button.addEventListener('click', () => {
+                        const suggestion = suggestions[Number(button.dataset.index)];
+                        selectedCity = {
+                            ...suggestion,
+                            timezone: suggestion.timezone || resolveTimezoneFromLongitude(suggestion.longitude)
+                        };
+                        birthcityInput.value = selectedCity.formattedCity;
+                        citySuggestions.classList.remove('show');
+                        cityNote.textContent = `Kota dipilih: ${selectedCity.formattedCity}`;
+                    });
+                });
+            };
+
+            const loadCitySuggestions = async (query) => {
+                const trimmed = query.trim();
+                selectedCity = null;
+
+                if (!trimmed) {
+                    renderCitySuggestions([]);
+                    cityNote.textContent = 'Ketik kota lahir Anda untuk presisi koordinat.';
+                    return;
+                }
+
+                const fallback = resolveCityFallback(trimmed);
+
+                try {
+                    const response = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(trimmed)}&limit=8`);
+                    if (!response.ok) throw new Error('City lookup failed.');
+                    const data = await response.json();
+                    const suggestions = (data.features || [])
+                        .filter((feature) => {
+                            const props = feature.properties || {};
+                            return props.osm_key === 'place' && ['city', 'town', 'village', 'municipality'].includes(props.osm_value);
+                        })
+                        .map((feature) => {
+                            const props = feature.properties || {};
+                            const coordinates = feature.geometry?.coordinates || [0, 0];
+                            return {
+                                formattedCity: [props.name, props.state, props.country].filter(Boolean).join(', '),
+                                latitude: coordinates[1],
+                                longitude: coordinates[0],
+                                country: props.country || null,
+                                timezone: resolveTimezoneFromLongitude(coordinates[0])
+                            };
+                        })
+                        .filter((suggestion) => suggestion.formattedCity)
+                        .slice(0, 6);
+                    
+                    renderCitySuggestions(fallback ? [fallback, ...suggestions.filter((item) => item.formattedCity !== fallback.formattedCity)] : suggestions);
+                    cityNote.textContent = 'Silakan pilih kota dari saran.';
+                } catch {
+                    renderCitySuggestions(fallback ? [fallback] : []);
+                    cityNote.textContent = fallback ? 'Menggunakan fallback kota dari database lokal.' : 'Gagal memuat saran kota.';
+                }
+            };
+
+            birthcityInput.addEventListener('input', () => {
+                window.clearTimeout(citySearchTimer);
+                citySearchTimer = window.setTimeout(() => loadCitySuggestions(birthcityInput.value), 350);
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target !== birthcityInput) {
+                    citySuggestions.classList.remove('show');
+                }
+            });
+
+            // CHAKRA COLOR CODE MAP
+            const chakraColors = {
+                Sahasrara: "#A56BBC",
+                Ajna: "#5FA8B8",
+                Vishudha: "#7CC7BC",
+                Anahata: "#83BE58",
+                Manipura: "#F3C75F",
+                Svadhisthana: "#F57336",
+                Muladhara: "#D84242",
+                Total: "#D6D0C7"
+            };
+
+            // GENERIC RENDERER HELPER
+            function renderGenericTable(obj, containerId, excludeKeys = []) {
+                const container = document.getElementById(containerId);
+                if (!container || !obj) return;
+                
+                let html = '<table class="matrix-table">';
+                html += '<thead><tr><th>Key / Parameter</th><th>Value</th></tr></thead>';
+                html += '<tbody>';
+                
+                Object.entries(obj).forEach(([key, val]) => {
+                    if (excludeKeys.includes(key)) return;
+                    
+                    const formattedKey = key
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, str => str.toUpperCase());
+                    
+                    let displayVal = '';
+                    if (val === null || val === undefined) {
+                        displayVal = '-';
+                    } else if (typeof val === 'object') {
+                        if (Array.isArray(val)) {
+                            displayVal = val.map(item => typeof item === 'object' ? JSON.stringify(item) : item).join(' ┬╖ ');
+                        } else {
+                            displayVal = `<pre style="margin:0; font-size:0.8rem; font-family:monospace; background:none; padding:0; color:var(--text-primary); white-space:pre-wrap;">${JSON.stringify(val, null, 2)}</pre>`;
+                        }
+                    } else if (typeof val === 'boolean') {
+                        displayVal = val ? 'Ya' : 'Tidak';
+                    } else {
+                        displayVal = String(val);
+                    }
+                    
+                    html += `
+                        <tr>
+                            <td class="label-cell">${formattedKey}</td>
+                            <td class="value-cell">${displayVal}</td>
+                        </tr>
+                    `;
+                });
+                
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+
+            // RENDER FUNCTION (Frontend murni thin client)
+            let fullResponseData = null; // store the full response including metadata
+            
+            const renderBlueprintResult = (responseData, inputParams) => {
+                fullResponseData = responseData;
+                const bp = responseData.blueprint; // Object asli dari engine (SSoT)
+                const dm = bp.destinyMatrix || {};
+
+                // 1. Profile (menggunakan value yang langsung disediakan dari API wrapper)
+                document.getElementById('res-name').textContent = inputParams.fullName;
+                const [year, month, day] = inputParams.birthDate.split('-');
+                document.getElementById('res-birthdate').textContent = `${day}/${month}/${year}`;
+                document.getElementById('res-birthtime').textContent = inputParams.birthTime;
+                document.getElementById('res-city').textContent = inputParams.birthCity;
+                document.getElementById('res-gender').textContent = inputParams.gender;
+                document.getElementById('res-age').textContent = `${bp.currentAge || 0} tahun`;
+
+                // 2. Life Path
+                const lp = bp.lifePath || {};
+                document.getElementById('res-lp-display').textContent = lp.display || lp.number || '-';
+                
+                // Construct Life Path calculation steps string
+                const sumDigits = (s) => s.split('').reduce((sum, d) => sum + parseInt(d, 10), 0);
+                const reduceNum = (num) => {
+                    if (num === 11 || num === 22 || num === 33) return num;
+                    let sum = sumDigits(String(num));
+                    while (sum > 9) {
+                        if (sum === 11 || sum === 22 || sum === 33) return sum;
+                        sum = sumDigits(String(sum));
+                    }
+                    return sum;
+                };
+                const dNum = reduceNum(Number(day));
+                const mNum = reduceNum(Number(month));
+                const yNum = reduceNum(sumDigits(year));
+                const totalSum = dNum + mNum + yNum;
+                const finalLP = reduceNum(totalSum);
+                const lpCalcString = `${day} (Hari) -> ${dNum} | ${month} (Bulan) -> ${mNum} | ${year} (Tahun) -> ${yNum} | Total: ${dNum} + ${mNum} + ${yNum} = ${totalSum} -> ${finalLP}`;
+                document.getElementById('res-lp-calculation').textContent = lpCalcString;
+
+                document.getElementById('res-lp-role').textContent = lp.role || '-';
+                
+                const posContainer = document.getElementById('res-lp-pos');
+                posContainer.innerHTML = (lp.positiveTraits || []).map(t => `<span class="trait-tag positive">${t}</span>`).join('');
+                
+                const negContainer = document.getElementById('res-lp-neg');
+                negContainer.innerHTML = (lp.negativeTraits || []).map(t => `<span class="trait-tag negative">${t}</span>`).join('');
+
+                // Life Path Generic fields
+                renderGenericTable(lp, 'lp-generic', ['positiveTraits', 'negativeTraits', 'number', 'display', 'role']);
+
+                // 3. Destiny Matrix (Direct pass-through maps)
+                const joinLine = (arr) => arr && Array.isArray(arr) ? arr.join(' - ') : '-';
+                
+                document.getElementById('res-dm-center').textContent = dm.arcanaCenter || dm.center || '-';
+                document.getElementById('res-dm-common').textContent = dm.commonEnergy || '-';
+                document.getElementById('res-dm-qualities').textContent = dm.personalQualities || '-';
+                document.getElementById('res-dm-economy').textContent = dm.jalurEkonomi || joinLine(dm.moneyLine);
+                document.getElementById('res-dm-dollar').textContent = dm.angkaDollar || '-';
+                document.getElementById('res-dm-love').textContent = dm.jalurCinta || joinLine(dm.loveLine);
+                document.getElementById('res-dm-heart').textContent = dm.angkaHeart || '-';
+                document.getElementById('res-dm-karmic').textContent = dm.karmicTailLegacy || joinLine(dm.karmicTail);
+                document.getElementById('res-dm-fkarma').textContent = dm.karmaAyah || joinLine(dm.fatherLine);
+                document.getElementById('res-dm-mkarma').textContent = dm.karmaIbu || joinLine(dm.motherLine);
+                document.getElementById('res-dm-ftalent').textContent = dm.bakatAyah || joinLine(dm.talentsFather);
+                document.getElementById('res-dm-mtalent').textContent = dm.bakatIbu || joinLine(dm.talentsMother);
+                document.getElementById('res-dm-gtalent').textContent = dm.bakatAgung || joinLine(dm.talentsGreat || dm.talents);
+                
+                // Renders Yearly Arcana directly from blueprint object (SSoT)
+                document.getElementById('res-dm-age-energy').textContent = bp.currentAgeEnergy || '-';
+
+                // Destiny Matrix Generic fields
+                renderGenericTable(dm, 'dm-generic', [
+                    'years', 'chartHeart', 'rawPoints', 'purposes', 'moneyLine', 'loveLine', 'karmicTail', 
+                    'fatherLine', 'motherLine', 'talentsFather', 'talentsMother', 'talentsGreat', 'talents',
+                    'arcanaCenter', 'center', 'commonEnergy', 'personalQualities', 'jalurEkonomi', 'angkaDollar',
+                    'jalurCinta', 'angkaHeart', 'karmicTailLegacy', 'karmaAyah', 'karmaIbu', 'bakatAyah', 'bakatIbu', 'bakatAgung'
+                ]);
+
+                // 4. Health Card (Chakra)
+                const tbody = document.getElementById('chakra-table-body');
+                tbody.innerHTML = '';
+                
+                const health = dm.healthChart || {};
+                const chakras = [
+                    { name: "Sahasrara", key: "sahasrara" },
+                    { name: "Ajna", key: "ajna" },
+                    { name: "Vishudha", key: "vishudha" },
+                    { name: "Anahata", key: "anahata" },
+                    { name: "Manipura", key: "manipura" },
+                    { name: "Svadhisthana", key: "svadhisthana" },
+                    { name: "Muladhara", key: "muladhara" }
+                ];
+                
+                chakras.forEach(c => {
+                    const bg = chakraColors[c.name] || '#777';
+                    const cData = health[c.key] || {};
+                    const phys = cData.physics ?? '-';
+                    const nrg = cData.energy ?? '-';
+                    const emo = cData.emotion ?? '-';
+                    tbody.innerHTML += `
+                        <tr class="chakra-row" style="background-color: ${bg};">
+                            <td style="text-align: left; font-weight: 700;">${c.name}</td>
+                            <td>${phys}</td>
+                            <td>${nrg}</td>
+                            <td>${emo}</td>
+                        </tr>
+                    `;
+                });
+                
+                // Total
+                const totPhys = dm.totalPhysics ?? '-';
+                const totNrg = dm.totalEnergy ?? '-';
+                const totEmo = dm.totalEmotion ?? '-';
+                tbody.innerHTML += `
+                    <tr class="total-row">
+                        <td style="text-align: left; font-weight: 700;">Total</td>
+                        <td>${totPhys}</td>
+                        <td>${totNrg}</td>
+                        <td>${totEmo}</td>
+                    </tr>
+                `;
+
+                // 5. Soul Searching
+                const ss = dm.purposes || {};
+                document.getElementById('res-ss-soul').textContent = ss.perspurpose || '-';
+                document.getElementById('res-ss-social').textContent = ss.socialpurpose || '-';
+                document.getElementById('res-ss-sky').textContent = ss.skypoint || '-';
+                document.getElementById('res-ss-earth').textContent = ss.earthpoint || '-';
+                document.getElementById('res-ss-spiritual').textContent = ss.generalpurpose || '-';
+                
+                // Purpose Channel (Destiny Matrix section)
+                document.getElementById('res-dm-purpose-personal').textContent = ss.perspurpose || '-';
+                document.getElementById('res-dm-purpose-social').textContent = ss.socialpurpose || '-';
+                document.getElementById('res-dm-purpose-sky').textContent = ss.skypoint || '-';
+                document.getElementById('res-dm-purpose-earth').textContent = ss.earthpoint || '-';
+                document.getElementById('res-dm-purpose-spiritual').textContent = ss.generalpurpose || '-';
+
+                // 6. Human Design
+                const hd = bp.humanDesign || {};
+                document.getElementById('res-hd-type').textContent = hd.type || '-';
+                document.getElementById('res-hd-strategy').textContent = hd.strategy || '-';
+                document.getElementById('res-hd-authority').textContent = hd.authority || '-';
+                document.getElementById('res-hd-profile').textContent = hd.profile || '-';
+                document.getElementById('res-hd-signature').textContent = hd.signature || '-';
+                document.getElementById('res-hd-notself').textContent = hd.notSelfTheme || hd.notSelf || '-';
+                document.getElementById('res-hd-cross').textContent = hd.incarnationCross?.name || hd.incarnationCross || '-';
+                document.getElementById('res-hd-definition').textContent = hd.definition || '-';
+                
+                // Variables
+                const vars = hd.variables || {};
+                document.getElementById('res-hd-digestion').textContent = hd.digestion || vars.digestion || '-';
+                document.getElementById('res-hd-environment').textContent = hd.environment || vars.environment || '-';
+                document.getElementById('res-hd-motivation').textContent = hd.motivation || vars.motivation || '-';
+                document.getElementById('res-hd-cognition').textContent = hd.cognition || vars.cognition || '-';
+                
+                // Technical Human Design fields
+                const fmtArr = (v) => Array.isArray(v) ? v.join(', ') : (v ? String(v) : '-');
+                const fmtObj = (v) => { if (v === null || v === undefined) return '-'; if (typeof v === 'object') { try { return JSON.stringify(v); } catch { return '-'; } } return String(v); };
+                document.getElementById('res-hd-gatespersonality').textContent = fmtArr(hd.gatesPersonality) || fmtArr(hd.personality_gates) || '-';
+                document.getElementById('res-hd-gatesdesign').textContent = fmtArr(hd.gatesDesign) || fmtArr(hd.design_gates) || '-';
+                document.getElementById('res-hd-diagnostic').textContent = fmtObj(hd.diagnostic);
+                document.getElementById('res-hd-personalityactivations').textContent = fmtArr(hd.personalityActivations) || fmtArr(hd.personality_activations) || '-';
+                document.getElementById('res-hd-designactivations').textContent = fmtArr(hd.designActivations) || fmtArr(hd.design_activations) || '-';
+                document.getElementById('res-hd-rawpersonalitygates').textContent = fmtArr(hd.raw_personality_gates) || '-';
+                document.getElementById('res-hd-rawdesigngates').textContent = fmtArr(hd.raw_design_gates) || '-';
+                document.getElementById('res-hd-status').textContent = hd.status || '-';
+                document.getElementById('res-hd-source').textContent = hd.source || '-';
+                document.getElementById('res-hd-accuracy').textContent = hd.accuracy || hd.calculationQuality || hd.calculation_quality || '-';
+                document.getElementById('res-hd-calculationquality').textContent = hd.calculationQuality || hd.calculation_quality || '-';
+                document.getElementById('res-hd-hdengineversion').textContent = hd.hdEngineVersion || hd.hd_engine_version || '-';
+                document.getElementById('res-hd-hdauditstatus').textContent = hd.hdAuditStatus || hd.hd_audit_status || '-';
+                document.getElementById('res-hd-generatedat').textContent = hd.generatedAt || hd.generated_at || '-';
+                document.getElementById('res-hd-updatedat').textContent = hd.updatedAt || hd.updated_at || '-';
+                document.getElementById('res-hd-calculationstatus').textContent = hd.calculationStatus || hd.calculation_status || '-';
+                document.getElementById('res-hd-timezone').textContent = hd.timezone || '-';
+                document.getElementById('res-hd-calculatedat').textContent = hd.calculatedAt || hd.calculated_at || '-';
+                document.getElementById('res-hd-note').textContent = hd.note || '-';
+                
+                // Defined Channels
+                const chanContainer = document.getElementById('res-hd-channels');
+                chanContainer.innerHTML = (hd.channels || []).map(c => `<span class="hd-channel-badge">${c}</span>`).join('');
+
+                // Human Design Generic fields
+                renderGenericTable(hd, 'hd-generic', ['channels', 'gates', 'variables', 'incarnationCross', 'centers']);
+
+                // 7. Natal Chart
+                const astro = bp.astrology || bp.natalChart || {};
+                
+                // Planet Positions
+                const planetBody = document.getElementById('natal-planets-body');
+                planetBody.innerHTML = '';
+                
+                const planetInHouses = {};
+
+                if (astro.planets) {
+                    Object.entries(astro.planets).forEach(([pName, pData]) => {
+                        const planet = pData || {};
+                        planetBody.innerHTML += `
+                            <tr>
+                                <td style="font-weight: 700;">${pName}</td>
+                                <td>${planet.sign} ${Math.floor(planet.degree)}┬░</td>
+                                <td>${planet.retrograde ? 'Ya' : 'Tidak'}</td>
+                                <td>Rumah ${planet.house || '-'}</td>
+                            </tr>
+                        `;
+                        // Group planet in houses
+                        const houseNum = planet.house || '-';
+                        if (!planetInHouses[houseNum]) {
+                            planetInHouses[houseNum] = [];
+                        }
+                        planetInHouses[houseNum].push(pName);
+                    });
+                } else {
+                    planetBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Data planet tidak tersedia</td></tr>';
+                }
+
+                // Placidus Houses
+                const houseBody = document.getElementById('natal-houses-body');
+                houseBody.innerHTML = '';
+                const housesSource = astro.houses || astro.placidusHouses;
+                if (housesSource) {
+                    Object.entries(housesSource).forEach(([hNum, hData]) => {
+                        const house = hData || {};
+                        houseBody.innerHTML += `
+                            <tr>
+                                <td style="font-weight: 700;">Rumah ${hNum}</td>
+                                <td>${house.sign} ${Math.floor(house.degree)}┬░</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    houseBody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Data rumah tidak tersedia</td></tr>';
+                }
+
+                // Render Planet in Houses list
+                const planetInHousesBody = document.getElementById('res-natal-planet-in-houses');
+                planetInHousesBody.innerHTML = '';
+                if (Object.keys(planetInHouses).length > 0) {
+                    Object.entries(planetInHouses).sort((a, b) => {
+                        const numA = parseInt(a[0], 10);
+                        const numB = parseInt(b[0], 10);
+                        if (isNaN(numA)) return 1;
+                        if (isNaN(numB)) return -1;
+                        return numA - numB;
+                    }).forEach(([hNum, planets]) => {
+                        planetInHousesBody.innerHTML += `
+                            <tr>
+                                <td style="font-weight: 700;">Rumah ${hNum}</td>
+                                <td>${planets.join(', ')}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    planetInHousesBody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Data Planet in Houses tidak tersedia</td></tr>';
+                }
+
+                // Elements
+                const elemBody = document.getElementById('res-natal-elements');
+                elemBody.innerHTML = '';
+                if (astro.elements) {
+                    Object.entries(astro.elements).forEach(([eName, eValue]) => {
+                        elemBody.innerHTML += `
+                            <tr>
+                                <td class="label-cell">${eName}</td>
+                                <td class="value-cell">${eValue}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    elemBody.innerHTML = '<tr><td>Data elemen tidak tersedia</td></tr>';
+                }
+
+                // Modalities
+                const modBody = document.getElementById('res-natal-modalities');
+                modBody.innerHTML = '';
+                if (astro.modalities) {
+                    Object.entries(astro.modalities).forEach(([mName, mValue]) => {
+                        modBody.innerHTML += `
+                            <tr>
+                                <td class="label-cell">${mName}</td>
+                                <td class="value-cell">${mValue}</td>
+                            </tr>
+                        `;
+                    });
+                } else {
+                    modBody.innerHTML = '<tr><td>Data modalitas tidak tersedia</td></tr>';
+                }
+
+
+
+                // Natal Generic fields
+                renderGenericTable(astro, 'natal-generic', ['planets', 'houses', 'placidusHouses', 'wholeSignHouses', 'elements', 'modalities', 'aspects', 'patterns', 'polarities']);
+
+                // Raw JSON debug
+                document.getElementById('debugRawJson').textContent = JSON.stringify(responseData, null, 2);
+            };
+
+            // FORM SUBMIT ACTION
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const fullName = document.getElementById('fullName').value.trim();
+                const birthDate = document.getElementById('birthDate').value;
+                const birthTime = document.getElementById('birthTime').value;
+                const birthCity = document.getElementById('birthCity').value.trim();
+                const gender = document.querySelector('input[name="gender"]:checked').value;
+
+                if (!fullName || !birthDate || !birthCity) {
+                    form.reportValidity();
+                    return;
+                }
+
+                errorMessage.classList.remove('show');
+                placeholderCard.style.display = 'none';
+                resultsWrapper.classList.remove('show');
+                loadingContainer.classList.add('show');
+                
+                // Disable form inputs
+                Array.from(form.elements).forEach(el => el.disabled = true);
+
+                // Resolve city properties
+                const resolvedCity = selectedCity || resolveCityFallback(birthCity);
+
+                // Backend call
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                const API_URL = isLocal 
+                    ? 'http://localhost:3000/api/blueprint' 
+                    : 'https://bhumi-amartya-clean.vercel.app/api/blueprint';
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            fullName,
+                            birthDate,
+                            birthTime,
+                            birthCity: resolvedCity ? resolvedCity.formattedCity : birthCity,
+                            latitude: resolvedCity ? resolvedCity.latitude : null,
+                            longitude: resolvedCity ? resolvedCity.longitude : null,
+                            timezone: resolvedCity ? resolvedCity.timezone : null
+                        })
+                    });
+
+                    const data = await response.json();
+                    
+                    if (!response.ok || !data.meta?.success) {
+                        throw new Error(data.message || 'Blueprint calculation failed on API');
+                    }
+
+                    renderBlueprintResult(data, {
+                        fullName,
+                        birthDate,
+                        birthTime,
+                        birthCity: resolvedCity ? resolvedCity.formattedCity : birthCity,
+                        gender
+                    });
+
+                    resultsWrapper.classList.add('show');
+
+                } catch (error) {
+                    console.error('[BLUEPRINT CALCULATOR ERROR]:', error);
+                    errorReason.textContent = error.message || 'Silakan periksa data yang dimasukkan.';
+                    errorMessage.classList.add('show');
+                    placeholderCard.style.display = 'block';
+                } finally {
+                    loadingContainer.classList.remove('show');
+                    // Enable form inputs
+                    Array.from(form.elements).forEach(el => el.disabled = false);
+                }
+            });
+
+            // TOOLBAR ACTIONS
+            // Copy Full Response
+            const copyResponseBtn = document.getElementById('copyResponseBtn');
+            copyResponseBtn.addEventListener('click', () => {
+                if (!fullResponseData) return;
+                navigator.clipboard.writeText(JSON.stringify(fullResponseData, null, 2))
+                    .then(() => {
+                        const origText = copyResponseBtn.textContent;
+                        copyResponseBtn.textContent = 'Response Tersalin!';
+                        copyResponseBtn.style.borderColor = 'var(--forest-green)';
+                        setTimeout(() => {
+                            copyResponseBtn.textContent = origText;
+                            copyResponseBtn.style.borderColor = '';
+                        }, 2000);
+                    });
+            });
+
+            // Copy Raw Engine JSON
+            const copyRawBtn = document.getElementById('copyRawBtn');
+            const copyRawEngineBtn = document.getElementById('copyRawEngineBtn');
+            
+            const handleCopyRaw = (btn) => {
+                if (!fullResponseData || !fullResponseData.blueprint) return;
+                navigator.clipboard.writeText(JSON.stringify(fullResponseData.blueprint, null, 2))
+                    .then(() => {
+                        const origText = btn.textContent;
+                        btn.textContent = 'JSON Tersalin!';
+                        btn.style.borderColor = 'var(--forest-green)';
+                        setTimeout(() => {
+                            btn.textContent = origText;
+                            btn.style.borderColor = '';
+                        }, 2000);
+                    });
+            };
+
+            copyRawBtn.addEventListener('click', () => handleCopyRaw(copyRawBtn));
+            copyRawEngineBtn.addEventListener('click', () => handleCopyRaw(copyRawEngineBtn));
+
+            // Print
+            const printBtn = document.getElementById('printBtn');
+            printBtn.addEventListener('click', () => {
+                window.print();
+            });
+
+            // Export PDF
+            const exportPdfBtn = document.getElementById('exportPdfBtn');
+            exportPdfBtn.addEventListener('click', async () => {
+                const fullName = document.getElementById('fullName').value.trim() || 'User';
+                const resultsWrapper = document.getElementById('results-wrapper');
+                
+                const originalText = exportPdfBtn.textContent;
+                exportPdfBtn.textContent = 'Mengekspor...';
+                exportPdfBtn.disabled = true;
+                
+                try {
+                    // Create a clone of the results element to render without toolbar
+                    const clone = resultsWrapper.cloneNode(true);
+                    
+                    // Remove toolbar from the clone so it doesn't show in the PDF
+                    const cloneToolbar = clone.querySelector('.toolbar');
+                    if (cloneToolbar) cloneToolbar.remove();
+                    
+                    // Add a special class for PDF styling
+                    clone.classList.add('pdf-render');
+                    
+                    // Temporary container to render in document flow
+                    const tempDiv = document.createElement('div');
+                    tempDiv.className = 'temp-pdf-container';
+                    tempDiv.appendChild(clone);
+                    document.body.appendChild(tempDiv);
+                    
+                    const opt = {
+                        margin:       [15, 15, 15, 15],
+                        filename:     `Blueprint - ${fullName}.pdf`,
+                        image:        { type: 'jpeg', quality: 0.98 },
+                        html2canvas:  { scale: 2, useCORS: true, logging: false },
+                        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+                    };
+                    
+                    // Generate PDF using html2pdf
+                    await html2pdf().set(opt).from(clone).save();
+                    
+                    // Clean up temp container
+                    document.body.removeChild(tempDiv);
+                } catch (err) {
+                    console.error('PDF generation error:', err);
+                    alert('Gagal mengekspor PDF. Silakan gunakan fitur Cetak Hasil.');
+                } finally {
+                    exportPdfBtn.textContent = originalText;
+                    exportPdfBtn.disabled = false;
+                }
+            });
+
+            // Debug Toggle
+            const debugToggle = document.getElementById('debugToggleBtn');
+            const debugPre = document.getElementById('debugRawJson');
+            debugToggle.addEventListener('click', () => {
+                const isHidden = debugPre.style.display === 'none' || debugPre.style.display === '';
+                debugPre.style.display = isHidden ? 'block' : 'none';
+                debugToggle.textContent = isHidden ? 'Sembunyikan Debug JSON' : 'Tampilkan Debug JSON';
+            });
+        });
+    </script>
+</body>
+</html>
