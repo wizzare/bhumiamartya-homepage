@@ -49,6 +49,22 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/blueprint/:path*"
     },
     {
+      "source": "/login",
+      "destination": "https://bhumi-amartya-clean.vercel.app/login"
+    },
+    {
+      "source": "/login/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/login"
+    },
+    {
+      "source": "/login/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/login/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/api/:path*"
+    },
+    {
       "source": "/founder",
       "destination": "https://bhumi-amartya-clean.vercel.app/founder"
     },
