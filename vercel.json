@@ -37,6 +37,18 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
     },
     {
+      "source": "/blueprint",
+      "destination": "https://bhumi-amartya-clean.vercel.app/blueprint"
+    },
+    {
+      "source": "/blueprint/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/blueprint"
+    },
+    {
+      "source": "/blueprint/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/blueprint/:path*"
+    },
+    {
       "source": "/founder",
       "destination": "https://bhumi-amartya-clean.vercel.app/founder"
     },
