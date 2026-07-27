@@ -808,12 +808,22 @@
                                     </table>
                                 </div>
 
-                                <!-- Current Age Energy / Forecasting -->
+                                <!-- Diagram Destiny Matrix -->
+                                <div class="dm-subsection" style="margin-bottom:1.5rem;">
+                                    <div style="font-weight:700;color:#4F5E52;margin-bottom:0.75rem;">Diagram Destiny Matrix</div>
+                                    <div style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1rem;text-align:center;overflow-x:auto;">
+                                        <canvas id="dm-diagram-canvas" width="500" height="500" style="max-width:100%;height:auto;"></canvas>
+                                    </div>
+                                </div>
+
+                                <!-- Forecasting Destiny Matrix -->
                                 <div class="dm-subsection" style="margin-bottom:1.5rem;">
                                     <div style="font-weight:700;color:#4F5E52;margin-bottom:0.75rem;">Forecasting Destiny Matrix</div>
                                     <table class="matrix-table">
                                         <tbody>
-                                            <tr><td class="label-cell">Current Age Energy</td><td class="value-cell" id="res-dm-age-energy" style="color:#B8860B;font-weight:700;">-</td></tr>
+                                            <tr><td class="label-cell">Usia Saat Ini</td><td class="value-cell" id="res-dm-current-age">-</td></tr>
+                                            <tr><td class="label-cell">Arcana Aktif</td><td class="value-cell" id="res-dm-age-energy" style="color:#B8860B;font-weight:700;">-</td></tr>
+                                            <tr><td class="label-cell">Rentang Usia Aktif</td><td class="value-cell" id="res-dm-age-range">-</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -842,59 +852,7 @@
                                 </div>
                             </section>
 
-                            <!-- 5. SOUL SEARCHING -->
-                            <section class="result-section">
-                                <h2>Soul Searching</h2>
-                                <table class="matrix-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Kategori Tujuan Jiwa</th>
-                                            <th>Nilai Arcana</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="label-cell">
-                                                <strong>Soul Searching (Tujuan Pribadi)</strong>
-                                                <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal; margin-top: 0.25rem;">
-                                                    Mix of male and female. Building relationships. Skills.
-                                                </div>
-                                            </td>
-                                            <td class="value-cell" id="res-ss-soul" style="font-weight: 700;">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">
-                                                <strong>Socialization (Tujuan Sosial)</strong>
-                                                <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal; margin-top: 0.25rem;">
-                                                    Social and family systems. Result and public acceptance.
-                                                </div>
-                                            </td>
-                                            <td class="value-cell" id="res-ss-social" style="font-weight: 700;">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">
-                                                <strong>Sky (Tujuan Langit)</strong>
-                                            </td>
-                                            <td class="value-cell" id="res-ss-sky" style="font-weight: 700;">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">
-                                                <strong>Earth (Tujuan Bumi)</strong>
-                                            </td>
-                                            <td class="value-cell" id="res-ss-earth" style="font-weight: 700;">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">
-                                                <strong>Spiritual Knowledge (Tujuan Spiritual)</strong>
-                                                <div style="font-size: 0.8rem; color: var(--text-secondary); font-weight: normal; margin-top: 0.25rem;">
-                                                    Spiritual exam. Who am I for the God? Do I have anything spiritual inside?
-                                                </div>
-                                            </td>
-                                            <td class="value-cell" id="res-ss-spiritual" style="font-weight: 700;">-</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </section>
+                            <!-- 5. (removed — Soul Searching duplicates Purpose Channel above) -->
 
                             <!-- 6. HUMAN DESIGN -->
                             <section class="result-section">
@@ -1370,6 +1328,17 @@
                 
                 // Renders Yearly Arcana directly from blueprint object (SSoT)
                 document.getElementById('res-dm-age-energy').textContent = bp.currentAgeEnergy || '-';
+                document.getElementById('res-dm-current-age').textContent = bp.currentAge ? bp.currentAge + ' tahun' : '-';
+                
+                // Age range (rough estimate from matrix years data)
+                const dmYears = dm.years;
+                if (bp.currentAge && dmYears) {
+                    const ages = Object.keys(dmYears).filter(k => !isNaN(Number(k))).map(Number);
+                    const closest = ages.reduce((a, b) => Math.abs(a - bp.currentAge) < Math.abs(b - bp.currentAge) ? a : b, ages[0]);
+                    document.getElementById('res-dm-age-range').textContent = closest ? `${Math.max(0, closest - 5)}-${closest + 5} tahun` : '-';
+                } else {
+                    document.getElementById('res-dm-age-range').textContent = '-';
+                }
 
                 // Destiny Matrix Generic fields
                 renderGenericTable(dm, 'dm-generic', [
@@ -1378,6 +1347,80 @@
                     'arcanaCenter', 'center', 'commonEnergy', 'personalQualities', 'jalurEkonomi', 'angkaDollar',
                     'jalurCinta', 'angkaHeart', 'karmicTailLegacy', 'karmaAyah', 'karmaIbu', 'bakatAyah', 'bakatIbu', 'bakatAgung'
                 ]);
+
+                // Destiny Matrix diagram — draw nodes from available data
+                try {
+                    const canvas = document.getElementById('dm-diagram-canvas');
+                    if (canvas) {
+                        const ctx = canvas.getContext('2d');
+                        const cx = 250, cy = 250, r = 180;
+                        ctx.clearRect(0, 0, 500, 500);
+                        ctx.fillStyle = '#FCFAF5';
+                        ctx.fillRect(0, 0, 500, 500);
+
+                        // Draw concentric guide circles
+                        for (let i = 1; i <= 3; i++) {
+                            ctx.beginPath();
+                            ctx.arc(cx, cy, r * i / 3, 0, Math.PI * 2);
+                            ctx.strokeStyle = '#E8E9E5';
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+                        }
+
+                        // Collect arcana values to display as nodes
+                        const nodeValues = [];
+                        const dmKeys = ['center', 'karmicTail', 'loveLine', 'moneyLine', 'fatherLine', 'motherLine', 'talentsFather', 'talentsMother', 'talentsGreat'];
+                        let idx = 0;
+                        dmKeys.forEach(key => {
+                            const val = dm[key] || dm[key.replace(/^dm-/, '')];
+                            if (val) {
+                                const angle = (idx / dmKeys.length) * Math.PI * 2 - Math.PI / 2;
+                                const nr = r * 0.7 + (idx % 3) * 20;
+                                const x = cx + nr * Math.cos(angle);
+                                const y = cy + nr * Math.sin(angle);
+                                nodeValues.push({ x, y, label: key.replace(/([A-Z])/g, ' $1').trim(), value: Array.isArray(val) ? val.join('-') : String(val) });
+                                idx++;
+                            }
+                        });
+
+                        // Draw center node
+                        ctx.beginPath();
+                        ctx.arc(cx, cy, 25, 0, Math.PI * 2);
+                        ctx.fillStyle = '#4F5E52';
+                        ctx.fill();
+                        ctx.fillStyle = '#fff';
+                        ctx.font = 'bold 14px sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.fillText(dm.arcanaCenter || dm.center || '?', cx, cy);
+
+                        // Draw perimeter nodes and connections
+                        nodeValues.forEach((n, i) => {
+                            // Line from center
+                            ctx.beginPath();
+                            ctx.moveTo(cx, cy);
+                            ctx.lineTo(n.x, n.y);
+                            ctx.strokeStyle = '#D4AF37';
+                            ctx.lineWidth = 1;
+                            ctx.stroke();
+
+                            // Node circle
+                            ctx.beginPath();
+                            ctx.arc(n.x, n.y, 18, 0, Math.PI * 2);
+                            ctx.fillStyle = '#7B8776';
+                            ctx.fill();
+
+                            // Node label
+                            ctx.fillStyle = '#fff';
+                            ctx.font = 'bold 10px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(n.value, n.x, n.y);
+                        });
+                    }
+                } catch (e) {
+                    console.warn('Diagram render error:', e);
+                }
 
                 // 4. Health Card (Chakra)
                 const tbody = document.getElementById('chakra-table-body');
@@ -1423,13 +1466,14 @@
                     </tr>
                 `;
 
-                // 5. Soul Searching
+                // 5. Purposes (shared between Soul Searching and Purpose Channel)
                 const ss = dm.purposes || {};
-                document.getElementById('res-ss-soul').textContent = ss.perspurpose || '-';
-                document.getElementById('res-ss-social').textContent = ss.socialpurpose || '-';
-                document.getElementById('res-ss-sky').textContent = ss.skypoint || '-';
-                document.getElementById('res-ss-earth').textContent = ss.earthpoint || '-';
-                document.getElementById('res-ss-spiritual').textContent = ss.generalpurpose || '-';
+                const safeSet = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+                safeSet('res-ss-soul', ss.perspurpose || '-');
+                safeSet('res-ss-social', ss.socialpurpose || '-');
+                safeSet('res-ss-sky', ss.skypoint || '-');
+                safeSet('res-ss-earth', ss.earthpoint || '-');
+                safeSet('res-ss-spiritual', ss.generalpurpose || '-');
                 
                 // Purpose Channel (Destiny Matrix section)
                 document.getElementById('res-dm-purpose-personal').textContent = ss.perspurpose || '-';
