@@ -909,23 +909,6 @@
                                         </tr>
                                         <tr><td class="label-cell">Gates Personality</td><td class="value-cell" id="res-hd-gatespersonality">-</td></tr>
                                         <tr><td class="label-cell">Gates Design</td><td class="value-cell" id="res-hd-gatesdesign">-</td></tr>
-                                        <tr><td class="label-cell">Diagnostic</td><td class="value-cell" id="res-hd-diagnostic">-</td></tr>
-                                        <tr><td class="label-cell">Personality Activations</td><td class="value-cell" id="res-hd-personalityactivations">-</td></tr>
-                                        <tr><td class="label-cell">Design Activations</td><td class="value-cell" id="res-hd-designactivations">-</td></tr>
-                                        <tr><td class="label-cell">Raw Personality Gates</td><td class="value-cell" id="res-hd-rawpersonalitygates">-</td></tr>
-                                        <tr><td class="label-cell">Raw Design Gates</td><td class="value-cell" id="res-hd-rawdesigngates">-</td></tr>
-                                        <tr><td class="label-cell">Status</td><td class="value-cell" id="res-hd-status">-</td></tr>
-                                        <tr><td class="label-cell">Source</td><td class="value-cell" id="res-hd-source">-</td></tr>
-                                        <tr><td class="label-cell">Accuracy</td><td class="value-cell" id="res-hd-accuracy">-</td></tr>
-                                        <tr><td class="label-cell">Calculation Quality</td><td class="value-cell" id="res-hd-calculationquality">-</td></tr>
-                                        <tr><td class="label-cell">HD Engine Version</td><td class="value-cell" id="res-hd-hdengineversion">-</td></tr>
-                                        <tr><td class="label-cell">HD Audit Status</td><td class="value-cell" id="res-hd-hdauditstatus">-</td></tr>
-                                        <tr><td class="label-cell">Generated At</td><td class="value-cell" id="res-hd-generatedat">-</td></tr>
-                                        <tr><td class="label-cell">Updated At</td><td class="value-cell" id="res-hd-updatedat">-</td></tr>
-                                        <tr><td class="label-cell">Calculation Status</td><td class="value-cell" id="res-hd-calculationstatus">-</td></tr>
-                                        <tr><td class="label-cell">Timezone</td><td class="value-cell" id="res-hd-timezone">-</td></tr>
-                                        <tr><td class="label-cell">Calculated At</td><td class="value-cell" id="res-hd-calculatedat">-</td></tr>
-                                        <tr><td class="label-cell">Note</td><td class="value-cell" id="res-hd-note">-</td></tr>
                                     </tbody>
                                 </table>
                                 <div style="margin-top: 1.5rem;">
@@ -1500,29 +1483,10 @@
                 document.getElementById('res-hd-motivation').textContent = hd.motivation || vars.motivation || '-';
                 document.getElementById('res-hd-cognition').textContent = hd.cognition || vars.cognition || '-';
                 
-                // Technical Human Design fields
+                // Technical Human Design fields (public-facing only)
                 const fmtArr = (v) => Array.isArray(v) ? v.join(', ') : (v ? String(v) : '-');
-                const fmtObj = (v) => { if (v === null || v === undefined) return '-'; if (typeof v === 'object') { try { return JSON.stringify(v); } catch { return '-'; } } return String(v); };
-                const fmtActs = (v) => { if (!Array.isArray(v) || v.length === 0) return '-'; return v.map(a => typeof a === 'object' && a !== null ? `${a.planet || '?'}: ${a.gate || '?'}${a.line ? '.' + a.line : ''}` : String(a)).join('; '); };
                 document.getElementById('res-hd-gatespersonality').textContent = fmtArr(hd.gatesPersonality) || fmtArr(hd.personality_gates) || '-';
                 document.getElementById('res-hd-gatesdesign').textContent = fmtArr(hd.gatesDesign) || fmtArr(hd.design_gates) || '-';
-                document.getElementById('res-hd-diagnostic').textContent = fmtObj(hd.diagnostic);
-                document.getElementById('res-hd-personalityactivations').textContent = fmtActs(hd.personalityActivations) || fmtActs(hd.personality_activations) || '-';
-                document.getElementById('res-hd-designactivations').textContent = fmtActs(hd.designActivations) || fmtActs(hd.design_activations) || '-';
-                document.getElementById('res-hd-rawpersonalitygates').textContent = fmtActs(hd.raw_personality_gates) || '-';
-                document.getElementById('res-hd-rawdesigngates').textContent = fmtActs(hd.raw_design_gates) || '-';
-                document.getElementById('res-hd-status').textContent = hd.status || '-';
-                document.getElementById('res-hd-source').textContent = hd.source || '-';
-                document.getElementById('res-hd-accuracy').textContent = hd.accuracy || hd.calculationQuality || hd.calculation_quality || '-';
-                document.getElementById('res-hd-calculationquality').textContent = hd.calculationQuality || hd.calculation_quality || '-';
-                document.getElementById('res-hd-hdengineversion').textContent = hd.hdEngineVersion || hd.hd_engine_version || '-';
-                document.getElementById('res-hd-hdauditstatus').textContent = hd.hdAuditStatus || hd.hd_audit_status || '-';
-                document.getElementById('res-hd-generatedat').textContent = hd.generatedAt || hd.generated_at || '-';
-                document.getElementById('res-hd-updatedat').textContent = hd.updatedAt || hd.updated_at || '-';
-                document.getElementById('res-hd-calculationstatus').textContent = hd.calculationStatus || hd.calculation_status || '-';
-                document.getElementById('res-hd-timezone').textContent = hd.timezone || '-';
-                document.getElementById('res-hd-calculatedat').textContent = hd.calculatedAt || hd.calculated_at || '-';
-                document.getElementById('res-hd-note').textContent = hd.note || '-';
                 
                 // Defined Channels
                 const chanContainer = document.getElementById('res-hd-channels');
