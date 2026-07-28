@@ -1091,6 +1091,58 @@
             transform: translateX(4px);
         }
 
+        .article-source-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-source-badge.bhumi {
+            background-color: var(--forest-light);
+            color: var(--forest-green);
+        }
+
+        .article-source-badge.wedhaswara {
+            background-color: rgba(212, 175, 55, 0.12);
+            color: var(--gold-dark);
+        }
+
+        .article-card .article-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Skeleton loading */
+        .skeleton-card {
+            pointer-events: none;
+        }
+
+        .skeleton-shimmer {
+            background: linear-gradient(90deg, var(--bg-secondary) 25%, #e8e4db 50%, var(--bg-secondary) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-card .skeleton-line {
+            border-radius: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton-shimmer {
+                animation: none;
+                background: var(--bg-secondary);
+            }
+        }
+
         /* Section: Testimonials (Slider) */
         .testimonials-slider-container {
             max-width: 800px;
@@ -2442,21 +2494,77 @@
 
 
 
-    <!-- 6. NGOPI ILMU (BHUMI ARTICLES ONLY) -->
+    <!-- 6. NGOPI ILMU (ARTICLE FEED) -->
     <section class="section section-alt" id="artikel">
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-tag">BUKU CATATAN KESADARAN</span>
                 <h2 class="section-title">Ngopi Ilmu</h2>
-                <p class="section-desc">Tulisan reflektif dari Bhumi Amartya untuk menemani proses pulang, memahami diri, dan membaca hidup dengan lebih utuh.</p>
+                <p class="section-desc">Tulisan reflektif dari Bhumi Amartya dan Wedhaswara untuk menemani proses pulang, memahami diri, dan membaca hidup dengan lebih utuh.</p>
             </div>
 
-            <div class="articles-grid" id="bhumi-articles-container" data-bhumi-article-feed="https://bhumi-amartya-clean.vercel.app/api/articles?limit=3">
-                <article class="article-card reveal reveal-visible">
+            <div class="articles-grid" id="article-container"
+                 data-bhumi-feed="https://bhumi-amartya-clean.vercel.app/api/articles?limit=6"
+                 data-wedhaswara-feed="https://wedhaswara.my.id/wp-json/wp/v2/posts?per_page=6&_embed=1">
+                <!-- 6 skeleton cards -->
+                <article class="article-card skeleton-card" aria-hidden="true">
+                    <div class="article-img-wrapper skeleton-shimmer"></div>
                     <div class="article-body">
-                        <span class="article-meta">Ngopi Ilmu</span>
-                        <h3 class="article-title">Artikel Ngopi Ilmu dari Bhumi sedang disiapkan</h3>
-                        <p class="article-excerpt">Founder dapat menerbitkan artikel baru melalui dashboard.</p>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
+                    </div>
+                </article>
+                <article class="article-card skeleton-card" aria-hidden="true">
+                    <div class="article-img-wrapper skeleton-shimmer"></div>
+                    <div class="article-body">
+                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
+                    </div>
+                </article>
+                <article class="article-card skeleton-card" aria-hidden="true">
+                    <div class="article-img-wrapper skeleton-shimmer"></div>
+                    <div class="article-body">
+                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
+                    </div>
+                </article>
+                <article class="article-card skeleton-card" aria-hidden="true">
+                    <div class="article-img-wrapper skeleton-shimmer"></div>
+                    <div class="article-body">
+                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
+                    </div>
+                </article>
+                <article class="article-card skeleton-card" aria-hidden="true">
+                    <div class="article-img-wrapper skeleton-shimmer"></div>
+                    <div class="article-body">
+                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
+                    </div>
+                </article>
+                <article class="article-card skeleton-card" aria-hidden="true">
+                    <div class="article-img-wrapper skeleton-shimmer"></div>
+                    <div class="article-body">
+                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
+                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
                     </div>
                 </article>
             </div>
@@ -3048,109 +3156,216 @@
                 }
             }
 
-            // --- 6. BHUMI ARTICLES API INTEGRATION ---
-            async function fetchBhumiArticles() {
-                const container = document.getElementById('bhumi-articles-container');
-                if (!container) return;
+            // --- 6. ARTICLE FEED (BHUMI + WEDHASWARA) ---
 
-                const feedUrl = container.getAttribute('data-bhumi-article-feed');
-                if (!feedUrl) return;
-
-                const escapeHtml = (value) => String(value || '').replace(/[&<>"']/g, (char) => ({
-                    '&': '&amp;',
-                    '<': '&lt;',
-                    '>': '&gt;',
-                    '"': '&quot;',
-                    "'": '&#039;'
-                }[char]));
-
-                const formatDate = (value) => {
-                    if (!value) return '';
-                    const date = new Date(value);
-                    if (Number.isNaN(date.getTime())) return '';
-                    return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-                };
-
-                const setupAnalytics = () => {
-                    container.querySelectorAll('.article-link').forEach((link) => {
-                        link.addEventListener('click', () => {
-                            if (window.BhumiAnalytics) {
-                                window.BhumiAnalytics.track('article_card_clicked', {
-                                    source: 'bhumi',
-                                    slug: link.getAttribute('data-article-slug') || '',
-                                    ctaType: 'homepage_ngopi_ilmu'
-                                });
-                            }
-                        });
-                    });
-                };
-
-                try {
-                    const response = await fetch(feedUrl);
-                    if (!response.ok) throw new Error('Bhumi Articles API response was not ok');
-                    const data = await response.json();
-                    const articles = Array.isArray(data.articles) ? data.articles.slice(0, 3) : [];
-
-                    if (!articles.length) {
-                        container.innerHTML = `
-                            <article class="article-card reveal reveal-visible">
-                                <div class="article-body">
-                                    <span class="article-meta">Ngopi Ilmu</span>
-                                    <h3 class="article-title">Artikel Ngopi Ilmu dari Bhumi sedang disiapkan</h3>
-                                    <p class="article-excerpt">Founder dapat menerbitkan artikel baru melalui dashboard.</p>
-                                </div>
-                            </article>
-                        `;
-                        return;
-                    }
-
-                    container.innerHTML = articles.map((article, index) => {
-                        const title = escapeHtml(article.title || 'Artikel Bhumi');
-                        const excerpt = escapeHtml(article.excerpt || 'Baca catatan refleksi terbaru dari Bhumi Amartya.');
-                        const category = escapeHtml(article.category || 'Ngopi Ilmu');
-                        const date = formatDate(article.publishedAt);
-                        const slug = escapeHtml(article.slug || '');
-                        const url = `https://www.bhumiamartya.my.id/articles/${slug}/`;
-                        const cover = article.coverImageUrl
-                            ? `<img src="${escapeHtml(article.coverImageUrl)}" alt="${title}" loading="lazy" style="width:100%; height:100%; object-fit:cover;">`
-                            : `<div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>`;
-
-                        return `
-                            <article class="article-card reveal reveal-visible" style="transition-delay: ${index * 0.1}s;" data-article-source="bhumi" data-article-slug="${slug}">
-                                <div class="article-img-wrapper">
-                                    ${cover}
-                                    <span class="article-meta">${category}</span>
-                                </div>
-                                <div class="article-body">
-                                    <h3 class="article-title">${title}</h3>
-                                    ${date ? `<div class="article-date" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 500;">${date}</div>` : ''}
-                                    <p class="article-excerpt">${excerpt}</p>
-                                    <a href="${url}" class="article-link bhumi-article-link" data-article-source="bhumi" data-article-slug="${slug}" aria-label="Baca artikel lengkap ${title}">
-                                        <span>Baca Artikel</span>
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                    </a>
-                                </div>
-                            </article>
-                        `;
-                    }).join('');
-
-                    setupAnalytics();
-                } catch (error) {
-                    console.error('Bhumi Amartya Articles API Error:', error);
-                    container.innerHTML = `
-                        <article class="article-card reveal reveal-visible">
-                            <div class="article-body">
-                                <span class="article-meta">Ngopi Ilmu</span>
-                                <h3 class="article-title">Artikel Ngopi Ilmu dari Bhumi sedang disiapkan</h3>
-                                <p class="article-excerpt">Founder dapat menerbitkan artikel baru melalui dashboard.</p>
-                            </div>
-                        </article>
-                    `;
-                }
+            function normalizeExcerpt(text) {
+                if (!text) return 'Baca catatan refleksi terbaru.';
+                return String(text)
+                    .replace(/<[^>]*>/g, '')
+                    .replace(/\[.*?\]/g, '')
+                    .replace(/&hellip;/g, '...')
+                    .replace(/&#\d+;/g, (m) => String.fromCharCode(Number(m.slice(2, -1))))
+                    .replace(/&[a-z]+;/g, (m) => ({ '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#039;': "'", '&nbsp;': ' ' }[m] || m))
+                    .replace(/\s+/g, ' ')
+                    .trim();
             }
 
-            // Execute the article hook fetch
-            fetchBhumiArticles();
+            function truncateText(text, maxLen) {
+                if (text.length <= maxLen) return text;
+                const trimmed = text.slice(0, maxLen);
+                const lastSpace = trimmed.lastIndexOf(' ');
+                return (lastSpace > 0 ? trimmed.slice(0, lastSpace) : trimmed) + '...';
+            }
+
+            function formatArticleDate(value) {
+                if (!value) return '';
+                const date = new Date(value);
+                if (Number.isNaN(date.getTime())) return '';
+                return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
+
+            function escapeHtml(value) {
+                return String(value || '').replace(/[&<>"']/g, (char) => ({
+                    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+                }[char]));
+            }
+
+            function buildCoverHtml(imageUrl, title) {
+                const ph = '<div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>';
+                if (imageUrl) {
+                    return `<img class="article-img" src="${escapeHtml(imageUrl)}" alt="${escapeHtml(title)}" loading="lazy" onerror="this.remove()" style="min-height:220px">`;
+                }
+                return ph;
+            }
+
+            function slugify(str) {
+                return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+            }
+
+            function isDuplicate(article, existing) {
+                return existing.some((e) =>
+                    e.canonicalUrl === article.canonicalUrl ||
+                    slugify(e.title) === slugify(article.title) ||
+                    slugify(e.slug) === slugify(article.slug)
+                );
+            }
+
+            function transformBhumiArticle(raw) {
+                return {
+                    source: 'bhumi',
+                    title: raw.title || 'Artikel Bhumi',
+                    slug: raw.slug || '',
+                    excerpt: truncateText(normalizeExcerpt(raw.excerpt), 140),
+                    date: raw.publishedAt,
+                    category: raw.category || 'Ngopi Ilmu',
+                    imageUrl: raw.coverImageUrl || '',
+                    url: raw.slug ? `https://www.bhumiamartya.my.id/articles/${encodeURIComponent(raw.slug)}/` : '',
+                    canonicalUrl: raw.slug ? `https://www.bhumiamartya.my.id/articles/${encodeURIComponent(raw.slug)}/` : '',
+                };
+            }
+
+            function transformWedhaswaraArticle(raw) {
+                const title = normalizeExcerpt(raw.title?.rendered);
+                const excerpt = truncateText(normalizeExcerpt(raw.excerpt?.rendered), 140);
+                const cat = raw._embedded?.['wp:term']?.[0]?.[0]?.name || '';
+                const imageUrl = raw._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+                return {
+                    source: 'wedhaswara',
+                    title: title || 'Artikel Wedhaswara',
+                    slug: raw.slug || '',
+                    excerpt: excerpt,
+                    date: raw.date || '',
+                    category: cat || 'Refleksi',
+                    imageUrl: imageUrl,
+                    url: raw.link || '',
+                    canonicalUrl: raw.link || raw.slug || '',
+                };
+            }
+
+            function interleaveArticles(bhumiList, wedhaswaraList) {
+                const result = [];
+                const maxSlots = 6;
+                const bhumiQuota = 3;
+                const wedhaswaraQuota = 3;
+                const used = [];
+
+                const bhumi = bhumiList.filter((a) => a.title).slice(0, bhumiQuota);
+                const wedhaswara = wedhaswaraList.filter((a) => a.title).slice(0, wedhaswaraQuota);
+
+                for (let i = 0; i < Math.max(bhumi.length, wedhaswara.length) && result.length < maxSlots; i++) {
+                    if (i < bhumi.length) {
+                        if (!isDuplicate(bhumi[i], used)) {
+                            used.push(bhumi[i]);
+                            result.push(bhumi[i]);
+                        }
+                    }
+                    if (result.length >= maxSlots) break;
+                    if (i < wedhaswara.length) {
+                        if (!isDuplicate(wedhaswara[i], used)) {
+                            used.push(wedhaswara[i]);
+                            result.push(wedhaswara[i]);
+                        }
+                    }
+                }
+
+                while (result.length < maxSlots) {
+                    const next = bhumi.length > result.length / 2 ? wedhaswara : bhumi;
+                    const candidates = bhumi.concat(wedhaswara).filter((a) => !isDuplicate(a, used));
+                    if (!candidates.length) break;
+                    used.push(candidates[0]);
+                    result.push(candidates[0]);
+                }
+
+                return result;
+            }
+
+            function renderArticles(articles, container) {
+                if (!articles.length) {
+                    container.innerHTML = `
+                        <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;">
+                            <p style="color:var(--text-secondary);margin-bottom:1rem;">Artikel terbaru sedang belum dapat dimuat. Silakan kembali beberapa saat lagi.</p>
+                            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                                <a href="/articles/" class="btn btn-outline">Artikel Bhumi</a>
+                                <a href="https://wedhaswara.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Wedhaswara</a>
+                            </div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = articles.map((article, index) => {
+                    const title = escapeHtml(article.title);
+                    const excerpt = escapeHtml(article.excerpt);
+                    const category = escapeHtml(article.category);
+                    const date = formatArticleDate(article.date);
+                    const isBhumi = article.source === 'bhumi';
+                    const badgeClass = isBhumi ? 'bhumi' : 'wedhaswara';
+                    const badgeText = isBhumi ? 'Bhumi Amartya' : 'Wedhaswara';
+                    const coverHtml = buildCoverHtml(article.imageUrl, article.title);
+                    const linkTarget = isBhumi ? '' : 'target="_blank" rel="noopener noreferrer"';
+                    const linkAria = isBhumi ? `Baca artikel lengkap ${title}` : `Baca artikel lengkap ${title} di Wedhaswara`;
+
+                    return `
+                        <article class="article-card reveal reveal-visible" style="transition-delay:${index * 0.1}s;">
+                            <a href="${escapeHtml(article.url)}" ${linkTarget} class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="${linkAria}">
+                                <div class="article-img-wrapper">
+                                    ${coverHtml}
+                                    <span class="article-meta">${category ? escapeHtml(category) : 'Ngopi Ilmu'}</span>
+                                </div>
+                                <div class="article-body">
+                                    <span class="article-source-badge ${badgeClass}">${badgeText}</span>
+                                    <h3 class="article-title">${title}</h3>
+                                    ${date ? `<div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">${date}</div>` : ''}
+                                    <p class="article-excerpt">${excerpt}</p>
+                                    <span class="article-link">
+                                        <span>Baca Selengkapnya</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </span>
+                                </div>
+                            </a>
+                        </article>
+                    `;
+                }).join('');
+            }
+
+            async function fetchArticles() {
+                const container = document.getElementById('article-container');
+                if (!container) return;
+
+                const bhumiUrl = container.getAttribute('data-bhumi-feed');
+                const wedhaswaraUrl = container.getAttribute('data-wedhaswara-feed');
+                if (!bhumiUrl && !wedhaswaraUrl) return;
+
+                const results = await Promise.allSettled([
+                    bhumiUrl ? fetch(bhumiUrl).then((r) => { if (!r.ok) throw new Error('Bhumi API ' + r.status); return r.json(); }) : Promise.reject('no-url'),
+                    wedhaswaraUrl ? fetch(wedhaswaraUrl).then((r) => { if (!r.ok) throw new Error('Wedhaswara API ' + r.status); return r.json(); }) : Promise.reject('no-url'),
+                ]);
+
+                let bhumiArticles = [];
+                let wedhaswaraArticles = [];
+
+                if (results[0].status === 'fulfilled') {
+                    const data = results[0].value;
+                    const raw = Array.isArray(data.articles) ? data.articles : [];
+                    bhumiArticles = raw.map(transformBhumiArticle);
+                } else {
+                    console.warn('[articles] Bhumi source failed:', results[0].reason);
+                }
+
+                if (results[1].status === 'fulfilled') {
+                    const raw = Array.isArray(results[1].value) ? results[1].value : [];
+                    wedhaswaraArticles = raw.map(transformWedhaswaraArticle);
+                } else {
+                    console.warn('[articles] Wedhaswara source failed:', results[1].reason);
+                }
+
+                const combined = interleaveArticles(bhumiArticles, wedhaswaraArticles);
+                requestAnimationFrame(() => {
+                    renderArticles(combined, container);
+                });
+            }
+
+            fetchArticles();
             
             // Execute the YouTube hook fetch
             fetchYouTubeVideos();
