@@ -12,6 +12,10 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/_next/:path*"
     },
     {
+      "source": "/images/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/images/:path*"
+    },
+    {
       "source": "/kecocokanmatrix",
       "destination": "https://bhumi-amartya-clean.vercel.app/kecocokanmatrix"
     },
