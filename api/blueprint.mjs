@@ -1,6 +1,8 @@
 import { normalizeHumanDesignResponse } from '../lib/human-design/normalizer.mjs';
 import { calculateHumanDesign } from '../lib/human-design/calculate.mjs';
 import { calculateDestinyMatrix } from '../lib/destiny-matrix/calculate.mjs';
+import { calculateNatalChart } from '../lib/natal-chart/calculate.mjs';
+import { normalizeNatalChartResponse } from '../lib/natal-chart/normalize.mjs';
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -48,12 +50,24 @@ export default async function handler(req, res) {
     const humanDesign = normalizeHumanDesignResponse(hdResult);
     const lifePath = calculateLifePath(birthDate);
     const destinyMatrix = calculateDestinyMatrix(birthDate, { referenceDate });
+    let astrology;
+    try {
+      astrology = normalizeNatalChartResponse(calculateNatalChart({ birthDate, birthTime, birthCity, latitude, longitude, timezone }));
+    } catch (natalError) {
+      astrology = { calculationStatus: "error", zodiacSystem: "Tropical", houseSystem: "Placidus", error: natalError.message };
+    }
 
     const response = {
       meta: {
         success: humanDesign.status === "ready",
         generatedAt: new Date().toISOString(),
-        engineVersion: "web-blueprint-1.1.0",
+        engineVersion: "web-blueprint-1.2.0",
+        systems: {
+          lifePath: "ready",
+          humanDesign: humanDesign.status === "ready" ? "ready" : humanDesign.status,
+          destinyMatrix: destinyMatrix.calculationStatus === "completed" ? "ready" : destinyMatrix.calculationStatus,
+          astrology: astrology.calculationStatus === "completed" ? "ready" : astrology.calculationStatus,
+        },
       },
       blueprint: {
         lifePath,
@@ -62,11 +76,8 @@ export default async function handler(req, res) {
         currentAgeEnergy: destinyMatrix.currentAgeEnergy,
         activeAgeRange: destinyMatrix.activeAgeRange,
         destinyMatrix,
-        astrology: {
-          calculationStatus: "pending",
-          sunSign: null, moonSign: null, risingSign: null,
-          planets: {}, houses: {}, elements: {}, modalities: {},
-        },
+        astrology,
+        natalChart: astrology,
         input: {
           birthDate,
           birthTime: birthTime || "12:00",

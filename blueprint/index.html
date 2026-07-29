@@ -960,6 +960,13 @@
                             <!-- 7. NATAL CHART -->
                             <section class="result-section">
                                 <h2>Natal Chart</h2>
+                                <div class="dm-ringkasan" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:1rem;margin-bottom:1.5rem;">
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1rem;text-align:center;"><div style="font-size:.72rem;font-weight:700;text-transform:uppercase;color:#7B8776">Sun</div><div id="res-natal-sun" style="font-weight:700;color:#4F5E52">-</div></div>
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1rem;text-align:center;"><div style="font-size:.72rem;font-weight:700;text-transform:uppercase;color:#7B8776">Moon</div><div id="res-natal-moon" style="font-weight:700;color:#4F5E52">-</div></div>
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1rem;text-align:center;"><div style="font-size:.72rem;font-weight:700;text-transform:uppercase;color:#7B8776">Ascendant</div><div id="res-natal-rising" style="font-weight:700;color:#4F5E52">-</div></div>
+                                    <div class="dm-card" style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1rem;text-align:center;"><div style="font-size:.72rem;font-weight:700;text-transform:uppercase;color:#7B8776">Midheaven</div><div id="res-natal-mc" style="font-weight:700;color:#4F5E52">-</div></div>
+                                </div>
+                                <div style="background:#fff;border:1px solid rgba(45,75,52,0.08);border-radius:14px;padding:1rem;text-align:center;margin-bottom:1.5rem;"><canvas id="natal-wheel-canvas" width="500" height="500" style="max-width:100%;height:auto;" aria-label="Natal wheel"></canvas></div>
                                 
                                 <h3 style="font-size: 1.25rem; color: var(--forest-green); margin-bottom: 1rem; margin-top: 1rem;">Planet Positions</h3>
                                 <table class="matrix-table" style="margin-bottom: 2rem;">
@@ -975,6 +982,9 @@
                                         <!-- Dynamic planet rows -->
                                     </tbody>
                                 </table>
+
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin-bottom: 1rem;">Major Aspects</h3>
+                                <table class="matrix-table" style="margin-bottom: 2rem;"><thead><tr><th>Planet 1</th><th>Aspect</th><th>Planet 2</th><th>Orb</th></tr></thead><tbody id="res-natal-aspects"></tbody></table>
 
                                 <h3 style="font-size: 1.25rem; color: var(--forest-green); margin-bottom: 1rem;">Placidus Houses</h3>
                                 <table class="matrix-table" style="margin-bottom: 2rem;">
@@ -1014,6 +1024,10 @@
                                         <table class="matrix-table">
                                             <tbody id="res-natal-modalities"></tbody>
                                         </table>
+                                    </div>
+                                    <div>
+                                        <h3 style="font-size: 1.2rem; color: var(--forest-green); margin-bottom: 0.75rem;">Polarities</h3>
+                                        <table class="matrix-table"><tbody id="res-natal-polarities"></tbody></table>
                                     </div>
                                 </div>
                                 <span class="generic-fields-toggle" onclick="toggleGeneric('natal-generic')">Tampilkan Semua Parameter</span>
@@ -1578,6 +1592,13 @@
 
                 // 7. Natal Chart
                 const astro = bp.astrology || bp.natalChart || {};
+                const natalText = (value) => value === undefined || value === null || value === '' ? '-' : String(value);
+                const natalSignDegree = (planet) => planet && planet.sign ? `${planet.sign} ${Math.floor(Number(planet.degree) || 0)}°${String(planet.minute ?? 0).padStart(2, '0')}'` : '-';
+                const natalAngle = (sign, longitude) => Number.isFinite(Number(longitude)) ? `${natalText(sign)} ${Math.floor((Number(longitude) % 30 + 30) % 30)}°${String(Math.floor((((Number(longitude) % 30 + 30) % 30) % 1) * 60)).padStart(2, '0')}'` : natalText(sign);
+                document.getElementById('res-natal-sun').textContent = astro.planets?.Sun ? natalSignDegree(astro.planets.Sun) : natalText(astro.sunSign);
+                document.getElementById('res-natal-moon').textContent = astro.planets?.Moon ? natalSignDegree(astro.planets.Moon) : natalText(astro.moonSign);
+                document.getElementById('res-natal-rising').textContent = natalAngle(astro.risingSign || astro.ascendant, astro.ascendantLongitude);
+                document.getElementById('res-natal-mc').textContent = natalAngle(astro.midheaven, astro.midheavenLongitude);
                 
                 // Planet Positions
                 const planetBody = document.getElementById('natal-planets-body');
@@ -1591,7 +1612,7 @@
                         planetBody.innerHTML += `
                             <tr>
                                 <td style="font-weight: 700;">${pName}</td>
-                                <td>${planet.sign} ${Math.floor(planet.degree)}┬░</td>
+                                <td>${natalSignDegree(planet)}</td>
                                 <td>${planet.retrograde ? 'Ya' : 'Tidak'}</td>
                                 <td>Rumah ${planet.house || '-'}</td>
                             </tr>
@@ -1617,13 +1638,21 @@
                         houseBody.innerHTML += `
                             <tr>
                                 <td style="font-weight: 700;">Rumah ${hNum}</td>
-                                <td>${house.sign} ${Math.floor(house.degree)}┬░</td>
+                                <td>${house.sign || '-'} ${Math.floor(Number(house.degree) || 0)}°${String(house.minute ?? 0).padStart(2, '0')}'</td>
                             </tr>
                         `;
                     });
                 } else {
                     houseBody.innerHTML = '<tr><td colspan="2" style="text-align:center;">Data rumah tidak tersedia</td></tr>';
                 }
+
+                const aspectBody = document.getElementById('res-natal-aspects');
+                aspectBody.innerHTML = '';
+                if (Array.isArray(astro.aspects) && astro.aspects.length) {
+                    astro.aspects.forEach((aspect) => {
+                        aspectBody.innerHTML += `<tr><td>${natalText(aspect.planet1 || aspect.p1)}</td><td>${natalText(aspect.type)}</td><td>${natalText(aspect.planet2 || aspect.p2)}</td><td>${natalText(aspect.orb)}°</td></tr>`;
+                    });
+                } else aspectBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Data aspek tidak tersedia</td></tr>';
 
                 // Render Planet in Houses list
                 const planetInHousesBody = document.getElementById('res-natal-planet-in-houses');
@@ -1678,6 +1707,25 @@
                 } else {
                     modBody.innerHTML = '<tr><td>Data modalitas tidak tersedia</td></tr>';
                 }
+
+                const polarityBody = document.getElementById('res-natal-polarities');
+                polarityBody.innerHTML = '';
+                if (astro.polarities) Object.entries(astro.polarities).forEach(([name, value]) => {
+                    polarityBody.innerHTML += `<tr><td class="label-cell">${name}</td><td class="value-cell">${value}</td></tr>`;
+                }); else polarityBody.innerHTML = '<tr><td>Data polaritas tidak tersedia</td></tr>';
+
+                try {
+                    const canvas = document.getElementById('natal-wheel-canvas');
+                    const context = canvas && canvas.getContext('2d');
+                    if (context) {
+                        const center = 250, radius = 205, planets = Object.values(astro.planets || {}).filter(p => Number.isFinite(Number(p.longitude)));
+                        context.clearRect(0, 0, 500, 500); context.fillStyle = '#FCFAF5'; context.fillRect(0, 0, 500, 500);
+                        context.beginPath(); context.arc(center, center, radius, 0, Math.PI * 2); context.strokeStyle = '#4F5E52'; context.stroke();
+                        Object.entries(astro.houses || {}).forEach(([house, cusp]) => { if (!Number.isFinite(Number(cusp.longitude))) return; const angle = (Number(cusp.longitude) - 90) * Math.PI / 180; context.beginPath(); context.moveTo(center, center); context.lineTo(center + Math.cos(angle) * radius, center + Math.sin(angle) * radius); context.strokeStyle = '#D8D0C3'; context.stroke(); });
+                        planets.forEach((planet) => { const angle = (Number(planet.longitude) - 90) * Math.PI / 180; const x = center + Math.cos(angle) * 155, y = center + Math.sin(angle) * 155; context.beginPath(); context.arc(x, y, 13, 0, Math.PI * 2); context.fillStyle = '#4F5E52'; context.fill(); context.fillStyle = '#fff'; context.font = 'bold 10px sans-serif'; context.textAlign = 'center'; context.textBaseline = 'middle'; context.fillText(planet.name.slice(0, 2), x, y); });
+                        context.fillStyle = '#4F5E52'; context.font = 'bold 13px sans-serif'; context.fillText(`ASC ${natalText(astro.risingSign)}`, center, center - 10); context.fillText(`MC ${natalText(astro.midheaven)}`, center, center + 12);
+                    }
+                } catch { /* Keep the rest of Blueprint usable if a browser lacks canvas support. */ }
 
 
 
