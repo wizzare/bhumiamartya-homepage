@@ -1,6 +1,5 @@
 import { normalizeHumanDesignResponse } from '../lib/human-design/normalizer.mjs';
-
-const HD_API_URL = "https://bhumi-human-design-api.vercel.app/calculate";
+import { calculateHumanDesign } from '../lib/human-design/calculate.mjs';
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -43,44 +42,9 @@ export default async function handler(req, res) {
       return;
     }
 
-    const parts = birthDate.split('-');
-    const year = parseInt(parts[0]);
-    const month = parseInt(parts[1]);
-    const day = parseInt(parts[2]);
-
-    let hour = 12, minute = 0, second = 0;
-    if (birthTime) {
-      const timeParts = birthTime.split(':');
-      hour = parseInt(timeParts[0]);
-      minute = parseInt(timeParts[1]);
-      second = timeParts[2] ? parseInt(timeParts[2]) : 0;
-    }
-
-    let hdData;
-    try {
-      const hdResponse = await fetch(HD_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          year, month, day, hour, minute, second,
-          timezone: timezone || null,
-          birthDate,
-          birthTime: birthTime || "12:00",
-          birthCity,
-        }),
-        signal: AbortSignal.timeout(15000),
-      });
-      hdData = await hdResponse.json();
-    } catch (fetchError) {
-      hdData = {
-        status: "service_unavailable",
-        calculationStatus: "connection_error",
-        note: fetchError.message || "Human Design engine unreachable.",
-        type: null,
-      };
-    }
-
-    const humanDesign = normalizeHumanDesignResponse(hdData);
+    // Calculate Human Design locally using astronomy-engine
+    const hdResult = calculateHumanDesign({ birthDate, birthTime, timezone });
+    const humanDesign = normalizeHumanDesignResponse(hdResult);
     const lifePath = calculateLifePath(birthDate);
     const age = calculateAge(birthDate);
 
