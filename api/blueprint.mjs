@@ -1,5 +1,6 @@
 import { normalizeHumanDesignResponse } from '../lib/human-design/normalizer.mjs';
 import { calculateHumanDesign } from '../lib/human-design/calculate.mjs';
+import { calculateDestinyMatrix } from '../lib/destiny-matrix/calculate.mjs';
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -34,7 +35,7 @@ export default async function handler(req, res) {
       return;
     }
 
-    const { fullName, birthDate, birthTime, birthCity, latitude, longitude, timezone } = body;
+    const { fullName, birthDate, birthTime, birthCity, latitude, longitude, timezone, referenceDate } = body;
 
     if (!fullName || !birthDate || !birthCity) {
       res.writeHead(400, { ...CORS_HEADERS, "Content-Type": "application/json" });
@@ -46,29 +47,21 @@ export default async function handler(req, res) {
     const hdResult = calculateHumanDesign({ birthDate, birthTime, timezone });
     const humanDesign = normalizeHumanDesignResponse(hdResult);
     const lifePath = calculateLifePath(birthDate);
-    const age = calculateAge(birthDate);
+    const destinyMatrix = calculateDestinyMatrix(birthDate, { referenceDate });
 
     const response = {
       meta: {
         success: humanDesign.status === "ready",
         generatedAt: new Date().toISOString(),
-        engineVersion: "web-blueprint-1.0.0",
+        engineVersion: "web-blueprint-1.1.0",
       },
       blueprint: {
         lifePath,
         humanDesign,
-        currentAge: age,
-        currentAgeEnergy: "-",
-        destinyMatrix: {
-          calculationStatus: "pending",
-          arcanaCenter: null, commonEnergy: null, personalQualities: null,
-          jalurEkonomi: null, angkaDollar: null,
-          jalurCinta: null, angkaHeart: null,
-          karmicTailLegacy: null, karmaAyah: null, karmaIbu: null,
-          bakatAyah: null, bakatIbu: null, bakatAgung: null,
-          healthChart: {},
-          totalPhysics: null, totalEnergy: null, totalEmotion: null,
-        },
+        currentAge: destinyMatrix.currentAge,
+        currentAgeEnergy: destinyMatrix.currentAgeEnergy,
+        activeAgeRange: destinyMatrix.activeAgeRange,
+        destinyMatrix,
         astrology: {
           calculationStatus: "pending",
           sunSign: null, moonSign: null, risingSign: null,
@@ -165,16 +158,4 @@ function calculateLifePath(birthDate) {
     positiveTraits: posTraits[number] || [],
     negativeTraits: negTraits[number] || [],
   };
-}
-
-function calculateAge(birthDateStr) {
-  if (!birthDateStr) return 0;
-  const birth = new Date(birthDateStr);
-  const now = new Date();
-  let age = now.getFullYear() - birth.getFullYear();
-  const m = now.getMonth() - birth.getMonth();
-  if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) {
-    age--;
-  }
-  return age;
 }

@@ -779,11 +779,11 @@
                                     </div>
                                 </div>
 
-                                <!-- Karmic Tail, Love, Financial, Family -->
+                                <!-- Karmic Tile, Love, Financial, Family -->
                                 <table class="matrix-table" style="margin-bottom:1.5rem;">
                                     <thead><tr><th>Aspek</th><th>Nilai</th></tr></thead>
                                     <tbody>
-                                        <tr><td class="label-cell">Karmic Tail</td><td class="value-cell" id="res-dm-karmic">-</td></tr>
+                                        <tr><td class="label-cell">Karmic Tile</td><td class="value-cell" id="res-dm-karmic">-</td></tr>
                                         <tr><td class="label-cell">Jalur Cinta</td><td class="value-cell" id="res-dm-love">-</td></tr>
                                         <tr><td class="label-cell">Angka &hearts;</td><td class="value-cell" id="res-dm-heart">-</td></tr>
                                         <tr><td class="label-cell">Jalur Ekonomi</td><td class="value-cell" id="res-dm-economy">-</td></tr>
@@ -1331,35 +1331,36 @@
                 renderGenericTable(lp, 'lp-generic', ['positiveTraits', 'negativeTraits', 'number', 'display', 'role']);
 
                 // 3. Destiny Matrix (Direct pass-through maps)
-                const joinLine = (arr) => arr && Array.isArray(arr) ? arr.join(' - ') : '-';
+                const formatDestinyValue = (value) => {
+                    if (Array.isArray(value)) return value.join(' - ');
+                    return value ?? '-';
+                };
+                const dmValue = (...keys) => {
+                    for (const key of keys) {
+                        if (dm[key] !== undefined && dm[key] !== null) return formatDestinyValue(dm[key]);
+                    }
+                    return '-';
+                };
                 
-                document.getElementById('res-dm-center').textContent = dm.arcanaCenter || dm.center || '-';
-                document.getElementById('res-dm-common').textContent = dm.commonEnergy || '-';
-                document.getElementById('res-dm-qualities').textContent = dm.personalQualities || '-';
-                document.getElementById('res-dm-economy').textContent = dm.jalurEkonomi || joinLine(dm.moneyLine);
-                document.getElementById('res-dm-dollar').textContent = dm.angkaDollar || '-';
-                document.getElementById('res-dm-love').textContent = dm.jalurCinta || joinLine(dm.loveLine);
-                document.getElementById('res-dm-heart').textContent = dm.angkaHeart || '-';
-                document.getElementById('res-dm-karmic').textContent = dm.karmicTailLegacy || joinLine(dm.karmicTail);
-                document.getElementById('res-dm-fkarma').textContent = dm.karmaAyah || joinLine(dm.fatherLine);
-                document.getElementById('res-dm-mkarma').textContent = dm.karmaIbu || joinLine(dm.motherLine);
-                document.getElementById('res-dm-ftalent').textContent = dm.bakatAyah || joinLine(dm.talentsFather);
-                document.getElementById('res-dm-mtalent').textContent = dm.bakatIbu || joinLine(dm.talentsMother);
-                document.getElementById('res-dm-gtalent').textContent = dm.bakatAgung || joinLine(dm.talentsGreat || dm.talents);
+                document.getElementById('res-dm-center').textContent = dmValue('arcanaCenter', 'center');
+                document.getElementById('res-dm-common').textContent = dmValue('commonEnergy');
+                document.getElementById('res-dm-qualities').textContent = dmValue('personalQualities');
+                document.getElementById('res-dm-economy').textContent = dmValue('jalurEkonomi', 'moneyLine');
+                document.getElementById('res-dm-dollar').textContent = dmValue('angkaDollar');
+                document.getElementById('res-dm-love').textContent = dmValue('jalurCinta', 'loveLine');
+                document.getElementById('res-dm-heart').textContent = dmValue('angkaHeart');
+                document.getElementById('res-dm-karmic').textContent = dmValue('karmicTailLegacy', 'karmicTail');
+                document.getElementById('res-dm-fkarma').textContent = dmValue('karmaAyah', 'fatherLine');
+                document.getElementById('res-dm-mkarma').textContent = dmValue('karmaIbu', 'motherLine');
+                document.getElementById('res-dm-ftalent').textContent = dmValue('bakatAyah', 'talentsFather');
+                document.getElementById('res-dm-mtalent').textContent = dmValue('bakatIbu', 'talentsMother');
+                document.getElementById('res-dm-gtalent').textContent = dmValue('bakatAgung', 'talentsGreat', 'talents');
                 
                 // Renders Yearly Arcana directly from blueprint object (SSoT)
-                document.getElementById('res-dm-age-energy').textContent = bp.currentAgeEnergy || '-';
-                document.getElementById('res-dm-current-age').textContent = bp.currentAge ? bp.currentAge + ' tahun' : '-';
-                
-                // Age range (rough estimate from matrix years data)
-                const dmYears = dm.years;
-                if (bp.currentAge && dmYears) {
-                    const ages = Object.keys(dmYears).filter(k => !isNaN(Number(k))).map(Number);
-                    const closest = ages.reduce((a, b) => Math.abs(a - bp.currentAge) < Math.abs(b - bp.currentAge) ? a : b, ages[0]);
-                    document.getElementById('res-dm-age-range').textContent = closest ? `${Math.max(0, closest - 5)}-${closest + 5} tahun` : '-';
-                } else {
-                    document.getElementById('res-dm-age-range').textContent = '-';
-                }
+                document.getElementById('res-dm-age-energy').textContent = formatDestinyValue(bp.currentAgeEnergy ?? dm.currentAgeEnergy);
+                const displayedAge = bp.currentAge ?? dm.currentAge;
+                document.getElementById('res-dm-current-age').textContent = displayedAge !== undefined && displayedAge !== null ? displayedAge + ' tahun' : '-';
+                document.getElementById('res-dm-age-range').textContent = formatDestinyValue(bp.activeAgeRange ?? dm.activeAgeRange);
 
                 // Destiny Matrix Generic fields
                 renderGenericTable(dm, 'dm-generic', [
