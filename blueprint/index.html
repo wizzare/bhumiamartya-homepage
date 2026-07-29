@@ -891,30 +891,65 @@
                                             <td class="label-cell">Definition</td>
                                             <td class="value-cell" id="res-hd-definition">-</td>
                                         </tr>
-                                        <tr>
-                                            <td class="label-cell">Digestion</td>
-                                            <td class="value-cell" id="res-hd-digestion">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">Environment</td>
-                                            <td class="value-cell" id="res-hd-environment">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">Motivation</td>
-                                            <td class="value-cell" id="res-hd-motivation">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="label-cell">Cognition</td>
-                                            <td class="value-cell" id="res-hd-cognition">-</td>
-                                        </tr>
                                         <tr><td class="label-cell">Gates Personality</td><td class="value-cell" id="res-hd-gatespersonality">-</td></tr>
                                         <tr><td class="label-cell">Gates Design</td><td class="value-cell" id="res-hd-gatesdesign">-</td></tr>
+                                        <tr><td class="label-cell">Defined Gates</td><td class="value-cell" id="res-hd-definedgates">-</td></tr>
                                     </tbody>
                                 </table>
+
+                                <!-- Variables (PHS) -->
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin: 1.5rem 0 1rem;">Variables</h3>
+                                <table class="matrix-table">
+                                    <tbody>
+                                        <tr><td class="label-cell">Digestion</td><td class="value-cell" id="res-hd-digestion">-</td></tr>
+                                        <tr><td class="label-cell">Cognition</td><td class="value-cell" id="res-hd-cognition">-</td></tr>
+                                        <tr><td class="label-cell">Environment</td><td class="value-cell" id="res-hd-environment">-</td></tr>
+                                        <tr><td class="label-cell">Motivation</td><td class="value-cell" id="res-hd-motivation">-</td></tr>
+                                        <tr><td class="label-cell">Perspective</td><td class="value-cell" id="res-hd-perspective">-</td></tr>
+                                        <tr><td class="label-cell">Variable</td><td class="value-cell" id="res-hd-variable">-</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Defined Channels -->
                                 <div style="margin-top: 1.5rem;">
                                     <span class="profile-label" style="margin-bottom: 0.5rem;">Defined Channels</span>
                                     <div class="hd-channels-container" id="res-hd-channels"></div>
                                 </div>
+
+                                <!-- Centers -->
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin: 1.5rem 0 1rem;">Centers</h3>
+                                <table class="matrix-table">
+                                    <tbody>
+                                        <tr><td class="label-cell">Defined Centers</td><td class="value-cell" id="res-hd-defined-centers">-</td></tr>
+                                        <tr><td class="label-cell">Open Centers</td><td class="value-cell" id="res-hd-open-centers">-</td></tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Personality Activations -->
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin: 1.5rem 0 1rem;">Personality Activations</h3>
+                                <div style="overflow-x: auto;">
+                                    <table class="matrix-table">
+                                        <thead>
+                                            <tr><th>Planet</th><th>Gate</th><th>Line</th><th>Color</th><th>Tone</th><th>Base</th></tr>
+                                        </thead>
+                                        <tbody id="res-hd-personality-activations"></tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Design Activations -->
+                                <h3 style="font-size: 1.25rem; color: var(--forest-green); margin: 1.5rem 0 1rem;">Design Activations</h3>
+                                <div style="overflow-x: auto;">
+                                    <table class="matrix-table">
+                                        <thead>
+                                            <tr><th>Planet</th><th>Gate</th><th>Line</th><th>Color</th><th>Tone</th><th>Base</th></tr>
+                                        </thead>
+                                        <tbody id="res-hd-design-activations"></tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Completeness note -->
+                                <div id="res-hd-completeness-note" style="display:none; margin-top:1rem; padding:0.75rem 1rem; background:#fef9e7; border:1px solid #f9e79f; border-radius:10px; font-size:0.9rem; color:#7d6608;"></div>
+
                                 <span class="generic-fields-toggle" onclick="toggleGeneric('hd-generic')">Tampilkan Semua Parameter</span>
                                 <div class="generic-fields-container" id="hd-generic"></div>
                             </section>
@@ -1465,35 +1500,77 @@
                 document.getElementById('res-dm-purpose-earth').textContent = ss.earthpoint || '-';
                 document.getElementById('res-dm-purpose-spiritual').textContent = ss.generalpurpose || '-';
 
-                // 6. Human Design
+                // 6. Human Design — canonical schema
                 const hd = bp.humanDesign || {};
+
+                // Basic Properties
                 document.getElementById('res-hd-type').textContent = hd.type || '-';
                 document.getElementById('res-hd-strategy').textContent = hd.strategy || '-';
                 document.getElementById('res-hd-authority').textContent = hd.authority || '-';
                 document.getElementById('res-hd-profile').textContent = hd.profile || '-';
                 document.getElementById('res-hd-signature').textContent = hd.signature || '-';
-                document.getElementById('res-hd-notself').textContent = hd.notSelfTheme || hd.notSelf || '-';
-                document.getElementById('res-hd-cross').textContent = hd.incarnationCross?.name || hd.incarnationCross || '-';
+                document.getElementById('res-hd-notself').textContent = hd.notSelfTheme || '-';
+                document.getElementById('res-hd-cross').textContent = hd.incarnationCross || '-';
                 document.getElementById('res-hd-definition').textContent = hd.definition || '-';
-                
+
                 // Variables
-                const vars = hd.variables || {};
-                document.getElementById('res-hd-digestion').textContent = hd.digestion || vars.digestion || '-';
-                document.getElementById('res-hd-environment').textContent = hd.environment || vars.environment || '-';
-                document.getElementById('res-hd-motivation').textContent = hd.motivation || vars.motivation || '-';
-                document.getElementById('res-hd-cognition').textContent = hd.cognition || vars.cognition || '-';
-                
-                // Technical Human Design fields (public-facing only)
-                const fmtArr = (v) => Array.isArray(v) ? v.join(', ') : (v ? String(v) : '-');
-                document.getElementById('res-hd-gatespersonality').textContent = fmtArr(hd.gatesPersonality) || fmtArr(hd.personality_gates) || '-';
-                document.getElementById('res-hd-gatesdesign').textContent = fmtArr(hd.gatesDesign) || fmtArr(hd.design_gates) || '-';
-                
+                const fmtVal = (v) => v ?? '-';
+                document.getElementById('res-hd-digestion').textContent = fmtVal(hd.digestion);
+                document.getElementById('res-hd-cognition').textContent = fmtVal(hd.cognition);
+                document.getElementById('res-hd-environment').textContent = fmtVal(hd.environment);
+                document.getElementById('res-hd-motivation').textContent = fmtVal(hd.motivation);
+                document.getElementById('res-hd-perspective').textContent = fmtVal(hd.perspective);
+                document.getElementById('res-hd-variable').textContent = fmtVal(hd.variable);
+
+                // Gates
+                const fmtGates = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
+                document.getElementById('res-hd-gatespersonality').textContent = fmtGates(hd.gatesPersonality);
+                document.getElementById('res-hd-gatesdesign').textContent = fmtGates(hd.gatesDesign);
+                document.getElementById('res-hd-definedgates').textContent = fmtGates(hd.definedGates);
+
                 // Defined Channels
                 const chanContainer = document.getElementById('res-hd-channels');
                 chanContainer.innerHTML = (hd.channels || []).map(c => `<span class="hd-channel-badge">${c}</span>`).join('');
 
-                // Human Design Generic fields
-                renderGenericTable(hd, 'hd-generic', ['channels', 'gates', 'variables', 'incarnationCross', 'centers']);
+                // Centers
+                const fmtCenterList = (arr) => Array.isArray(arr) && arr.length ? arr.join(', ') : '-';
+                document.getElementById('res-hd-defined-centers').textContent = fmtCenterList(hd.definedCenters);
+                document.getElementById('res-hd-open-centers').textContent = fmtCenterList(hd.openCenters);
+
+                // Personality Activations
+                const fmtActivationRow = (act) => {
+                    if (!act || !act.planet) return '';
+                    const gate = act.gate != null ? act.gate : '-';
+                    const line = act.line != null ? act.line : '-';
+                    const color = act.color != null ? act.color : '-';
+                    const tone = act.tone != null ? act.tone : '-';
+                    const base = act.base != null ? act.base : '-';
+                    return `<tr><td style="font-weight:600;">${act.planet}</td><td>${gate}</td><td>${line}</td><td>${color}</td><td>${tone}</td><td>${base}</td></tr>`;
+                };
+                const paBody = document.getElementById('res-hd-personality-activations');
+                const pas = hd.personalityActivations || [];
+                paBody.innerHTML = pas.length
+                    ? pas.map(fmtActivationRow).join('')
+                    : '<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);">Data aktivasi belum tersedia</td></tr>';
+
+                // Design Activations
+                const daBody = document.getElementById('res-hd-design-activations');
+                const das = hd.designActivations || [];
+                daBody.innerHTML = das.length
+                    ? das.map(fmtActivationRow).join('')
+                    : '<tr><td colspan="6" style="text-align:center;color:var(--text-secondary);">Data aktivasi belum tersedia</td></tr>';
+
+                // Completeness note
+                const noteEl = document.getElementById('res-hd-completeness-note');
+                if (hd.completeness === 'partial' || hd.completeness === 'minimal') {
+                    noteEl.textContent = 'Sebagian detail lanjutan Human Design belum dapat dihitung.';
+                    noteEl.style.display = 'block';
+                } else {
+                    noteEl.style.display = 'none';
+                }
+
+                // Human Design Generic fields (internal / debug-only in generic panel)
+                renderGenericTable(hd, 'hd-generic', ['channels', 'gates', 'variables', 'incarnationCross', 'centers', 'personalityActivations', 'designActivations']);
 
                 // 7. Natal Chart
                 const astro = bp.astrology || bp.natalChart || {};
@@ -1633,11 +1710,8 @@
                 // Resolve city properties
                 const resolvedCity = selectedCity || resolveCityFallback(birthCity);
 
-                // Backend call
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const API_URL = isLocal 
-                    ? 'http://localhost:3000/api/blueprint' 
-                    : 'https://bhumi-amartya-clean.vercel.app/api/blueprint';
+                // Backend call — same-origin, independent of application API
+                const API_URL = '/api/blueprint';
 
                 try {
                     const response = await fetch(API_URL, {

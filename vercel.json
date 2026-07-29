@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/blueprint.mjs": {
+      "maxDuration": 30,
+      "memory": 512
+    }
+  },
   "redirects": [
     {
       "source": "/kecocokan-matrix",
