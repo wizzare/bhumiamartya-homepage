@@ -12,15 +12,22 @@
       }
     ]
   },
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true,
+    "everything-claude-code@everything-claude-code": true
+  },
   "extraKnownMarketplaces": {
     "superpowers-marketplace": {
       "source": {
         "source": "github",
         "repo": "obra/superpowers-marketplace"
       }
+    },
+    "everything-claude-code": {
+      "source": {
+        "source": "github",
+        "repo": "WorldFlowAI/everything-claude-code"
+      }
     }
-  },
-  "enabledPlugins": {
-    "superpowers@superpowers-marketplace": true
   }
 }
