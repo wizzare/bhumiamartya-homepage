@@ -342,7 +342,7 @@
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
                             <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
                             <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
                         </ul>
@@ -436,14 +436,156 @@
             </div>
         </section>
 
-        <section class="reading-cta">
+                <section class="reading-cta" id="reading-cta-section" style="display: none;">
             <div class="container reading-cta-inner">
                 <span class="section-tag">Blueprint Bhumi</span>
                 <h2 class="section-title">Mau membaca dirimu lebih lengkap?</h2>
-                <p class="cta-copy">Hasil ini adalah pintu awal. Untuk membaca pola dirimu lebih utuh melalui 8 sistem Blueprint Bhumi, lanjutkan ke Blueprint Reading atau gunakan aplikasi Bhumi Amartya.</p>
+                <p class="cta-copy">Hasil ini adalah pintu awal. Untuk mengenali pola, potensi, tantangan, dan perjalanan dirimu secara lebih utuh, lanjutkan ke Personal Blueprint atau gunakan aplikasi Bhumi Amartya.</p>
                 <div class="cta-btns">
-                    <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20Blueprint%20Reading" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Pesan Blueprint Reading</a>
+                    <button type="button" id="open-blueprint-btn" aria-expanded="false" aria-controls="blueprint-form-section" class="btn btn-primary">Buka Personal Blueprint</button>
                     <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download Aplikasi Bhumi Amartya</a>
+                </div>
+            </div>
+
+            <!-- HIDDEN INLINE FORM SECTION -->
+            <div id="blueprint-form-section" hidden style="margin-top: 4rem; border-top: 1px solid rgba(45, 75, 52, 0.1); padding-top: 4rem;">
+                <div class="container">
+                    <div class="section-header">
+                        <h2 class="section-title">Detail Personal Blueprint</h2>
+                        <p class="section-desc">Peta diri akan disusun melalui Life Path dan Numerology, Destiny Matrix, Human Design, serta Natal Chart.</p>
+                    </div>
+
+                    <!-- WARNING CARD BEFORE FORM -->
+                    <div class="warning-card" style="margin: 0 auto 2rem; max-width: 800px;">
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                            Penting Sebelum Mengisi
+                        </h4>
+                        <p>Form yang sudah dikirim tetapi belum disertai bukti donasi melalui WhatsApp tidak akan diproses dan belum masuk ke dalam antrean reading.</p>
+                        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem;">Waktu pengerjaan 7–14 hari kerja dihitung setelah bukti donasi diterima dan data berhasil diverifikasi. Sabtu, Minggu, tanggal merah, dan cuti bersama tidak termasuk hari kerja.</p>
+                    </div>
+
+                    <!-- DONATION INFO -->
+                    <div class="donation-box" style="max-width: 800px; margin: 0 auto 3rem;">
+                        <p style="font-size: 1rem; color: var(--text-primary); margin-bottom: 1rem; font-weight: 600; text-align: center;">
+                            Donasi bersifat seikhlasnya dengan minimal Rp25.000.
+                        </p>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin-bottom: 2rem;">
+                            Disarankan menambahkan akhiran 044 (contoh: Rp25.044, Rp50.044, Rp100.044).
+                        </p>
+                        <div class="donation-methods">
+                            <div class="method-card">
+                                <h5>ShopeePay</h5>
+                                <div class="account-number">085810531892</div>
+                            </div>
+                            <div class="method-card">
+                                <h5>BCA</h5>
+                                <div class="account-number">0354311751</div>
+                                <div class="account-name">a.n. Widhi Wedhaswara</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORM CONTAINER BOX -->
+                    <div class="form-container-box" id="form-container" style="max-width: 800px; margin: 0 auto;">
+                        <div id="form-alert" class="form-alert" role="alert" style="display: none;"></div>
+
+                        <form id="reading-form" novalidate>
+                            <div style="display:none;" aria-hidden="true">
+                                <input type="text" name="website_hp" id="website_hp" tabindex="-1" autocomplete="off">
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Nama Lengkap <span class="required-star">*</span></label>
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Nama lengkap sesuai KTP/panggilan" required minlength="2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email <span class="required-star">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="contoh@gmail.com" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthDate" class="form-label">Tanggal Lahir <span class="required-star">*</span></label>
+                                    <input type="date" id="birthDate" name="birthDate" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthTime_reading" class="form-label">Jam Lahir <span class="required-star">*</span></label>
+                                    <input type="time" id="birthTime_reading" name="birthTime_reading" class="form-control" value="00:00" required>
+                                    <span class="form-help">Jika tidak tahu jam pasti, biarkan 00:00 atau isi jam perkiraan.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthCity_reading" class="form-label">Kota Kelahiran <span class="required-star">*</span></label>
+                                    <input type="text" id="birthCity_reading" name="birthCity_reading" class="form-control" placeholder="Misal: Jakarta, Surabaya, Bandung" required minlength="2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender" class="form-label">Jenis Kelamin <span class="required-star">*</span></label>
+                                    <select id="gender" name="gender" class="form-control" required>
+                                        <option value="" disabled selected>-- Pilih Jenis Kelamin --</option>
+                                        <option value="Laki-laki">Laki-laki</option>
+                                        <option value="Perempuan">Perempuan</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tiktok" class="form-label">Akun TikTok</label>
+                                    <input type="text" id="tiktok" name="tiktok" class="form-control" placeholder="@username (opsional, isi '-' jika tidak ada)">
+                                    <span class="form-help">Isi '-' jika kamu tidak memiliki akun TikTok.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="whatsapp" class="form-label">Nomor WhatsApp <span class="required-star">*</span></label>
+                                    <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="085812345678" required>
+                                    <span class="form-help">Nomor ini akan digunakan untuk mengirimkan hasil PDF.</span>
+                                </div>
+                                <div class="form-group full-width">
+                                    <label for="donationAmount" class="form-label">Jumlah Donasi (Rp) <span class="required-star">*</span></label>
+                                    <input type="number" id="donationAmount" name="donationAmount" class="form-control" placeholder="25044" min="25000" step="1" required>
+                                    <span class="form-help">Minimal Rp25.000.</span>
+                                </div>
+                                <div class="form-group full-width">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="consent" name="consent" required>
+                                        <label for="consent" class="checkbox-label">
+                                            Saya memahami dan menyetujui bahwa form yang dikirim <strong>belum masuk ke dalam antrean reading</strong> sebelum bukti donasi dikirim dan diverifikasi oleh Admin melalui WhatsApp. <span class="required-star">*</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-top: 2rem; text-align: center;">
+                                <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; max-width: 400px; padding: 1rem 2rem; font-size: 1.05rem;">
+                                    Kirim Data Personal Blueprint
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- CONFIRMATION STATE BOX -->
+                    <div class="confirmation-box" id="confirmation-box" style="display: none; max-width: 800px; margin: 0 auto;">
+                        <div class="confirmation-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <h3 class="confirmation-title">Data Berhasil Dikirim</h3>
+                        <p style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 1rem;">
+                            Data Personal Blueprint kamu sudah berhasil diterima.
+                         </p>
+
+                        <div class="warning-card" style="margin: 1.5rem auto;">
+                            <p style="font-weight: 600; color: var(--forest-dark);">
+                                Namun, form belum masuk ke dalam antrean dan belum akan diproses sebelum bukti donasi dikirim melalui WhatsApp.
+                            </p>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.35rem;">
+                                Silakan tekan tombol di bawah ini untuk mengirim bukti donasi beserta nama pemesan.
+                            </p>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center; max-width: 420px; margin: 0 auto;">
+                            <a id="wa-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1rem; background-color: #25D366; border-color: #25D366;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 0.5rem;"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.758.459 3.474 1.33 4.982L2 22l5.176-1.348c1.45.791 3.082 1.207 4.835 1.208h.005c5.506 0 9.989-4.478 9.99-9.984 0-2.668-1.039-5.176-2.927-7.062A9.925 9.925 0 0 0 12.012 2z"/></svg>
+                                Kirim Bukti Donasi melalui WhatsApp
+                            </a>
+
+                            <button type="button" id="close-blueprint-btn" class="btn btn-secondary" style="width: 100%; border: none; font-size: 0.9rem;">
+                                Kembali ke Hasil Tes
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -939,6 +1081,7 @@
 
                 introNote.style.display = 'none';
                 resultCard.classList.add('show');
+                document.getElementById('reading-cta-section').style.display = 'block';
                 resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
             };
 
@@ -1044,6 +1187,7 @@
 
                     introNote.style.display = 'none';
                     resultCard.classList.add('show');
+                document.getElementById('reading-cta-section').style.display = 'block';
                     resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
@@ -1073,6 +1217,162 @@
                 }
             });
         });
+
+            // --- PERSONAL BLUEPRINT FORM LOGIC ---
+            const openBlueprintBtn = document.getElementById('open-blueprint-btn');
+            const blueprintFormSection = document.getElementById('blueprint-form-section');
+            const readingForm = document.getElementById('reading-form');
+            const submitReadingBtn = document.getElementById('submit-btn');
+            const readingFormAlert = document.getElementById('form-alert');
+            const readingFormContainer = document.getElementById('form-container');
+            const confirmationBox = document.getElementById('confirmation-box');
+            const closeBlueprintBtn = document.getElementById('close-blueprint-btn');
+            const waBtn = document.getElementById('wa-btn');
+
+            let rawWaMessageText = '';
+
+            if (openBlueprintBtn && blueprintFormSection) {
+                openBlueprintBtn.addEventListener('click', () => {
+                    blueprintFormSection.removeAttribute('hidden');
+                    openBlueprintBtn.setAttribute('aria-expanded', 'true');
+
+                    window.BhumiAnalytics?.track('self_test_personal_blueprint_form_open', { feature: 'blueprint_reading' });
+
+                    // Focus on first input
+                    setTimeout(() => {
+                        document.getElementById('name')?.focus();
+                        blueprintFormSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                });
+            }
+
+            if (closeBlueprintBtn) {
+                closeBlueprintBtn.addEventListener('click', () => {
+                    // Reset to result view
+                    confirmationBox.style.display = 'none';
+                    blueprintFormSection.setAttribute('hidden', 'true');
+                    openBlueprintBtn.setAttribute('aria-expanded', 'false');
+                    document.getElementById('reading-cta-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            }
+
+            function showReadingError(msg) {
+                readingFormAlert.className = 'form-alert error';
+                readingFormAlert.textContent = msg;
+                readingFormAlert.style.display = 'block';
+                readingFormAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+
+            if (readingForm) {
+                readingForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    readingFormAlert.className = 'form-alert';
+                    readingFormAlert.style.display = 'none';
+                    readingFormAlert.textContent = '';
+
+                    window.BhumiAnalytics?.track('reading_form_submit', { feature: 'blueprint_reading' });
+
+                    const nameVal = document.getElementById('name').value.trim();
+                    const emailVal = document.getElementById('email').value.trim();
+                    const birthDateVal = document.getElementById('birthDate').value;
+                    const birthTimeVal = document.getElementById('birthTime_reading').value;
+                    const birthCityVal = document.getElementById('birthCity_reading').value.trim();
+                    const genderVal = document.getElementById('gender').value;
+                    const tiktokVal = document.getElementById('tiktok').value.trim() || '-';
+                    const whatsappVal = document.getElementById('whatsapp').value.trim();
+                    const donationVal = Number(document.getElementById('donationAmount').value);
+                    const consentVal = document.getElementById('consent').checked;
+                    const hpVal = document.getElementById('website_hp').value;
+
+                    if (!nameVal || nameVal.length < 2) {
+                        showReadingError('Nama lengkap minimal 2 karakter.');
+                        return;
+                    }
+                    if (!emailVal || !/^[^s@]+@[^s@]+.[^s@]+$/.test(emailVal)) {
+                        showReadingError('Format email tidak valid.');
+                        return;
+                    }
+                    if (!birthDateVal) {
+                        showReadingError('Tanggal lahir wajib diisi.');
+                        return;
+                    }
+                    if (!birthCityVal || birthCityVal.length < 2) {
+                        showReadingError('Kota kelahiran minimal 2 karakter.');
+                        return;
+                    }
+                    if (!genderVal) {
+                        showReadingError('Jenis kelamin wajib dipilih.');
+                        return;
+                    }
+                    if (!whatsappVal || whatsappVal.replace(/\D/g, '').length < 8) {
+                        showReadingError('Nomor WhatsApp wajib valid.');
+                        return;
+                    }
+                    if (isNaN(donationVal) || donationVal < 25000) {
+                        showReadingError('Jumlah donasi minimal Rp25.000.');
+                        return;
+                    }
+                    if (!consentVal) {
+                        showReadingError('Kamu wajib menyetujui ketentuan pemrosesan.');
+                        return;
+                    }
+
+                    submitReadingBtn.disabled = true;
+                    const originalBtnText = submitReadingBtn.textContent;
+                    submitReadingBtn.textContent = 'Mengirim Data...';
+
+                    try {
+                        const payload = {
+                            name: nameVal,
+                            email: emailVal,
+                            birthDate: birthDateVal,
+                            birthTime: birthTimeVal,
+                            birthCity: birthCityVal,
+                            gender: genderVal,
+                            tiktok: tiktokVal,
+                            whatsapp: whatsappVal,
+                            donationAmount: donationVal,
+                            consent: consentVal,
+                            website_hp: hpVal
+                        };
+
+                        const response = await fetch('/api/reading', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok && result.success) {
+                            window.BhumiAnalytics?.track('reading_form_success', { feature: 'blueprint_reading' });
+
+                            waBtn.href = result.whatsappUrl || '#';
+
+                            readingFormContainer.style.display = 'none';
+                            confirmationBox.style.display = 'block';
+                            confirmationBox.scrollIntoView({ behavior: 'smooth' });
+                        } else {
+                            window.BhumiAnalytics?.track('reading_form_error', { feature: 'blueprint_reading', code: result.code });
+                            showReadingError(result.message || 'Data belum berhasil disimpan. Silakan coba kembali.');
+                            submitReadingBtn.disabled = false;
+                            submitReadingBtn.textContent = originalBtnText;
+                        }
+                    } catch (err) {
+                        window.BhumiAnalytics?.track('reading_form_error', { feature: 'blueprint_reading', code: 'NETWORK_ERROR' });
+                        showReadingError('Data belum berhasil dikirim karena kendala jaringan. Silakan coba kembali.');
+                        submitReadingBtn.disabled = false;
+                        submitReadingBtn.textContent = originalBtnText;
+                    }
+                });
+            }
+
+            if (waBtn) {
+                waBtn.addEventListener('click', function() {
+                    window.BhumiAnalytics?.track('reading_whatsapp_click', { feature: 'blueprint_reading' });
+                });
+            }
+
     </script>
 </body>
 </html>
