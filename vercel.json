@@ -3,12 +3,36 @@
     "api/blueprint.mjs": {
       "maxDuration": 30,
       "memory": 512
+    },
+    "api/reading.mjs": {
+      "maxDuration": 10,
+      "memory": 256
     }
   },
   "redirects": [
     {
       "source": "/kecocokan-matrix",
       "destination": "/kecocokanmatrix",
+      "permanent": true
+    },
+    {
+      "source": "/reading",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/reading/",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/produk/blueprint-reading",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/produk/blueprint-reading/",
+      "destination": "/tes-kenali-diri/",
       "permanent": true
     }
   ],
