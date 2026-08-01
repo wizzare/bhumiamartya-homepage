@@ -31,11 +31,21 @@
 | Human Design | `/kenali-diri/human-design/` | Aktif; masih memakai endpoint aplikasi |
 | MBTI | `/kenali-diri/mbti/` | Aktif |
 
+## Blueprint Engines
+
+| Engine | Status | Feasibility |
+| --- | --- | --- |
+| Human Design | **Existing lib available** | **GO** |
+| Vedic (Moon-only) | **Not implemented** | **CONDITIONAL GO** |
+| Human Design + Vedic integration | **Design spike complete** | Pending approval |
+
 ## Endpoint
 
 | Endpoint | Method | Status |
 | --- | --- | --- |
 | `/api/reading` | POST | Aktif |
+| `/api/blueprint-engines` | POST | **Design spike complete** |
+| `/api/blueprint.mjs` | POST | Existing (HD + Destiny Matrix + Natal) |
 
 ## Personal Blueprint / Self-Test Acceptance
 
@@ -56,3 +66,5 @@
 | Google Sheets append | BLOCKED: Preview credential belum tersedia |
 | WhatsApp end-to-end | MOCK ONLY sampai append nyata tersedia |
 | Global website-app isolation | PARTIAL; `/cek-aura/`, `/kalkulator-cinta/`, dan `/kenali-diri/human-design/` masih bergantung pada aplikasi |
+| Human Design engine (website) | **Existing** di `lib/human-design/` |
+| Vedic engine (website) | **Not implemented** |
