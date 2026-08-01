@@ -94,6 +94,18 @@
             display: block;
         }
 
+        .inline-warning {
+            background-color: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-left: 4px solid var(--earth-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            padding: 0.85rem 1rem;
+        }
+
         .result-eyebrow {
             color: var(--gold-dark);
             font-size: 0.78rem;
@@ -421,6 +433,7 @@
                     </div>
 
                     <article class="result-card" id="result-card" aria-live="polite">
+                        <div id="result-inline-warning" class="inline-warning" role="status" aria-live="polite" hidden></div>
                         <div class="result-eyebrow">Hasil awal kenali diri</div>
                         <h2 class="result-title" id="result-title"></h2>
                         <p class="result-summary">Berikut identitas inti Blueprint sebagai pintu awal. Beberapa sistem membutuhkan jam dan kota lahir agar pembacaan bisa lebih presisi.</p>
@@ -1199,8 +1212,11 @@
 
                 } catch (error) {
                     console.warn('[TES KENALI DIRI API] Failed, running offline fallback:', error);
-                    // Show error fallback notification
-                    alert('Maaf, hasil lengkap dari server belum bisa dimuat. Menggunakan kalkulasi lokal sebagai cadangan.');
+                    const inlineWarning = document.getElementById('result-inline-warning');
+                    if (inlineWarning) {
+                        inlineWarning.textContent = 'Hasil lengkap dari server belum bisa dimuat saat ini. Menggunakan kalkulasi lokal sebagai cadangan.';
+                        inlineWarning.hidden = false;
+                    }
                     runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
