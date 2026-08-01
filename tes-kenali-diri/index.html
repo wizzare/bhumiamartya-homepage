@@ -1068,14 +1068,17 @@
                 const arcanaNumber = calculateArcanaCenter(year, month, day);
                 const arcanaName = ARCANA[arcanaNumber - 1];
                 const sun = sunSign(month, day);
-                const unavailableMsg = 'Hasil belum bisa dimuat dari server. Silakan coba lagi nanti.';
+                const weton = wetonName(new Date(year, month - 1, day), birthtime);
+                const bazi = calculateBaziIdentity(year, month, day, birthtime);
+                const tzolkin = calculateTzolkinIdentity(birthdate);
+                const unavailableMsg = 'Membutuhkan data koordinat kota lahir yang lebih spesifik.';
                 const canonicalSynthesis = buildCanonicalSynthesis({
                     nickname,
                     lifePath,
                     arcanaName,
                     sun,
-                    baziElement: BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
-                    hasPreciseCity: false
+                    baziElement: bazi ? bazi.element : BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
+                    hasPreciseCity: Boolean(resolvedCityData?.latitude)
                 });
 
                 resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
@@ -1084,10 +1087,10 @@
                     { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
                     { label: 'Type Human Design', value: unavailableMsg },
                     { label: 'Sun Natal Chart', value: sun },
-                    { label: 'Weton', value: unavailableMsg },
-                    { label: 'BaZi', value: unavailableMsg },
+                    { label: 'Weton', value: weton },
+                    { label: 'BaZi', value: bazi ? `${bazi.label}` : 'Membutuhkan jam lahir.' },
                     { label: 'Vedic', value: unavailableMsg },
-                    { label: 'Tzolkin', value: unavailableMsg }
+                    { label: 'Tzolkin', value: tzolkin }
                 ]);
                 renderSynthesis(canonicalSynthesis);
                 renderSummary(createReadingFromSynthesis(canonicalSynthesis));
@@ -1134,74 +1137,8 @@
                     submitBtn.textContent = 'Membaca Blueprint...';
                 }
 
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const API_URL = isLocal 
-                    ? 'http://localhost:3000/api/tes-kenali-diri' 
-                    : 'https://bhumi-amartya-clean.vercel.app/api/tes-kenali-diri';
-
                 try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: nickname,
-                            birthDate: birthdate,
-                            birthTime: birthtime || undefined,
-                            birthCity: birthcity || undefined,
-                            latitude: resolvedCityData ? resolvedCityData.latitude : undefined,
-                            longitude: resolvedCityData ? resolvedCityData.longitude : undefined,
-                            timezone: resolvedCityData ? resolvedCityData.timezone : undefined
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('API server returned error status ' + response.status);
-                    }
-
-                    const data = await response.json();
-                    if (!data || !data.ok) {
-                        throw new Error(data?.reason || 'Blueprint calculation failed on API');
-                    }
-
-                    // Render returned identity fields from API
-                    resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
-                    renderIdentity([
-                        { label: 'Life Path', value: data.identity.lifePath },
-                        { label: 'Arcana Center', value: data.identity.arcanaCenter },
-                        { label: 'Type Human Design', value: data.identity.humanDesignType },
-                        { label: 'Sun Natal Chart', value: data.identity.natalSun },
-                        { label: 'Weton', value: data.identity.weton },
-                        { label: 'BaZi', value: data.identity.bazi },
-                        { label: 'Vedic', value: data.identity.vedic },
-                        { label: 'Tzolkin', value: data.identity.tzolkin }
-                    ]);
-
-                    // Render returned canonical synthesis and area summaries
-                    synthesisCopy.innerHTML = `<p>${data.canonicalSynthesis.summary}</p>`;
-                    
-                    const areaTitles = {
-                        general: 'Keadaan Umum',
-                        careerEconomy: 'Karir dan Ekonomi',
-                        loveSingle: 'Asmara dan Cinta - Untuk Single',
-                        loveCouple: 'Asmara dan Cinta - Untuk Berpasangan',
-                        family: 'Keluarga',
-                        health: 'Kesehatan',
-                        spiritual: 'Spiritual',
-                        challenge: 'Tantangan'
-                    };
-                    
-                    const summaries = Object.entries(data.canonicalSynthesis.areas).map(([key, text]) => ({
-                        label: areaTitles[key] || key,
-                        text: text
-                    }));
-                    renderSummary(summaries);
-
-                    introNote.style.display = 'none';
-                    resultCard.classList.add('show');
-                document.getElementById('reading-cta-section').style.display = 'block';
-                    resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
@@ -1209,15 +1146,13 @@
                         hasBirthTime: Boolean(birthtime),
                         hasBirthCity: Boolean(birthcity)
                     });
-
                 } catch (error) {
-                    console.warn('[TES KENALI DIRI API] Failed, running offline fallback:', error);
+                    console.warn('[TES KENALI DIRI] Calculation failed:', error);
                     const inlineWarning = document.getElementById('result-inline-warning');
                     if (inlineWarning) {
-                        inlineWarning.textContent = 'Hasil lengkap dari server belum bisa dimuat saat ini. Menggunakan kalkulasi lokal sebagai cadangan.';
+                        inlineWarning.textContent = 'Terjadi kesalahan saat menghitung hasil. Silakan coba lagi.';
                         inlineWarning.hidden = false;
                     }
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
