@@ -141,14 +141,28 @@ export default async function handler(req, res) {
     return json(res, 500, { ok: false, code: vedic.code || 'CALCULATION_FAILED', message: vedic.message || 'Vedic calculation failed.' });
   }
 
-  const durationMs = Date.now() - startedAt;
+const durationMs = Date.now() - startedAt;
   const response = {
     ok: true,
     humanDesign: {
       type: humanDesign.type,
       profile: humanDesign.profile,
       authority: humanDesign.authority,
-      strategy: humanDesign.strategy
+      strategy: humanDesign.strategy,
+      signature: humanDesign.signature,
+      notSelfTheme: humanDesign.notSelfTheme,
+      definition: humanDesign.definition,
+      incarnationCross: humanDesign.incarnationCross,
+      variable: humanDesign.variable || humanDesign.variableShortCode,
+      gatesPersonality: humanDesign.gatesPersonality,
+      gatesDesign: humanDesign.gatesDesign,
+      definedGates: humanDesign.definedGates,
+      channels: humanDesign.channels,
+      personalityActivations: humanDesign.personalityActivations,
+      designActivations: humanDesign.designActivations,
+      centers: humanDesign.centers,
+      definedCenters: humanDesign.definedCenters,
+      openCenters: humanDesign.openCenters
     },
     vedic: {
       scope: 'moon-based-basic',
@@ -168,7 +182,8 @@ export default async function handler(req, res) {
       nakshatraSystem: '27',
       dashaSystem: 'Vimshottari',
       asOfDate: effectiveAsOfDate,
-      resolvedTimezone
+      resolvedTimezone,
+      birthUtc: birthUtc.toISOString()
     }
   };
 
