@@ -23,6 +23,7 @@ async function call(req) {
 }
 
 const FIXTURE_A = { birthDate: '1985-05-03', birthTime: '23:45', birthCity: 'Jakarta', latitude: -6.2088, longitude: 106.8456, timezone: 'Asia/Jakarta', asOfDate: '2026-08-02' };
+const FIXTURE_A_NO_TZ = { birthDate: '1985-05-03', birthTime: '23:45', birthCity: 'Jakarta, Indonesia', latitude: -6.2088, longitude: 106.8456, asOfDate: '2026-08-02' };
 
 console.log('API test: Fixture A');
 const rA = await call(makeReq('POST', { 'content-type': 'application/json' }, FIXTURE_A));
@@ -78,6 +79,13 @@ const big = 'x'.repeat(40000);
 const rBig = await call(makeReq('POST', { 'content-type': 'application/json', 'content-length': '40000' }, { data: big }));
 assert.equal(rBig.status, 413);
 assert.equal(rBig.body.code, 'PAYLOAD_TOO_LARGE');
+console.log('  PASS');
+
+console.log('API test: no client timezone (server resolves)');
+const rNoTz = await call(makeReq('POST', { 'content-type': 'application/json' }, FIXTURE_A_NO_TZ));
+assert.equal(rNoTz.status, 200);
+assert.equal(rNoTz.body.ok, true);
+assert.equal(rNoTz.body.metadata.resolvedTimezone, 'Asia/Jakarta');
 console.log('  PASS');
 
 console.log('=== ALL API TESTS PASSED ===');

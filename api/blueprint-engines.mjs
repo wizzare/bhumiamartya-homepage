@@ -2,6 +2,7 @@ import { calculateHumanDesign } from '../lib/human-design/calculate.mjs';
 import { normalizeHumanDesignResponse } from '../lib/human-design/normalizer.mjs';
 import { calculateVedic } from '../lib/vedic/calculate.mjs';
 import { isValidIanaTimeZone, localDateTimeToUtc } from '../lib/timezone.mjs';
+import { resolveTimezoneFromCoordinates } from '../lib/timezone-resolver.mjs';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -95,8 +96,23 @@ export default async function handler(req, res) {
   if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90 || !Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
     return json(res, 400, { ok: false, code: 'INVALID_COORDINATES', message: 'Koordinat tidak valid.' });
   }
-  if (!timezone || !isValidIanaTimeZone(timezone)) {
-    return json(res, 400, { ok: false, code: 'INVALID_TIMEZONE', message: 'Timezone IANA valid diperlukan.' });
+
+  let resolvedTimezone = null;
+  if (timezone) {
+    if (!isValidIanaTimeZone(timezone)) {
+      return json(res, 400, { ok: false, code: 'INVALID_TIMEZONE', message: 'Timezone IANA valid diperlukan.' });
+    }
+    resolvedTimezone = timezone;
+  } else {
+    const tzResult = resolveTimezoneFromCoordinates(latitude, longitude);
+    if (!tzResult.ok) {
+      const code = tzResult.code === 'AMBIGUOUS_TIMEZONE' ? 'AMBIGUOUS_TIMEZONE' : 'INVALID_TIMEZONE';
+      const message = tzResult.code === 'AMBIGUOUS_TIMEZONE'
+        ? 'Lokasi memiliki beberapa timezone yang berbeda. Berikan timezone IANA secara eksplisit.'
+        : 'Timezone tidak dapat diresolusi dari koordinat. Berikan timezone IANA secara eksplisit.';
+      return json(res, 400, { ok: false, code, message, zones: tzResult.zones });
+    }
+    resolvedTimezone = tzResult.timezone;
   }
 
   const effectiveAsOfDate = asOfDate || new Date().toISOString().slice(0, 10);
@@ -104,7 +120,7 @@ export default async function handler(req, res) {
     return json(res, 400, { ok: false, code: 'INVALID_AS_OF_DATE', message: 'asOfDate tidak valid.' });
   }
 
-  const utcResult = localDateTimeToUtc({ birthDate, birthTime, timezone });
+  const utcResult = localDateTimeToUtc({ birthDate, birthTime, timezone: resolvedTimezone });
   if (!utcResult.ok) {
     const code = utcResult.code === 'INVALID_LOCAL_TIME' ? 'INVALID_BIRTH_TIME' : 'INVALID_TIMEZONE';
     const message = utcResult.code === 'INVALID_LOCAL_TIME'
@@ -142,7 +158,7 @@ export default async function handler(req, res) {
       nakshatraLord: vedic.nakshatraLord,
       currentMahadasha: vedic.currentMahadasha
     },
-    metadata: {
+      metadata: {
       requestId,
       durationMs,
       engineVersion: '1.0.0',
@@ -151,7 +167,8 @@ export default async function handler(req, res) {
       vedicScope: 'moon-based-basic',
       nakshatraSystem: '27',
       dashaSystem: 'Vimshottari',
-      asOfDate: effectiveAsOfDate
+      asOfDate: effectiveAsOfDate,
+      resolvedTimezone
     }
   };
 
