@@ -4,6 +4,9 @@
   "engines": {
     "node": "20.x"
   },
+  "scripts": {
+    "test:engines": "node --test tests/*.test.mjs"
+  },
   "dependencies": {
     "astronomy-engine": "^2.1.19"
   }
