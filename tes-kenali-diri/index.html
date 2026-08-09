@@ -443,6 +443,30 @@
                         <div class="synthesis-copy" id="synthesis-copy"></div>
                         <h3 class="section-title" style="font-size: 1.55rem; margin: 1.75rem 0 1rem;">Ringkasan Area Hidup</h3>
                         <div class="summary-blocks" id="summary-blocks"></div>
+
+                        <div id="engine-loading-section" style="display:none; margin-top:2rem;">
+                          <div class="identity-item" id="hd-loading-card" style="margin-bottom:1rem;">
+                            <span class="identity-label">HUMAN DESIGN</span>
+                            <div class="identity-value">Menghitung blueprint...</div>
+                          </div>
+                          <div class="identity-item" id="vedic-loading-card">
+                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
+                            <div class="identity-value">Menghitung posisi Bulan dan periode...</div>
+                          </div>
+                        </div>
+
+                        <div id="engine-result-section" style="display:none; margin-top:2rem;">
+                          <div class="identity-item" id="hd-result-card" style="margin-bottom:1rem; display:none;">
+                            <span class="identity-label">HUMAN DESIGN</span>
+                            <div class="identity-value" id="hd-result-value"></div>
+                          </div>
+                          <div class="identity-item" id="vedic-result-card" style="display:none;">
+                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
+                            <div class="identity-value" id="vedic-result-value"></div>
+                            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">Identitas dasar berdasarkan posisi Bulan sidereal, Nakshatra, Pada, dan periode Mahadasha.</p>
+                          </div>
+                        </div>
+
                         <p class="result-disclaimer">Ini adalah pintu awal, bukan pembacaan final. Hasil ini tidak menampilkan raw calculation dan tidak dimaksudkan sebagai klaim yang mutlak.</p>
                     </article>
                 </div>
@@ -1146,6 +1170,75 @@
                         hasBirthTime: Boolean(birthtime),
                         hasBirthCity: Boolean(birthcity)
                     });
+
+                    // Engine integration: call blueprint-engines without timezone
+                    const engineLoading = document.getElementById('engine-loading-section');
+                    const engineResult = document.getElementById('engine-result-section');
+                    const hdLoading = document.getElementById('hd-loading-card');
+                    const vedicLoading = document.getElementById('vedic-loading-card');
+                    const hdResultCard = document.getElementById('hd-result-card');
+                    const vedicResultCard = document.getElementById('vedic-result-card');
+                    const hdResultValue = document.getElementById('hd-result-value');
+                    const vedicResultValue = document.getElementById('vedic-result-value');
+                    const inlineWarning = document.getElementById('result-inline-warning');
+
+                    if (engineLoading) engineLoading.style.display = 'block';
+                    if (engineResult) engineResult.style.display = 'block';
+
+                    const enginePayload = {
+                        birthDate: birthdate,
+                        birthTime: birthtime || undefined,
+                        birthCity: resolvedCityData?.formattedCity || birthcity,
+                        latitude: resolvedCityData?.latitude ?? null,
+                        longitude: resolvedCityData?.longitude ?? null,
+                        asOfDate: new Date().toISOString().slice(0, 10)
+                    };
+
+                    try {
+                        const engineRes = await fetch('/api/blueprint-engines', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(enginePayload)
+                        });
+                        const engineBody = await engineRes.json();
+
+                        if (engineRes.ok && engineBody.ok) {
+                            if (hdLoading) hdLoading.style.display = 'none';
+                            if (vedicLoading) vedicLoading.style.display = 'none';
+                            if (hdResultValue) {
+                                hdResultValue.innerHTML = `
+                                    Type: ${engineBody.humanDesign.type}<br>
+                                    Profile ${engineBody.humanDesign.profile}<br>
+                                    ${engineBody.humanDesign.authority} Authority<br>
+                                    ${engineBody.humanDesign.strategy}
+                                `;
+                            }
+                            if (hdResultCard) hdResultCard.style.display = 'block';
+                            if (vedicResultValue) {
+                                const v = engineBody.vedic;
+                                vedicResultValue.innerHTML = `
+                                    Rashi: ${v.rashi}<br>
+                                    Nakshatra: ${v.nakshatra}<br>
+                                    Pada ${v.pada}<br>
+                                    Nakshatra Lord: ${v.nakshatraLord}<br>
+                                    Current Mahadasha: ${v.currentMahadasha.planet}
+                                `;
+                            }
+                            if (vedicResultCard) vedicResultCard.style.display = 'block';
+                        } else {
+                            if (engineLoading) engineLoading.style.display = 'none';
+                            if (inlineWarning) {
+                                inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
+                                inlineWarning.hidden = false;
+                            }
+                        }
+                    } catch (e) {
+                        if (engineLoading) engineLoading.style.display = 'none';
+                        if (inlineWarning) {
+                            inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
+                            inlineWarning.hidden = false;
+                        }
+                    }
                 } catch (error) {
                     console.warn('[TES KENALI DIRI] Calculation failed:', error);
                     const inlineWarning = document.getElementById('result-inline-warning');
