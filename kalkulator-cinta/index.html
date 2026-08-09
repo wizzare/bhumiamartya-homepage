@@ -522,6 +522,125 @@
                 return match ? Number(match[0]) : 0;
             };
 
+            const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const PASARAN_FROM_ENGINE_EPOCH = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'];
+            const ARCANA = ['The Magician', 'The High Priestess', 'The Empress', 'The Emperor', 'The Hierophant', 'The Lovers', 'The Chariot', 'Justice', 'The Hermit', 'Wheel of Fortune', 'Strength', 'The Hanged Man', 'Death', 'Temperance', 'The Devil', 'The Tower', 'The Star', 'The Moon', 'The Sun', 'Judgement', 'The World', 'The Fool'];
+            const BAZI_ELEMENTS = ['Kayu', 'Api', 'Tanah', 'Logam', 'Air'];
+            const LIFE_PATH_THEMES = {
+                1: 'inisiatif dan keberanian memulai',
+                2: 'kepekaan rasa dan kerja sama',
+                3: 'ekspresi, kreativitas, dan komunikasi',
+                4: 'struktur, ketekunan, dan stabilitas',
+                5: 'perubahan, kebebasan, dan adaptasi',
+                6: 'tanggung jawab, kasih, dan harmoni',
+                7: 'pencarian makna dan kedalaman batin',
+                8: 'daya kelola, karya, dan kepemimpinan',
+                9: 'welas asih, penyelesaian, dan pandangan luas'
+            };
+
+            const sunSign = (month, day) => {
+                const z = [
+                    ['Capricorn', 120], ['Aquarius', 219], ['Pisces', 321], ['Aries', 420],
+                    ['Taurus', 521], ['Gemini', 621], ['Cancer', 723], ['Leo', 823],
+                    ['Virgo', 923], ['Libra', 1023], ['Scorpio', 1122], ['Sagittarius', 1222], ['Capricorn', 1232]
+                ];
+                const value = month * 100 + day;
+                return z.find((item) => value < item[1])[0];
+            };
+
+            const sumDigits = (value) => String(value).split('').reduce((sum, digit) => sum + Number(digit), 0);
+
+            const reduceLifePath = (value) => {
+                if ([11, 22, 33].includes(value)) return value;
+                let total = sumDigits(value);
+                while (total > 9) {
+                    if ([11, 22, 33].includes(total)) return total;
+                    total = sumDigits(total);
+                }
+                return total;
+            };
+
+            const displayLifePath = (value) => {
+                const reductions = { 11: 2, 22: 4, 33: 6 };
+                return reductions[value] ? `${value}/${reductions[value]}` : String(value);
+            };
+
+            const calculateLifePathNumber = (birthdate) => {
+                const [year, month, day] = birthdate.split('-');
+                const monthNumber = reduceLifePath(Number(month));
+                const dayNumber = reduceLifePath(Number(day));
+                const yearNumber = reduceLifePath(sumDigits(year));
+                return reduceLifePath(monthNumber + dayNumber + yearNumber);
+            };
+
+            const reduceDestiny = (value) => {
+                if (value > 22) return (value % 10) + Math.floor(value / 10);
+                return value === 0 ? 22 : value;
+            };
+
+            const calculateArcanaCenter = (year, month, day) => {
+                const apoint = reduceDestiny(day);
+                const bpoint = month;
+                const cpoint = reduceDestiny(sumDigits(year));
+                const dpoint = reduceDestiny(apoint + bpoint + cpoint);
+                return reduceDestiny(apoint + bpoint + cpoint + dpoint);
+            };
+
+            const positiveModulo = (value, divisor) => ((value % divisor) + divisor) % divisor;
+
+            const daysBetween = (date, anchor) => {
+                const utcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
+                const utcAnchor = Date.UTC(anchor.getFullYear(), anchor.getMonth(), anchor.getDate());
+                return Math.round((utcDate - utcAnchor) / 86400000);
+            };
+
+            const wetonName = (date, birthtime) => {
+                const effective = new Date(date);
+                if (birthtime) {
+                    const hour = Number(birthtime.split(':')[0]);
+                    if (hour >= 18) effective.setDate(effective.getDate() + 1);
+                }
+                const pasaranIndex = positiveModulo(daysBetween(effective, new Date(2020, 6, 5)), 5);
+                return `${HARI[effective.getDay()]} ${PASARAN_FROM_ENGINE_EPOCH[pasaranIndex]}`;
+            };
+
+            const buildCanonicalSynthesis = ({ nickname, lifePath, arcanaName, sun, baziElement }) => {
+                const coreNeed = LIFE_PATH_THEMES[lifePath] || 'mengenali pola hidup personal';
+                const grounding = 'ritme yang lebih stabil';
+                const reflection = `membaca arah batin melalui ${arcanaName}`;
+                const action = `menghidupi kualitas ${coreNeed} dengan langkah kecil`;
+                const energyTone = `perpaduan ${sun}, elemen ${baziElement}, dan pola dasar ${coreNeed}`;
+                const blueprintSummary = `Dari keseluruhan pola lahirmu, ${nickname} cenderung sedang belajar memberi ruang untuk ${grounding}, ${reflection}, dan ${action}. Pola ini menggambarkan pintu awal untuk memahami cara energimu bekerja tanpa menjadikannya kesimpulan mutlak.`;
+                const secondSummary = `Secara umum, ${energyTone} mengajakmu bergerak dengan lebih sadar: mengenali kebutuhan diri, menjaga arah, lalu memilih satu langkah yang benar-benar bisa dilakukan.`;
+                return {
+                    summary: `${blueprintSummary} ${secondSummary}`,
+                    coreNeeds: [grounding, reflection, action],
+                    identitySignals: { lifePath, arcanaCenter: arcanaName, sunSign: sun, baziElement }
+                };
+            };
+
+            const buildIdentity = (person) => {
+                const [year, month, day] = person.birthDate.split('-').map(Number);
+                const lifePath = calculateLifePathNumber(person.birthDate);
+                const arcanaNumber = calculateArcanaCenter(year, month, day);
+                const arcanaName = ARCANA[arcanaNumber - 1];
+                const sun = sunSign(month, day);
+                const weton = wetonName(new Date(year, month - 1, day), person.birthTime);
+                const baziElement = BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)];
+                const unavailableMsg = 'Membutuhkan data koordinat kota lahir yang lebih spesifik.';
+                return {
+                    requestName: person.requestName,
+                    identity: {
+                        lifePath: `${displayLifePath(lifePath)} - ${LIFE_PATH_THEMES[lifePath] || 'pola hidup personal'}`,
+                        arcanaCenter: `${arcanaNumber} - ${arcanaName}`,
+                        humanDesignType: unavailableMsg,
+                        natalSun: sun,
+                        weton
+                    },
+                    canonicalSynthesis: buildCanonicalSynthesis({ nickname: person.requestName, lifePath, arcanaName, sun, baziElement })
+                };
+            };
+
             const calculateScore = (a, b) => {
                 const lpA = parseNumber(a.identity.lifePath);
                 const lpB = parseNumber(b.identity.lifePath);
@@ -610,20 +729,6 @@
                 result.scrollIntoView({ behavior: 'smooth', block: 'start' });
             };
 
-            const callApi = async (payload) => {
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const url = isLocal ? 'http://localhost:3000/api/tes-kenali-diri' : 'https://bhumi-amartya-clean.vercel.app/api/tes-kenali-diri';
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (!response.ok) throw new Error(`API status ${response.status}`);
-                const data = await response.json();
-                if (!data || !data.ok) throw new Error(data?.reason || 'API failed');
-                return data;
-            };
-
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
                 if (!form.checkValidity()) {
@@ -654,11 +759,9 @@
                 submitBtn.textContent = 'Membaca Hubungan...';
 
                 try {
-                    const [dataA, dataB] = await Promise.all([callApi(personA), callApi(personB)]);
-                    renderResult(
-                        { ...dataA, requestName: personA.requestName },
-                        { ...dataB, requestName: personB.requestName }
-                    );
+                    const dataA = buildIdentity(personA);
+                    const dataB = buildIdentity(personB);
+                    renderResult(dataA, dataB);
                     window.BhumiAnalytics?.track('kalkulator_cinta_submitted', {
                         feature: 'kalkulator-cinta',
                         status: 'submitted',
@@ -668,6 +771,7 @@
                     });
                 } catch (error) {
                     console.warn('[KALKULATOR CINTA] Failed:', error);
+                    errorBox.textContent = 'Maaf, pembacaan belum bisa dimuat. Coba lagi sebentar lagi.';
                     errorBox.style.display = 'block';
                 } finally {
                     loading.style.display = 'none';
