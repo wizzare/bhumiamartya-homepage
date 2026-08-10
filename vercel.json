@@ -11,11 +11,6 @@
   },
   "redirects": [
     {
-      "source": "/kecocokan-matrix",
-      "destination": "/kecocokanmatrix",
-      "permanent": true
-    },
-    {
       "source": "/reading",
       "destination": "/tes-kenali-diri/",
       "permanent": true
@@ -54,10 +49,6 @@
     {
       "source": "/images/:path*",
       "destination": "https://bhumi-amartya-clean.vercel.app/images/:path*"
-    },
-    {
-      "source": "/kecocokanmatrix",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
     },
     {
       "source": "/articles/:slug",
