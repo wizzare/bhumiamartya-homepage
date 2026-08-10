@@ -50,20 +50,12 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
     },
     {
-      "source": "/articles",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles"
-    },
-    {
-      "source": "/articles/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles"
-    },
-    {
       "source": "/articles/:slug",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+      "destination": "/articles/detail.html"
     },
     {
       "source": "/articles/:slug/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+      "destination": "/articles/detail.html"
     },
     {
       "source": "/ebooks",
