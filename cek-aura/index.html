@@ -94,6 +94,18 @@
             display: block;
         }
 
+        .inline-warning {
+            background-color: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-left: 4px solid var(--earth-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            padding: 0.85rem 1rem;
+        }
+
         .result-eyebrow {
             color: var(--gold-dark);
             font-size: 0.78rem;
@@ -421,6 +433,7 @@
                     </div>
 
                     <article class="result-card" id="result-card" aria-live="polite">
+                        <div id="result-inline-warning" class="inline-warning" role="status" aria-live="polite" hidden></div>
                         <div class="result-eyebrow">Hasil awal cek aura</div>
                         <h2 class="result-title" id="result-title"></h2>
                         <p class="result-summary">Warna ini adalah simbol pembacaan energi dari pola lahirmu, bukan klaim visual mutlak.</p>
@@ -1146,56 +1159,23 @@
                     submitBtn.textContent = 'Membaca Aura...';
                 }
 
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const API_URL = isLocal 
-                    ? 'http://localhost:3000/api/tes-kenali-diri' 
-                    : 'https://bhumi-amartya-clean.vercel.app/api/tes-kenali-diri';
-
                 try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: nickname,
-                            birthDate: birthdate,
-                            birthTime: birthtime || undefined,
-                            birthCity: birthcity || undefined,
-                            latitude: resolvedCityData ? resolvedCityData.latitude : undefined,
-                            longitude: resolvedCityData ? resolvedCityData.longitude : undefined,
-                            timezone: resolvedCityData ? resolvedCityData.timezone : undefined
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('API server returned error status ' + response.status);
-                    }
-
-                    const data = await response.json();
-                    if (!data || !data.ok) {
-                        throw new Error(data?.reason || 'Blueprint calculation failed on API');
-                    }
-
-                    const auraReading = createAuraReading({
-                        nickname,
-                        identity: data.identity,
-                        synthesis: data.canonicalSynthesis
-                    });
-                    renderAuraReading(auraReading);
+                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
                     window.BhumiAnalytics?.track('cek_aura_submitted', {
                         feature: 'cek-aura',
                         status: 'submitted',
                         resultOk: true,
+                        source: 'local',
                         hasBirthTime: Boolean(birthtime),
                         hasBirthCity: Boolean(birthcity)
                     });
-
                 } catch (error) {
-                    console.warn('[CEK AURA API] Failed, running offline fallback:', error);
-                    // Show error fallback notification
-                    alert('Maaf, hasil lengkap dari server belum bisa dimuat. Menggunakan kalkulasi lokal sebagai cadangan.');
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
+                    console.warn('[CEK AURA] Calculation failed:', error);
+                    const errorBox = document.getElementById('result-inline-warning');
+                    if (errorBox) {
+                        errorBox.textContent = 'Aura belum dapat dihitung saat ini. Silakan periksa data lahir dan coba kembali.';
+                        errorBox.hidden = false;
+                    }
                     window.BhumiAnalytics?.track('cek_aura_submitted', {
                         feature: 'cek-aura',
                         status: 'submitted',
