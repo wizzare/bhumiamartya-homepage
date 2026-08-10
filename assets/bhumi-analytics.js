@@ -5,6 +5,16 @@
   var loaded = false;
   var pageViewSent = false;
   var started = {};
+  var PRODUCTION_HOSTS = ["www.bhumiamartya.my.id", "bhumiamartya.my.id"];
+
+  function isProductionHost() {
+    var host = window.location.hostname.toLowerCase();
+    return PRODUCTION_HOSTS.indexOf(host) >= 0;
+  }
+
+  function isTrackingAllowed() {
+    return isProductionHost() && hasConsent();
+  }
 
   window.dataLayer = window.dataLayer || [];
   window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
@@ -60,7 +70,7 @@
   }
 
   function loadGoogleTag() {
-    if (loaded || !hasConsent()) return;
+    if (loaded || !isTrackingAllowed()) return;
     loaded = true;
     window.gtag("consent", "update", { analytics_storage: "granted" });
     window.gtag("js", new Date());
