@@ -8,7 +8,10 @@
     "test:engines": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@google-cloud/firestore": "^8.7.1",
+    "@vercel/oidc": "^3.8.2",
     "astronomy-engine": "^2.1.19",
-    "geo-tz": "^8.1.8"
+    "geo-tz": "^8.1.8",
+    "google-auth-library": "^11.0.0"
   }
 }

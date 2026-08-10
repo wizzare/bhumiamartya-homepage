@@ -98,10 +98,6 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/konten/ngopi-ilmu"
     },
     {
-      "source": "/api/bhumi-articles",
-      "destination": "https://bhumi-amartya-clean.vercel.app/api/articles"
-    },
-    {
       "source": "/api/wedhaswara-articles",
       "destination": "https://wedhaswara.my.id/wp-json/wp/v2/posts?per_page=6&_embed=1"
     }
