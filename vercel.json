@@ -43,6 +43,14 @@
   ],
   "rewrites": [
     {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/sitemap.xml/",
+      "destination": "/api/sitemap"
+    },
+    {
       "source": "/_next/:path*",
       "destination": "https://bhumi-amartya-clean.vercel.app/_next/:path*"
     },
@@ -52,11 +60,11 @@
     },
     {
       "source": "/articles/:slug",
-      "destination": "/articles/detail.html"
+      "destination": "/api/article-page?slug=:slug"
     },
     {
       "source": "/articles/:slug/",
-      "destination": "/articles/detail.html"
+      "destination": "/api/article-page?slug=:slug"
     },
     {
       "source": "/ebooks/:slug",
