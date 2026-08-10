@@ -94,6 +94,18 @@
             display: block;
         }
 
+        .inline-warning {
+            background-color: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-left: 4px solid var(--earth-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            padding: 0.85rem 1rem;
+        }
+
         .result-eyebrow {
             color: var(--gold-dark);
             font-size: 0.78rem;
@@ -335,14 +347,14 @@
                             <li><a href="./" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
-                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a><li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
                             <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
                             <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
                         </ul>
@@ -421,6 +433,7 @@
                     </div>
 
                     <article class="result-card" id="result-card" aria-live="polite">
+                        <div id="result-inline-warning" class="inline-warning" role="status" aria-live="polite" hidden></div>
                         <div class="result-eyebrow">Hasil awal cek aura</div>
                         <h2 class="result-title" id="result-title"></h2>
                         <p class="result-summary">Warna ini adalah simbol pembacaan energi dari pola lahirmu, bukan klaim visual mutlak.</p>
@@ -440,9 +453,9 @@
             <div class="container reading-cta-inner">
                 <span class="section-tag">Blueprint Bhumi</span>
                 <h2 class="section-title">Mau membaca dirimu lebih lengkap?</h2>
-                <p class="cta-copy">Cek Aura ini adalah pembuka. Untuk membaca pola dirimu lebih utuh melalui 8 sistem Blueprint Bhumi, lanjutkan ke Blueprint Reading atau gunakan aplikasi Bhumi Amartya.</p>
+                <p class="cta-copy">Cek Aura ini adalah pembuka. Untuk membaca pola dirimu lebih utuh, lanjutkan ke Tes Kenali Diri atau gunakan aplikasi Bhumi Amartya.</p>
                 <div class="cta-btns">
-                    <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20Blueprint%20Reading" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Pesan Blueprint Reading</a>
+                    <a href="/tes-kenali-diri/" class="btn btn-primary">Tes Kenali Diri</a>
                     <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download Aplikasi Bhumi Amartya</a>
                 </div>
             </div>
@@ -1146,56 +1159,23 @@
                     submitBtn.textContent = 'Membaca Aura...';
                 }
 
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const API_URL = isLocal 
-                    ? 'http://localhost:3000/api/tes-kenali-diri' 
-                    : 'https://bhumi-amartya-clean.vercel.app/api/tes-kenali-diri';
-
                 try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: nickname,
-                            birthDate: birthdate,
-                            birthTime: birthtime || undefined,
-                            birthCity: birthcity || undefined,
-                            latitude: resolvedCityData ? resolvedCityData.latitude : undefined,
-                            longitude: resolvedCityData ? resolvedCityData.longitude : undefined,
-                            timezone: resolvedCityData ? resolvedCityData.timezone : undefined
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('API server returned error status ' + response.status);
-                    }
-
-                    const data = await response.json();
-                    if (!data || !data.ok) {
-                        throw new Error(data?.reason || 'Blueprint calculation failed on API');
-                    }
-
-                    const auraReading = createAuraReading({
-                        nickname,
-                        identity: data.identity,
-                        synthesis: data.canonicalSynthesis
-                    });
-                    renderAuraReading(auraReading);
+                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
                     window.BhumiAnalytics?.track('cek_aura_submitted', {
                         feature: 'cek-aura',
                         status: 'submitted',
                         resultOk: true,
+                        source: 'local',
                         hasBirthTime: Boolean(birthtime),
                         hasBirthCity: Boolean(birthcity)
                     });
-
                 } catch (error) {
-                    console.warn('[CEK AURA API] Failed, running offline fallback:', error);
-                    // Show error fallback notification
-                    alert('Maaf, hasil lengkap dari server belum bisa dimuat. Menggunakan kalkulasi lokal sebagai cadangan.');
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
+                    console.warn('[CEK AURA] Calculation failed:', error);
+                    const errorBox = document.getElementById('result-inline-warning');
+                    if (errorBox) {
+                        errorBox.textContent = 'Aura belum dapat dihitung saat ini. Silakan periksa data lahir dan coba kembali.';
+                        errorBox.hidden = false;
+                    }
                     window.BhumiAnalytics?.track('cek_aura_submitted', {
                         feature: 'cek-aura',
                         status: 'submitted',

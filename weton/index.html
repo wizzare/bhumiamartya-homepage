@@ -27,38 +27,10 @@
     <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
 
     <!-- Favicon & Fonts -->
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    
-    <meta name="description" content="Bhumi Amartya adalah platform pengembangan diri terintegrasi. Ruang untuk Pulang dan Kenali Diri Anda secara utuh melalui psikologi, refleksi diri, spiritualitas modern, dan teknologi.">
-    <meta name="keywords" content="Bhumi Amartya, pengembangan diri, spiritualitas modern, psikologi, refleksi diri, numerologi, human design, weton jawa, bazi, vedic astrology, tzolkin maya, natal chart, destiny matrix, blueprint reading, audio healing, meditasi">
-    <meta name="author" content="Widhi Wedhaswara">
-    
-
-    <!-- Open Graph / Facebook Meta Tags -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.bhumiamartya.my.id">
-    <meta property="og:title" content="Bhumi Amartya | Ruang untuk Pulang dan Kenali Diri">
-    <meta property="og:description" content="Ekosistem pengembangan diri terintegrasi. Ruang untuk Pulang dan Kenali Diri Anda secara utuh melalui psikologi, refleksi, spiritualitas, dan teknologi.">
-    <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://www.bhumiamartya.my.id">
-    <meta name="twitter:title" content="Bhumi Amartya | Ruang untuk Pulang dan Kenali Diri">
-    <meta name="twitter:description" content="Ekosistem pengembangan diri terintegrasi. Ruang untuk Pulang dan Kenali Diri Anda secara utuh melalui psikologi, refleksi, spiritualitas, dan teknologi.">
-    <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
-
-    <!-- Favicon -->
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -4372,7 +4344,7 @@
         }
     
     </style>    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0971666335614952" crossorigin="anonymous"></script>
+    <script src="/assets/bhumi-adsense.js" async></script>
 
 </head>
 <body>
@@ -4396,14 +4368,14 @@
                             <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="./" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
-                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a><li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
                             <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
                             <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
                         </ul>
@@ -4746,10 +4718,12 @@
                 const jam = document.getElementById('jam').value;
 
                 if (!tanggal) {
+                    hideWetonResults();
                     showError("Mohon isi tanggal lahir terlebih dahulu.");
                     return;
                 }
                 if (!jam) {
+                    hideWetonResults();
                     showError("Mohon isi jam lahir terlebih dahulu.");
                     return;
                 }
@@ -4758,61 +4732,7 @@
                 errorDiv.style.display = 'none';
                 errorDiv.innerText = '';
 
-                // Try API first (canonical app engine)
-                try {
-                    const apiResponse = await fetch('https://bhumi-amartya-clean.vercel.app/api/weton', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ birthDate: tanggal, birthTime: jam, name: nama }),
-                    });
-                    const apiData = await apiResponse.json();
-                    if (apiData.ok && apiData.weton) {
-                        // Map API response to match the local hitungWeton output format
-                        const hasil = {
-                            nama: nama,
-                            tanggalLahir: tanggal,
-                            jamLahir: jam,
-                            hariLahir: apiData.weton.day,
-                            pasaran: apiData.weton.pasaran,
-                            weton: apiData.weton.weton,
-                            neptuHari: apiData.weton.neptuDay,
-                            neptuPasaran: apiData.weton.neptuPasaran,
-                            totalNeptu: apiData.weton.totalNeptu,
-                            wuku: apiData.weton.wuku?.name || '-',
-                            wukuIndex: apiData.weton.wuku?.index || 0,
-                            wukuDescription: apiData.weton.wuku?.description || '',
-                            pranataMangsa: apiData.weton.pranataMangsa?.name || '-',
-                            pranataMangsaDescription: apiData.weton.pranataMangsa?.description || '',
-                            watak: apiData.weton.watak || '',
-                            strengths: apiData.weton.strengths || [],
-                            challenges: apiData.weton.challenges || [],
-                            lifeMission: apiData.weton.lifeMission || '',
-                            relationshipStyle: apiData.weton.relationshipStyle || '',
-                            workStyle: apiData.weton.workStyle || '',
-                            moneyStyle: apiData.weton.moneyStyle || '',
-                            bergeserHari: jam ? Number(jam.split(':')[0]) >= 18 : false,
-                            summary: apiData.summary || [],
-                        };
-                        renderWetonResults(hasil);
-                        placeholderDiv.style.display = 'none';
-                        resultsDiv.classList.add('active');
-                        setTimeout(() => {
-                            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 50);
-                        window.BhumiAnalytics?.track('weton_checked', {
-                            feature: 'weton',
-                            status: 'submitted',
-                            resultOk: true,
-                            source: 'api',
-                            hasBirthTime: Boolean(jam)
-                        });
-                        return;
-                    }
-                } catch (apiErr) {
-                    console.warn('[WETON API] Failed, using local fallback:', apiErr);
-                }
-
-                // Fallback to local library (last resort)
+                // Hitung lokal (website-owned engine) — no app dependency
                 try {
                     const hasil = hitungWeton(nama, tanggal, jam);
                     renderWetonResults(hasil);
@@ -4825,11 +4745,13 @@
                         feature: 'weton',
                         status: 'submitted',
                         resultOk: true,
-                        source: 'local-fallback',
+                        source: 'local',
                         hasBirthTime: Boolean(jam)
                     });
                 } catch (err) {
                     console.error("Calculation error:", err);
+                    errorDiv.style.display = 'none';
+                    errorDiv.innerText = '';
                     showError("Terjadi kesalahan perhitungan. Pastikan format input benar.");
                 }
             });
@@ -4838,6 +4760,11 @@
                 errorDiv.innerText = msg;
                 errorDiv.style.display = 'block';
                 errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            function hideWetonResults() {
+                resultsDiv.classList.remove('active');
+                placeholderDiv.style.display = 'block';
             }
 
             function renderWetonResults(hasil) {
@@ -4969,7 +4896,7 @@
                     <div class="weton-app-cta-btns" style="justify-content:flex-start; margin-top:1.5rem;">
                         <a href="../tes-kenali-diri/" class="btn btn-primary">Coba Tes Kenali Diri</a>
                         <a href="../cek-aura/" class="btn btn-outline">Cek Aura</a>
-                        <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20Blueprint%20Reading" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Pesan Blueprint Reading</a>
+                        <a href="../tes-kenali-diri/" class="btn btn-outline">Coba Tes Kenali Diri</a>
                     </div>
                 `;
             }

@@ -3,16 +3,53 @@
     "api/blueprint.mjs": {
       "maxDuration": 30,
       "memory": 512
+    },
+    "api/reading.mjs": {
+      "maxDuration": 10,
+      "memory": 256
     }
   },
   "redirects": [
     {
-      "source": "/kecocokan-matrix",
-      "destination": "/kecocokanmatrix",
+      "source": "/reading",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/reading/",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/produk/blueprint-reading",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/produk/blueprint-reading/",
+      "destination": "/tes-kenali-diri/",
+      "permanent": true
+    },
+    {
+      "source": "/ebook",
+      "destination": "/ebooks/",
+      "permanent": true
+    },
+    {
+      "source": "/ebook/",
+      "destination": "/ebooks/",
       "permanent": true
     }
   ],
   "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/sitemap.xml/",
+      "destination": "/api/sitemap"
+    },
     {
       "source": "/_next/:path*",
       "destination": "https://bhumi-amartya-clean.vercel.app/_next/:path*"
@@ -22,40 +59,20 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/images/:path*"
     },
     {
-      "source": "/kecocokanmatrix",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
-    },
-    {
-      "source": "/articles",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles"
-    },
-    {
-      "source": "/articles/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles"
-    },
-    {
       "source": "/articles/:slug",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
+      "destination": "/api/article-page?slug=:slug"
     },
     {
       "source": "/articles/:slug/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/articles/:slug"
-    },
-    {
-      "source": "/ebooks",
-      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks"
-    },
-    {
-      "source": "/ebooks/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks"
+      "destination": "/api/article-page?slug=:slug"
     },
     {
       "source": "/ebooks/:slug",
-      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
+      "destination": "/ebooks/detail.html"
     },
     {
       "source": "/ebooks/:slug/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/ebooks/:slug"
+      "destination": "/ebooks/detail.html"
     },
     {
       "source": "/founder",
@@ -64,18 +81,6 @@
     {
       "source": "/founder/:path*",
       "destination": "https://bhumi-amartya-clean.vercel.app/founder/:path*"
-    },
-    {
-      "source": "/ngopi-ilmu",
-      "destination": "https://bhumi-amartya-clean.vercel.app/konten/ngopi-ilmu"
-    },
-    {
-      "source": "/ngopi-ilmu/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/konten/ngopi-ilmu"
-    },
-    {
-      "source": "/api/bhumi-articles",
-      "destination": "https://bhumi-amartya-clean.vercel.app/api/articles"
     },
     {
       "source": "/api/wedhaswara-articles",

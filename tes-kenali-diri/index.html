@@ -94,6 +94,18 @@
             display: block;
         }
 
+        .inline-warning {
+            background-color: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            border-left: 4px solid var(--earth-gold);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            line-height: 1.55;
+            margin-bottom: 1.25rem;
+            padding: 0.85rem 1rem;
+        }
+
         .result-eyebrow {
             color: var(--gold-dark);
             font-size: 0.78rem;
@@ -335,14 +347,14 @@
                             <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
-                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a><li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="/produk/blueprint-reading/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
                             <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
                             <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
                         </ul>
@@ -421,6 +433,7 @@
                     </div>
 
                     <article class="result-card" id="result-card" aria-live="polite">
+                        <div id="result-inline-warning" class="inline-warning" role="status" aria-live="polite" hidden></div>
                         <div class="result-eyebrow">Hasil awal kenali diri</div>
                         <h2 class="result-title" id="result-title"></h2>
                         <p class="result-summary">Berikut identitas inti Blueprint sebagai pintu awal. Beberapa sistem membutuhkan jam dan kota lahir agar pembacaan bisa lebih presisi.</p>
@@ -430,20 +443,70 @@
                         <div class="synthesis-copy" id="synthesis-copy"></div>
                         <h3 class="section-title" style="font-size: 1.55rem; margin: 1.75rem 0 1rem;">Ringkasan Area Hidup</h3>
                         <div class="summary-blocks" id="summary-blocks"></div>
+
+                        <div id="engine-loading-section" style="display:none; margin-top:2rem;">
+                          <div class="identity-item" id="hd-loading-card" style="margin-bottom:1rem;">
+                            <span class="identity-label">HUMAN DESIGN</span>
+                            <div class="identity-value">Menghitung blueprint...</div>
+                          </div>
+                          <div class="identity-item" id="vedic-loading-card">
+                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
+                            <div class="identity-value">Menghitung posisi Bulan dan periode...</div>
+                          </div>
+                        </div>
+
+                        <div id="engine-result-section" style="display:none; margin-top:2rem;">
+                          <div class="identity-item" id="hd-result-card" style="margin-bottom:1rem; display:none;">
+                            <span class="identity-label">HUMAN DESIGN</span>
+                            <div class="identity-value" id="hd-result-value"></div>
+                          </div>
+                          <div class="identity-item" id="vedic-result-card" style="display:none;">
+                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
+                            <div class="identity-value" id="vedic-result-value"></div>
+                            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">Identitas dasar berdasarkan posisi Bulan sidereal, Nakshatra, Pada, dan periode Mahadasha.</p>
+                          </div>
+                        </div>
+
                         <p class="result-disclaimer">Ini adalah pintu awal, bukan pembacaan final. Hasil ini tidak menampilkan raw calculation dan tidak dimaksudkan sebagai klaim yang mutlak.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-        <section class="reading-cta">
+                <section class="reading-cta" id="reading-cta-section" style="display: none;">
             <div class="container reading-cta-inner">
                 <span class="section-tag">Blueprint Bhumi</span>
                 <h2 class="section-title">Mau membaca dirimu lebih lengkap?</h2>
-                <p class="cta-copy">Hasil ini adalah pintu awal. Untuk membaca pola dirimu lebih utuh melalui 8 sistem Blueprint Bhumi, lanjutkan ke Blueprint Reading atau gunakan aplikasi Bhumi Amartya.</p>
+                <p class="cta-copy">Hasil ini adalah pintu awal. Untuk mengenali pola, potensi, tantangan, dan perjalanan dirimu secara lebih utuh, lanjutkan ke Personal Blueprint atau gunakan aplikasi Bhumi Amartya.</p>
                 <div class="cta-btns">
-                    <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20Blueprint%20Reading" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Pesan Blueprint Reading</a>
+                    <a href="https://forms.gle/BFJdWtkn5SCXtLkW7" id="personal-blueprint-cta" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Isi Form Personal Blueprint</a>
                     <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download Aplikasi Bhumi Amartya</a>
+                </div>
+            </div>
+
+            <!-- DONATION INFO -->
+            <div class="container" style="margin-top: 3rem;">
+                <div class="donation-box" style="max-width: 800px; margin: 0 auto;">
+                    <p style="font-size: 1rem; color: var(--text-primary); margin-bottom: 1rem; font-weight: 600; text-align: center;">
+                        Donasi bersifat seikhlasnya dengan minimal Rp25.000.
+                    </p>
+                    <p style="font-size: 0.9rem; color: var(--text-secondary); text-align: center; margin-bottom: 2rem;">
+                        Disarankan menambahkan akhiran 044 (contoh: Rp25.044, Rp50.044, Rp100.044).
+                    </p>
+                    <div class="donation-methods">
+                        <div class="method-card">
+                            <h5>ShopeePay</h5>
+                            <div class="account-number">085810531892</div>
+                        </div>
+                        <div class="method-card">
+                            <h5>BCA</h5>
+                            <div class="account-number">0354311751</div>
+                            <div class="account-name">a.n. Widhi Wedhaswara</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2rem; text-align: center;">
+                        Isi data dirimu di form Google Form, lalu kirim bukti donasi melalui WhatsApp untuk verifikasi admin. Waktu pengerjaan 7–14 hari kerja setelah bukti donasi diterima dan data diverifikasi. Sabtu, Minggu, tanggal merah, dan cuti bersama tidak termasuk hari kerja.
+                    </p>
                 </div>
             </div>
         </section>
@@ -913,14 +976,17 @@
                 const arcanaNumber = calculateArcanaCenter(year, month, day);
                 const arcanaName = ARCANA[arcanaNumber - 1];
                 const sun = sunSign(month, day);
-                const unavailableMsg = 'Hasil belum bisa dimuat dari server. Silakan coba lagi nanti.';
+                const weton = wetonName(new Date(year, month - 1, day), birthtime);
+                const bazi = calculateBaziIdentity(year, month, day, birthtime);
+                const tzolkin = calculateTzolkinIdentity(birthdate);
+                const unavailableMsg = 'Membutuhkan data koordinat kota lahir yang lebih spesifik.';
                 const canonicalSynthesis = buildCanonicalSynthesis({
                     nickname,
                     lifePath,
                     arcanaName,
                     sun,
-                    baziElement: BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
-                    hasPreciseCity: false
+                    baziElement: bazi ? bazi.element : BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
+                    hasPreciseCity: Boolean(resolvedCityData?.latitude)
                 });
 
                 resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
@@ -929,16 +995,17 @@
                     { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
                     { label: 'Type Human Design', value: unavailableMsg },
                     { label: 'Sun Natal Chart', value: sun },
-                    { label: 'Weton', value: unavailableMsg },
-                    { label: 'BaZi', value: unavailableMsg },
+                    { label: 'Weton', value: weton },
+                    { label: 'BaZi', value: bazi ? `${bazi.label}` : 'Membutuhkan jam lahir.' },
                     { label: 'Vedic', value: unavailableMsg },
-                    { label: 'Tzolkin', value: unavailableMsg }
+                    { label: 'Tzolkin', value: tzolkin }
                 ]);
                 renderSynthesis(canonicalSynthesis);
                 renderSummary(createReadingFromSynthesis(canonicalSynthesis));
 
                 introNote.style.display = 'none';
                 resultCard.classList.add('show');
+                document.getElementById('reading-cta-section').style.display = 'block';
                 resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
             };
 
@@ -978,73 +1045,8 @@
                     submitBtn.textContent = 'Membaca Blueprint...';
                 }
 
-                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                const API_URL = isLocal 
-                    ? 'http://localhost:3000/api/tes-kenali-diri' 
-                    : 'https://bhumi-amartya-clean.vercel.app/api/tes-kenali-diri';
-
                 try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: nickname,
-                            birthDate: birthdate,
-                            birthTime: birthtime || undefined,
-                            birthCity: birthcity || undefined,
-                            latitude: resolvedCityData ? resolvedCityData.latitude : undefined,
-                            longitude: resolvedCityData ? resolvedCityData.longitude : undefined,
-                            timezone: resolvedCityData ? resolvedCityData.timezone : undefined
-                        })
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('API server returned error status ' + response.status);
-                    }
-
-                    const data = await response.json();
-                    if (!data || !data.ok) {
-                        throw new Error(data?.reason || 'Blueprint calculation failed on API');
-                    }
-
-                    // Render returned identity fields from API
-                    resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
-                    renderIdentity([
-                        { label: 'Life Path', value: data.identity.lifePath },
-                        { label: 'Arcana Center', value: data.identity.arcanaCenter },
-                        { label: 'Type Human Design', value: data.identity.humanDesignType },
-                        { label: 'Sun Natal Chart', value: data.identity.natalSun },
-                        { label: 'Weton', value: data.identity.weton },
-                        { label: 'BaZi', value: data.identity.bazi },
-                        { label: 'Vedic', value: data.identity.vedic },
-                        { label: 'Tzolkin', value: data.identity.tzolkin }
-                    ]);
-
-                    // Render returned canonical synthesis and area summaries
-                    synthesisCopy.innerHTML = `<p>${data.canonicalSynthesis.summary}</p>`;
-                    
-                    const areaTitles = {
-                        general: 'Keadaan Umum',
-                        careerEconomy: 'Karir dan Ekonomi',
-                        loveSingle: 'Asmara dan Cinta - Untuk Single',
-                        loveCouple: 'Asmara dan Cinta - Untuk Berpasangan',
-                        family: 'Keluarga',
-                        health: 'Kesehatan',
-                        spiritual: 'Spiritual',
-                        challenge: 'Tantangan'
-                    };
-                    
-                    const summaries = Object.entries(data.canonicalSynthesis.areas).map(([key, text]) => ({
-                        label: areaTitles[key] || key,
-                        text: text
-                    }));
-                    renderSummary(summaries);
-
-                    introNote.style.display = 'none';
-                    resultCard.classList.add('show');
-                    resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
@@ -1053,11 +1055,81 @@
                         hasBirthCity: Boolean(birthcity)
                     });
 
+                    // Engine integration: call blueprint-engines without timezone
+                    const engineLoading = document.getElementById('engine-loading-section');
+                    const engineResult = document.getElementById('engine-result-section');
+                    const hdLoading = document.getElementById('hd-loading-card');
+                    const vedicLoading = document.getElementById('vedic-loading-card');
+                    const hdResultCard = document.getElementById('hd-result-card');
+                    const vedicResultCard = document.getElementById('vedic-result-card');
+                    const hdResultValue = document.getElementById('hd-result-value');
+                    const vedicResultValue = document.getElementById('vedic-result-value');
+                    const inlineWarning = document.getElementById('result-inline-warning');
+
+                    if (engineLoading) engineLoading.style.display = 'block';
+                    if (engineResult) engineResult.style.display = 'block';
+
+                    const enginePayload = {
+                        birthDate: birthdate,
+                        birthTime: birthtime || undefined,
+                        birthCity: resolvedCityData?.formattedCity || birthcity,
+                        latitude: resolvedCityData?.latitude ?? null,
+                        longitude: resolvedCityData?.longitude ?? null,
+                        asOfDate: new Date().toISOString().slice(0, 10)
+                    };
+
+                    try {
+                        const engineRes = await fetch('/api/blueprint-engines', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(enginePayload)
+                        });
+                        const engineBody = await engineRes.json();
+
+                        if (engineRes.ok && engineBody.ok) {
+                            if (hdLoading) hdLoading.style.display = 'none';
+                            if (vedicLoading) vedicLoading.style.display = 'none';
+                            if (hdResultValue) {
+                                hdResultValue.innerHTML = `
+                                    Type: ${engineBody.humanDesign.type}<br>
+                                    Profile ${engineBody.humanDesign.profile}<br>
+                                    ${engineBody.humanDesign.authority} Authority<br>
+                                    ${engineBody.humanDesign.strategy}
+                                `;
+                            }
+                            if (hdResultCard) hdResultCard.style.display = 'block';
+                            if (vedicResultValue) {
+                                const v = engineBody.vedic;
+                                vedicResultValue.innerHTML = `
+                                    Rashi: ${v.rashi}<br>
+                                    Nakshatra: ${v.nakshatra}<br>
+                                    Pada ${v.pada}<br>
+                                    Nakshatra Lord: ${v.nakshatraLord}<br>
+                                    Current Mahadasha: ${v.currentMahadasha.planet}
+                                `;
+                            }
+                            if (vedicResultCard) vedicResultCard.style.display = 'block';
+                        } else {
+                            if (engineLoading) engineLoading.style.display = 'none';
+                            if (inlineWarning) {
+                                inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
+                                inlineWarning.hidden = false;
+                            }
+                        }
+                    } catch (e) {
+                        if (engineLoading) engineLoading.style.display = 'none';
+                        if (inlineWarning) {
+                            inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
+                            inlineWarning.hidden = false;
+                        }
+                    }
                 } catch (error) {
-                    console.warn('[TES KENALI DIRI API] Failed, running offline fallback:', error);
-                    // Show error fallback notification
-                    alert('Maaf, hasil lengkap dari server belum bisa dimuat. Menggunakan kalkulasi lokal sebagai cadangan.');
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
+                    console.warn('[TES KENALI DIRI] Calculation failed:', error);
+                    const inlineWarning = document.getElementById('result-inline-warning');
+                    if (inlineWarning) {
+                        inlineWarning.textContent = 'Terjadi kesalahan saat menghitung hasil. Silakan coba lagi.';
+                        inlineWarning.hidden = false;
+                    }
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
@@ -1073,6 +1145,16 @@
                 }
             });
         });
+
+            // --- PERSONAL BLUEPRINT CTA (manual Google Form flow) ---
+            const personalBlueprintCta = document.getElementById('personal-blueprint-cta');
+
+            if (personalBlueprintCta) {
+                personalBlueprintCta.addEventListener('click', () => {
+                    window.BhumiAnalytics?.track('personal_blueprint_cta_click', { feature: 'blueprint_reading' });
+                });
+            }
+
     </script>
 </body>
 </html>
