@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-0971666335614952">
+    <title>Ebook Bhumi | Bhumi Amartya</title>
+    <meta name="description" content="Ebook refleksi diri dari Bhumi Amartya untuk menemani perjalanan mengenal, menerima, dan memulihkan diri.">
+    <meta name="author" content="Widhi Wedhaswara">
+    <link rel="canonical" href="https://www.bhumiamartya.my.id/ebooks/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.bhumiamartya.my.id/ebooks/">
+    <meta property="og:title" content="Ebook Bhumi | Bhumi Amartya">
+    <meta property="og:description" content="Ebook refleksi diri dari Bhumi Amartya.">
+    <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ebook Bhumi | Bhumi Amartya">
+    <meta name="twitter:description" content="Ebook refleksi diri dari Bhumi Amartya.">
+    <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/bhumi-design-system.css">
+    <style>
+        .ebooks-section { padding: 4rem 0 6rem; }
+        .ebooks-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+        .ebook-card {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+        .ebook-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+        .ebook-cover { width: 100%; height: 260px; object-fit: cover; display: block; background: var(--bg-secondary); }
+        .ebook-cover-placeholder { width: 100%; height: 260px; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); background: var(--bg-secondary); }
+        .ebook-body { padding: 1.25rem; }
+        .ebook-meta { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-dark); }
+        .ebook-title { font-family: var(--font-heading); font-size: 1.3rem; line-height: 1.3; color: var(--text-primary); margin: 0.5rem 0; }
+        .ebook-desc { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.6; }
+        .ebook-foot { display: flex; gap: 0.75rem; align-items: center; margin-top: 0.9rem; font-size: 0.8rem; color: var(--text-secondary); }
+        .state-box { grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--text-secondary); }
+        @media (max-width: 640px) { .ebooks-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="/#beranda" class="logo"><img src="/assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32" style="object-fit: contain;"><span>Bhumi Amartya</span></a>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="/#beranda" class="nav-link">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
+                            <li><a href="/cek-aura/" class="dropdown-item">Cek Aura</a></li>
+                            <li><a href="/weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="/kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="/kenali-diri/mbti/" class="dropdown-item">MBTI</a></li>
+                            <li><a href="/kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="/#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
+                            <li><a href="/ebooks/" class="dropdown-item">Ebook</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Konten <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/#youtube" class="dropdown-item">Youtube</a></li>
+                            <li><a href="/ngopi-ilmu/" class="dropdown-item">Ngopi Ilmu</a></li>
+                            <li><a href="/#testimoni" class="dropdown-item">Testimoni</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tentang <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/about/" class="dropdown-item">Tentang Bhumi</a></li>
+                            <li><a href="/#founder" class="dropdown-item">Our Team</a></li>
+                            <li><a href="/#founder" class="dropdown-item">Founder</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/contact/" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu"><span class="burger-bar"></span><span class="burger-bar"></span><span class="burger-bar"></span></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero-inner">
+                <div class="breadcrumb"><a href="/">Beranda</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-item active">Ebook</span></div>
+                <h1>Ebook Bhumi</h1>
+                <p class="page-tagline">Ebook refleksi diri untuk menemani perjalanan mengenal, menerima, dan memulihkan diri.</p>
+            </div>
+        </section>
+
+        <section class="ebooks-section">
+            <div class="container">
+                <div class="ebooks-grid" id="ebooks-grid">
+                    <div class="state-box">Memuat ebook...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="kontak">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="footer-brand"><img src="/assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38"><h4>Bhumi Amartya</h4></div>
+                <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Menu</h5>
+                <ul>
+                    <li><a href="/#beranda" class="footer-link">Beranda</a></li>
+                    <li><a href="/tes-kenali-diri/" class="footer-link">Tes Kenali Diri</a></li>
+                    <li><a href="/cek-aura/" class="footer-link">Cek Aura</a></li>
+                    <li><a href="/weton/" class="footer-link">Cek Weton</a></li>
+                    <li><a href="/ebooks/" class="footer-link">Ebook</a></li>
+                    <li><a href="/articles/" class="footer-link">Artikel</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h5>Hubungi Kami</h5>
+                <div class="contact-item"><span>halo@bhumiamartya.my.id</span></div>
+                <div class="contact-item"><span>+62 858-1053-1892</span></div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Bhumi Amartya. All rights reserved.</p>
+            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener">Amartya Creative</a></p>
+        </div>
+    </footer>
+
+    <script src="/assets/bhumi-consent.js" defer></script>
+    <script src="/assets/bhumi-analytics.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerBtn = document.getElementById('burger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            if (burgerBtn && navMenu) {
+                burgerBtn.addEventListener('click', () => {
+                    burgerBtn.classList.toggle('open');
+                    navMenu.classList.toggle('open');
+                });
+            }
+
+            const grid = document.getElementById('ebooks-grid');
+            const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+
+            (async () => {
+                try {
+                    const res = await fetch('/api/bhumi-ebooks?limit=20');
+                    const data = await res.json();
+                    if (!res.ok || !data.ok) throw new Error('list failed');
+                    const ebooks = data.ebooks || [];
+                    if (ebooks.length === 0) {
+                        grid.innerHTML = '<div class="state-box">Belum ada ebook yang tersedia.</div>';
+                        return;
+                    }
+                    grid.innerHTML = ebooks.map((e) => `
+                        <a class="ebook-card" href="/ebooks/${esc(e.slug)}/">
+                            ${e.coverImageUrl
+                                ? `<img class="ebook-cover" src="${esc(e.coverImageUrl)}" alt="${esc(e.slug)}" loading="lazy">`
+                                : '<div class="ebook-cover-placeholder"><span>Ebook Bhumi</span></div>'}
+                            <div class="ebook-body">
+                                <div class="ebook-meta">${esc(e.category || 'Bhumi Ebook')}</div>
+                                <h2 class="ebook-title">${esc(e.title)}</h2>
+                                <p class="ebook-desc">${esc(e.description)}</p>
+                                <div class="ebook-foot">
+                                    <span>${esc(e.authorName || 'Bhumi Amartya')}</span>
+                                    ${e.pdfFileName ? `<span>${esc(e.pdfFileName)}</span>` : ''}
+                                </div>
+                            </div>
+                        </a>
+                    `).join('');
+                } catch {
+                    grid.innerHTML = '<div class="state-box">Ebook belum dapat dimuat saat ini. Silakan kembali beberapa saat lagi.</div>';
+                }
+            })();
+        });
+    </script>
+</body>
+</html>
