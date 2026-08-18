@@ -970,7 +970,7 @@
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn ? submitBtn.textContent : 'Lihat Hasil Kenali Diri';
 
-            const runOfflineFallback = (nickname, birthdate, birthtime, birthcity, structuredInput) => {
+            const runOfflineFallback = (nickname, birthdate, birthtime, birthcity, structuredInput, resolvedCityData) => {
                 const [year, month, day] = birthdate.split('-').map(Number);
                 const lifePath = calculateLifePathNumber(birthdate);
                 const arcanaNumber = calculateArcanaCenter(year, month, day);
@@ -1046,7 +1046,7 @@
                 }
 
                 try {
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput);
+                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput, resolvedCityData);
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
