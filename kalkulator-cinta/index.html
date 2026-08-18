@@ -298,7 +298,7 @@
                             <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="./" class="dropdown-item">Kalkulator Cinta</a></li>
-                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a><li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -471,6 +471,7 @@
 
     <script src="../assets/bhumi-consent.js" defer></script>
     <script src="../assets/bhumi-analytics.js" defer></script>
+    <script src="../assets/bhumi-relationship-signals.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burgerBtn = document.getElementById('burger-menu');
@@ -522,153 +523,12 @@
                 return match ? Number(match[0]) : 0;
             };
 
-            const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-            const PASARAN_FROM_ENGINE_EPOCH = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'];
-            const ARCANA = ['The Magician', 'The High Priestess', 'The Empress', 'The Emperor', 'The Hierophant', 'The Lovers', 'The Chariot', 'Justice', 'The Hermit', 'Wheel of Fortune', 'Strength', 'The Hanged Man', 'Death', 'Temperance', 'The Devil', 'The Tower', 'The Star', 'The Moon', 'The Sun', 'Judgement', 'The World', 'The Fool'];
-            const BAZI_ELEMENTS = ['Kayu', 'Api', 'Tanah', 'Logam', 'Air'];
-            const LIFE_PATH_THEMES = {
-                1: 'inisiatif dan keberanian memulai',
-                2: 'kepekaan rasa dan kerja sama',
-                3: 'ekspresi, kreativitas, dan komunikasi',
-                4: 'struktur, ketekunan, dan stabilitas',
-                5: 'perubahan, kebebasan, dan adaptasi',
-                6: 'tanggung jawab, kasih, dan harmoni',
-                7: 'pencarian makna dan kedalaman batin',
-                8: 'daya kelola, karya, dan kepemimpinan',
-                9: 'welas asih, penyelesaian, dan pandangan luas'
-            };
-
-            const sunSign = (month, day) => {
-                const z = [
-                    ['Capricorn', 120], ['Aquarius', 219], ['Pisces', 321], ['Aries', 420],
-                    ['Taurus', 521], ['Gemini', 621], ['Cancer', 723], ['Leo', 823],
-                    ['Virgo', 923], ['Libra', 1023], ['Scorpio', 1122], ['Sagittarius', 1222], ['Capricorn', 1232]
-                ];
-                const value = month * 100 + day;
-                return z.find((item) => value < item[1])[0];
-            };
-
-            const sumDigits = (value) => String(value).split('').reduce((sum, digit) => sum + Number(digit), 0);
-
-            const reduceLifePath = (value) => {
-                if ([11, 22, 33].includes(value)) return value;
-                let total = sumDigits(value);
-                while (total > 9) {
-                    if ([11, 22, 33].includes(total)) return total;
-                    total = sumDigits(total);
-                }
-                return total;
-            };
-
-            const displayLifePath = (value) => {
-                const reductions = { 11: 2, 22: 4, 33: 6 };
-                return reductions[value] ? `${value}/${reductions[value]}` : String(value);
-            };
-
-            const calculateLifePathNumber = (birthdate) => {
-                const [year, month, day] = birthdate.split('-');
-                const monthNumber = reduceLifePath(Number(month));
-                const dayNumber = reduceLifePath(Number(day));
-                const yearNumber = reduceLifePath(sumDigits(year));
-                return reduceLifePath(monthNumber + dayNumber + yearNumber);
-            };
-
-            const reduceDestiny = (value) => {
-                if (value > 22) return (value % 10) + Math.floor(value / 10);
-                return value === 0 ? 22 : value;
-            };
-
-            const calculateArcanaCenter = (year, month, day) => {
-                const apoint = reduceDestiny(day);
-                const bpoint = month;
-                const cpoint = reduceDestiny(sumDigits(year));
-                const dpoint = reduceDestiny(apoint + bpoint + cpoint);
-                return reduceDestiny(apoint + bpoint + cpoint + dpoint);
-            };
-
-            const positiveModulo = (value, divisor) => ((value % divisor) + divisor) % divisor;
-
-            const daysBetween = (date, anchor) => {
-                const utcDate = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
-                const utcAnchor = Date.UTC(anchor.getFullYear(), anchor.getMonth(), anchor.getDate());
-                return Math.round((utcDate - utcAnchor) / 86400000);
-            };
-
-            const wetonName = (date, birthtime) => {
-                const effective = new Date(date);
-                if (birthtime) {
-                    const hour = Number(birthtime.split(':')[0]);
-                    if (hour >= 18) effective.setDate(effective.getDate() + 1);
-                }
-                const pasaranIndex = positiveModulo(daysBetween(effective, new Date(2020, 6, 5)), 5);
-                return `${HARI[effective.getDay()]} ${PASARAN_FROM_ENGINE_EPOCH[pasaranIndex]}`;
-            };
-
-            const buildCanonicalSynthesis = ({ nickname, lifePath, arcanaName, sun, baziElement }) => {
-                const coreNeed = LIFE_PATH_THEMES[lifePath] || 'mengenali pola hidup personal';
-                const grounding = 'ritme yang lebih stabil';
-                const reflection = `membaca arah batin melalui ${arcanaName}`;
-                const action = `menghidupi kualitas ${coreNeed} dengan langkah kecil`;
-                const energyTone = `perpaduan ${sun}, elemen ${baziElement}, dan pola dasar ${coreNeed}`;
-                const blueprintSummary = `Dari keseluruhan pola lahirmu, ${nickname} cenderung sedang belajar memberi ruang untuk ${grounding}, ${reflection}, dan ${action}. Pola ini menggambarkan pintu awal untuk memahami cara energimu bekerja tanpa menjadikannya kesimpulan mutlak.`;
-                const secondSummary = `Secara umum, ${energyTone} mengajakmu bergerak dengan lebih sadar: mengenali kebutuhan diri, menjaga arah, lalu memilih satu langkah yang benar-benar bisa dilakukan.`;
-                return {
-                    summary: `${blueprintSummary} ${secondSummary}`,
-                    coreNeeds: [grounding, reflection, action],
-                    identitySignals: { lifePath, arcanaCenter: arcanaName, sunSign: sun, baziElement }
-                };
-            };
-
-            const buildIdentity = (person) => {
-                const [year, month, day] = person.birthDate.split('-').map(Number);
-                const lifePath = calculateLifePathNumber(person.birthDate);
-                const arcanaNumber = calculateArcanaCenter(year, month, day);
-                const arcanaName = ARCANA[arcanaNumber - 1];
-                const sun = sunSign(month, day);
-                const weton = wetonName(new Date(year, month - 1, day), person.birthTime);
-                const baziElement = BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)];
-                const unavailableMsg = 'Membutuhkan data koordinat kota lahir yang lebih spesifik.';
-                return {
-                    requestName: person.requestName,
-                    identity: {
-                        lifePath: `${displayLifePath(lifePath)} - ${LIFE_PATH_THEMES[lifePath] || 'pola hidup personal'}`,
-                        arcanaCenter: `${arcanaNumber} - ${arcanaName}`,
-                        humanDesignType: unavailableMsg,
-                        natalSun: sun,
-                        weton
-                    },
-                    canonicalSynthesis: buildCanonicalSynthesis({ nickname: person.requestName, lifePath, arcanaName, sun, baziElement })
-                };
-            };
-
-            const calculateScore = (a, b) => {
-                const lpA = parseNumber(a.identity.lifePath);
-                const lpB = parseNumber(b.identity.lifePath);
-                const arcA = parseNumber(a.identity.arcanaCenter);
-                const arcB = parseNumber(b.identity.arcanaCenter);
-                const text = `${Object.values(a.identity).join(' ')} ${Object.values(b.identity).join(' ')} ${a.canonicalSynthesis.summary} ${b.canonicalSynthesis.summary}`.toLowerCase();
-                const diff = Math.abs(lpA - lpB) + Math.abs(arcA - arcB) / 2;
-                let stable = 0;
-                let learning = 0;
-                let intensity = 0;
-
-                if (diff <= 4) stable += 4;
-                if (diff > 7) learning += 4;
-                if (a.identity.natalSun === b.identity.natalSun) stable += 2;
-                if (a.identity.weton === b.identity.weton) intensity += 2;
-                if (text.includes('struktur') || text.includes('stabil') || text.includes('harmoni') || text.includes('membumi')) stable += 2;
-                if (text.includes('tantangan') || text.includes('batas') || text.includes('tanggung jawab') || text.includes('reaktif')) learning += 2;
-                if (text.includes('transformasi') || text.includes('kedalaman') || text.includes('intuisi') || text.includes('cosmic')) intensity += 2;
-
-                if (intensity >= 6 && learning >= 4) return 'Twin Flame';
-                if (learning > stable + 2) return 'Karmic';
-                return 'Soulmate';
-            };
-
             const bondDefinition = (type) => ({
-                Karmic: 'Hubungan karmic bukan berarti buruk. Ia sering hadir sebagai cermin untuk melihat pola lama, luka yang belum selesai, dan pelajaran tentang batas diri.',
-                Soulmate: 'Soulmate bukan berarti hubungan tanpa masalah. Ia menggambarkan ikatan yang memberi ruang aman untuk saling bertumbuh dan menjadi diri sendiri.',
-                'Twin Flame': 'Twin Flame dalam pembacaan ini dipakai sebagai simbol relasi yang intens dan saling memantulkan diri. Ini bukan klaim mutlak bahwa seseorang adalah pasangan takdir.'
+                Soulmate: 'Soulmate dalam kerangka simbolik Bhumi bukan berarti hubungan tanpa masalah. Ia menggambarkan pola hubungan yang memberi ruang aman untuk saling bertumbuh dan menjadi diri sendiri.',
+                Karmic: 'Karmic bukan berarti hubungan buruk. Dalam pembacaan ini, ia hadir sebagai cermin untuk melihat pola lama, luka yang belum selesai, dan ruang belajar tentang batas diri.',
+                'Karmic Soulmate': 'Karmic Soulmate menggambarkan ikatan di mana kedekatan dan pelajaran hidup berjalan beriringan — akrab namun tetap mengundang refleksi. Ini tidak menjamin kecocokan mutlak.',
+                'Twin Flame': 'Twin Flame di sini dipakai sebagai simbol relasi yang intens dan saling memantulkan diri, sering mengundang pertumbuhan lewat gesekan. Ini bukan klaim bahwa seseorang adalah pasangan takdir.',
+                'Twin Soul': 'Twin Soul dalam pembacaan ini merujuk pada kemiripan struktur energi bawaan yang kuat — seperti dua peta yang saling mencerminkan. Ini adalah indikasi pola, bukan kepastian jiwa belahan.'
             }[type]);
 
             const loveLanguage = (a, b) => {
@@ -700,23 +560,43 @@
                     <ul class="energy-list">
                         <li><strong>Life Path:</strong> ${escapeHtml(person.identity.lifePath)}</li>
                         <li><strong>Arcana Center:</strong> ${escapeHtml(person.identity.arcanaCenter)}</li>
-                        <li><strong>Human Design Type:</strong> ${escapeHtml(person.identity.humanDesignType)}</li>
-                        <li><strong>Sun Natal Chart:</strong> ${escapeHtml(person.identity.natalSun)}</li>
+                        <li><strong>Sun Natal:</strong> ${escapeHtml(person.identity.natalSun)}</li>
                         <li><strong>Weton:</strong> ${escapeHtml(person.identity.weton)}</li>
+                        <li><strong>Tzolkin (Kin):</strong> ${escapeHtml(person.identity.tzolkin)}</li>
+                        ${person.identity.bazi ? `<li><strong>Elemen BaZi:</strong> ${escapeHtml(person.identity.bazi)}</li>` : ''}
                     </ul>
                 </section>
             `;
 
-            const renderResult = (a, b) => {
-                const type = calculateScore(a, b);
-                const reading = buildReading(a, b, type);
-                resultTitle.textContent = `${a.requestName} dan ${b.requestName}`;
-                energyPair.innerHTML = renderEnergyCard(a) + renderEnergyCard(b);
+            const renderResult = (rawA, rawB) => {
+                if (!window.BhumiRelationship) {
+                    console.error('[KALKULATOR CINTA] Shared signals module missing.');
+                    errorBox.style.display = 'block';
+                    return;
+                }
+                const result2 = window.BhumiRelationship.classifyRelationship(rawA, rawB);
+                const pA = { requestName: rawA.requestName, identity: {
+                    lifePath: result2.personA.lifePath, arcanaCenter: result2.personA.arcanaCenter,
+                    natalSun: result2.personA.sun, weton: result2.personA.weton,
+                    tzolkin: result2.personA.tzolkin, bazi: result2.personA.bazi
+                } };
+                const pB = { requestName: rawB.requestName, identity: {
+                    lifePath: result2.personB.lifePath, arcanaCenter: result2.personB.arcanaCenter,
+                    natalSun: result2.personB.sun, weton: result2.personB.weton,
+                    tzolkin: result2.personB.tzolkin, bazi: result2.personB.bazi
+                } };
+                const reading = buildReading(pA, pB, result2.primary);
+                resultTitle.textContent = `${rawA.requestName} dan ${rawB.requestName}`;
+                energyPair.innerHTML = renderEnergyCard(pA) + renderEnergyCard(pB);
+                const secondaryLine = result2.secondary
+                    ? `<p><span class="bond-badge" style="background-color:rgba(45,75,52,0.10); border-color:rgba(45,75,52,0.18); color:var(--forest-green);">Secondary Signature: ${escapeHtml(result2.secondary)}</span></p>`
+                    : '';
                 bondCard.innerHTML = `
                     <h3 class="section-title" style="font-size:1.45rem; margin-bottom:0.4rem;">Jenis Ikatan</h3>
-                    <div class="bond-badge">Hubungan Ini Cenderung: ${type}</div>
-                    <p>${bondDefinition(type)}</p>
-                    ${type !== 'Soulmate' ? '<p class="safety-note">Label ini tidak dimaksudkan untuk membenarkan hubungan yang menyakiti. Jika sebuah hubungan membuatmu tidak aman, kehilangan diri, atau terus terluka, batas diri tetap lebih penting daripada label apa pun.</p>' : ''}
+                    <div class="bond-badge">Hubungan Ini Cenderung: ${escapeHtml(result2.primary)}</div>
+                    ${secondaryLine}
+                    <p>${bondDefinition(result2.primary)}</p>
+                    <p class="safety-note">Kekuatan Pola: ${escapeHtml(result2.confLabel)}. Ini adalah indikasi pola hubungan dalam kerangka simbolik Bhumi, bukan kepastian ilmiah maupun janji takdir. Label apa pun tidak membenarkan hubungan yang menyakiti — jika sebuah hubungan membuatmu tidak aman, kehilangan diri, atau terus terluka, batas diri tetap lebih penting.</p>
                 `;
                 readingGrid.innerHTML = reading.map((item) => `
                     <section class="reading-card">
@@ -727,6 +607,15 @@
                 note.style.display = 'none';
                 result.classList.add('show');
                 result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+
+            // Compute the relationship website-side (no runtime dependency on the
+            // application repository). Wrapped so the UI keeps its async shape.
+            const computeRelationship = async (a, b) => {
+                if (!window.BhumiRelationship) {
+                    throw new Error('Shared signals module unavailable');
+                }
+                return { a, b };
             };
 
             form.addEventListener('submit', async (event) => {
@@ -759,9 +648,8 @@
                 submitBtn.textContent = 'Membaca Hubungan...';
 
                 try {
-                    const dataA = buildIdentity(personA);
-                    const dataB = buildIdentity(personB);
-                    renderResult(dataA, dataB);
+                    const { a, b } = await computeRelationship(personA, personB);
+                    renderResult(a, b);
                     window.BhumiAnalytics?.track('kalkulator_cinta_submitted', {
                         feature: 'kalkulator-cinta',
                         status: 'submitted',
@@ -771,7 +659,6 @@
                     });
                 } catch (error) {
                     console.warn('[KALKULATOR CINTA] Failed:', error);
-                    errorBox.textContent = 'Maaf, pembacaan belum bisa dimuat. Coba lagi sebentar lagi.';
                     errorBox.style.display = 'block';
                 } finally {
                     loading.style.display = 'none';
