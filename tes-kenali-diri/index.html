@@ -842,9 +842,9 @@
 
             const renderIdentity = (items) => {
                 identityGrid.innerHTML = items.map((item) => `
-                    <div class="identity-item">
+                    <div class="identity-item"${item.id ? ` id="${item.id}-item"` : ''}>
                         <span class="identity-label">${item.label}</span>
-                        <div class="identity-value">${item.value}</div>
+                        <div class="identity-value"${item.id ? ` id="${item.id}"` : ''}>${item.value}</div>
                     </div>
                 `).join('');
             };
@@ -993,11 +993,11 @@
                 renderIdentity([
                     { label: 'Life Path', value: `${displayLifePath(lifePath)} - ${LIFE_PATH_THEMES[lifePath] || 'pola hidup personal'}` },
                     { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
-                    { label: 'Type Human Design', value: unavailableMsg },
+                    { label: 'Type Human Design', value: unavailableMsg, id: 'identity-hd' },
                     { label: 'Sun Natal Chart', value: sun },
                     { label: 'Weton', value: weton },
                     { label: 'BaZi', value: bazi ? `${bazi.label}` : 'Membutuhkan jam lahir.' },
-                    { label: 'Vedic', value: unavailableMsg },
+                    { label: 'Vedic', value: unavailableMsg, id: 'identity-vedic' },
                     { label: 'Tzolkin', value: tzolkin }
                 ]);
                 renderSynthesis(canonicalSynthesis);
@@ -1109,6 +1109,11 @@
                                 `;
                             }
                             if (vedicResultCard) vedicResultCard.style.display = 'block';
+
+                            const identityHd = document.getElementById('identity-hd');
+                            if (identityHd) identityHd.textContent = engineBody.humanDesign.type;
+                            const identityVedic = document.getElementById('identity-vedic');
+                            if (identityVedic) identityVedic.textContent = `Rashi ${engineBody.vedic.rashi}, Nakshatra ${engineBody.vedic.nakshatra}`;
                         } else {
                             if (engineLoading) engineLoading.style.display = 'none';
                             if (inlineWarning) {
