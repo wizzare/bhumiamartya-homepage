@@ -369,6 +369,73 @@ test("PERSONA GOLDEN: Fitriani Mahardika production verification", () => {
   assert.equal(r.completeness, "complete");
 });
 
+test("TIMEZONE RESOLUTION: geographic coordinates resolve exact IANA zones and UTC", () => {
+  // 1. Bandung (-6.9175, 107.6191) -> Asia/Jakarta (+7)
+  const bandungExplicit = calculateHumanDesign({
+    birthDate: "1979-02-23",
+    birthTime: "21:00",
+    timezone: "Asia/Jakarta"
+  });
+  const bandungCoord = calculateHumanDesign({
+    birthDate: "1979-02-23",
+    birthTime: "21:00",
+    latitude: -6.9175,
+    longitude: 107.6191
+  });
+  assert.equal(bandungCoord.status, "ready");
+  assert.equal(bandungCoord.profile, bandungExplicit.profile);
+  assert.equal(bandungCoord.type, bandungExplicit.type);
+  assert.equal(bandungCoord.incarnationCross, bandungExplicit.incarnationCross);
+
+  // 2. New York (40.7128, -74.0060) -> America/New_York (-4 summer EDT)
+  const nyExplicit = calculateHumanDesign({
+    birthDate: "2020-07-01",
+    birthTime: "12:00",
+    timezone: "America/New_York"
+  });
+  const nyCoord = calculateHumanDesign({
+    birthDate: "2020-07-01",
+    birthTime: "12:00",
+    latitude: 40.7128,
+    longitude: -74.0060
+  });
+  assert.equal(nyCoord.status, "ready");
+  assert.equal(nyCoord.profile, nyExplicit.profile);
+  assert.equal(nyCoord.type, nyExplicit.type);
+
+  // 3. Kathmandu (27.7172, 85.3240) -> Asia/Kathmandu (+05:45)
+  const kathmanduExplicit = calculateHumanDesign({
+    birthDate: "2020-01-01",
+    birthTime: "12:00",
+    timezone: "Asia/Kathmandu"
+  });
+  const kathmanduCoord = calculateHumanDesign({
+    birthDate: "2020-01-01",
+    birthTime: "12:00",
+    latitude: 27.7172,
+    longitude: 85.3240
+  });
+  assert.equal(kathmanduCoord.status, "ready");
+  assert.equal(kathmanduCoord.profile, kathmanduExplicit.profile);
+  assert.equal(kathmanduCoord.type, kathmanduExplicit.type);
+
+  // 4. Adelaide (-34.9285, 138.6007) -> Australia/Adelaide (+10:30 summer ACDT / +09:30 winter ACST)
+  const adelaideExplicit = calculateHumanDesign({
+    birthDate: "2020-01-01",
+    birthTime: "12:00",
+    timezone: "Australia/Adelaide"
+  });
+  const adelaideCoord = calculateHumanDesign({
+    birthDate: "2020-01-01",
+    birthTime: "12:00",
+    latitude: -34.9285,
+    longitude: 138.6007
+  });
+  assert.equal(adelaideCoord.status, "ready");
+  assert.equal(adelaideCoord.profile, adelaideExplicit.profile);
+  assert.equal(adelaideCoord.type, adelaideExplicit.type);
+});
+
 // ============================================
 // ALL TESTS PASS DETERMINISTICALLY
 // ============================================
