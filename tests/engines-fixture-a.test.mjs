@@ -13,7 +13,7 @@ const hdA = calculateHumanDesign({ birthDate: fixtureA.birthDate, birthTime: fix
 assert.equal(hdA.type, 'Manifesting Generator', `Expected Manifesting Generator, got ${hdA.type}`);
 assert.equal(hdA.profile, '6/3', `Expected 6/3, got ${hdA.profile}`);
 assert.equal(hdA.authority, 'Sacral', `Expected Sacral, got ${hdA.authority}`);
-assert.equal(hdA.strategy, 'To Respond', `Expected To Respond, got ${hdA.strategy}`);
+assert.equal(hdA.strategy, 'Wait to Respond', `Expected Wait to Respond, got ${hdA.strategy}`);
 console.log('  Human Design: PASS');
 
 const vedicA = calculateVedic({ birthUtc: utcA.utc, asOfDate: new Date(`${fixtureA.asOfDate}T00:00:00Z`) });
