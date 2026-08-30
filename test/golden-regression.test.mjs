@@ -434,6 +434,39 @@ test("TIMEZONE RESOLUTION: geographic coordinates resolve exact IANA zones and U
   assert.equal(adelaideCoord.status, "ready");
   assert.equal(adelaideCoord.profile, adelaideExplicit.profile);
   assert.equal(adelaideCoord.type, adelaideExplicit.type);
+
+  // 5. Historical Pre-1970: Jakarta 1945 (-6.2088, 106.8456)
+  const jkt1945Explicit = calculateHumanDesign({
+    birthDate: "1945-08-17",
+    birthTime: "10:00",
+    timezone: "Asia/Jakarta"
+  });
+  const jkt1945Coord = calculateHumanDesign({
+    birthDate: "1945-08-17",
+    birthTime: "10:00",
+    latitude: -6.2088,
+    longitude: 106.8456
+  });
+  assert.equal(jkt1945Coord.status, "ready");
+  assert.equal(jkt1945Coord.profile, jkt1945Explicit.profile);
+  assert.equal(jkt1945Coord.type, jkt1945Explicit.type);
+  assert.equal(jkt1945Coord.incarnationCross, jkt1945Explicit.incarnationCross);
+
+  // 6. Historical Pre-1970: London 1950 (51.5074, -0.1278)
+  const lon1950Explicit = calculateHumanDesign({
+    birthDate: "1950-06-01",
+    birthTime: "12:00",
+    timezone: "Europe/London"
+  });
+  const lon1950Coord = calculateHumanDesign({
+    birthDate: "1950-06-01",
+    birthTime: "12:00",
+    latitude: 51.5074,
+    longitude: -0.1278
+  });
+  assert.equal(lon1950Coord.status, "ready");
+  assert.equal(lon1950Coord.profile, lon1950Explicit.profile);
+  assert.equal(lon1950Coord.type, lon1950Explicit.type);
 });
 
 // ============================================
