@@ -294,8 +294,81 @@ test("VARIABLE: different timezone changes variable", () => {
 });
 
 // ============================================
-// ALL 69 OLD TESTS STILL PASS
+// VERIFIED PERSONA FIXTURES: Widhi, Hira, Fitriani
 // ============================================
-// The existing tests in human-design.test.mjs and api-contract.test.mjs
-// and e2e-renderer.test.mjs still run alongside this file.
-// This file adds 40+ new tests on top.
+test("PERSONA GOLDEN: Widhi full canonical verification", () => {
+  const r = run("1985-05-03", "23:45", "+07:00");
+  assert.equal(r.type, "Manifesting Generator");
+  assert.equal(r.profile, "6/3");
+  assert.equal(r.authority, "Sacral");
+  assert.equal(r.strategy, "Wait to Respond");
+  assert.equal(r.signature, "Satisfaction");
+  assert.equal(r.notSelfTheme, "Frustration");
+  assert.equal(r.definition, "Single Definition");
+  assert.equal(r.incarnationCross, "Left Angle Cross of Incarnation (24/44 | 13/7)");
+  assert.deepEqual(r.channels, ["2-14", "10-20", "17-62", "23-43", "25-51", "26-44"]);
+  assert.deepEqual([...r.definedCenters].sort(), ["Ajna", "Ego", "G", "Sacral", "Spleen", "Throat"]);
+  assert.deepEqual([...r.openCenters].sort(), ["Head", "Root", "Solar Plexus"]);
+  assert.equal(r.variable, "PRR DLR");
+  assert.equal(r.digestion, "Appetite");
+  assert.equal(r.environment, "Valleys");
+  assert.equal(r.motivation, "Innocence");
+  assert.equal(r.perspective, "Probability");
+  assert.equal(r.cognition, "Outer Vision");
+  assert.equal(r.status, "ready");
+  assert.equal(r.calculationQuality, "verified");
+  assert.equal(r.completeness, "complete");
+});
+
+test("PERSONA GOLDEN: Hira Murty Wardhani production verification", () => {
+  const r = run("1979-02-23", "21:00", "+07:00");
+  assert.equal(r.type, "Generator");
+  assert.equal(r.authority, "Emotional");
+  assert.equal(r.profile, "5/1");
+  assert.equal(r.strategy, "Wait to Respond");
+  assert.equal(r.definition, "Split Definition");
+  assert.equal(r.incarnationCross, "Left Angle Cross of Spirit (55/59 | 9/16)");
+  const pSun = findAct(r.personalityActivations, "Sun");
+  const pEarth = findAct(r.personalityActivations, "Earth");
+  const dSun = findAct(r.designActivations, "Sun");
+  const dEarth = findAct(r.designActivations, "Earth");
+  assert.equal(`${pSun.gate}.${pSun.line}`, "55.5");
+  assert.equal(`${pEarth.gate}.${pEarth.line}`, "59.5");
+  assert.equal(`${dSun.gate}.${dSun.line}`, "9.1");
+  assert.equal(`${dEarth.gate}.${dEarth.line}`, "16.1");
+  assert.ok(r.channels.includes("6-59"));
+  assert.ok(r.channels.includes("47-64"));
+  assert.ok(r.definedCenters.includes("Sacral"));
+  assert.ok(r.definedCenters.includes("Solar Plexus"));
+  assert.equal(r.status, "ready");
+  assert.equal(r.calculationQuality, "verified");
+  assert.equal(r.completeness, "complete");
+});
+
+test("PERSONA GOLDEN: Fitriani Mahardika production verification", () => {
+  const r = run("1979-08-17", "06:00", "+07:00");
+  assert.equal(r.type, "Generator");
+  assert.equal(r.authority, "Emotional");
+  assert.equal(r.profile, "5/2");
+  assert.equal(r.strategy, "Wait to Respond");
+  assert.equal(r.definition, "Quadruple Split Definition");
+  assert.equal(r.incarnationCross, "Left Angle Cross of Revolution (4/49 | 8/14)");
+  const pSun = findAct(r.personalityActivations, "Sun");
+  const pEarth = findAct(r.personalityActivations, "Earth");
+  const dSun = findAct(r.designActivations, "Sun");
+  const dEarth = findAct(r.designActivations, "Earth");
+  assert.equal(`${pSun.gate}.${pSun.line}`, "4.5");
+  assert.equal(`${pEarth.gate}.${pEarth.line}`, "49.5");
+  assert.equal(`${dSun.gate}.${dSun.line}`, "8.2");
+  assert.equal(`${dEarth.gate}.${dEarth.line}`, "14.2");
+  assert.deepEqual([...r.channels].sort(), ["1-8", "3-60", "4-63", "37-40"].sort());
+  assert.deepEqual([...r.definedCenters].sort(), ["Ajna", "Ego", "G", "Head", "Root", "Sacral", "Solar Plexus", "Throat"].sort());
+  assert.deepEqual(r.openCenters, ["Spleen"]);
+  assert.equal(r.status, "ready");
+  assert.equal(r.calculationQuality, "verified");
+  assert.equal(r.completeness, "complete");
+});
+
+// ============================================
+// ALL TESTS PASS DETERMINISTICALLY
+// ============================================

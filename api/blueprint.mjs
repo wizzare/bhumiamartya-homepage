@@ -46,7 +46,7 @@ export default async function handler(req, res) {
     }
 
     // Calculate Human Design locally using astronomy-engine
-    const hdResult = calculateHumanDesign({ birthDate, birthTime, timezone });
+    const hdResult = calculateHumanDesign({ birthDate, birthTime, timezone, latitude, longitude });
     const humanDesign = normalizeHumanDesignResponse(hdResult);
     const lifePath = calculateLifePath(birthDate);
     const destinyMatrix = calculateDestinyMatrix(birthDate, { referenceDate });
@@ -61,7 +61,7 @@ export default async function handler(req, res) {
       meta: {
         success: humanDesign.status === "ready",
         generatedAt: new Date().toISOString(),
-        engineVersion: "web-blueprint-1.2.0",
+        engineVersion: "web-blueprint-1.3.0",
         systems: {
           lifePath: "ready",
           humanDesign: humanDesign.status === "ready" ? "ready" : humanDesign.status,
