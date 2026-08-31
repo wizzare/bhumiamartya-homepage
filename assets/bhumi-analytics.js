@@ -2,7 +2,9 @@
   "use strict";
 
   var measurementId = "G-BLNCYH2290";
+  var metaPixelId = "392010474954002";
   var loaded = false;
+  var metaPixelLoaded = false;
   var pageViewSent = false;
   var started = {};
   var PRODUCTION_HOSTS = ["www.bhumiamartya.my.id", "bhumiamartya.my.id"];
@@ -69,6 +71,29 @@
     });
   }
 
+  function loadMetaPixel() {
+    if (metaPixelLoaded || !isTrackingAllowed()) return;
+    metaPixelLoaded = true;
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+      };
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = true;
+      n.version = "2.0";
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = true;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s);
+    }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init", metaPixelId);
+    window.fbq("track", "PageView");
+  }
+
   function loadGoogleTag() {
     if (loaded || !isTrackingAllowed()) return;
     loaded = true;
@@ -85,6 +110,20 @@
     script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
     document.head.appendChild(script);
     sendPageView();
+    loadMetaPixel();
+  }
+
+  function trackMetaPixel(event) {
+    if (!metaPixelLoaded || typeof window.fbq !== "function") return;
+    if (event.name === "contact_click") {
+      window.fbq("track", "Lead", { content_name: event.tool_name });
+    } else if (event.name === "tool_completed") {
+      window.fbq("trackCustom", "ToolCompleted", { tool_name: event.tool_name });
+    } else if (event.name === "pdf_download") {
+      window.fbq("trackCustom", "PdfDownload", { tool_name: event.tool_name });
+    } else if (event.name === "app_download_click") {
+      window.fbq("trackCustom", "AppDownloadClick");
+    }
   }
 
   function track(name, metadata) {
@@ -94,6 +133,7 @@
     var parameters = { page_type: pageType(), consent_state: "granted" };
     if (event.tool_name) parameters.tool_name = event.tool_name;
     window.gtag("event", event.name, parameters);
+    trackMetaPixel(event);
   }
 
   window.BhumiAnalytics = {
