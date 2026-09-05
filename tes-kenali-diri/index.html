@@ -480,6 +480,7 @@
                 <p class="cta-copy">Hasil ini adalah pintu awal. Untuk mengenali pola, potensi, tantangan, dan perjalanan dirimu secara lebih utuh, lanjutkan ke Personal Blueprint atau gunakan aplikasi Bhumi Amartya.</p>
                 <div class="cta-btns">
                     <a href="https://forms.gle/BFJdWtkn5SCXtLkW7" id="personal-blueprint-cta" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Isi Form Personal Blueprint</a>
+                    <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%2C%20saya%20sudah%20isi%20Tes%20Kenali%20Diri%20dan%20ingin%20tanya%20lebih%20lanjut%20soal%20Blueprint%20Reading." id="whatsapp-cta" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Chat via WhatsApp</a>
                     <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download Aplikasi Bhumi Amartya</a>
                 </div>
             </div>
@@ -1157,6 +1158,15 @@
             if (personalBlueprintCta) {
                 personalBlueprintCta.addEventListener('click', () => {
                     window.BhumiAnalytics?.track('personal_blueprint_cta_click', { feature: 'blueprint_reading' });
+                });
+            }
+
+            // --- WHATSAPP CTA ---
+            const whatsappCta = document.getElementById('whatsapp-cta');
+
+            if (whatsappCta) {
+                whatsappCta.addEventListener('click', () => {
+                    window.BhumiAnalytics?.track('whatsapp_cta_click', { feature: 'tes_kenali_diri' });
                 });
             }
 
