@@ -44,6 +44,19 @@
   }
 
   function normalizeEvent(name, metadata) {
+    if (typeof name !== "string") return null;
+    if (name.indexOf("homepage_") === 0) {
+      var expected;
+      if (name === "homepage_primary_cta_click") expected = { section: "hero", item_name: "kenali_diri", item_type: "primary_cta", destination: "/tes-kenali-diri/" };
+      else if (name === "homepage_app_download_click") expected = { section: "hero", item_name: "android_app", item_type: "secondary_cta", destination: "https://play.google.com/store/apps/details?id=com.bhumiamartya.app" };
+      else return null;
+      if (!metadata || typeof metadata !== "object" || Array.isArray(metadata)) return null;
+      var keys = Reflect.ownKeys(metadata);
+      if (keys.length !== 4 || !keys.every(function (key) {
+        return Object.prototype.hasOwnProperty.call(expected, key) && metadata[key] === expected[key];
+      })) return null;
+      return { name: name, parameters: expected };
+    }
     var tool = String((metadata && (metadata.tool_name || metadata.feature)) || name).replace(/-/g, "_");
     if (/_started$/.test(name)) return { name: "tool_started", tool_name: safeToolName(tool.replace(/_started$/, "")) };
     if (/_submitted$|_completed$|_checked$/.test(name)) return { name: "tool_completed", tool_name: safeToolName(tool.replace(/_(submitted|completed|checked)$/, "")) };
@@ -88,10 +101,11 @@
   }
 
   function track(name, metadata) {
-    if (!loaded || !hasConsent()) return;
+    if (!loaded || !isTrackingAllowed()) return;
     var event = normalizeEvent(name, metadata);
     if (!event || event.name === "page_view") return;
     var parameters = { page_type: pageType(), consent_state: "granted" };
+    if (event.parameters) Object.assign(parameters, event.parameters);
     if (event.tool_name) parameters.tool_name = event.tool_name;
     window.gtag("event", event.name, parameters);
   }

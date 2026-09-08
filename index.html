@@ -362,8 +362,7 @@
             list-style: none;
         }
 
-        .dropdown:hover .dropdown-menu,
-        .dropdown:focus-within .dropdown-menu {
+        .dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
@@ -410,8 +409,10 @@
             display: none;
             flex-direction: column;
             justify-content: space-between;
-            width: 24px;
-            height: 18px;
+            width: 44px;
+            height: 44px;
+            padding: 13px 10px;
+            flex-shrink: 0;
             background: transparent;
             border: none;
             cursor: pointer;
@@ -439,14 +440,56 @@
         }
 
         .hero-grid {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 4rem;
-            align-items: center;
+            width: 100%;
+            max-width: 840px;
+            text-align: center;
         }
 
         .hero-content {
-            z-index: 2;
+            min-width: 0;
+        }
+
+        .hero-section .hero-supporting {
+            font-size: 1.25rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .hero-section .hero-microcopy {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 1.25rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-section .btn:focus-visible,
+        .header a:focus-visible,
+        .header button:focus-visible {
+            outline: 3px solid var(--forest-dark);
+            outline-offset: 4px;
+        }
+
+        .header .logo,
+        .header .nav-link,
+        .header .dropdown-item {
+            min-height: 44px;
+        }
+
+        .header .nav-link {
+            display: flex;
+            align-items: center;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-section .btn,
+            .header,
+            .header * {
+                transition: none;
+            }
+
+            .hero-section .btn:hover {
+                transform: none;
+            }
         }
 
         .hero-tag {
@@ -471,8 +514,8 @@
         .hero-subheadline {
             font-size: 1.15rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            max-width: 540px;
+            margin: 0 auto 2.5rem;
+            max-width: 660px;
             line-height: 1.7;
         }
 
@@ -481,6 +524,8 @@
             gap: 1rem;
             flex-wrap: wrap;
             align-items: stretch;
+            justify-content: center;
+            margin: 0 auto;
             max-width: 560px;
         }
 
@@ -1777,12 +1822,9 @@
                 max-width: 420px;
             }
 
-            .hero-btns .btn-primary {
+            .hero-btns .btn {
                 flex: 1 1 100%;
-            }
-
-            .hero-btns .btn:not(.btn-primary) {
-                flex: 1 1 calc(50% - 0.5rem);
+                width: 100%;
             }
 
             .about-grid {
@@ -1878,9 +1920,15 @@
                 padding: 0.25rem 0 0.5rem 1rem;
                 margin-left: 0.25rem;
                 border-left: 1px solid var(--earth-gold);
-                display: block;
+                display: none;
+                min-width: 0;
                 width: 100%;
                 list-style: none;
+            }
+
+            .dropdown-toggle[aria-expanded="true"] + .dropdown-menu {
+                display: block;
+                transform: none;
             }
 
             .dropdown-item {
@@ -1889,6 +1937,7 @@
                 font-family: var(--font-body);
                 font-size: 0.95rem;
                 font-weight: 500;
+                white-space: normal;
                 color: var(--text-secondary);
                 border-bottom: 1px solid rgba(45, 75, 52, 0.03);
             }
@@ -2162,7 +2211,7 @@
                 </ul>
             </nav>
 
-            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+            <button type="button" class="burger-menu" id="burger-menu" aria-label="Menu navigasi" aria-expanded="false" aria-controls="nav-menu">
                 <span class="burger-bar"></span>
                 <span class="burger-bar"></span>
                 <span class="burger-bar"></span>
@@ -2173,51 +2222,18 @@
     <!-- 1. HERO SECTION -->
     <section class="hero-section" id="beranda">
         <div class="container hero-grid">
-            <div class="hero-content reveal">
-                <span class="hero-tag">Aplikasi & Platform Refleksi Diri</span>
-                <h1 class="hero-headline">Ruang untuk Pulang<br>dan Kenali Diri</h1>
+            <div class="hero-content">
+                <span class="hero-tag">Bhumi Amartya</span>
+                <h1 class="hero-headline">Ruang untuk Pulang dan Kenali Diri</h1>
+                <p class="hero-supporting">Kenali pola dirimu, potensi, hubungan, dan arah pertumbuhanmu dalam satu tempat.</p>
                 <p class="hero-subheadline">
-                    Platform pengembangan diri terintegrasi yang menggabungkan psikologi, refleksi diri, spiritualitas modern, dan teknologi untuk membantu Anda memahami jalannya kehidupan secara lebih utuh.
+                    Bhumi membantu kamu memahami berbagai peta diri dan menerjemahkannya menjadi insight yang lebih mudah dipahami dan digunakan dalam kehidupan sehari-hari.
                 </p>
                 <div class="hero-btns">
-                    <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Download Aplikasi</a>
-                    <a href="/tes-kenali-diri/" class="btn btn-primary hero-tool-btn">Tes Kenali Diri</a>
-                    <a href="/weton/" class="btn btn-primary hero-tool-btn">Cek Weton</a>
-                    <a href="/cek-aura/" class="btn btn-primary hero-tool-btn">Cek Aura</a>
-                    <a href="/kalkulator-cinta/" class="btn btn-primary hero-tool-btn">Kalkulator Cinta</a>
-                    <a href="/kenali-diri/human-design/" class="btn btn-primary hero-tool-btn">Human Design</a>
-                    <a href="/kenali-diri/mbti/" class="btn btn-primary hero-tool-btn" id="hero-mbti-cta">MBTI</a>
+                    <a href="/tes-kenali-diri/" class="btn btn-primary" id="hero-primary-cta">Kenali Diri Saya</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" class="btn btn-secondary" id="hero-app-cta">Download Aplikasi</a>
                 </div>
-            </div>
-            
-            <div class="hero-visual reveal" style="transition-delay: 0.2s;">
-                <div class="hero-shapes">
-                    <div class="mandala-outer"></div>
-                    <div class="mandala-inner"></div>
-                    <div class="mandala-core">
-                        <img src="assets/logo.png" alt="Bhumi Amartya Logo" style="width: 75%; height: 75%; object-fit: contain;">
-                    </div>
-                    <div class="floating-deco deco-1">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-                        <span>Self Awareness</span>
-                    </div>
-                    <div class="floating-deco deco-2">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
-                        <span>Self Development</span>
-                    </div>
-                    <div class="floating-deco deco-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M12 4v16"/></svg>
-                        <span>Self Reflection</span>
-                    </div>
-                    <div class="floating-deco deco-4">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-                        <span>Self Love</span>
-                    </div>
-                    <div class="floating-deco deco-5">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V8M5 12c3.5 0 7-3 7-7 0 4 3.5 7 7 7-3.5 0-7 3-7 7 0-4-3.5-7-7-7z"/></svg>
-                        <span>Self Healing</span>
-                    </div>
-                </div>
+                <p class="hero-microcopy">Gratis untuk mulai • Hasil langsung • Untuk bahan refleksi</p>
             </div>
         </div>
     </section>
@@ -2994,34 +3010,82 @@
             const burgerBtn = document.getElementById('burger-menu');
             const navMenu = document.getElementById('nav-menu');
             const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            dropdownToggles.forEach((toggle, index) => {
+                const menu = toggle.nextElementSibling;
+                menu.id = `nav-dropdown-${index + 1}`;
+                toggle.setAttribute('aria-controls', menu.id);
+                toggle.setAttribute('role', 'button');
+                toggle.removeAttribute('aria-haspopup');
+                toggle.addEventListener('keydown', event => {
+                    if (event.key === ' ') {
+                        event.preventDefault();
+                        toggle.click();
+                    }
+                });
+                toggle.parentElement.addEventListener('keydown', event => {
+                    if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+                        event.stopPropagation();
+                        toggle.setAttribute('aria-expanded', 'false');
+                        toggle.focus();
+                    }
+                });
+                toggle.parentElement.addEventListener('focusout', event => {
+                    if (!toggle.parentElement.contains(event.relatedTarget)) {
+                        toggle.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
 
-            const toggleMenu = () => {
-                burgerBtn.classList.toggle('open');
-                navMenu.classList.toggle('open');
-                if (navMenu.classList.contains('open')) {
-                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
-                } else {
-                    document.body.style.overflow = '';
+            const mobileNav = window.matchMedia('(max-width: 768px)');
+            const setMenuOpen = (open, restoreFocus = false) => {
+                if (!open && restoreFocus && (navMenu.contains(document.activeElement) || document.activeElement === burgerBtn)) {
+                    burgerBtn.focus();
                 }
+                burgerBtn.classList.toggle('open', open);
+                navMenu.classList.toggle('open', open);
+                burgerBtn.setAttribute('aria-expanded', String(open));
+                navMenu.inert = mobileNav.matches && !open;
+                document.body.style.overflow = open ? 'hidden' : '';
             };
 
-            burgerBtn.addEventListener('click', toggleMenu);
+            burgerBtn.addEventListener('click', () => setMenuOpen(!navMenu.classList.contains('open')));
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && navMenu.classList.contains('open')) {
+                    setMenuOpen(false, true);
+                }
+            });
+            mobileNav.addEventListener('change', () => setMenuOpen(false, mobileNav.matches));
+            setMenuOpen(false);
 
-            const mbtiHeroCta = document.getElementById('hero-mbti-cta');
-            if (mbtiHeroCta && window.BhumiAnalytics) {
-                mbtiHeroCta.addEventListener('click', () => {
-                    window.BhumiAnalytics.track('mbti_cta_clicked', { ctaType: 'homepage_hero' });
+            document.getElementById('hero-primary-cta').addEventListener('click', () => {
+                window.BhumiAnalytics?.track('homepage_primary_cta_click', {
+                    section: 'hero',
+                    item_name: 'kenali_diri',
+                    item_type: 'primary_cta',
+                    destination: '/tes-kenali-diri/'
                 });
-            }
+            });
+            document.getElementById('hero-app-cta').addEventListener('click', () => {
+                window.BhumiAnalytics?.track('homepage_app_download_click', {
+                    section: 'hero',
+                    item_name: 'android_app',
+                    item_type: 'secondary_cta',
+                    destination: 'https://play.google.com/store/apps/details?id=com.bhumiamartya.app'
+                });
+            });
 
             navLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     if (link.classList.contains('dropdown-toggle')) {
                         e.preventDefault();
+                        const expanded = link.getAttribute('aria-expanded') !== 'true';
+                        dropdownToggles.forEach(toggle => toggle.setAttribute('aria-expanded', 'false'));
+                        link.setAttribute('aria-expanded', String(expanded));
                         return;
                     }
                     if (navMenu.classList.contains('open')) {
-                        toggleMenu();
+                        setMenuOpen(false, true);
                     }
                 });
             });
