@@ -311,9 +311,9 @@ test("PERSONA GOLDEN: Widhi full canonical verification", () => {
   assert.deepEqual([...r.openCenters].sort(), ["Head", "Root", "Solar Plexus"]);
   assert.equal(r.variable, "PRR DLR");
   assert.equal(r.digestion, "Appetite");
-  assert.equal(r.environment, "Valleys");
+  assert.equal(r.environment, "Markets");
   assert.equal(r.motivation, "Innocence");
-  assert.equal(r.perspective, "Probability");
+  assert.equal(r.perspective, "Possibility");
   assert.equal(r.cognition, "Outer Vision");
   assert.equal(r.status, "ready");
   assert.equal(r.calculationQuality, "verified");
