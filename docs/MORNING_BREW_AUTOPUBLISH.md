@@ -17,7 +17,10 @@ Gemini Spark (05:00 WIB) -> Google Drive folder (existing)
 ```
 
 - Production endpoint: `POST https://bhumiamartya.my.id/api/content/morning-brew`
-- Drive folder (existing, unchanged): ID `1Vm8kFWCJZuVmERtnHmi3_bleN8QQvNU0`
+- Drive folder (existing, unchanged): ID `1Vm8kFWCJZuVmERtnHmi3_bleN8QQvNU0`. Real layout is
+  nested — `<folder>/<year>/<MonthName>/YYYY-MM-DD - Morning Brew - <Title>` — the script
+  scans the folder tree recursively rather than assuming files sit directly in the root, and
+  parses the real title straight out of that file name.
 - Code: `api/content/morning-brew.mjs`, `lib/content/firestore-writer.mjs`, `lib/content/slug.mjs`
 - Tests: `tests/content-morning-brew.test.mjs`, `tests/morning-brew-writer.test.mjs`
 
@@ -78,3 +81,8 @@ still protected by the server's own anti-duplicate).
   it was only used for reads before). Grant it `roles/datastore.user` in GCP IAM if so.
 - **Trigger not firing** — Apps Script editor → Triggers (clock icon) → confirm
   `publishMorningBrew` has an active trigger; re-run `createDailyTrigger()` if not.
+- **Cosmetic**: real Morning Brew docs open with a masthead line ("🌿 MORNING BREW"), an
+  Indonesian date line, then the title line, before the actual greeting/body. The script
+  sends the full doc text as `content` unchanged (never trims the first paragraph), so those
+  three lines appear at the top of the rendered article body in addition to the page's own
+  H1 title. Not a bug — a deliberate conservative choice over risking losing real content.

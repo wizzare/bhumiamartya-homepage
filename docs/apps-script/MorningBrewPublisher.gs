@@ -22,8 +22,13 @@ const CONFIG = {
   FOLDER_ID: '1Vm8kFWCJZuVmERtnHmi3_bleN8QQvNU0',
   API_URL: 'https://bhumiamartya.my.id/api/content/morning-brew',
   TIMEZONE: 'Asia/Jakarta',
-  // Expected file name: "Morning Brew - YYYY-MM-DD". File lookup also has a conservative
-  // fallback (see findTodaysFile_) for slightly different naming from Gemini Spark.
+  // Gemini Spark's real naming convention is "YYYY-MM-DD - Morning Brew - <Title>", and
+  // files live in a nested "<FOLDER_ID>/<year>/<MonthName>/" tree, not directly in
+  // FOLDER_ID. findTodaysFile_() scans the folder tree recursively (structure-agnostic —
+  // it doesn't hardcode the year/month subfolder shape), and resolveTitle_() parses the
+  // real title straight out of the file name. FILE_NAME_PREFIX below only matters for the
+  // legacy "Morning Brew - YYYY-MM-DD" (date-last) fallback naming, kept in case the
+  // convention ever reverts.
   FILE_NAME_PREFIX: 'Morning Brew - ',
   FILE_NAME_MARKER: 'morning brew',
   SOURCE_LABEL: 'google-drive',
@@ -89,30 +94,44 @@ function markPublished_(dateString) {
 // File discovery — TODAY only, never "latest file", never yesterday's.
 // ---------------------------------------------------------------------------
 
+const MAX_FOLDERS_TO_SCAN = 500; // safety cap, never an infinite/runaway scan
+
 /**
- * 1) Fast path: exact name match "Morning Brew - YYYY-MM-DD".
- * 2) Conservative fallback: scan the folder for a file whose name contains BOTH the
- *    "morning brew" marker AND today's exact YYYY-MM-DD date (case-insensitive), in case
- *    Gemini Spark's naming drifts slightly. Requiring both avoids matching an unrelated
- *    file that merely happens to contain today's date.
- * If neither matches, returns null — never falls back to yesterday's or "the newest" file.
+ * Recursively scans the configured Drive folder and its subfolders (Gemini Spark files
+ * this into a "<FOLDER_ID>/<year>/<MonthName>/" tree, but this does not hardcode that
+ * shape so it keeps working if the structure changes) for TODAY's file only.
+ *
+ * A file only ever matches if its name contains today's exact YYYY-MM-DD date string —
+ * this never falls back to yesterday's file or "the newest file in the folder". Among
+ * matches, a name that also contains the "morning brew" marker is preferred (handles both
+ * "YYYY-MM-DD - Morning Brew - <title>" and "Morning Brew - YYYY-MM-DD" style names); any
+ * other same-date match is used only if nothing better is found.
  */
 function findTodaysFile_(dateString) {
-  const folder = DriveApp.getFolderById(CONFIG.FOLDER_ID);
-  const expectedName = `${CONFIG.FILE_NAME_PREFIX}${dateString}`;
+  const queue = [DriveApp.getFolderById(CONFIG.FOLDER_ID)];
+  let scanned = 0;
+  let fallbackMatch = null;
 
-  const exact = folder.getFilesByName(expectedName);
-  if (exact.hasNext()) return exact.next();
+  while (queue.length > 0 && scanned < MAX_FOLDERS_TO_SCAN) {
+    const folder = queue.shift();
+    scanned += 1;
 
-  const all = folder.getFiles();
-  while (all.hasNext()) {
-    const file = all.next();
-    const nameLower = file.getName().toLowerCase();
-    if (nameLower.indexOf(CONFIG.FILE_NAME_MARKER) !== -1 && nameLower.indexOf(dateString) !== -1) {
-      return file;
+    const files = folder.getFiles();
+    while (files.hasNext()) {
+      const file = files.next();
+      const nameLower = file.getName().toLowerCase();
+      if (nameLower.indexOf(dateString) === -1) continue;
+      if (nameLower.indexOf(CONFIG.FILE_NAME_MARKER) !== -1) return file;
+      if (!fallbackMatch) fallbackMatch = file;
+    }
+
+    const subfolders = folder.getFolders();
+    while (subfolders.hasNext()) {
+      queue.push(subfolders.next());
     }
   }
-  return null;
+
+  return fallbackMatch;
 }
 
 /** Reads a Drive file's text content. Prioritizes Google Docs; falls back to plain text/blob. */
@@ -129,17 +148,35 @@ function readFileContent_(file) {
 }
 
 /**
+ * Extracts the title from a "YYYY-MM-DD - Morning Brew - <Actual Title>" style file name
+ * (this is the real Gemini Spark naming convention observed in the Drive folder — the
+ * genuine article title is already embedded there). Returns null if the name doesn't
+ * match that shape.
+ */
+function titleFromFileName_(fileName, dateString) {
+  const pattern = new RegExp(`^${dateString}\\s*-\\s*morning brew\\s*-\\s*(.+)$`, 'i');
+  const match = fileName.match(pattern);
+  return match && match[1].trim() ? match[1].trim() : null;
+}
+
+/**
  * Title priority (conservative — never removes anything from the content that gets sent):
- *   1. First heading-style paragraph (Title/Heading 1/Heading 2) in the Google Doc, if any.
- *   2. If the very first paragraph is plain text, short (<=100 chars), doesn't end with
- *      sentence punctuation (. ! ?), and the doc has more than one paragraph, treat it as a
- *      conservative title candidate (looks like a title, not a sentence).
- *   3. File name with the "Morning Brew - YYYY-MM-DD" prefix stripped.
- *   4. Raw file name.
+ *   1. Parsed from the file name "YYYY-MM-DD - Morning Brew - <Title>" (primary, most
+ *      reliable — this is the real naming convention Gemini Spark uses).
+ *   2. First heading-style paragraph (Title/Heading 1/Heading 2) in the Google Doc, if any
+ *      (only checked if #1 didn't match — a plain first paragraph is NOT used as a title
+ *      guess, since real Morning Brew docs start with a masthead/date line, not the title).
+ *   3. Legacy "Morning Brew - YYYY-MM-DD" (date-last) file name, prefix stripped.
+ *   4. Raw file name, date/"Morning Brew" tokens stripped where present.
  * The full document text is always sent as `content` unchanged — title detection never
- * trims or removes the first paragraph from it.
+ * trims or removes anything from it.
  */
 function resolveTitle_(file, doc, dateString) {
+  const name = file.getName();
+
+  const fromName = titleFromFileName_(name, dateString);
+  if (fromName) return fromName;
+
   if (doc) {
     const paragraphs = doc.getBody().getParagraphs();
     for (const p of paragraphs) {
@@ -150,21 +187,20 @@ function resolveTitle_(file, doc, dateString) {
         || heading === DocumentApp.ParagraphHeading.HEADING1
         || heading === DocumentApp.ParagraphHeading.HEADING2;
       if (isHeading) return text;
-      break; // only the first non-empty paragraph is eligible for the heuristics below
-    }
-
-    const firstParagraphText = paragraphs.map((p) => p.getText().trim()).find((t) => t.length > 0);
-    if (firstParagraphText && paragraphs.length > 1 && firstParagraphText.length <= 100
-      && !/[.!?]$/.test(firstParagraphText)) {
-      return firstParagraphText;
+      break; // real Morning Brew docs open with a masthead/date line, not the title —
+      // so an unstyled first paragraph is deliberately NOT treated as a title guess here.
     }
   }
 
-  const name = file.getName();
-  const exactPrefixedName = `${CONFIG.FILE_NAME_PREFIX}${dateString}`;
-  if (name === exactPrefixedName) return `Morning Brew ${dateString}`;
-  const stripped = name.replace(/^Morning Brew\s*-\s*/i, '').trim();
-  return stripped || name;
+  const legacyPrefixedName = `${CONFIG.FILE_NAME_PREFIX}${dateString}`;
+  if (name.toLowerCase() === legacyPrefixedName.toLowerCase()) return `Morning Brew ${dateString}`;
+
+  const cleaned = name
+    .replace(new RegExp(`^${dateString}\\s*-\\s*`), '')
+    .replace(/^Morning Brew\s*-\s*/i, '')
+    .replace(/\s*-\s*Morning Brew\s*$/i, '')
+    .trim();
+  return cleaned || name;
 }
 
 // ---------------------------------------------------------------------------
