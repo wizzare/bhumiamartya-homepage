@@ -9,14 +9,18 @@ site's existing Firestore `articles` collection and its existing WIF-based Fires
 Gemini Spark (05:00 WIB) -> Google Drive folder (existing)
   -> Google Apps Script, daily trigger ~05:30 WIB
      -> finds TODAY's file only (never latest, never yesterday's)
-     -> POST https://bhumiamartya.my.id/api/content/morning-brew
+     -> POST https://www.bhumiamartya.my.id/api/content/morning-brew
         Authorization: Bearer <MORNING_BREW_PUBLISH_SECRET>
   -> writes Firestore `articles` doc (id: morning-brew-<date>, source: "bhumi",
      category: "Morning Brew", status: "published") — idempotent, no duplicates
   -> live at /articles/<slug>/, in /articles/, in /sitemap.xml (existing render/SEO pipeline)
 ```
 
-- Production endpoint: `POST https://bhumiamartya.my.id/api/content/morning-brew`
+- Production endpoint: `POST https://www.bhumiamartya.my.id/api/content/morning-brew` — use
+  the `www` host exactly. The apex `bhumiamartya.my.id` 308-redirects to `www` (existing
+  site-wide canonicalization), and Google Apps Script's `UrlFetchApp` does not reliably
+  preserve `POST` across that redirect — it can arrive at the handler as `GET`, which is
+  exactly what caused the `405` seen in testing. `www` has no redirect, so no hop happens.
 - Drive folder (existing, unchanged): ID `1Vm8kFWCJZuVmERtnHmi3_bleN8QQvNU0`. Real layout is
   nested — `<folder>/<year>/<MonthName>/YYYY-MM-DD - Morning Brew - <Title>` — the script
   scans the folder tree recursively rather than assuming files sit directly in the root, and
@@ -27,7 +31,7 @@ Gemini Spark (05:00 WIB) -> Google Drive folder (existing)
 ## Request / response
 
 ```json
-POST /api/content/morning-brew
+POST https://www.bhumiamartya.my.id/api/content/morning-brew
 Authorization: Bearer <secret>
 { "title": "...", "content": "...", "date": "YYYY-MM-DD", "source": "google-drive" }
 ```
@@ -70,6 +74,12 @@ still protected by the server's own anti-duplicate).
 
 ## Troubleshooting
 
+- **`405 METHOD_NOT_ALLOWED` even on a `dryRun` POST** — `CONFIG.API_URL` is pointed at the
+  apex domain (`bhumiamartya.my.id`) instead of `www`. The apex 308-redirects to `www`, and
+  `UrlFetchApp` can silently turn the POST into a GET across that redirect (confirmed via
+  Vercel runtime logs: the request that reached the handler was logged as `GET`, not `POST`).
+  Fix: set `CONFIG.API_URL` to `https://www.bhumiamartya.my.id/api/content/morning-brew`
+  exactly (already the default in the script) and re-run.
 - **`Morning Brew YYYY-MM-DD belum ditemukan.`** — file not in the Drive folder yet, or
   name doesn't contain `Morning Brew` + today's date. Not an error — trigger/manual rerun
   will pick it up once the file exists. Never falls back to an older file.

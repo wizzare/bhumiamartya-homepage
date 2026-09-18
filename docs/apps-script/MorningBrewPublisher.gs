@@ -20,7 +20,11 @@
 
 const CONFIG = {
   FOLDER_ID: '1Vm8kFWCJZuVmERtnHmi3_bleN8QQvNU0',
-  API_URL: 'https://bhumiamartya.my.id/api/content/morning-brew',
+  // Must be the canonical www host: the apex bhumiamartya.my.id 308-redirects to this,
+  // and UrlFetchApp does not reliably preserve POST across that redirect (it can arrive
+  // at the handler as GET, which is exactly what a 405 on a dryRun test means). Pointing
+  // directly at www avoids the redirect hop entirely.
+  API_URL: 'https://www.bhumiamartya.my.id/api/content/morning-brew',
   TIMEZONE: 'Asia/Jakarta',
   // Gemini Spark's real naming convention is "YYYY-MM-DD - Morning Brew - <Title>", and
   // files live in a nested "<FOLDER_ID>/<year>/<MonthName>/" tree, not directly in
@@ -208,12 +212,18 @@ function resolveTitle_(file, doc, dateString) {
 // ---------------------------------------------------------------------------
 
 function postToApi_(payload) {
+  // followRedirects:false is deliberate: CONFIG.API_URL must be the canonical www host,
+  // which does not redirect. If it's ever misconfigured back to the apex domain (which
+  // 308-redirects to www), UrlFetchApp does not reliably preserve POST across a redirect —
+  // it can silently arrive at the handler as GET. Disabling redirects turns that into an
+  // explicit, loud 3xx status here instead of a confusing 405 from the wrong method.
   const response = UrlFetchApp.fetch(CONFIG.API_URL, {
     method: 'post',
     contentType: 'application/json',
     headers: { Authorization: `Bearer ${requirePublishSecret_()}` },
     payload: JSON.stringify(payload),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
+    followRedirects: false
   });
   const status = response.getResponseCode();
   const bodyText = response.getContentText();
@@ -227,6 +237,12 @@ function postToApi_(payload) {
 }
 
 function describeFailure_(status, bodyText) {
+  if (status >= 300 && status < 400) {
+    return `Redirect tak terduga (HTTP ${status}) — CONFIG.API_URL kemungkinan menunjuk ke apex domain (bhumiamartya.my.id) alih-alih www. Set ke https://www.bhumiamartya.my.id/api/content/morning-brew. Response: ${bodyText}`;
+  }
+  if (status === 405) {
+    return `Method Not Allowed (HTTP 405) — request kemungkinan sampai ke server sebagai GET, bukan POST. Cek CONFIG.API_URL memakai www (bukan apex) dan tidak ada redirect. Response: ${bodyText}`;
+  }
   if (status === 401 || status === 403) {
     return `Auth ditolak (HTTP ${status}) — secret salah atau belum dipasang di Script Properties / Vercel. Response: ${bodyText}`;
   }
