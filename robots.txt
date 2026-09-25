@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+User-agent: OAI-AdsBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://www.bhumiamartya.my.id/sitemap.xml

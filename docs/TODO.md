@@ -51,8 +51,15 @@ Priorities: **P0** governance/compliance/methodology/crawler/trust · **P1** hom
 
 ## P3 — ChatGPT Ads Campaign Readiness
 
+- [x] **(Ads & Tracking Foundation, 2026-09-25)** Consent architecture v2: separated Necessary/Analytics/Marketing & Ads categories in `assets/bhumi-consent.js`, with privacy-safe migration from the legacy `bhumi_consent_v1` value. Fixed an audit-found bug where analytics consent silently granted marketing/Meta Pixel consent — see `docs/ADS_TRACKING_READINESS.md` §1.
+- [x] **(Ads & Tracking Foundation)** Gated Google Analytics 4 (`G-BLNCYH2290`) strictly on Analytics consent and Meta Pixel (`392010474954002`) strictly on Marketing & Ads consent, fully independent of each other — `docs/ADS_TRACKING_READINESS.md` §2–3.
+- [x] **(Ads & Tracking Foundation)** Fixed an audit-found bug where `assets/bhumi-adsense.js` loaded the AdSense script with zero consent gating; it now requires Marketing & Ads consent (Auto Ads readiness only, no ad units declared) — `docs/ADS_TRACKING_READINESS.md` §4.
+- [x] **(Ads & Tracking Foundation)** Added `OAI-AdsBot` and `OAI-SearchBot` to `robots.txt` for ChatGPT Ads crawler readiness (did not add `GPTBot` — no product decision made) — `docs/ADS_TRACKING_READINESS.md` §5.
+- [x] **(Ads & Tracking Foundation)** Added `community_join_click` and `personal_blueprint_click` to the tracking event model — `docs/ADS_TRACKING_READINESS.md` §6.
+- [x] **(Ads & Tracking Foundation)** Documented the Google-certified CMP boundary explicitly: this repository's consent banner is a first-party mechanism, not a certified CMP/IAB TCF implementation; certified-CMP compliance for EEA/UK/Switzerland is an external AdSense-account configuration decision, not claimed as done here — `docs/ADS_TRACKING_READINESS.md` §4, `privacy-policy/index.html` §9.
+- [ ] External dashboard configuration remains open (AdSense Auto Ads enablement, Meta Events Manager verification, ChatGPT Ads Manager CDN/WAF bot-blocking check, campaign setup) — see `docs/ADS_TRACKING_READINESS.md` §7. None of this is repository work and none of it is claimed as done.
 - [ ] Do not launch any ChatGPT Ads campaign until at least Human Design, Life Path, Destiny Matrix, and Natal Chart have compliant landing pages per `CHATGPT_ADS_READINESS.md` §4–5.
-- [ ] Define analytics events for the DISCOVER→GROW journey (`PRD.md` FR-14) — current homepage analytics implementation (references an `analytics.js` script) was not characterized in this audit; confirm what it actually does before instrumenting new events.
+- [ ] Define analytics events for the DISCOVER→GROW journey (`PRD.md` FR-14) beyond the event model documented in `docs/ADS_TRACKING_READINESS.md` §6.
 - [ ] Set up per-system ad campaigns only after §5 checklist compliance, in priority order (`CHATGPT_ADS_READINESS.md` §2).
 
 ## Notes

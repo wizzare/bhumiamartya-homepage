@@ -63,7 +63,7 @@
     <!-- Shared Design System CSS -->
     <link rel="stylesheet" href="../assets/bhumi-design-system.css">
     <!-- Google AdSense -->
-    <script src="/assets/bhumi-adsense.js" async></script>
+    <script src="/assets/bhumi-adsense.js" defer></script>
 
     <!-- Page-specific additions (kept minimal, no new framework/library) -->
     <style>
@@ -479,17 +479,17 @@
 
             // Analytics: reuse the existing generic navigation_click event, no new schema
             const navCtaAnalytics = [
-                ['hero-primary-cta', 'gabung_komunitas_bhumi'],
-                ['hero-secondary-cta', 'lihat_kegiatan'],
-                ['program-ngopi-ilmu-cta', 'lihat_ngopi_ilmu'],
-                ['final-cta-primary', 'gabung_komunitas_bhumi'],
-                ['final-cta-secondary', 'mulai_kenali_diri']
+                ['hero-primary-cta', 'community_join_click', null],
+                ['hero-secondary-cta', 'navigation_click', 'lihat_kegiatan'],
+                ['program-ngopi-ilmu-cta', 'navigation_click', 'lihat_ngopi_ilmu'],
+                ['final-cta-primary', 'community_join_click', null],
+                ['final-cta-secondary', 'navigation_click', 'mulai_kenali_diri']
             ];
-            navCtaAnalytics.forEach(([id, label]) => {
+            navCtaAnalytics.forEach(([id, eventName, toolName]) => {
                 const el = document.getElementById(id);
                 if (el && window.BhumiAnalytics) {
                     el.addEventListener('click', () => {
-                        window.BhumiAnalytics.track('navigation_click', { tool_name: label });
+                        window.BhumiAnalytics.track(eventName, toolName ? { tool_name: toolName } : undefined);
                     });
                 }
             });

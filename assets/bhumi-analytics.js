@@ -3,9 +3,10 @@
 
   var measurementId = "G-BLNCYH2290";
   var metaPixelId = "392010474954002";
-  var loaded = false;
-  var metaPixelLoaded = false;
+  var gaLoaded = false;
   var pageViewSent = false;
+  var metaPixelLoaded = false;
+  var metaPixelRevoked = false;
   var started = {};
   var PRODUCTION_HOSTS = ["www.bhumiamartya.my.id", "bhumiamartya.my.id"];
 
@@ -14,8 +15,20 @@
     return PRODUCTION_HOSTS.indexOf(host) >= 0;
   }
 
-  function isTrackingAllowed() {
-    return isProductionHost() && hasConsent();
+  function hasAnalyticsConsent() {
+    return Boolean(window.BhumiConsent && window.BhumiConsent.hasAnalyticsConsent());
+  }
+
+  function hasMarketingConsent() {
+    return Boolean(window.BhumiConsent && window.BhumiConsent.hasMarketingConsent());
+  }
+
+  function analyticsAllowed() {
+    return isProductionHost() && hasAnalyticsConsent();
+  }
+
+  function marketingAllowed() {
+    return isProductionHost() && hasMarketingConsent();
   }
 
   window.dataLayer = window.dataLayer || [];
@@ -27,16 +40,13 @@
     ad_personalization: "denied"
   });
 
-  function hasConsent() {
-    return Boolean(window.BhumiConsent && window.BhumiConsent.hasAnalyticsConsent());
-  }
-
   function pageType() {
     var path = window.location.pathname.replace(/\/+$/, "") || "/";
     if (path === "/") return "homepage";
     if (path.indexOf("/articles") === 0) return "article";
+    if (path === "/komunitas") return "community";
     if (/weton|aura|human-design|tes-kenali-diri|kalkulator-cinta|kecocokanmatrix/.test(path)) return "tool";
-    if (/about|contact|privacy-policy|terms|syarat-ketentuan/.test(path)) return "trust";
+    if (/about|contact|privacy-policy|terms|syarat-ketentuan|disclaimer/.test(path)) return "trust";
     return "content";
   }
 
@@ -45,6 +55,14 @@
     return allowed.indexOf(value) >= 0 ? value : "general_tool";
   }
 
+  // Names in this list pass through as-is (with an optional sanitized tool_name).
+  // Everything else is normalized via the suffix rules below.
+  var directEvents = [
+    "page_view", "navigation_click", "article_open", "article_source_click",
+    "tool_started", "tool_completed", "pdf_download", "app_download_click",
+    "contact_click", "outbound_click", "community_join_click", "personal_blueprint_click"
+  ];
+
   function normalizeEvent(name, metadata) {
     var tool = String((metadata && (metadata.tool_name || metadata.feature)) || name).replace(/-/g, "_");
     if (/_started$/.test(name)) return { name: "tool_started", tool_name: safeToolName(tool.replace(/_started$/, "")) };
@@ -52,8 +70,7 @@
     if (/_pdf_downloaded$/.test(name)) return { name: "pdf_download", tool_name: safeToolName(tool.replace(/_pdf_downloaded$/, "")) };
     if (/app_download/.test(name)) return { name: "app_download_click" };
     if (/whatsapp|contact/.test(name)) return { name: "contact_click" };
-    var allowed = ["page_view", "navigation_click", "article_open", "article_source_click", "tool_started", "tool_completed", "pdf_download", "app_download_click", "contact_click", "outbound_click"];
-    return allowed.indexOf(name) >= 0 ? { name: name, tool_name: metadata && safeToolName(metadata.tool_name) } : null;
+    return directEvents.indexOf(name) >= 0 ? { name: name, tool_name: metadata && safeToolName(metadata.tool_name) } : null;
   }
 
   function safeLocation() {
@@ -61,7 +78,7 @@
   }
 
   function sendPageView() {
-    if (!loaded || pageViewSent || !hasConsent()) return;
+    if (!gaLoaded || pageViewSent || !hasAnalyticsConsent()) return;
     pageViewSent = true;
     window.gtag("event", "page_view", {
       page_location: safeLocation(),
@@ -72,8 +89,18 @@
   }
 
   function loadMetaPixel() {
-    if (metaPixelLoaded || !isTrackingAllowed()) return;
+    if (!marketingAllowed()) return;
+
+    // Already bootstrapped in this page session (e.g. marketing consent was
+    // revoked and is now granted again): re-arm dispatch without a second
+    // fbq init and without a duplicate PageView.
+    if (metaPixelLoaded) {
+      metaPixelRevoked = false;
+      return;
+    }
+
     metaPixelLoaded = true;
+    metaPixelRevoked = false;
     !function (f, b, e, v, n, t, s) {
       if (f.fbq) return;
       n = f.fbq = function () {
@@ -95,8 +122,8 @@
   }
 
   function loadGoogleTag() {
-    if (loaded || !isTrackingAllowed()) return;
-    loaded = true;
+    if (gaLoaded || !analyticsAllowed()) return;
+    gaLoaded = true;
     window.gtag("consent", "update", { analytics_storage: "granted" });
     window.gtag("js", new Date());
     window.gtag("config", measurementId, {
@@ -110,11 +137,14 @@
     script.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(measurementId);
     document.head.appendChild(script);
     sendPageView();
-    loadMetaPixel();
   }
 
+  // Meta's own standard-event vocabulary is deliberately not stretched to fit
+  // every Bhumi action: only contact_click maps to a genuine "Lead". Everything
+  // else uses trackCustom with a plain, honest label — no fabricated Purchase
+  // or revenue/value parameters.
   function trackMetaPixel(event) {
-    if (!metaPixelLoaded || typeof window.fbq !== "function") return;
+    if (!metaPixelLoaded || metaPixelRevoked || typeof window.fbq !== "function") return;
     if (event.name === "contact_click") {
       window.fbq("track", "Lead", { content_name: event.tool_name });
     } else if (event.name === "tool_completed") {
@@ -123,16 +153,22 @@
       window.fbq("trackCustom", "PdfDownload", { tool_name: event.tool_name });
     } else if (event.name === "app_download_click") {
       window.fbq("trackCustom", "AppDownloadClick");
+    } else if (event.name === "community_join_click") {
+      window.fbq("trackCustom", "CommunityJoin");
+    } else if (event.name === "personal_blueprint_click") {
+      window.fbq("trackCustom", "PersonalBlueprintClick");
     }
   }
 
   function track(name, metadata) {
-    if (!loaded || !hasConsent()) return;
+    if (!hasAnalyticsConsent() && !hasMarketingConsent()) return;
     var event = normalizeEvent(name, metadata);
     if (!event || event.name === "page_view") return;
-    var parameters = { page_type: pageType(), consent_state: "granted" };
-    if (event.tool_name) parameters.tool_name = event.tool_name;
-    window.gtag("event", event.name, parameters);
+    if (gaLoaded && hasAnalyticsConsent()) {
+      var parameters = { page_type: pageType(), consent_state: "granted" };
+      if (event.tool_name) parameters.tool_name = event.tool_name;
+      window.gtag("event", event.name, parameters);
+    }
     trackMetaPixel(event);
   }
 
@@ -146,8 +182,40 @@
   };
 
   window.addEventListener("bhumi:consent", function (event) {
-    if (event.detail && event.detail.analytics_storage === "granted") loadGoogleTag();
-    else window.gtag("consent", "update", { analytics_storage: "denied" });
+    var detail = event.detail || {};
+
+    if (detail.analytics_storage === "granted") {
+      window.gtag("consent", "update", { analytics_storage: "granted" });
+      loadGoogleTag();
+    } else {
+      window.gtag("consent", "update", { analytics_storage: "denied" });
+    }
+
+    if (detail.ad_storage === "granted") {
+      window.gtag("consent", "update", {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted"
+      });
+      loadMetaPixel();
+    } else {
+      window.gtag("consent", "update", {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+      });
+      // A revoke from true->false is normally followed by bhumi-consent.js
+      // reloading the page (see save() there), which is what actually removes
+      // the Pixel from the DOM. This flag is defense-in-depth for the brief
+      // window before that reload lands, and for any denied->denied event.
+      // Events already sent before revocation cannot be recalled regardless —
+      // see docs/ADS_TRACKING_READINESS.md.
+      if (metaPixelLoaded) metaPixelRevoked = true;
+    }
   });
-  document.addEventListener("DOMContentLoaded", loadGoogleTag);
+
+  document.addEventListener("DOMContentLoaded", function () {
+    loadGoogleTag();
+    loadMetaPixel();
+  });
 })();
