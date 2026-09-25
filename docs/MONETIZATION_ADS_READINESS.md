@@ -37,7 +37,7 @@ Legend: **STRONG** (substantial original editorial value) · **ACCEPTABLE** (com
 - `/terms/`, `/disclaimer/`, `/methodology/` intentionally use a minimal standalone nav (Beranda / Tentang / Kontak, no dropdowns) rather than the full site header — acceptable and common practice for legal/utility pages, not a usability blocker. Each cross-links to the other two legal pages in its footer.
 - No broken dropdowns or dead-end pages found in this pass.
 - **Real finding, fixed (see A4):** the homepage and several tool pages had no path at all to the Privacy Policy — not a broken link, but a missing one.
-- **Real finding, not fixed (see A9):** `/founder` returns a genuine live 404 in production; it is linked from the footer of 9 pages.
+- **Real finding, fixed (see A9):** `/founder` returned a genuine live 404 in production while still being linked from the footer of 9 pages as "Founder Dashboard" — the known-dead link has been removed from all 9 footers.
 
 ### A3. Trust & Transparency
 
@@ -79,11 +79,11 @@ Checked the specific phrase list from the task against the full repository: `ber
 - The loader `<script>` tag appears exactly once per page, on exactly 7 pages (`index.html`, `about/`, `ebook/`, `komunitas/`, `ngopi-ilmu/`, `articles/index.html`, `articles/detail.html`) — no duplicates found.
 - Auto Ads was **not** enabled from code (there is no such code-level toggle to begin with — this is correctly an AdSense-dashboard-only action, per A11 below).
 
-### A9. Two additional findings (fixed one, reported the other)
+### A9. Two additional findings (both now fixed as of this follow-up patch)
 
-**Fixed — broken conversion-tracking hook is covered in section B (Meta) below, not here, since it's a Meta-side issue.**
+**Fixed — broken conversion-tracking hooks are covered in section B (Meta) below, since they're Meta-side issues.**
 
-**Reported, not fixed — `/founder` is a real, live broken link.** `vercel.json` rewrites `/founder` and `/founder/:path*` to `https://bhumi-amartya-clean.vercel.app/founder`. A live fetch of `https://www.bhumiamartya.my.id/founder` returns a genuine Next.js 404 page from that external app (`x-matched-path: /404`), not a routing artifact of this repository. It is linked from the footer of 9 pages (`about/`, `contact/`, `komunitas/`, `privacy-policy/`, `cek-aura/`, `weton/`, `kalkulator-cinta/`, `ebook/`, `tes-kenali-diri/`) as "Founder Dashboard." **Why not fixed here:** the destination lives in a separate Vercel project this repository does not control or audit, and there are two very different possible causes — a temporary deploy issue on that other project (which would self-resolve) versus a permanently retired route (which would need either a working destination or link removal, a product decision outside this task's mandate). Removing a site-wide footer link or changing a cross-project rewrite target based on a guess would violate this task's "do not modify without a clear, minimal, well-understood fix" principle. **Recommendation:** verify the `bhumi-amartya-clean` project's `/founder` route status directly, then either fix that app's route or remove/redirect the link from this repo's 9 footers in a small follow-up.
+**Fixed — `/founder` known-dead footer link removed.** `vercel.json` rewrites `/founder` and `/founder/:path*` to `https://bhumi-amartya-clean.vercel.app/founder`. A live fetch of `https://www.bhumiamartya.my.id/founder` returned a genuine Next.js 404 page from that external app (`x-matched-path: /404`), not a routing artifact of this repository. It was linked from the footer of 9 pages (`about/`, `contact/`, `komunitas/`, `privacy-policy/`, `cek-aura/`, `weton/`, `kalkulator-cinta/`, `ebook/`, `tes-kenali-diri/`) as "Founder Dashboard." **Fix applied:** the `<li><a href="/founder" class="footer-link">Founder Dashboard</a></li>` list item was removed from all 9 footers — a one-line deletion per file, no replacement link added, no redirect invented, no change to `vercel.json`, and the external `bhumi-amartya-clean.vercel.app` project itself was **not** touched or repaired. The separate, valid `#founder`/`../#founder` anchors used elsewhere on these and other pages (e.g. the "Our Team"/"Founder" nav items that scroll to the homepage's existing founder section) were left completely unchanged — those point to real, working content and were never part of this finding. **Rationale for removal over any other fix:** the destination lives in a separate Vercel project this repository does not control, so neither a working replacement URL nor the true cause of the 404 (temporary deploy issue vs. permanently retired route) can be determined from here. Until a real Founder Dashboard route exists, not exposing a known-dead link is the safest production behavior — this is a removal of a broken pointer, not a claim that the underlying dashboard has been built or repaired.
 
 **Interesting, not a blocker, not fixed — `/ebook/` vs `/ebooks/` routing.** `vercel.json` declares a permanent redirect from `/ebook/` to `/ebooks/`, yet a live fetch of `/ebook/` returns **HTTP 200** (not a 3xx) with `ebooks/index.html`'s actual content (`content-disposition: inline; filename="ebooks"`), not this repository's separate `ebook/index.html` file. In other words, `ebook/index.html` (singular) appears to be effectively unreachable at its own canonical path in production, while `/ebook/` transparently serves the `/ebooks/` page. This is a pre-existing routing characteristic, not something this task introduced or needs to resolve — the Kebijakan Privasi fix (A4) was applied to *both* files, so the practical effect is the same either way, but it's worth knowing about this repository's routing behavior for future changes to the `ebook`/`ebooks` pages.
 
@@ -253,6 +253,22 @@ Re-checked against the current production deployment (unchanged since the prior 
 11. `docs/MONETIZATION_ADS_READINESS.md` — this document (new).
 
 Every change above is a one- or two-line edit to an existing line; no file's structure, design, or CSS was touched.
+
+### Follow-up patch — `/founder` known-dead footer link removed (A9)
+
+Removed the `<li><a href="/founder" class="footer-link">Founder Dashboard</a></li>` list item (one line each) from:
+
+1. `about/index.html`
+2. `contact/index.html`
+3. `komunitas/index.html`
+4. `privacy-policy/index.html`
+5. `cek-aura/index.html`
+6. `weton/index.html`
+7. `kalkulator-cinta/index.html`
+8. `ebook/index.html`
+9. `tes-kenali-diri/index.html`
+
+Plus this document, updated to reflect the fix. No other line in any of these 9 files was touched; valid `#founder`/`../#founder` anchors elsewhere on these and other pages are unaffected. No changes to `vercel.json`, `assets/bhumi-analytics.js`, `assets/bhumi-consent.js`, or `assets/bhumi-adsense.js`.
 
 ## Engine Changes
 `0`
