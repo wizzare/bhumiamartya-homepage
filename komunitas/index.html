@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-0971666335614952">
+
+    <!-- SEO Meta Tags -->
+    <title>Komunitas Bhumi Amartya | Ruang Belajar dan Bertumbuh Bersama</title>
+    <meta name="description" content="Gabung Komunitas Bhumi Amartya untuk ngobrol, belajar, berefleksi, dan bertumbuh bersama melalui Sobat Mistis, Ngopi Ilmu, Ngopi Rasa, kelas, dan kegiatan komunitas.">
+    <meta name="author" content="Widhi Wedhaswara">
+    <link rel="canonical" href="https://www.bhumiamartya.my.id/komunitas/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.bhumiamartya.my.id/komunitas/">
+    <meta property="og:title" content="Komunitas Bhumi Amartya | Ruang Belajar dan Bertumbuh Bersama">
+    <meta property="og:description" content="Gabung Komunitas Bhumi Amartya untuk ngobrol, belajar, berefleksi, dan bertumbuh bersama melalui Sobat Mistis, Ngopi Ilmu, Ngopi Rasa, kelas, dan kegiatan komunitas.">
+    <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.bhumiamartya.my.id/komunitas/">
+    <meta name="twitter:title" content="Komunitas Bhumi Amartya | Ruang Belajar dan Bertumbuh Bersama">
+    <meta name="twitter:description" content="Gabung Komunitas Bhumi Amartya untuk ngobrol, belajar, berefleksi, dan bertumbuh bersama melalui Sobat Mistis, Ngopi Ilmu, Ngopi Rasa, kelas, dan kegiatan komunitas.">
+    <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <!-- Structured Data: WebPage + BreadcrumbList (references the homepage's Organization/WebSite graph) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://www.bhumiamartya.my.id/komunitas/#webpage",
+          "url": "https://www.bhumiamartya.my.id/komunitas/",
+          "name": "Komunitas Bhumi Amartya | Ruang Belajar dan Bertumbuh Bersama",
+          "description": "Gabung Komunitas Bhumi Amartya untuk ngobrol, belajar, berefleksi, dan bertumbuh bersama melalui Sobat Mistis, Ngopi Ilmu, Ngopi Rasa, kelas, dan kegiatan komunitas.",
+          "isPartOf": { "@id": "https://www.bhumiamartya.my.id/#website" },
+          "about": { "@id": "https://www.bhumiamartya.my.id/#organization" },
+          "inLanguage": "id-ID"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://www.bhumiamartya.my.id/komunitas/#breadcrumb",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://www.bhumiamartya.my.id/" },
+            { "@type": "ListItem", "position": 2, "name": "Komunitas", "item": "https://www.bhumiamartya.my.id/komunitas/" }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Shared Design System CSS -->
+    <link rel="stylesheet" href="../assets/bhumi-design-system.css">
+    <!-- Google AdSense -->
+    <script src="/assets/bhumi-adsense.js" async></script>
+
+    <!-- Page-specific additions (kept minimal, no new framework/library) -->
+    <style>
+        .hero-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+        .community-subtitle{color:var(--gold-dark);font-weight:600;margin-bottom:1rem}
+        .journey-flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:1rem 0.5rem;margin-top:1rem}
+        .journey-step{background-color:var(--white);border:1px solid rgba(45,75,52,.08);border-radius:16px;padding:1.1rem 1.5rem;box-shadow:var(--shadow-sm);text-align:center;min-width:150px}
+        .journey-step-num{display:block;font-family:var(--font-headings);font-size:1.6rem;color:var(--gold-dark);font-weight:600;line-height:1}
+        .journey-step-label{display:block;font-size:.9rem;font-weight:600;color:var(--text-primary);margin-top:.35rem}
+        .journey-arrow{color:var(--earth-gold);font-size:1.4rem;flex-shrink:0}
+        .guideline-card{background-color:var(--white);border-radius:20px;padding:2.5rem;border:1px solid rgba(45,75,52,.05);box-shadow:var(--shadow-sm);max-width:800px;margin:0 auto}
+        .guideline-list{list-style:none;margin-top:0}
+        .guideline-list li{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:1rem;font-size:.98rem;line-height:1.6;color:var(--text-secondary)}
+        .guideline-list li:last-child{margin-bottom:0}
+        .guideline-list li svg{flex-shrink:0;color:var(--gold-dark);margin-top:.2rem;width:20px;height:20px}
+        .btn-cta-solid{background-color:var(--white);color:var(--forest-green)}
+        .btn-cta-solid:hover{background-color:var(--forest-light)}
+        @media (max-width:768px){
+            .journey-flow{flex-direction:column}
+            .journey-arrow{transform:rotate(90deg)}
+            .guideline-card{padding:1.75rem 1.5rem}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="../" class="logo">
+                <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32">
+                <span>Bhumi Amartya</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../" class="nav-link">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
+                            <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
+                            <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
+                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
+                            <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Konten <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../#youtube" class="dropdown-item">Youtube</a></li>
+                            <li><a href="../#artikel" class="dropdown-item">Ngopi Ilmu</a></li>
+                            <li><a href="../#testimoni" class="dropdown-item">Testimoni</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tentang <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/" class="dropdown-item">Tentang Bhumi</a></li>
+                            <li><a href="../#founder" class="dropdown-item">Our Team</a></li>
+                            <li><a href="../#founder" class="dropdown-item">Founder</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../contact/" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+
+            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="page-hero-inner">
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="../">Beranda</a>
+                <span class="breadcrumb-sep">&rsaquo;</span>
+                <span class="breadcrumb-item active" aria-current="page">Komunitas</span>
+            </nav>
+            <span class="section-tag" style="display: block; margin-bottom: 1rem;">Komunitas Bhumi Amartya</span>
+            <h1>Tidak Harus Bertumbuh Sendirian</h1>
+            <p class="page-tagline">Ruang bertemu, belajar, ngobrol, berefleksi, dan bertumbuh bersama. Bhumi Amartya bukan hanya tempat untuk mengenali diri &mdash; ada ruang untuk bertemu, belajar, berbagi pengalaman, dan bertumbuh bersama orang-orang yang juga sedang menjalani prosesnya masing-masing.</p>
+            <div class="hero-cta-row">
+                <a href="/contact/" class="btn btn-primary" id="hero-primary-cta">Gabung Komunitas Bhumi</a>
+                <a href="#kegiatan" class="btn btn-secondary" id="hero-secondary-cta">Lihat Kegiatan</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobat Mistis -->
+    <section class="section" id="sobat-mistis">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Identitas Komunitas</span>
+                <h2 class="section-title">Sobat Mistis</h2>
+                <p class="community-subtitle">Meeting Spiritual Tiap Saat</p>
+                <p class="section-desc">Sobat Mistis adalah identitas komunitas Bhumi Amartya &mdash; ruang santai untuk ngobrol tentang kehidupan, self-discovery, spiritualitas, pola diri, dan proses bertumbuh tanpa harus merasa sedang berada di kelas formal. Terbuka untuk siapa saja yang ingin belajar dan bertumbuh dengan caranya sendiri.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Komunitas -->
+    <section class="section section-alt" id="program">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Program Komunitas</span>
+                <h2 class="section-title">Ruang untuk Ngobrol, Belajar, dan Berefleksi</h2>
+                <p class="section-desc">Empat ruang utama yang bisa kamu ikuti bersama Sobat Mistis lainnya.</p>
+            </div>
+
+            <div class="system-grid">
+                <!-- Ngopi Ilmu -->
+                <div class="system-card reveal">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg>
+                    </div>
+                    <h3>Ngopi Ilmu</h3>
+                    <p>Obrolan ringan tentang kehidupan, self-discovery, psikologi, spiritualitas, hubungan, karier, finansial, dan skill hidup.</p>
+                    <a href="/ngopi-ilmu/" class="btn btn-secondary" id="program-ngopi-ilmu-cta" style="margin-top: 1.25rem;">Baca Ngopi Ilmu</a>
+                </div>
+
+                <!-- Ngopi Rasa -->
+                <div class="system-card reveal" style="transition-delay: 0.1s;">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l2.5 2.5"/></svg>
+                    </div>
+                    <h3>Ngopi Rasa</h3>
+                    <p>Ruang refleksi untuk berhenti sejenak, mengenali rasa, bermeditasi, dan kembali hadir kepada diri sendiri.</p>
+                </div>
+
+                <!-- Rabu Bertumbuh -->
+                <div class="system-card reveal" style="transition-delay: 0.2s;">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                    </div>
+                    <h3>Rabu Bertumbuh</h3>
+                    <p>Sesi rutin untuk membahas tema-tema pertumbuhan diri, pola hidup, relasi, karier, dan proses menjalani hidup dengan lebih sadar.</p>
+                </div>
+
+                <!-- Kelas Sobat Mistis -->
+                <div class="system-card reveal" style="transition-delay: 0.3s;">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3>Kelas Sobat Mistis</h3>
+                    <p>Ruang belajar lebih terstruktur untuk memperdalam self-discovery, soft skill, digital skill, karier, penghasilan, dan kehidupan yang lebih utuh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Journey -->
+    <section class="section" id="perjalanan">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Perjalanan Bhumi</span>
+                <h2 class="section-title">Bagian dari Perjalananmu, Bukan Produk Terpisah</h2>
+                <p class="section-desc">Komunitas bukan langkah tambahan di luar proses mengenali diri &mdash; ia adalah kelanjutan alami dari perjalanan yang sama.</p>
+            </div>
+
+            <div class="journey-flow reveal">
+                <div class="journey-step"><span class="journey-step-num">1</span><span class="journey-step-label">Kenali Diri</span></div>
+                <span class="journey-arrow" aria-hidden="true">&rarr;</span>
+                <div class="journey-step"><span class="journey-step-num">2</span><span class="journey-step-label">Pahami Pola</span></div>
+                <span class="journey-arrow" aria-hidden="true">&rarr;</span>
+                <div class="journey-step"><span class="journey-step-num">3</span><span class="journey-step-label">Ngobrol &amp; Belajar</span></div>
+                <span class="journey-arrow" aria-hidden="true">&rarr;</span>
+                <div class="journey-step"><span class="journey-step-num">4</span><span class="journey-step-label">Praktik</span></div>
+                <span class="journey-arrow" aria-hidden="true">&rarr;</span>
+                <div class="journey-step"><span class="journey-step-num">5</span><span class="journey-step-label">Bertumbuh Bersama</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kegiatan di Bhumi -->
+    <section class="section section-alt" id="kegiatan">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Kegiatan</span>
+                <h2 class="section-title">Kegiatan di Bhumi</h2>
+                <p class="section-desc">Beberapa ruang rutin yang berjalan di komunitas. Jadwal dan detail terbaru diinformasikan melalui kanal komunitas resmi Bhumi.</p>
+            </div>
+
+            <div class="system-grid">
+                <div class="system-card reveal">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+                    </div>
+                    <h3>Ngopi Ilmu</h3>
+                    <p>Obrolan reflektif seputar kehidupan, self-discovery, psikologi, dan spiritualitas.</p>
+                </div>
+                <div class="system-card reveal" style="transition-delay: 0.1s;">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l2.5 2.5"/></svg>
+                    </div>
+                    <h3>Ngopi Rasa</h3>
+                    <p>Ruang refleksi dan meditasi untuk kembali hadir kepada diri sendiri.</p>
+                </div>
+                <div class="system-card reveal" style="transition-delay: 0.2s;">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                    </div>
+                    <h3>Rabu Bertumbuh</h3>
+                    <p>Sesi rutin bertumbuh bersama Sobat Mistis seputar pola diri dan kehidupan sehari-hari.</p>
+                </div>
+                <div class="system-card reveal" style="transition-delay: 0.3s;">
+                    <div class="system-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    </div>
+                    <h3>Kelas Sobat Mistis</h3>
+                    <p>Kelas dan pembelajaran lanjutan seputar sistem self-discovery dan personal growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Guidelines -->
+    <section class="section" id="panduan">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Panduan Komunitas</span>
+                <h2 class="section-title">Ruang yang Aman untuk Bertumbuh</h2>
+                <p class="section-desc">Beberapa kesepakatan sederhana agar Bhumi tetap menjadi ruang yang nyaman untuk semua orang.</p>
+            </div>
+
+            <div class="guideline-card reveal">
+                <ul class="guideline-list">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Saling menghormati satu sama lain.</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Tidak menghakimi pengalaman orang lain.</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Tidak memberikan diagnosis medis atau psikologis.</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Tidak menjanjikan penyembuhan.</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Tidak memaksakan keyakinan kepada siapa pun.</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Menjaga privasi cerita anggota komunitas.</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Boleh berbeda pandangan, tanpa menyerang secara personal.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section" id="cta-akhir">
+        <div class="container cta-container reveal">
+            <h2 class="cta-title">Ada Ruang untuk Kamu di Bhumi</h2>
+            <p class="cta-desc">Kamu tidak harus memahami semuanya sendirian. Mulai dari satu percakapan, satu refleksi, atau satu sesi yang terasa relevan buatmu.</p>
+            <div class="cta-btns">
+                <a href="/contact/" class="btn btn-cta-solid" id="final-cta-primary">Gabung Komunitas Bhumi</a>
+                <a href="/tes-kenali-diri/" class="btn btn-cta-outline" id="final-cta-secondary">Mulai Kenali Diri</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="kontak">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38" style="object-fit: contain;">
+                    <h4 style="margin: 0; font-size: 1.75rem; color: var(--white);">Bhumi Amartya</h4>
+                </div>
+                <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
+                <div class="footer-socials">
+                    <a href="https://instagram.com/wedhaswara" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Widhi Wedhaswara">
+                        <svg viewBox="0 0 24 24"><path d="M7.75 2h8.5C19.42 2 22 4.58 22 7.75v8.5C22 19.42 19.42 22 16.25 22h-8.5C4.58 22 2 19.42 2 16.25v-8.5C2 4.58 4.58 2 7.75 2zm0 1.5c-2.35 0-4.25 1.9-4.25 4.25v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
+                    </a>
+                    <a href="https://spotify.com/show/bhumiamartya" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Spotify Bhumi Amartya">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.565.387-.86.207-2.377-1.454-5.37-1.783-8.893-.98-.336.075-.668-.135-.745-.47-.077-.337.135-.668.47-.746 3.856-.88 7.15-.503 9.822 1.13.295.18.387.563.206.86zm1.225-2.72c-.226.367-.707.487-1.074.26-2.72-1.672-6.87-2.157-10.076-1.182-.413.125-.85-.107-.975-.52-.125-.413.107-.85.52-.975 3.666-1.112 8.232-.573 11.346 1.343.367.227.488.707.26 1.074zm.107-2.847C14.654 8.922 9.27 8.743 6.16 9.686c-.48.146-.983-.128-1.13-.608-.145-.48.128-.983.608-1.13 3.585-1.088 9.525-.882 13.29 1.353.433.256.574.812.317 1.245-.256.432-.812.574-1.245.317z"/></svg>
+                    </a>
+                    <a href="https://youtube.com/@BhumiAmartya" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube Bhumi Amartya">
+                        <svg viewBox="0 0 24 24"><path d="M23 12s0-3.85-.46-5.58c-.25-.95-1-1.7-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46c-.95.25-1.69 1-1.94 1.96C1 8.15 1 12 1 12s0 3.85.46 5.58c.25.95 1 1.7 1.94 1.96 1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46c.95-.25 1.69-1 1.94-1.96.46-1.73.46-5.58.46-5.58zM9.75 8.4l6.5 3.6-6.5 3.6V8.4z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/bhumiamartya" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter Bhumi Amartya">
+                        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <h5>Menu</h5>
+                <ul class="footer-links-list">
+                    <li><a href="../" class="footer-link">Beranda</a></li>
+                    <li><a href="../about/" class="footer-link">Tentang Bhumi</a></li>
+                    <li><a href="../weton/" class="footer-link">Kenali Diri</a></li>
+                    <li><a href="../#produk" class="footer-link">Produk</a></li>
+                    <li><a href="../#youtube" class="footer-link">Youtube</a></li>
+                    <li><a href="../#artikel" class="footer-link">Ngopi Ilmu</a></li>
+                    <li><a href="../ebook/" class="footer-link">Ebook</a></li>
+                    <li><a href="../#testimoni" class="footer-link">Testimoni</a></li>
+                    <li><a href="../privacy-policy/" class="footer-link">Kebijakan Privasi</a></li>
+                    <li><a href="/founder" class="footer-link">Founder Dashboard</a></li>
+                    <li><a href="../contact/" class="footer-link">Kontak</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h5>Hubungi Kami</h5>
+                <div class="footer-contact-info">
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+                        <span>halo@bhumiamartya.my.id</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>+62 858-1053-1892</span>
+                    </div>
+                    <div class="contact-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Nusa Dua, Bali, Indonesia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Bhumi Amartya. Hak Cipta Dilindungi.</p>
+            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener noreferrer" style="color: var(--earth-gold); font-weight: 500;">Amartya Creative</a> | <a href="../privacy-policy/" style="color: var(--earth-gold); font-weight: 500;">Kebijakan Privasi</a></p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
+
+    <!-- JavaScript Actions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const burgerBtn = document.getElementById('burger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
+
+            const toggleMenu = () => {
+                burgerBtn.classList.toggle('open');
+                navMenu.classList.toggle('open');
+                if (navMenu.classList.contains('open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            };
+
+            burgerBtn.addEventListener('click', toggleMenu);
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.classList.contains('dropdown-toggle')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    if (navMenu.classList.contains('open')) {
+                        toggleMenu();
+                    }
+                });
+            });
+
+            // Header Scroll & Back To Top
+            const header = document.getElementById('header');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+
+                if (window.scrollY > 500) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Scroll Reveal implementation
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            revealElements.forEach(element => {
+                revealOnScroll.observe(element);
+            });
+
+            // Analytics: reuse the existing generic navigation_click event, no new schema
+            const navCtaAnalytics = [
+                ['hero-primary-cta', 'gabung_komunitas_bhumi'],
+                ['hero-secondary-cta', 'lihat_kegiatan'],
+                ['program-ngopi-ilmu-cta', 'lihat_ngopi_ilmu'],
+                ['final-cta-primary', 'gabung_komunitas_bhumi'],
+                ['final-cta-secondary', 'mulai_kenali_diri']
+            ];
+            navCtaAnalytics.forEach(([id, label]) => {
+                const el = document.getElementById(id);
+                if (el && window.BhumiAnalytics) {
+                    el.addEventListener('click', () => {
+                        window.BhumiAnalytics.track('navigation_click', { tool_name: label });
+                    });
+                }
+            });
+        });
+    </script>
+    <script src="../assets/bhumi-consent.js" defer></script>
+    <script src="../assets/bhumi-analytics.js" defer></script>
+</body>
+</html>
