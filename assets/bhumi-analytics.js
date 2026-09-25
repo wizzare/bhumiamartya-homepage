@@ -89,7 +89,16 @@
   }
 
   function loadMetaPixel() {
-    if (metaPixelLoaded || !marketingAllowed()) return;
+    if (!marketingAllowed()) return;
+
+    // Already bootstrapped in this page session (e.g. marketing consent was
+    // revoked and is now granted again): re-arm dispatch without a second
+    // fbq init and without a duplicate PageView.
+    if (metaPixelLoaded) {
+      metaPixelRevoked = false;
+      return;
+    }
+
     metaPixelLoaded = true;
     metaPixelRevoked = false;
     !function (f, b, e, v, n, t, s) {
@@ -195,9 +204,12 @@
         ad_user_data: "denied",
         ad_personalization: "denied"
       });
-      // The Pixel script cannot be unloaded once it has run, and any events it
-      // already sent cannot be recalled. Revoking marketing consent only stops
-      // *future* dispatch from this session — see docs/ADS_TRACKING_READINESS.md.
+      // A revoke from true->false is normally followed by bhumi-consent.js
+      // reloading the page (see save() there), which is what actually removes
+      // the Pixel from the DOM. This flag is defense-in-depth for the brief
+      // window before that reload lands, and for any denied->denied event.
+      // Events already sent before revocation cannot be recalled regardless —
+      // see docs/ADS_TRACKING_READINESS.md.
       if (metaPixelLoaded) metaPixelRevoked = true;
     }
   });

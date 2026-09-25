@@ -69,8 +69,26 @@
   }
 
   function save(state) {
+    var previous = readState();
+    var marketingRevoked = Boolean(previous && previous.marketing) && !state.marketing;
+
     writeV2(state);
     notify(state);
+
+    if (marketingRevoked) {
+      // Meta Pixel and the Google AdSense loader cannot be safely unloaded
+      // once injected — there is no supported Meta/Google API to "undo" an
+      // already-running third-party script. Consent is persisted above
+      // first, then the page is reloaded so the fresh load re-reads consent
+      // and simply never requests either script. Analytics is unaffected —
+      // it still activates independently based on its own stored value.
+      // Granting marketing again does not need a reload: both scripts
+      // activate live via the bhumi:consent event handled in
+      // bhumi-analytics.js / bhumi-adsense.js.
+      window.location.reload();
+      return;
+    }
+
     render("manage");
   }
 
