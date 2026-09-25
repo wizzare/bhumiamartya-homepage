@@ -2180,7 +2180,7 @@
             border: 0;
         }
     </style>    <!-- Google AdSense -->
-    <script src="/assets/bhumi-adsense.js" async></script>
+    <script src="/assets/bhumi-adsense.js" defer></script>
 
 </head>
 <body>
@@ -3306,17 +3306,17 @@
             }
 
             const navCtaAnalytics = [
-                ['hero-primary-cta', 'mulai_kenali_diri'],
-                ['hero-community-cta', 'gabung_komunitas'],
-                ['blueprint-section-cta', 'lihat_personal_blueprint'],
-                ['community-cta-primary', 'gabung_komunitas_bhumi'],
-                ['community-cta-secondary', 'lihat_ngopi_ilmu']
+                ['hero-primary-cta', 'navigation_click', 'mulai_kenali_diri'],
+                ['hero-community-cta', 'navigation_click', 'gabung_komunitas'],
+                ['blueprint-section-cta', 'personal_blueprint_click', null],
+                ['community-cta-primary', 'community_join_click', null],
+                ['community-cta-secondary', 'navigation_click', 'lihat_ngopi_ilmu']
             ];
-            navCtaAnalytics.forEach(([id, label]) => {
+            navCtaAnalytics.forEach(([id, eventName, toolName]) => {
                 const el = document.getElementById(id);
                 if (el && window.BhumiAnalytics) {
                     el.addEventListener('click', () => {
-                        window.BhumiAnalytics.track('navigation_click', { tool_name: label });
+                        window.BhumiAnalytics.track(eventName, toolName ? { tool_name: toolName } : undefined);
                     });
                 }
             });
