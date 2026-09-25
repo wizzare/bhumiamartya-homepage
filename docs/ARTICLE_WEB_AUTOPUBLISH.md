@@ -1,5 +1,7 @@
 # Artikel Web Auto-Publish
 
+> **Status: TECHNICAL — STILL VALID.** Unrelated to positioning; see `docs/CONTENT_GOVERNANCE.md` §9 for the claim-governance expectations that apply to articles this pipeline publishes.
+
 Second daily content pipeline, sibling to Morning Brew — same architecture, separate
 credentials, separate Drive subfolder, does not touch Morning Brew's trigger/folder/secret.
 

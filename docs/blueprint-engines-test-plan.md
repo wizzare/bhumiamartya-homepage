@@ -1,5 +1,7 @@
 # Blueprint Engines Test Plan
 
+> **Status: TECHNICAL — STILL VALID, WITH A KNOWN OPEN FAILURE (verified 2026-09-25).** Running `npm install && npm run test:engines` shows `tests/engines-fixture-a.test.mjs` failing (Human Design strategy: expected "To Respond", got "Wait to Respond") against Fixture A below. Tracked in `docs/TODO.md` P0 and `FEATURE_PARITY_MATRIX.md` → "Grand Design Alignment". Not fixed as part of the 2026-09-25 documentation-only pass (no engine changes permitted in that task).
+
 ## Fixture A (Baseline)
 
 ```json

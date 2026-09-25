@@ -1,5 +1,7 @@
 # Blueprint Engines Feasibility Report
 
+> **Status: PARTIALLY SUPERSEDED (2026-09-25 audit).** This report describes Vedic as "TIDAK ADA" / "ENGINE IMPLEMENTATION: NOT STARTED". As of this audit, `lib/vedic/` exists with 8 modules (`constants.mjs`, `ayanamsa.mjs`, `rashi.mjs`, `moon-position.mjs`, `calculate.mjs`, `nakshatra.mjs`, `vimshottari.mjs`, `julian.mjs`) and `api/blueprint-engines.mjs` exists with a passing test. The historical analysis below (why HD was GO and Vedic was CONDITIONAL GO) is kept for context; for current implementation status see `FEATURE_PARITY_MATRIX.md` → "Grand Design Alignment" and `docs/blueprint-engines-test-plan.md`. Product-direction source of truth is `docs/SOT.md`.
+
 ## Baseline
 
 - Branch: `feat/website-blueprint-engines`
