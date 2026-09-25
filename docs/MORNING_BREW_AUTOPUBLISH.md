@@ -1,5 +1,7 @@
 # Morning Brew Auto-Publish
 
+> **Status: TECHNICAL — STILL VALID.** Unrelated to positioning; see `docs/CONTENT_GOVERNANCE.md` §9 for the claim-governance expectations that apply to articles this pipeline publishes.
+
 Scope: **Morning Brew only.** No new database, CMS, worker, or scheduler — reuses the
 site's existing Firestore `articles` collection and its existing WIF-based Firestore client.
 

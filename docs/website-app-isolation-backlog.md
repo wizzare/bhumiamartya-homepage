@@ -1,5 +1,7 @@
 # Website-App Isolation Backlog
 
+> **Scope note (2026-09-25):** this backlog is a separate concern from the Grand Design redesign (`docs/SOT.md`, `docs/GRAND_DESIGN.md`). Redesign work must not add *new* dependencies of the kind tracked here; reducing the existing ones tracked below is not part of the Grand Design documentation task. Re-verified against `vercel.json` on 2026-09-25 — the table below is still accurate.
+
 ## Status: PARTIAL
 
 ### Route /cek-aura/

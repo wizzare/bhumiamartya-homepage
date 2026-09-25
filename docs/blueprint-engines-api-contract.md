@@ -1,5 +1,7 @@
 # Blueprint Engines API Contract
 
+> **Status: TECHNICAL — STILL VALID (verified 2026-09-25).** `api/blueprint-engines.mjs` and `lib/vedic/` exist and `tests/api-blueprint-engines.test.mjs` passes. Product/positioning source of truth: `docs/SOT.md`. No API behavior was changed in the 2026-09-25 documentation pass.
+
 ## Endpoint
 
 ```
