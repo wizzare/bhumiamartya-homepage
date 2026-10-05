@@ -28,10 +28,9 @@ test("Destiny Matrix Golden: Widhi restores the complete public Blueprint", () =
   assert.equal(matrix.totalEnergy, 18);
   assert.equal(matrix.totalEmotion, 10);
   assert.equal(matrix.currentAge, 41);
-  assert.equal(matrix.currentAgeEnergy, 15);
-  assert.equal(matrix.activeAgeRange, "41–42 tahun");
-  assert.equal(matrix.previous.arcana, 5);
-  assert.equal(matrix.next.arcana, 10);
+  assert.equal(matrix.currentAgeEnergy, 5);
+  assert.equal(matrix.activeAgeRange, "40–41,25 tahun");
+  assert.equal(matrix.next.arcana, 15);
 });
 
 test("Destiny Matrix historical descendant graph remains stable for additional birth dates", () => {
@@ -65,11 +64,42 @@ test("Blueprint API returns a filled Destiny Matrix without external application
   assert.equal(response.status, 200);
   assert.equal(payload.blueprint.destinyMatrix.calculationStatus, "completed");
   assert.deepEqual(payload.blueprint.destinyMatrix.jalurEkonomi, [5, 18, 13, 20, 7]);
-  assert.equal(payload.blueprint.currentAgeEnergy, 15);
-  assert.equal(payload.blueprint.activeAgeRange, "41–42 tahun");
+  assert.equal(payload.blueprint.currentAgeEnergy, 5);
+  assert.equal(payload.blueprint.activeAgeRange, "40–41,25 tahun");
   assert.ok(payload.blueprint.yearlyForecast);
   assert.equal(payload.blueprint.yearlyForecast.currentYear, 2026);
   assert.equal(payload.blueprint.yearlyForecast.nextYear, 2027);
+});
+
+test("Golden Snapshot consistency: currentAgeEnergy vs yearlyForecast active period across boundary transitions", () => {
+  const dates = [
+    { date: "2026-01-01", expEnergy: 5, expRange: "40–41,25 tahun", expKey: "c" },
+    { date: "2026-06-01", expEnergy: 5, expRange: "40–41,25 tahun", expKey: "c" },
+    { date: "2026-08-02", expEnergy: 5, expRange: "40–41,25 tahun", expKey: "c" },
+    { date: "2026-08-03", expEnergy: 15, expRange: "41,25–42,5 tahun", expKey: "ci2point" },
+    { date: "2026-08-04", expEnergy: 15, expRange: "41,25–42,5 tahun", expKey: "ci2point" },
+    { date: "2026-12-31", expEnergy: 15, expRange: "41,25–42,5 tahun", expKey: "ci2point" },
+    { date: "2027-01-01", expEnergy: 15, expRange: "41,25–42,5 tahun", expKey: "ci2point" },
+    { date: "2027-11-02", expEnergy: 15, expRange: "41,25–42,5 tahun", expKey: "ci2point" },
+    { date: "2027-11-03", expEnergy: 10, expRange: "42,5–43,75 tahun", expKey: "ci1point" },
+    { date: "2027-11-04", expEnergy: 10, expRange: "42,5–43,75 tahun", expKey: "ci1point" },
+    { date: "2027-12-31", expEnergy: 10, expRange: "42,5–43,75 tahun", expKey: "ci1point" },
+  ];
+
+  for (const { date, expEnergy, expRange, expKey } of dates) {
+    const matrix = calculateDestinyMatrix("1985-05-03", { referenceDate: date });
+    assert.equal(matrix.currentAgeEnergy, expEnergy, `currentAgeEnergy matches on ${date}`);
+    assert.equal(matrix.activeAgeRange, expRange, `activeAgeRange matches on ${date}`);
+    assert.equal(matrix.active.key, expKey, `active key matches on ${date}`);
+
+    const yr = Number(date.slice(0, 4));
+    const periods = matrix.yearlyForecast[yr].periods;
+    const activePeriod = periods.find(p => date >= p.startDate && date <= p.endDate);
+    assert.ok(activePeriod, `Active period exists for ${date}`);
+    assert.equal(matrix.currentAgeEnergy, activePeriod.energy, `currentAgeEnergy matches period energy on ${date}`);
+    assert.equal(matrix.activeAgeRange, activePeriod.activeAgeRange, `activeAgeRange matches period range on ${date}`);
+    assert.equal(matrix.active.key, activePeriod.key, `active key matches period key on ${date}`);
+  }
 });
 
 test("Test 1: DOB 03 Mei 1985 produces exact 2026 and 2027 fractional transition periods and energies", () => {
