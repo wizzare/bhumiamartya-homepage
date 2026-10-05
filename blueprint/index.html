@@ -836,15 +836,59 @@
                                 </div>
 
                                 <!-- Forecasting Destiny Matrix -->
-                                <div class="dm-subsection" style="margin-bottom:1.5rem;">
-                                    <div style="font-weight:700;color:#4F5E52;margin-bottom:0.75rem;">Forecasting Destiny Matrix</div>
-                                    <table class="matrix-table">
-                                        <tbody>
-                                            <tr><td class="label-cell">Usia Saat Ini</td><td class="value-cell" id="res-dm-current-age">-</td></tr>
-                                            <tr><td class="label-cell">Arcana Aktif</td><td class="value-cell" id="res-dm-age-energy" style="color:#B8860B;font-weight:700;">-</td></tr>
-                                            <tr><td class="label-cell">Rentang Usia Aktif</td><td class="value-cell" id="res-dm-age-range">-</td></tr>
-                                        </tbody>
-                                    </table>
+                                <div class="dm-subsection" style="margin-bottom:1.75rem;">
+                                    <div style="font-weight:700;color:#2D4B34;font-size:1.15rem;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;">
+                                        <span>Forecasting Energi Usia Destiny Matrix</span>
+                                    </div>
+                                    
+                                    <!-- Current Year Group -->
+                                    <div style="background:#fff;border:1px solid rgba(45,75,52,0.1);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.02);">
+                                        <div style="font-weight:700;color:#4F5E52;margin-bottom:0.6rem;font-size:1rem;" id="dm-forecast-current-heading">
+                                            Energi Usia 2026 <span style="font-weight:500;font-size:0.85rem;color:#7B8776;">(Kondisi Saat Ini)</span>
+                                        </div>
+                                        <div style="overflow-x:auto;">
+                                            <table class="matrix-table" style="margin-bottom:0;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:38%;">Periode Kalender</th>
+                                                        <th style="width:36%;">Usia & Rentang</th>
+                                                        <th style="width:26%;">Energi Arcana</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="res-dm-forecast-current-body">
+                                                    <tr><td colspan="3" style="text-align:center;color:#7B8776;padding:0.75rem;">-</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Next Year Group -->
+                                    <div style="background:#fff;border:1px solid rgba(45,75,52,0.1);border-radius:12px;padding:1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,0.02);">
+                                        <div style="font-weight:700;color:#4F5E52;margin-bottom:0.6rem;font-size:1rem;" id="dm-forecast-next-heading">
+                                            Energi Usia 2027 <span style="font-weight:500;font-size:0.85rem;color:#7B8776;">(Proyeksi Tahun Berikutnya)</span>
+                                        </div>
+                                        <div style="overflow-x:auto;">
+                                            <table class="matrix-table" style="margin-bottom:0;">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:38%;">Periode Kalender</th>
+                                                        <th style="width:36%;">Usia & Rentang</th>
+                                                        <th style="width:26%;">Energi Arcana</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="res-dm-forecast-next-body">
+                                                    <tr><td colspan="3" style="text-align:center;color:#7B8776;padding:0.75rem;">-</td></tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Backward compatibility elements for legacy readers/tests -->
+                                    <div style="display:none;" aria-hidden="true">
+                                        <span id="res-dm-current-age">-</span>
+                                        <span id="res-dm-age-energy">-</span>
+                                        <span id="res-dm-age-range">-</span>
+                                    </div>
                                 </div>
 
                                 <span class="generic-fields-toggle" onclick="toggleGeneric('dm-generic')">Tampilkan Semua Parameter</span>
@@ -1387,10 +1431,58 @@
                 document.getElementById('res-dm-gtalent').textContent = dmValue('bakatAgung', 'talentsGreat', 'talents');
                 
                 // Renders Yearly Arcana directly from blueprint object (SSoT)
-                document.getElementById('res-dm-age-energy').textContent = formatDestinyValue(bp.currentAgeEnergy ?? dm.currentAgeEnergy);
+                const elemAgeEnergy = document.getElementById('res-dm-age-energy');
+                if (elemAgeEnergy) elemAgeEnergy.textContent = formatDestinyValue(bp.currentAgeEnergy ?? dm.currentAgeEnergy);
                 const displayedAge = bp.currentAge ?? dm.currentAge;
-                document.getElementById('res-dm-current-age').textContent = displayedAge !== undefined && displayedAge !== null ? displayedAge + ' tahun' : '-';
-                document.getElementById('res-dm-age-range').textContent = formatDestinyValue(bp.activeAgeRange ?? dm.activeAgeRange);
+                const elemCurrentAge = document.getElementById('res-dm-current-age');
+                if (elemCurrentAge) elemCurrentAge.textContent = displayedAge !== undefined && displayedAge !== null ? displayedAge + ' tahun' : '-';
+                const elemAgeRange = document.getElementById('res-dm-age-range');
+                if (elemAgeRange) elemAgeRange.textContent = formatDestinyValue(bp.activeAgeRange ?? dm.activeAgeRange);
+
+                // Render Yearly Forecasting (Current Year & Next Year)
+                const yf = bp.yearlyForecast || dm.yearlyForecast;
+                const curYr = yf && yf.currentYear ? yf.currentYear : new Date().getFullYear();
+                const nxtYr = yf && yf.nextYear ? yf.nextYear : curYr + 1;
+
+                const curHeading = document.getElementById('dm-forecast-current-heading');
+                if (curHeading) curHeading.innerHTML = `Energi Usia ${curYr} <span style="font-weight:500;font-size:0.85rem;color:#7B8776;">(Kondisi Saat Ini)</span>`;
+
+                const nxtHeading = document.getElementById('dm-forecast-next-heading');
+                if (nxtHeading) nxtHeading.innerHTML = `Energi Usia ${nxtYr} <span style="font-weight:500;font-size:0.85rem;color:#7B8776;">(Proyeksi Tahun Berikutnya)</span>`;
+
+                function renderForecastRows(tbodyId, periods) {
+                    const tbody = document.getElementById(tbodyId);
+                    if (!tbody) return;
+                    tbody.innerHTML = '';
+                    if (!periods || periods.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:#7B8776;padding:0.75rem;">Data tidak tersedia</td></tr>';
+                        return;
+                    }
+                    periods.forEach(p => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="label-cell" style="font-weight:600;color:#2D4B34;padding:0.75rem 1rem;">${p.label}</td>
+                            <td class="value-cell" style="color:#4F5E52;padding:0.75rem 1rem;">Usia ${p.age} thn <span style="font-size:0.85rem;color:#7B8776;">(${p.activeAgeRange})</span></td>
+                            <td class="value-cell" style="color:#B8860B;font-weight:700;font-size:1.1rem;padding:0.75rem 1rem;">Arcana ${p.energy}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                }
+
+                if (yf && yf[curYr]) {
+                    renderForecastRows('res-dm-forecast-current-body', yf[curYr].periods);
+                } else {
+                    renderForecastRows('res-dm-forecast-current-body', [{
+                        label: `Tahun ${curYr}`,
+                        age: displayedAge ?? '-',
+                        activeAgeRange: bp.activeAgeRange ?? dm.activeAgeRange ?? '-',
+                        energy: bp.currentAgeEnergy ?? dm.currentAgeEnergy ?? '-'
+                    }]);
+                }
+
+                if (yf && yf[nxtYr]) {
+                    renderForecastRows('res-dm-forecast-next-body', yf[nxtYr].periods);
+                }
 
                 // Destiny Matrix Generic fields
                 renderGenericTable(dm, 'dm-generic', [

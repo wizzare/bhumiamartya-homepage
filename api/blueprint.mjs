@@ -75,6 +75,7 @@ export default async function handler(req, res) {
         currentAge: destinyMatrix.currentAge,
         currentAgeEnergy: destinyMatrix.currentAgeEnergy,
         activeAgeRange: destinyMatrix.activeAgeRange,
+        yearlyForecast: destinyMatrix.yearlyForecast,
         destinyMatrix,
         astrology,
         natalChart: astrology,
