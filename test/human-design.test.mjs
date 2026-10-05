@@ -389,8 +389,9 @@ test("gatesPersonality menolak gate di luar 1-64", () => {
 // ============================================
 
 test("Raw data yang sama menghasilkan normalisasi identik", () => {
-  const a = normalizeHumanDesignResponse(WIDHI_RAW);
-  const b = normalizeHumanDesignResponse(WIDHI_RAW);
+  const fixedNow = "2026-10-05T00:00:00.000Z";
+  const a = normalizeHumanDesignResponse(WIDHI_RAW, { now: fixedNow });
+  const b = normalizeHumanDesignResponse(WIDHI_RAW, { now: fixedNow });
   assert.deepEqual(a, b);
 });
 

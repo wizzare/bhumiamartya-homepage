@@ -1460,10 +1460,13 @@
                     }
                     periods.forEach(p => {
                         const tr = document.createElement('tr');
+                        let rangeText = p.ageRange || p.activeAgeRange || (p.ageFrom !== undefined && p.ageTo !== undefined ? `${p.ageFrom}–${p.ageTo} tahun` : `${p.age} tahun`);
+                        if (!rangeText.startsWith('Usia ')) rangeText = `Usia ${rangeText}`;
+                        const arcanaLabel = p.arcanaName ? `Arcana ${p.energy} <span style="font-weight:500;font-size:0.85rem;color:#7B8776;">(${p.arcanaName})</span>` : `Arcana ${p.energy}`;
                         tr.innerHTML = `
                             <td class="label-cell" style="font-weight:600;color:#2D4B34;padding:0.75rem 1rem;">${p.label}</td>
-                            <td class="value-cell" style="color:#4F5E52;padding:0.75rem 1rem;">Usia ${p.age} thn <span style="font-size:0.85rem;color:#7B8776;">(${p.activeAgeRange})</span></td>
-                            <td class="value-cell" style="color:#B8860B;font-weight:700;font-size:1.1rem;padding:0.75rem 1rem;">Arcana ${p.energy}</td>
+                            <td class="value-cell" style="color:#4F5E52;padding:0.75rem 1rem;">${rangeText}</td>
+                            <td class="value-cell" style="color:#B8860B;font-weight:700;font-size:1.05rem;padding:0.75rem 1rem;">${arcanaLabel}</td>
                         `;
                         tbody.appendChild(tr);
                     });

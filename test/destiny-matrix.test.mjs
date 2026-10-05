@@ -72,105 +72,128 @@ test("Blueprint API returns a filled Destiny Matrix without external application
   assert.equal(payload.blueprint.yearlyForecast.nextYear, 2027);
 });
 
-test("Test 1: DOB 03 Mei 1985 produces exact 2026 and 2027 transition periods and energies", () => {
+test("Test 1: DOB 03 Mei 1985 produces exact 2026 and 2027 fractional transition periods and energies", () => {
   const result = calculateDestinyMatrix("1985-05-03", { referenceDate: "2026-07-29" });
   const yf = result.yearlyForecast;
   assert.equal(yf.currentYear, 2026);
   assert.equal(yf.nextYear, 2027);
 
-  // 2026: 1 Jan - 2 Mei (age 40, arcana 5), 3 Mei - 31 Des (age 41, arcana 15)
+  // 2026:
+  // Age 40 (c): 1985-05-03 + 40y = 2025-05-03
+  // Age 41.25 (ci2point): 1985-05-03 + 41y 3m = 2026-08-03
+  // Period 1: 1 Jan - 2 Agu 2026 (age 40–41.25, arcana 5 - The Hierophant, key 'c')
+  // Period 2: 3 Agu - 31 Des 2026 (age 41.25–42.5, arcana 15 - The Devil, key 'ci2point')
   const p2026 = yf[2026].periods;
   assert.equal(p2026.length, 2);
   assert.equal(p2026[0].startDate, "2026-01-01");
-  assert.equal(p2026[0].endDate, "2026-05-02");
-  assert.equal(p2026[0].label, "1 Januari – 2 Mei 2026");
-  assert.equal(p2026[0].age, 40);
-  assert.equal(p2026[0].activeAgeRange, "40–41 tahun");
+  assert.equal(p2026[0].endDate, "2026-08-02");
+  assert.equal(p2026[0].label, "1 Januari – 2 Agustus 2026");
+  assert.equal(p2026[0].ageFrom, 40);
+  assert.equal(p2026[0].ageTo, 41.25);
+  assert.equal(p2026[0].activeAgeRange, "40–41,25 tahun");
   assert.equal(p2026[0].energy, 5);
+  assert.equal(p2026[0].arcanaName, "The Hierophant");
+  assert.equal(p2026[0].key, "c");
 
-  assert.equal(p2026[1].startDate, "2026-05-03");
+  assert.equal(p2026[1].startDate, "2026-08-03");
   assert.equal(p2026[1].endDate, "2026-12-31");
-  assert.equal(p2026[1].label, "3 Mei – 31 Desember 2026");
-  assert.equal(p2026[1].age, 41);
-  assert.equal(p2026[1].activeAgeRange, "41–42 tahun");
+  assert.equal(p2026[1].label, "3 Agustus – 31 Desember 2026");
+  assert.equal(p2026[1].ageFrom, 41.25);
+  assert.equal(p2026[1].ageTo, 42.5);
+  assert.equal(p2026[1].activeAgeRange, "41,25–42,5 tahun");
   assert.equal(p2026[1].energy, 15);
+  assert.equal(p2026[1].arcanaName, "The Devil");
+  assert.equal(p2026[1].key, "ci2point");
 
-  // 2027: 1 Jan - 2 Mei (age 41, arcana 15), 3 Mei - 31 Des (age 42, arcana 10)
+  // 2027:
+  // Age 42.5 (ci1point): 1985-05-03 + 42y 6m = 2027-11-03
+  // Period 1: 1 Jan - 2 Nov 2027 (age 41.25–42.5, arcana 15 - The Devil, key 'ci2point')
+  // Period 2: 3 Nov - 31 Des 2027 (age 42.5–43.75, arcana 10 - Wheel of Fortune, key 'ci1point')
   const p2027 = yf[2027].periods;
   assert.equal(p2027.length, 2);
   assert.equal(p2027[0].startDate, "2027-01-01");
-  assert.equal(p2027[0].endDate, "2027-05-02");
-  assert.equal(p2027[0].label, "1 Januari – 2 Mei 2027");
-  assert.equal(p2027[0].age, 41);
-  assert.equal(p2027[0].activeAgeRange, "41–42 tahun");
+  assert.equal(p2027[0].endDate, "2027-11-02");
+  assert.equal(p2027[0].label, "1 Januari – 2 November 2027");
+  assert.equal(p2027[0].ageFrom, 41.25);
+  assert.equal(p2027[0].ageTo, 42.5);
+  assert.equal(p2027[0].activeAgeRange, "41,25–42,5 tahun");
   assert.equal(p2027[0].energy, 15);
+  assert.equal(p2027[0].arcanaName, "The Devil");
+  assert.equal(p2027[0].key, "ci2point");
 
-  assert.equal(p2027[1].startDate, "2027-05-03");
+  assert.equal(p2027[1].startDate, "2027-11-03");
   assert.equal(p2027[1].endDate, "2027-12-31");
-  assert.equal(p2027[1].label, "3 Mei – 31 Desember 2027");
-  assert.equal(p2027[1].age, 42);
-  assert.equal(p2027[1].activeAgeRange, "42–43 tahun");
+  assert.equal(p2027[1].label, "3 November – 31 Desember 2027");
+  assert.equal(p2027[1].ageFrom, 42.5);
+  assert.equal(p2027[1].ageTo, 43.75);
+  assert.equal(p2027[1].activeAgeRange, "42,5–43,75 tahun");
+  assert.equal(p2027[1].energy, 10);
+  assert.equal(p2027[1].arcanaName, "Wheel of Fortune");
+  assert.equal(p2027[1].key, "ci1point");
+});
+
+test("Test 2: Mid-year boundary transitions accurately trigger on exact days", () => {
+  // Widhi DOB 1985-05-03:
+  // 41.25 boundary is 2026-08-03
+  // 2026-08-02 is in period 1 (age 40–41.25, arcana 5)
+  // 2026-08-03 is in period 2 (age 41.25–42.5, arcana 15)
+  const result2026 = calculateDestinyMatrix("1985-05-03", { referenceDate: "2026-08-03" });
+  const p2026 = result2026.yearlyForecast[2026].periods;
+  assert.equal(p2026[0].endDate, "2026-08-02");
+  assert.equal(p2026[0].energy, 5);
+  assert.equal(p2026[1].startDate, "2026-08-03");
+  assert.equal(p2026[1].energy, 15);
+
+  // 42.5 boundary is 2027-11-03
+  // 2027-11-02 is in period 1 (age 41.25–42.5, arcana 15)
+  // 2027-11-03 is in period 2 (age 42.5–43.75, arcana 10)
+  const p2027 = result2026.yearlyForecast[2027].periods;
+  assert.equal(p2027[0].endDate, "2027-11-02");
+  assert.equal(p2027[0].energy, 15);
+  assert.equal(p2027[1].startDate, "2027-11-03");
   assert.equal(p2027[1].energy, 10);
 });
 
-test("Test 2: DOB in January (01 Januari) produces single contiguous period per year", () => {
-  const result = calculateDestinyMatrix("1990-01-01", { referenceDate: "2026-07-29" });
+test("Test 3: Year spanning a single interval produces single contiguous period", () => {
+  // DOB 1990-12-31:
+  // 35.00 (+5y 0m) = 2025-12-31
+  // 36.25 (+6y 3m) = 2027-03-31
+  // Entire 2026 calendar year lies within [35.0, 36.25) -> single period!
+  const result = calculateDestinyMatrix("1990-12-31", { referenceDate: "2026-07-29" });
   const p2026 = result.yearlyForecast[2026].periods;
   assert.equal(p2026.length, 1);
   assert.equal(p2026[0].startDate, "2026-01-01");
   assert.equal(p2026[0].endDate, "2026-12-31");
   assert.equal(p2026[0].label, "1 Januari – 31 Desember 2026");
-  assert.equal(p2026[0].age, 36);
-
-  const p2027 = result.yearlyForecast[2027].periods;
-  assert.equal(p2027.length, 1);
-  assert.equal(p2027[0].startDate, "2027-01-01");
-  assert.equal(p2027[0].endDate, "2027-12-31");
-  assert.equal(p2027[0].label, "1 Januari – 31 Desember 2027");
-  assert.equal(p2027[0].age, 37);
+  assert.equal(p2026[0].activeAgeRange, "35–36,25 tahun");
 });
 
-test("Test 3: DOB in December (31 Desember) handles year boundary with exact single-day final period", () => {
-  const result = calculateDestinyMatrix("1990-12-31", { referenceDate: "2026-07-29" });
-  const p2026 = result.yearlyForecast[2026].periods;
-  assert.equal(p2026.length, 2);
-  assert.equal(p2026[0].startDate, "2026-01-01");
-  assert.equal(p2026[0].endDate, "2026-12-30");
-  assert.equal(p2026[0].label, "1 Januari – 30 Desember 2026");
-  assert.equal(p2026[0].age, 35);
-
-  assert.equal(p2026[1].startDate, "2026-12-31");
-  assert.equal(p2026[1].endDate, "2026-12-31");
-  assert.equal(p2026[1].label, "31 Desember 2026");
-  assert.equal(p2026[1].age, 36);
-});
-
-test("Test 4: DOB 29 Februari (Leap Year) handles non-leap year (28 Feb) and leap year (29 Feb)", () => {
+test("Test 4: DOB 29 Februari (Leap Year) handles non-leap and leap year boundaries deterministically", () => {
+  // DOB 2000-02-29:
+  // 25.00 (+5y 0m) = 2025-02-28
+  // 26.25 (+6y 3m) = 2026-05-29
   const result = calculateDestinyMatrix("2000-02-29", { referenceDate: "2026-07-29" });
-  // 2026 (non-leap): birthday falls on 28 Feb
   const p2026 = result.yearlyForecast[2026].periods;
   assert.equal(p2026.length, 2);
   assert.equal(p2026[0].startDate, "2026-01-01");
-  assert.equal(p2026[0].endDate, "2026-02-27");
-  assert.equal(p2026[0].label, "1 Januari – 27 Februari 2026");
-  assert.equal(p2026[0].age, 25);
-  assert.equal(p2026[1].startDate, "2026-02-28");
+  assert.equal(p2026[0].endDate, "2026-05-27");
+  assert.equal(p2026[0].label, "1 Januari – 27 Mei 2026");
+  assert.equal(p2026[0].activeAgeRange, "25–26,25 tahun");
+  assert.equal(p2026[1].startDate, "2026-05-28");
   assert.equal(p2026[1].endDate, "2026-12-31");
-  assert.equal(p2026[1].label, "28 Februari – 31 Desember 2026");
-  assert.equal(p2026[1].age, 26);
+  assert.equal(p2026[1].label, "28 Mei – 31 Desember 2026");
+  assert.equal(p2026[1].activeAgeRange, "26,25–27,5 tahun");
 
-  // 2028 (leap year): birthday falls on 29 Feb
+  // In 2028 (leap year), boundary 28.75 (+8y 9m) falls on 2028-11-29
   const res2028 = calculateDestinyMatrix("2000-02-29", { referenceDate: "2028-01-15" });
   const p2028 = res2028.yearlyForecast[2028].periods;
   assert.equal(p2028.length, 2);
   assert.equal(p2028[0].startDate, "2028-01-01");
-  assert.equal(p2028[0].endDate, "2028-02-28");
-  assert.equal(p2028[0].label, "1 Januari – 28 Februari 2028");
-  assert.equal(p2028[0].age, 27);
-  assert.equal(p2028[1].startDate, "2028-02-29");
+  assert.equal(p2028[0].endDate, "2028-11-28");
+  assert.equal(p2028[0].activeAgeRange, "27,5–28,75 tahun");
+  assert.equal(p2028[1].startDate, "2028-11-29");
   assert.equal(p2028[1].endDate, "2028-12-31");
-  assert.equal(p2028[1].label, "29 Februari – 31 Desember 2028");
-  assert.equal(p2028[1].age, 28);
+  assert.equal(p2028[1].activeAgeRange, "28,75–30 tahun");
 });
 
 test("Test 5: Invariant verification: no NaN, no undefined, valid dates, no gaps, no overlaps", () => {
