@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-0971666335614952">
+    <title>Compatibility Matrix Online | Bhumi Amartya</title>
+    <meta name="description" content="Kalkulator Compatibility Matrix Bhumi Amartya. Lihat peta energi oktagon yang terbentuk ketika dua perjalanan hidup bertemu secara simbolik, gratis, dan privat.">
+    <meta name="keywords" content="Compatibility Matrix, Destiny Matrix Relasi, Kecocokan Pasangan, Bhumi Amartya, Love Line, Karmic Tail, Arcana, Blueprint Hubungan">
+    <meta name="author" content="Widhi Wedhaswara">
+    <link rel="canonical" href="https://www.bhumiamartya.my.id/matrixcompability/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.bhumiamartya.my.id/matrixcompability/">
+    <meta property="og:title" content="Compatibility Matrix Online | Bhumi Amartya">
+    <meta property="og:description" content="Lihat peta energi yang terbentuk ketika dua perjalanan bertemu. Kalkulator gratis, privat, dan berbasis Destiny Matrix approved.">
+    <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.bhumiamartya.my.id/matrixcompability/">
+    <meta name="twitter:title" content="Compatibility Matrix Online | Bhumi Amartya">
+    <meta name="twitter:description" content="Lihat peta energi yang terbentuk ketika dua perjalanan bertemu.">
+    <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/bhumi-design-system.css">
+
+    <style>
+        .compatibility-section {
+            padding: 4.5rem 0 6rem;
+        }
+
+        .matrix-intro-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 24px;
+            box-shadow: var(--shadow-sm);
+            padding: 2.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .matrix-intro-card h2 {
+            font-family: var(--font-headings);
+            font-size: 1.85rem;
+            color: var(--forest-green);
+            margin-bottom: 0.6rem;
+        }
+
+        .matrix-intro-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .partner-inputs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.75rem;
+            margin: 1.5rem 0 2rem;
+        }
+
+        .partner-box {
+            background-color: var(--bg-primary);
+            border: 1px solid rgba(45, 75, 52, 0.07);
+            border-radius: 18px;
+            padding: 1.5rem;
+        }
+
+        .partner-box h3 {
+            color: var(--forest-green);
+            font-family: var(--font-body);
+            font-size: 0.98rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .partner-box .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .partner-box .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .partner-box label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 0.4rem;
+        }
+
+        .partner-box input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(45, 75, 52, 0.15);
+            background: var(--white);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .partner-box input:focus {
+            outline: none;
+            border-color: var(--forest-green);
+            box-shadow: 0 0 0 3px rgba(45, 75, 52, 0.1);
+        }
+
+        .matrix-actions-center {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .matrix-actions-center .btn {
+            min-width: 260px;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .matrix-error-box {
+            display: none;
+            background-color: #FFF5F0;
+            border: 1px solid rgba(138, 58, 36, 0.2);
+            color: #8A3A24;
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            margin-top: 1.25rem;
+            font-size: 0.92rem;
+            text-align: center;
+        }
+
+        /* Results section */
+        .matrix-results {
+            display: none;
+            margin-top: 3.5rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .matrix-results.show {
+            display: block;
+        }
+
+        .matrix-hero-card {
+            background: linear-gradient(135deg, #FAF7F0 0%, #FFFFFF 100%);
+            border: 1px solid rgba(197, 168, 128, 0.35);
+            border-radius: 24px;
+            padding: 2.25rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2.5rem;
+        }
+
+        .matrix-hero-eyebrow {
+            color: var(--gold-dark);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .matrix-hero-title {
+            font-family: var(--font-headings);
+            font-size: 2.5rem;
+            color: var(--forest-green);
+            margin-bottom: 0.75rem;
+        }
+
+        .matrix-hero-essence {
+            font-size: 1.05rem;
+            font-style: italic;
+            color: var(--earth-gold);
+            margin-bottom: 1rem;
+        }
+
+        .matrix-hero-desc {
+            max-width: 680px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Diagram */
+        .diagram-wrapper {
+            margin: 2.5rem auto;
+            max-width: 760px;
+        }
+
+        .diagram-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            border-radius: 28px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .compatibility-svg {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 650px;
+        }
+
+        .diagram-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.25rem;
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(45, 75, 52, 0.08);
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .legend-dot {
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1.5px solid #4F5E52;
+            background: #F8F5EE;
+        }
+
+        .circle-dot { border-radius: 50%; }
+        .square-dot { border-radius: 2px; }
+        .diamond-dot { transform: rotate(45deg); }
+        .legend-line {
+            display: inline-block;
+            width: 20px;
+            height: 3px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        .masculine-line { background: #56759A; }
+        .feminine-line { background: #9A5F78; }
+        .channel-line { background: #9B704E; }
+
+        /* Section Titles & Grids */
+        .matrix-section-title {
+            margin: 3rem 0 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.1);
+        }
+
+        .matrix-section-title h3 {
+            font-family: var(--font-headings);
+            font-size: 1.85rem;
+            color: var(--forest-green);
+        }
+
+        .matrix-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .matrix-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .matrix-card h4 {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            margin-bottom: 0.35rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .zone-code-badge {
+            display: inline-block;
+            background-color: var(--forest-light);
+            color: var(--forest-green);
+            font-family: monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            margin-bottom: 0.85rem;
+        }
+
+        .zone-code-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        .zone-code-list li {
+            padding: 0.25rem 0;
+            border-bottom: 1px dashed rgba(45, 75, 52, 0.08);
+        }
+
+        .zone-code-list li:last-child {
+            border-bottom: none;
+        }
+
+        .zone-essence {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .inner-highlight {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background-color: var(--bg-primary);
+            border-radius: 12px;
+            font-size: 0.88rem;
+            color: var(--forest-green);
+        }
+
+        .role-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.8;
+        }
+
+        /* Synthesis */
+        .synthesis-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .synthesis-card {
+            background-color: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .synthesis-card.highlight-synthesis {
+            background: linear-gradient(135deg, #FAF7F0 0%, #FFFFFF 100%);
+            border-color: rgba(197, 168, 128, 0.4);
+        }
+
+        .synthesis-card h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+            padding-bottom: 0.5rem;
+        }
+
+        .synthesis-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.88rem;
+            padding: 0.35rem 0;
+            color: var(--text-secondary);
+        }
+
+        .synthesis-row.synthesis-result {
+            margin-top: 0.6rem;
+            padding-top: 0.6rem;
+            border-top: 1px solid rgba(45, 75, 52, 0.1);
+            font-weight: 700;
+            color: var(--forest-green);
+            font-size: 0.92rem;
+        }
+
+        .matrix-actions-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3.5rem;
+            padding: 2rem;
+            background-color: var(--bg-primary);
+            border-radius: 20px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 860px) {
+            .partner-inputs-grid,
+            .matrix-cards-grid,
+            .synthesis-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            .header, .footer, .matrix-actions-bar, .matrix-intro-card, .page-hero, .back-to-top {
+                display: none !important;
+            }
+            .matrix-results {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header" id="header">
+        <div class="container nav-container">
+            <a href="../#beranda" class="logo">
+                <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="32" height="32" style="object-fit: contain;">
+                <span>Bhumi Amartya</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../#beranda" class="nav-link">Beranda</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
+                            <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
+                            <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
+                            <li><a href="./" class="dropdown-item active">Compatibility Matrix</a></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
+                            <li><a href="../tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
+                            <li><a href="../#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
+                            <li><a href="../ebook/" class="dropdown-item">Ebook</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Konten <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../#youtube" class="dropdown-item">Youtube</a></li>
+                            <li><a href="../#artikel" class="dropdown-item">Ngopi Ilmu</a></li>
+                            <li><a href="../#testimoni" class="dropdown-item">Testimoni</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tentang <span class="chevron"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../about/" class="dropdown-item">Tentang Bhumi</a></li>
+                            <li><a href="../#founder" class="dropdown-item">Our Team</a></li>
+                            <li><a href="../#founder" class="dropdown-item">Founder</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../contact/" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+
+            <button class="burger-menu" id="burger-menu" aria-label="Toggle menu">
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+                <span class="burger-bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="page-hero-inner">
+                <div class="breadcrumb">
+                    <a href="../">Beranda</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <a href="../tes-kenali-diri/">Kenali Diri</a>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-item active">Compatibility Matrix</span>
+                </div>
+                <h1>Compatibility Matrix</h1>
+                <p class="page-tagline">Lihat peta energi yang terbentuk ketika dua perjalanan hidup bertemu.</p>
+            </div>
+        </section>
+
+        <section class="compatibility-section">
+            <div class="container" style="max-width: 980px;">
+                <div class="matrix-intro-card">
+                    <h2>Ruang Eksplorasi Relasi</h2>
+                    <p>
+                        Compatibility Matrix menggabungkan dua matriks takdir (Destiny Matrix) personal menjadi satu peta relasi oktagon yang utuh. Seluruh perhitungan diproses secara langsung (transient) di perangkat Anda tanpa menyimpan data pribadi.
+                    </p>
+
+                    <form id="compatibility-form">
+                        <div class="partner-inputs-grid">
+                            <div class="partner-box">
+                                <h3>Pasangan 1 (Pria)</h3>
+                                <div class="form-group">
+                                    <label for="male-name">Nama Lengkap / Panggilan</label>
+                                    <input type="text" id="male-name" placeholder="Contoh: Budi" required autocomplete="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="male-birth">Tanggal Lahir</label>
+                                    <input type="date" id="male-birth" required>
+                                </div>
+                            </div>
+
+                            <div class="partner-box">
+                                <h3>Pasangan 2 (Wanita)</h3>
+                                <div class="form-group">
+                                    <label for="female-name">Nama Lengkap / Panggilan</label>
+                                    <input type="text" id="female-name" placeholder="Contoh: Siti" required autocomplete="name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="female-birth">Tanggal Lahir</label>
+                                    <input type="date" id="female-birth" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="matrix-actions-center">
+                            <button type="submit" class="btn btn-primary">Hitung Compatibility Matrix</button>
+                        </div>
+                        <div class="matrix-error-box" id="matrix-error" role="alert"></div>
+                    </form>
+                </div>
+
+                <div class="matrix-results" id="matrix-results" aria-live="polite"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer" id="kontak">
+        <div class="container footer-grid">
+            <div class="footer-about">
+                <div class="footer-brand">
+                    <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38">
+                    <h4>Bhumi Amartya</h4>
+                </div>
+                <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
+            </div>
+            <div class="footer-links">
+                <h5>Menu</h5>
+                <ul>
+                    <li><a href="../#beranda" class="footer-link">Beranda</a></li>
+                    <li><a href="../blueprint/" class="footer-link">Blueprint</a></li>
+                    <li><a href="../tes-kenali-diri/" class="footer-link">Tes Kenali Diri</a></li>
+                    <li><a href="../kalkulator-cinta/" class="footer-link">Kalkulator Cinta</a></li>
+                    <li><a href="./" class="footer-link">Compatibility Matrix</a></li>
+                    <li><a href="../weton/" class="footer-link">Cek Weton</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h5>Hubungi Kami</h5>
+                <div class="contact-item"><span>halo@bhumiamartya.my.id</span></div>
+                <div class="contact-item"><span>+62 858-1053-1892</span></div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Bhumi Amartya. All rights reserved.</p>
+            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener">Amartya Creative</a> | <a href="/privacy-policy/">Kebijakan Privasi</a></p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+
+    <script src="../assets/bhumi-consent.js" defer></script>
+    <script src="../assets/bhumi-analytics.js" defer></script>
+    <script src="../assets/bhumi-compatibility-matrix.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const burgerBtn = document.getElementById('burger-menu');
+            const navMenu = document.getElementById('nav-menu');
+            const navLinks = document.querySelectorAll('.nav-link, .dropdown-item');
+            const header = document.getElementById('header');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            const toggleMenu = () => {
+                burgerBtn.classList.toggle('open');
+                navMenu.classList.toggle('open');
+                document.body.classList.toggle('menu-open', navMenu.classList.contains('open'));
+            };
+
+            burgerBtn.addEventListener('click', toggleMenu);
+            navLinks.forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    if (link.classList.contains('dropdown-toggle')) {
+                        event.preventDefault();
+                        return;
+                    }
+                    if (navMenu.classList.contains('open')) toggleMenu();
+                });
+            });
+
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('header-scrolled', window.scrollY > 50);
+                backToTopBtn.classList.toggle('show', window.scrollY > 500);
+            });
+            backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        });
+    </script>
+</body>
+</html>

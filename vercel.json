@@ -51,76 +51,28 @@
       "destination": "/api/sitemap"
     },
     {
-      "source": "/_next/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/_next/:path*"
-    },
-    {
-      "source": "/images/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/images/:path*"
-    },
-    {
-      "source": "/matrixcompability",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
-    },
-    {
-      "source": "/matrixcompability/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
-    },
-    {
-      "source": "/matrixcompability/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix/:path*"
-    },
-    {
-      "source": "/matrixcompatibility",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
-    },
-    {
-      "source": "/matrixcompatibility/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
-    },
-    {
-      "source": "/matrixcompatibility/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix/:path*"
-    },
-    {
       "source": "/kecocokan-matrix",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
+      "destination": "/matrixcompability/"
     },
     {
       "source": "/kecocokan-matrix/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
-    },
-    {
-      "source": "/kecocokan-matrix/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix/:path*"
+      "destination": "/matrixcompability/"
     },
     {
       "source": "/kecocokanmatrix",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokanmatrix"
+      "destination": "/matrixcompability/"
     },
     {
       "source": "/kecocokanmatrix/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokanmatrix"
-    },
-    {
-      "source": "/kecocokanmatrix/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokanmatrix/:path*"
+      "destination": "/matrixcompability/"
     },
     {
       "source": "/compatibility",
-      "destination": "https://bhumi-amartya-clean.vercel.app/compatibility"
+      "destination": "/matrixcompability/"
     },
     {
       "source": "/compatibility/",
-      "destination": "https://bhumi-amartya-clean.vercel.app/compatibility"
-    },
-    {
-      "source": "/compatibility/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/compatibility/:path*"
-    },
-    {
-      "source": "/api/compatibility/:path*",
-      "destination": "https://bhumi-amartya-clean.vercel.app/api/compatibility/:path*"
+      "destination": "/matrixcompability/"
     },
     {
       "source": "/articles/:slug",
