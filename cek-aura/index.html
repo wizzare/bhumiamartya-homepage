@@ -506,6 +506,7 @@
 
     <script src="../assets/bhumi-consent.js" defer></script>
     <script src="../assets/bhumi-analytics.js" defer></script>
+    <script src="../assets/bhumi-location-autocomplete.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const burgerBtn = document.getElementById('burger-menu');
@@ -566,99 +567,29 @@
                 return z.find((item) => value < item[1])[0];
             };
 
-            const resolveTimezoneFromLongitude = (longitude) => {
-                if (typeof longitude !== 'number' || !Number.isFinite(longitude)) return null;
-                const hours = Math.round(longitude / 15);
-                const sign = hours >= 0 ? '+' : '-';
-                return `${sign}${String(Math.abs(hours)).padStart(2, '0')}:00`;
-            };
-
-            const fallbackCities = {
-                jakarta: { formattedCity: 'Jakarta, Indonesia', latitude: -6.2088, longitude: 106.8456, country: 'Indonesia', timezone: '+07:00' },
-                bandung: { formattedCity: 'Bandung, Jawa Barat, Indonesia', latitude: -6.9175, longitude: 107.6191, country: 'Indonesia', timezone: '+07:00' },
-                surabaya: { formattedCity: 'Surabaya, Jawa Timur, Indonesia', latitude: -7.2575, longitude: 112.7521, country: 'Indonesia', timezone: '+07:00' },
-                yogyakarta: { formattedCity: 'Yogyakarta, Indonesia', latitude: -7.7956, longitude: 110.3695, country: 'Indonesia', timezone: '+07:00' },
-                denpasar: { formattedCity: 'Denpasar, Bali, Indonesia', latitude: -8.6500, longitude: 115.2167, country: 'Indonesia', timezone: '+08:00' },
-                makassar: { formattedCity: 'Makassar, Sulawesi Selatan, Indonesia', latitude: -5.1477, longitude: 119.4327, country: 'Indonesia', timezone: '+08:00' },
-                medan: { formattedCity: 'Medan, Sumatera Utara, Indonesia', latitude: 3.5952, longitude: 98.6722, country: 'Indonesia', timezone: '+07:00' },
-                semarang: { formattedCity: 'Semarang, Jawa Tengah, Indonesia', latitude: -6.9667, longitude: 110.4167, country: 'Indonesia', timezone: '+07:00' },
-                malang: { formattedCity: 'Malang, Jawa Timur, Indonesia', latitude: -7.9666, longitude: 112.6326, country: 'Indonesia', timezone: '+07:00' },
-                lombok: { formattedCity: 'Lombok, Nusa Tenggara Barat, Indonesia', latitude: -8.6506, longitude: 116.5304, country: 'Indonesia', timezone: '+08:00' }
-            };
-
-            const normalizeCity = (value) => value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '');
+            // Canonical Indonesian Location Autocomplete (SSoT)
+            const locationAutocomplete = window.BhumiLocationAutocomplete ? window.BhumiLocationAutocomplete.attach(birthcityInput, {
+                suggestionsContainer: citySuggestions,
+                noteEl: cityNote,
+                onSelect: (loc) => {
+                    selectedCity = loc;
+                },
+                onClear: () => {
+                    selectedCity = null;
+                }
+            }) : null;
 
             const resolveCityFallback = (value) => {
-                const normalized = normalizeCity(value || '');
-                const key = Object.keys(fallbackCities).find((item) => normalized.includes(item));
-                return key ? fallbackCities[key] : null;
-            };
-
-            const renderCitySuggestions = (suggestions) => {
-                citySuggestions.innerHTML = suggestions.map((suggestion, index) => `
-                    <button class="city-option" type="button" data-index="${index}" role="option">${suggestion.formattedCity}</button>
-                `).join('');
-                citySuggestions.classList.toggle('show', suggestions.length > 0);
-                citySuggestions.querySelectorAll('.city-option').forEach((button) => {
-                    button.addEventListener('click', () => {
-                        const suggestion = suggestions[Number(button.dataset.index)];
-                        selectedCity = {
-                            ...suggestion,
-                            timezone: suggestion.timezone || resolveTimezoneFromLongitude(suggestion.longitude)
-                        };
-                        birthcityInput.value = selectedCity.formattedCity;
-                        citySuggestions.classList.remove('show');
-                        cityNote.textContent = `Kota dipilih: ${selectedCity.formattedCity}`;
-                    });
-                });
-            };
-
-            const loadCitySuggestions = async (query) => {
-                const trimmed = query.trim();
-                selectedCity = null;
-
-                if (!trimmed) {
-                    renderCitySuggestions([]);
-                    cityNote.textContent = 'Ketik kota lalu pilih dari saran agar koordinat dan timezone mengikuti struktur aplikasi Bhumi.';
-                    return;
+                if (selectedCity) return selectedCity;
+                if (locationAutocomplete) {
+                    const found = locationAutocomplete.resolveFallback();
+                    if (found) return found;
                 }
-
-                const fallback = resolveCityFallback(trimmed);
-
-                try {
-                    const response = await fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(trimmed)}&limit=8`);
-                    if (!response.ok) throw new Error('City lookup failed.');
-                    const data = await response.json();
-                    const suggestions = (data.features || [])
-                        .filter((feature) => {
-                            const props = feature.properties || {};
-                            return props.osm_key === 'place' && ['city', 'town', 'village', 'municipality'].includes(props.osm_value);
-                        })
-                        .map((feature) => {
-                            const props = feature.properties || {};
-                            const coordinates = feature.geometry?.coordinates || [0, 0];
-                            return {
-                                formattedCity: [props.name, props.state, props.country].filter(Boolean).join(', '),
-                                latitude: coordinates[1],
-                                longitude: coordinates[0],
-                                country: props.country || null,
-                                timezone: resolveTimezoneFromLongitude(coordinates[0])
-                            };
-                        })
-                        .filter((suggestion) => suggestion.formattedCity)
-                        .slice(0, 6);
-                    renderCitySuggestions(fallback ? [fallback, ...suggestions.filter((item) => item.formattedCity !== fallback.formattedCity)] : suggestions);
-                    cityNote.textContent = suggestions.length || fallback ? 'Pilih kota dari saran untuk memakai format aplikasi Bhumi.' : 'Kota belum ditemukan. Kamu tetap bisa lanjut sebagai hasil awal.';
-                } catch {
-                    renderCitySuggestions(fallback ? [fallback] : []);
-                    cityNote.textContent = fallback ? 'Menggunakan fallback kota dari aplikasi Bhumi.' : 'Saran kota tidak tersedia. Kamu tetap bisa lanjut sebagai hasil awal.';
+                if (window.BhumiLocationAutocomplete && value) {
+                    return window.BhumiLocationAutocomplete.resolveFallback(value);
                 }
+                return null;
             };
-
-            birthcityInput.addEventListener('input', () => {
-                window.clearTimeout(citySearchTimer);
-                citySearchTimer = window.setTimeout(() => loadCitySuggestions(birthcityInput.value), 350);
-            });
 
             const toggleMenu = () => {
                 burgerBtn.classList.toggle('open');

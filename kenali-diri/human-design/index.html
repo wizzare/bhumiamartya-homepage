@@ -847,6 +847,7 @@
 
     <script src="/assets/bhumi-consent.js" defer></script>
     <script src="/assets/bhumi-analytics.js" defer></script>
+    <script src="/assets/bhumi-location-autocomplete.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
     <script>
         // CITY DATASET
@@ -921,26 +922,49 @@
             const listContainer = document.getElementById('autocomplete-list');
             cityInput.value = selectedCityData.name;
 
+            let debounceTimer = null;
             cityInput.addEventListener('input', function() {
-                const val = this.value.toLowerCase().trim();
+                const val = this.value.trim();
                 listContainer.innerHTML = '';
                 if (!val) { listContainer.style.display = 'none'; return; }
 
-                const matches = CITIES.filter(c => c.name.toLowerCase().includes(val));
-                if (matches.length === 0) { listContainer.style.display = 'none'; return; }
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(async () => {
+                    let matches = [];
+                    if (window.BhumiLocationAutocomplete) {
+                        const locs = await window.BhumiLocationAutocomplete.search(val, { limit: 8 });
+                        matches = locs.map(l => ({
+                            name: l.formattedCity || l.displayName,
+                            lat: l.latitude,
+                            lng: l.longitude,
+                            tz: l.timezone || l.timezoneOffset,
+                            timezone: l.timezone
+                        }));
+                    }
+                    if (matches.length === 0) {
+                        matches = CITIES.filter(c => c.name.toLowerCase().includes(val.toLowerCase()));
+                    }
 
-                matches.forEach(c => {
-                    const item = document.createElement('div');
-                    item.className = 'autocomplete-item';
-                    item.textContent = c.name;
-                    item.addEventListener('click', function() {
-                        cityInput.value = c.name;
-                        selectedCityData = c;
-                        listContainer.style.display = 'none';
+                    listContainer.innerHTML = '';
+                    if (matches.length === 0) {
+                        listContainer.innerHTML = '<div class="autocomplete-item" style="color: #888;">Kota tidak ditemukan</div>';
+                        listContainer.style.display = 'block';
+                        return;
+                    }
+
+                    matches.forEach(c => {
+                        const item = document.createElement('div');
+                        item.className = 'autocomplete-item';
+                        item.textContent = c.name;
+                        item.addEventListener('click', function() {
+                            cityInput.value = c.name;
+                            selectedCityData = c;
+                            listContainer.style.display = 'none';
+                        });
+                        listContainer.appendChild(item);
                     });
-                    listContainer.appendChild(item);
-                });
-                listContainer.style.display = 'block';
+                    listContainer.style.display = 'block';
+                }, 200);
             });
 
             document.addEventListener('click', function(e) {
@@ -957,8 +981,25 @@
             const birthTime = document.getElementById('input-time').value;
             const birthCity = document.getElementById('input-city').value;
 
-            // Resolve city coordinates if typed manually
-            let cityInfo = CITIES.find(c => c.name.toLowerCase() === birthCity.toLowerCase()) || selectedCityData;
+            // Resolve city coordinates accurately from canonical database
+            let cityInfo = null;
+            if (selectedCityData && selectedCityData.name.toLowerCase() === birthCity.toLowerCase()) {
+                cityInfo = selectedCityData;
+            } else if (window.BhumiLocationAutocomplete) {
+                const found = window.BhumiLocationAutocomplete.resolveFallback(birthCity);
+                if (found) {
+                    cityInfo = {
+                        name: found.formattedCity || found.displayName,
+                        lat: found.latitude,
+                        lng: found.longitude,
+                        tz: found.timezone || found.timezoneOffset,
+                        timezone: found.timezone
+                    };
+                }
+            }
+            if (!cityInfo) {
+                cityInfo = CITIES.find(c => c.name.toLowerCase() === birthCity.toLowerCase()) || selectedCityData;
+            }
 
             const mainGrid = document.querySelector('.hd-main-grid');
             if (mainGrid) mainGrid.classList.remove('has-result');
@@ -980,6 +1021,7 @@
                         birthCity: cityInfo.name,
                         latitude: cityInfo.lat,
                         longitude: cityInfo.lng,
+                        timezone: cityInfo.timezone || undefined,
                         asOfDate
                     })
                 });

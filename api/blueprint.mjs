@@ -3,6 +3,7 @@ import { calculateHumanDesign } from '../lib/human-design/calculate.mjs';
 import { calculateDestinyMatrix } from '../lib/destiny-matrix/calculate.mjs';
 import { calculateNatalChart } from '../lib/natal-chart/calculate.mjs';
 import { normalizeNatalChartResponse } from '../lib/natal-chart/normalize.mjs';
+import { resolveLocationByName } from '../lib/locations/location-service.mjs';
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
@@ -45,14 +46,28 @@ export default async function handler(req, res) {
       return;
     }
 
+    // Resolve location metadata from SSoT database if coordinates are not supplied
+    let effectiveLatitude = latitude;
+    let effectiveLongitude = longitude;
+    let effectiveTimezone = timezone;
+
+    if (!Number.isFinite(effectiveLatitude) || !Number.isFinite(effectiveLongitude)) {
+      const canonical = resolveLocationByName(birthCity);
+      if (canonical) {
+        effectiveLatitude = canonical.latitude;
+        effectiveLongitude = canonical.longitude;
+        effectiveTimezone = effectiveTimezone || canonical.timezone;
+      }
+    }
+
     // Calculate Human Design locally using astronomy-engine
-    const hdResult = calculateHumanDesign({ birthDate, birthTime, timezone, latitude, longitude });
+    const hdResult = calculateHumanDesign({ birthDate, birthTime, timezone: effectiveTimezone, latitude: effectiveLatitude, longitude: effectiveLongitude });
     const humanDesign = normalizeHumanDesignResponse(hdResult);
     const lifePath = calculateLifePath(birthDate);
     const destinyMatrix = calculateDestinyMatrix(birthDate, { referenceDate });
     let astrology;
     try {
-      astrology = normalizeNatalChartResponse(calculateNatalChart({ birthDate, birthTime, birthCity, latitude, longitude, timezone }));
+      astrology = normalizeNatalChartResponse(calculateNatalChart({ birthDate, birthTime, birthCity, latitude: effectiveLatitude, longitude: effectiveLongitude, timezone: effectiveTimezone }));
     } catch (natalError) {
       astrology = { calculationStatus: "error", zodiacSystem: "Tropical", houseSystem: "Placidus", error: natalError.message };
     }
@@ -83,9 +98,9 @@ export default async function handler(req, res) {
           birthDate,
           birthTime: birthTime || "12:00",
           birthCity,
-          latitude: latitude ?? null,
-          longitude: longitude ?? null,
-          timezone: timezone ?? null,
+          latitude: effectiveLatitude ?? null,
+          longitude: effectiveLongitude ?? null,
+          timezone: effectiveTimezone ?? null,
         },
         generatedAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
