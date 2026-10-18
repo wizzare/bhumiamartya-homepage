@@ -59,6 +59,30 @@
       "destination": "https://bhumi-amartya-clean.vercel.app/images/:path*"
     },
     {
+      "source": "/matrixcompability",
+      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
+    },
+    {
+      "source": "/matrixcompability/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
+    },
+    {
+      "source": "/matrixcompability/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix/:path*"
+    },
+    {
+      "source": "/matrixcompatibility",
+      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
+    },
+    {
+      "source": "/matrixcompatibility/",
+      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
+    },
+    {
+      "source": "/matrixcompatibility/:path*",
+      "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix/:path*"
+    },
+    {
       "source": "/kecocokan-matrix",
       "destination": "https://bhumi-amartya-clean.vercel.app/kecocokan-matrix"
     },
