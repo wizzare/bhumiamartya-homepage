@@ -69,7 +69,7 @@ export function createHandler({ writer = publishArticleWebArticle } = {}) {
       return;
     }
 
-    const { title, content, date, seoTitle, seoDescription, category, tags, slug, excerpt, source, coverImageUrl } = body;
+    const { title, content, date, seoTitle, seoDescription, category, tags, slug, excerpt, source, coverImageUrl, edition, sourceId } = body;
 
     if (typeof title !== 'string' || !title.trim() || title.trim().length > MAX_TITLE_LENGTH) {
       json(res, 400, { success: false, code: 'INVALID_TITLE', message: 'title wajib diisi (maks 300 karakter).' });
@@ -112,7 +112,7 @@ export function createHandler({ writer = publishArticleWebArticle } = {}) {
     }
 
     try {
-      const result = await writer({ title, content, date, seoTitle, seoDescription, category, tags, slug, excerpt, source, coverImageUrl });
+      const result = await writer({ title, content, date, seoTitle, seoDescription, category, tags, slug, excerpt, source, coverImageUrl, edition, sourceId });
       const status = result.status === 'already_published' ? 200 : 201;
       json(res, status, {
         success: true,
