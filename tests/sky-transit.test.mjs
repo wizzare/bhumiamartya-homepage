@@ -99,6 +99,21 @@ assert.ok(narrative.sections.dailyLife.items.length === 3);
 assert.ok(narrative.sections.currentSky.transits.length > 0);
 assert.ok(narrative.sections.closing.text.length > 20);
 
+// Validate 6 Core Categories & Paragraph Depth Requirements
+assert.ok(narrative.categories.secaraUmum);
+assert.ok(narrative.categories.secaraUmum.paragraphs.length >= 3 && narrative.categories.secaraUmum.paragraphs.length <= 4, 'Secara Umum must have 3-4 paragraphs');
+assert.ok(narrative.categories.ekonomiKarier);
+assert.ok(narrative.categories.ekonomiKarier.paragraphs.length >= 3 && narrative.categories.ekonomiKarier.paragraphs.length <= 4, 'Ekonomi & Karier must have 3-4 paragraphs');
+assert.ok(narrative.categories.asmara);
+assert.ok(narrative.categories.asmara.single.length >= 2 && narrative.categories.asmara.single.length <= 3, 'Asmara Single must have 2-3 paragraphs');
+assert.ok(narrative.categories.asmara.couple.length >= 2 && narrative.categories.asmara.couple.length <= 3, 'Asmara Pasangan must have 2-3 paragraphs');
+assert.ok(narrative.categories.kesehatan);
+assert.ok(narrative.categories.kesehatan.paragraphs.length >= 2 && narrative.categories.kesehatan.paragraphs.length <= 3, 'Kesehatan must have 2-3 paragraphs');
+assert.ok(narrative.categories.spiritual);
+assert.ok(narrative.categories.spiritual.paragraphs.length >= 3 && narrative.categories.spiritual.paragraphs.length <= 4, 'Spiritual must have 3-4 paragraphs');
+assert.ok(narrative.categories.tantangan);
+assert.ok(narrative.categories.tantangan.paragraphs.length >= 3 && narrative.categories.tantangan.paragraphs.length <= 4, 'Tantangan must have 3-4 paragraphs');
+
 // Check absence of forbidden AI clichés
 const fullText = JSON.stringify(narrative).toLowerCase();
 const forbiddenClichés = [
