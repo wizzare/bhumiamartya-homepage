@@ -43,6 +43,14 @@
   ],
   "rewrites": [
     {
+      "source": "/api/sky-transit",
+      "destination": "/api/blueprint-engines?mode=sky"
+    },
+    {
+      "source": "/api/sky-transit/",
+      "destination": "/api/blueprint-engines?mode=sky"
+    },
+    {
       "source": "/sitemap.xml",
       "destination": "/api/sitemap"
     },

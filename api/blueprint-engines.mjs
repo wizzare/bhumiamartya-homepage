@@ -3,10 +3,13 @@ import { normalizeHumanDesignResponse } from '../lib/human-design/normalizer.mjs
 import { calculateVedic } from '../lib/vedic/calculate.mjs';
 import { isValidIanaTimeZone, localDateTimeToUtc } from '../lib/timezone.mjs';
 import { resolveTimezoneFromCoordinates } from '../lib/timezone-resolver.mjs';
+import { calculateCurrentSky } from '../lib/sky-transit/ephemeris.mjs';
+import { calculatePersonalTransits } from '../lib/sky-transit/personal-transit.mjs';
+import { handleSkyTransit } from '../lib/sky-transit/service.mjs';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 const MAX_BODY_BYTES = 32768;
@@ -50,6 +53,17 @@ export default async function handler(req, res) {
     return;
   }
 
+  const isSkyMode = req.url?.includes('mode=sky');
+
+  // If GET in sky mode, handle live current sky immediately
+  if (req.method === 'GET') {
+    if (isSkyMode) {
+      const result = handleSkyTransit({});
+      return json(res, result.status, result.data);
+    }
+    return json(res, 405, { ok: false, code: 'METHOD_NOT_ALLOWED', message: 'Method not allowed.' });
+  }
+
   if (req.method !== 'POST') {
     json(res, 405, { ok: false, code: 'METHOD_NOT_ALLOWED', message: 'Method not allowed.' });
     return;
@@ -77,6 +91,12 @@ export default async function handler(req, res) {
   if (Buffer.byteLength(serializedBody, 'utf8') > MAX_BODY_BYTES) {
     json(res, 413, { ok: false, code: 'PAYLOAD_TOO_LARGE', message: 'Request payload is too large.' });
     return;
+  }
+
+  // Route to dedicated Sky Transit service if mode=sky or scope=sky-transit
+  if (isSkyMode || body.scope === 'sky-transit') {
+    const result = handleSkyTransit(body);
+    return json(res, result.status, result.data);
   }
 
   const {
@@ -141,7 +161,19 @@ export default async function handler(req, res) {
     return json(res, 500, { ok: false, code: vedic.code || 'CALCULATION_FAILED', message: vedic.message || 'Vedic calculation failed.' });
   }
 
-const durationMs = Date.now() - startedAt;
+  // Calculate live current sky and personal transits to natal Moon
+  const currentSky = calculateCurrentSky(new Date(`${effectiveAsOfDate}T12:00:00Z`));
+  const natalPoints = {
+    natalMoon: {
+      siderealLongitude: vedic.siderealMoonLon,
+      rashi: { index: vedic.rashiDetailed.index, name: vedic.rashiDetailed.name, short: vedic.rashi },
+      nakshatra: { index: vedic.nakshatraDetailed.index, name: vedic.nakshatra, lord: vedic.nakshatraLord, pada: vedic.pada }
+    },
+    isPartial: false
+  };
+  const personalTransits = calculatePersonalTransits(currentSky, natalPoints);
+
+  const durationMs = Date.now() - startedAt;
   const response = {
     ok: true,
     humanDesign: {
@@ -172,10 +204,13 @@ const durationMs = Date.now() - startedAt;
       nakshatraLord: vedic.nakshatraLord,
       currentMahadasha: vedic.currentMahadasha
     },
-      metadata: {
+    currentSky,
+    personalTransits: personalTransits.primaryTransits,
+    allTransits: personalTransits.allTransits,
+    metadata: {
       requestId,
       durationMs,
-      engineVersion: '1.0.0',
+      engineVersion: '1.1.0',
       zodiac: 'sidereal',
       ayanamsa: 'Lahiri',
       vedicScope: 'moon-based-basic',

@@ -1,6 +1,6 @@
 import { strict as assert } from 'node:assert';
 import { test } from 'node:test';
-import { renderArticleBody } from '../lib/content/render-article.mjs';
+import { renderArticleBody, stripMetadataBlock } from '../lib/content/render-article.mjs';
 
 test('bold markdown inside a paragraph becomes <strong>', () => {
   const html = renderArticleBody('Ini **penting** untuk diingat.');
@@ -37,4 +37,32 @@ test('html-unsafe characters are still escaped before bold conversion runs', () 
   assert.ok(!html.includes('<script>'));
   assert.ok(html.includes('&lt;script&gt;'));
   assert.ok(html.startsWith('<p><strong>'));
+});
+
+test('stripMetadataBlock strips SEO_TITLE, META_DESCRIPTION, and separators cleanly', () => {
+  const raw = `SEO_TITLE: Life Path 1: Seni Berdiri Sendiri
+META_DESCRIPTION: Temukan arti sejati di balik Life Path 1.
+CATEGORY: Numerologi
+TAGS: numerologi, life path 1
+SLUG: life-path-1
+---
+Paragraf pembuka artikel yang sebenarnya.`;
+  const cleaned = stripMetadataBlock(raw);
+  assert.equal(cleaned, 'Paragraf pembuka artikel yang sebenarnya.');
+});
+
+test('renderArticleBody strips SEO metadata block from rendered html', () => {
+  const raw = `---
+SEO_TITLE: Memutus Beban Ekspektasi
+META_DESCRIPTION: Apakah kamu hidup untuk dirimu sendiri?
+CATEGORY: Ancestral Healing
+TAGS: inner child, mother wound
+SLUG: memutus-beban
+---
+Paragraf artikel tanpa metadata sama sekali.`;
+  const html = renderArticleBody(raw);
+  assert.ok(!html.includes('SEO_TITLE'));
+  assert.ok(!html.includes('META_DESCRIPTION'));
+  assert.ok(!html.includes('CATEGORY'));
+  assert.equal(html, '<p>Paragraf artikel tanpa metadata sama sekali.</p>');
 });

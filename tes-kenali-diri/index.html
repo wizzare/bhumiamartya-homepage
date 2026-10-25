@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-0971666335614952">
     <title>Tes Kenali Diri | Bhumi Amartya</title>
-    <meta name="description" content="Tes Kenali Diri Bhumi Amartya. Masukkan data lahir sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuh.">
-    <meta name="keywords" content="Tes Kenali Diri, Bhumi Amartya, blueprint reading, numerologi, refleksi diri, pengembangan diri">
+    <meta name="description" content="Tes Kenali Diri Bhumi Amartya. Masukkan data lahir sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu secara personal dan membumi.">
+    <meta name="keywords" content="Tes Kenali Diri, Bhumi Amartya, blueprint reading, numerologi, refleksi diri, peta langit, transit personal, pengembangan diri">
     <meta name="author" content="Widhi Wedhaswara">
     <link rel="canonical" href="https://www.bhumiamartya.my.id/tes-kenali-diri">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.bhumiamartya.my.id/tes-kenali-diri">
     <meta property="og:title" content="Tes Kenali Diri | Bhumi Amartya">
-    <meta property="og:description" content="Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu.">
+    <meta property="og:description" content="Kenali pola, potensi, dan arah bertumbuhmu melalui pembacaan blueprint yang hangat, reflektif, dan membumi.">
     <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.bhumiamartya.my.id/tes-kenali-diri">
     <meta name="twitter:title" content="Tes Kenali Diri | Bhumi Amartya">
-    <meta name="twitter:description" content="Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu.">
+    <meta name="twitter:description" content="Kenali pola, potensi, dan arah bertumbuhmu melalui pembacaan blueprint yang hangat, reflektif, dan membumi.">
     <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
 
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
@@ -28,18 +28,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/bhumi-design-system.css">
 
     <style>
         .self-test-section {
-            padding: 5rem 0 6rem;
+            padding: 4.5rem 0 6rem;
         }
 
         .self-test-grid {
             display: grid;
             grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-            gap: 2rem;
+            gap: 2.25rem;
             align-items: start;
         }
 
@@ -53,7 +53,7 @@
         }
 
         .self-test-card {
-            padding: 2rem;
+            padding: 2.25rem;
         }
 
         .self-test-card .btn {
@@ -86,8 +86,9 @@
 
         .result-card {
             display: none;
-            padding: 2rem;
+            padding: 2.5rem;
             border-top: 4px solid var(--earth-gold);
+            transition: all 0.3s ease;
         }
 
         .result-card.show {
@@ -111,22 +112,460 @@
             font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.12em;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
         .result-title {
             font-family: var(--font-headings);
-            font-size: 2.1rem;
+            font-size: 2.25rem;
             font-weight: 600;
             color: var(--forest-green);
-            margin-bottom: 0.75rem;
+            line-height: 1.25;
+            margin-bottom: 0.85rem;
         }
 
         .result-summary {
-            font-size: 1rem;
-            line-height: 1.75;
-            margin-bottom: 1.5rem;
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+        }
+
+        /* Peta Langit Widget */
+        .sky-summary-widget {
+            background: linear-gradient(135deg, rgba(45, 75, 52, 0.04) 0%, rgba(194, 155, 56, 0.06) 100%);
+            border: 1px solid rgba(45, 75, 52, 0.12);
+            border-radius: 18px;
+            padding: 1.75rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .sky-widget-header {
+            margin-bottom: 1.25rem;
+        }
+
+        .sky-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sky-tag {
+            background-color: var(--forest-green);
+            color: var(--white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .sky-date-pill {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .sky-widget-title {
+            font-family: var(--font-headings);
+            font-size: 1.45rem;
+            color: var(--forest-green);
+            margin: 0 0 0.4rem 0;
+            font-weight: 600;
+        }
+
+        .sky-monthly-theme {
+            font-size: 0.95rem;
+            line-height: 1.68;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .sky-quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin: 1.25rem 0;
+        }
+
+        .sky-quick-item {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+        }
+
+        .quick-label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gold-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.35rem;
+        }
+
+        .quick-val {
+            font-size: 0.94rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            line-height: 1.5;
+        }
+
+        .sky-top-transits {
+            margin: 1.25rem 0;
+        }
+
+        .transits-subtitle {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            margin: 0 0 0.75rem 0;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .transit-cards-list {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .transit-item-card {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-left: 4px solid var(--earth-gold);
+            border-radius: 12px;
+            padding: 1.15rem 1.35rem;
+        }
+
+        .transit-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.35rem;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .transit-item-card h5 {
+            font-family: var(--font-body);
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            margin: 0;
+        }
+
+        .transit-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: var(--forest-light);
+            color: var(--forest-green);
+            padding: 0.2rem 0.55rem;
+            border-radius: 10px;
+        }
+
+        .transit-item-card p {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .precision-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: rgba(45, 75, 52, 0.04);
+            border-radius: 8px;
+            padding: 0.65rem 0.9rem;
+            margin-top: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .sky-details-toggle {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(45, 75, 52, 0.15);
+        }
+
+        .sky-details-toggle summary {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .sky-details-toggle summary:hover {
+            color: var(--gold-dark);
+        }
+
+        .sky-details-body {
+            margin-top: 0.85rem;
+        }
+
+        .retrograde-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.6rem 0 0.85rem;
+        }
+
+        .retrograde-chip {
+            background: rgba(194, 155, 56, 0.12);
+            color: var(--gold-dark);
+            border: 1px solid rgba(194, 155, 56, 0.3);
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+        }
+
+        .timeline-items {
+            display: grid;
+            gap: 0.65rem;
+            margin-top: 0.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--earth-gold);
+            margin-top: 0.45rem;
+            flex-shrink: 0;
+        }
+
+        /* 6 Core Categories */
+        .reading-categories-container {
+            display: grid;
+            gap: 1.75rem;
+            margin: 2.25rem 0;
+        }
+
+        .reading-category-card {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 16px;
+            padding: 1.85rem 2rem;
+            box-shadow: 0 4px 18px rgba(45, 75, 52, 0.02);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.85rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+        }
+
+        .category-num {
+            font-family: var(--font-headings);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--earth-gold);
+            letter-spacing: 0.04em;
+        }
+
+        .category-title {
+            font-family: var(--font-headings);
+            font-size: 1.45rem;
+            color: var(--forest-green);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .category-content p,
+        .asmara-tab-pane p {
+            font-size: 1.02rem;
+            line-height: 1.82;
+            color: var(--text-primary);
+            margin: 0 0 1.05rem 0;
+        }
+
+        .category-content p:last-child,
+        .asmara-tab-pane p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Asmara Tabs */
+        .asmara-tabs {
+            display: inline-flex;
+            background: rgba(45, 75, 52, 0.06);
+            border-radius: 24px;
+            padding: 4px;
+            margin-bottom: 1.25rem;
+            gap: 4px;
+            width: fit-content;
+            max-width: 100%;
+        }
+
+        .asmara-tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.55rem 1.25rem;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .asmara-tab-btn:hover {
+            color: var(--gold-dark);
+        }
+
+        .asmara-tab-btn.active {
+            background: var(--forest-green);
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(45, 75, 52, 0.15);
+        }
+
+        .asmara-tab-pane {
+            animation: fadeIn 0.25s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Closing Message Card */
+        .closing-card {
+            background-color: var(--forest-light);
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            border-radius: 18px;
+            padding: 1.85rem;
+            margin: 2.25rem 0;
+            text-align: center;
+        }
+
+        .closing-tag {
+            color: var(--gold-dark);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.65rem;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .closing-quote {
+            font-family: var(--font-headings);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--forest-green);
+            line-height: 1.65;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* Technical Accordion */
+        .technical-accordion {
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--bg-primary);
+            margin: 2rem 0 1.5rem;
+        }
+
+        .accordion-summary {
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-summary:hover {
+            background-color: rgba(45, 75, 52, 0.04);
+        }
+
+        .accordion-content {
+            padding: 1.25rem;
+            border-top: 1px solid rgba(45, 75, 52, 0.08);
+            background: var(--white);
+        }
+
+        .technical-intro {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.65;
+        }
+
+        .identity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .identity-item {
+            background-color: var(--bg-primary);
+            border: 1px solid rgba(45, 75, 52, 0.07);
+            border-radius: 12px;
+            padding: 0.9rem;
+        }
+
+        .identity-label {
+            color: var(--gold-dark);
+            display: block;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .identity-value {
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            font-weight: 600;
+            line-height: 1.45;
+        }
+
+        .audit-info-box {
+            background: var(--forest-light);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .result-disclaimer {
+            background-color: var(--forest-light);
+            border-radius: 14px;
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.65;
+            padding: 1rem 1.25rem;
+            margin-top: 1.5rem;
         }
 
         .city-suggestions {
@@ -162,135 +601,6 @@
             outline: none;
         }
 
-        .identity-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.85rem;
-            margin: 1.5rem 0 2rem;
-        }
-
-        .identity-item {
-            background-color: var(--bg-primary);
-            border: 1px solid rgba(45, 75, 52, 0.07);
-            border-radius: 14px;
-            padding: 1rem;
-        }
-
-        .identity-label {
-            color: var(--gold-dark);
-            display: block;
-            font-size: 0.76rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.35rem;
-            text-transform: uppercase;
-        }
-
-        .identity-value {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            font-weight: 600;
-            line-height: 1.45;
-        }
-
-        .summary-blocks {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .synthesis-copy {
-            background-color: var(--forest-light);
-            border-radius: 16px;
-            display: grid;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            padding: 1.25rem;
-        }
-
-        .synthesis-copy p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .summary-item {
-            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
-            padding-bottom: 1rem;
-        }
-
-        .summary-item:last-child {
-            border-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .summary-item h3 {
-            color: var(--forest-green);
-            font-family: var(--font-body);
-            font-size: 0.98rem;
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-
-        .summary-item p {
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-
-        .result-lists {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .result-list {
-            background-color: var(--bg-primary);
-            border: 1px solid rgba(45, 75, 52, 0.07);
-            border-radius: 16px;
-            padding: 1.25rem;
-        }
-
-        .result-list h3 {
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-        }
-
-        .result-list ul {
-            list-style: none;
-            display: grid;
-            gap: 0.65rem;
-        }
-
-        .result-list li {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.55;
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .result-list li::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--earth-gold);
-            left: 0;
-            top: 0.6rem;
-            position: absolute;
-        }
-
-        .result-disclaimer {
-            background-color: var(--forest-light);
-            border-radius: 14px;
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            line-height: 1.65;
-            padding: 1rem;
-        }
-
         .reading-cta {
             background-color: var(--bg-secondary);
             padding: 5rem 0;
@@ -310,21 +620,35 @@
         }
 
         @media (max-width: 860px) {
-            .self-test-grid,
-            .result-lists,
-            .identity-grid {
+            .self-test-grid {
                 grid-template-columns: 1fr;
             }
-        }
 
-        @media (max-width: 480px) {
-            .self-test-card,
             .result-card {
                 padding: 1.5rem;
             }
 
-            .result-title {
-                font-size: 1.75rem;
+            .reading-category-card {
+                padding: 1.35rem 1.25rem;
+            }
+
+            .sky-summary-widget {
+                padding: 1.35rem 1.25rem;
+            }
+
+            .asmara-tabs {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .asmara-tab-btn {
+                text-align: center;
+                width: 100%;
+            }
+
+            .identity-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -347,7 +671,8 @@
                             <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
-                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a><li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -396,7 +721,7 @@
                     <span class="breadcrumb-item active">Tes Kenali Diri</span>
                 </div>
                 <h1>Tes Kenali Diri</h1>
-                <p class="page-tagline">Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu.</p>
+                <p class="page-tagline">Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu secara personal dan membumi.</p>
             </div>
         </section>
 
@@ -429,51 +754,146 @@
                 <div>
                     <div class="gentle-note" id="intro-note">
                         <h2>Ruang untuk Pulang dan Kenali Diri</h2>
-                        <p>Hasil singkat ini memakai pola tanggal lahir sebagai pembuka yang ringan. Untuk pembacaan yang lebih utuh, Blueprint Bhumi tetap membutuhkan sintesis lebih lengkap dari sistem yang tersedia.</p>
+                        <p>Hasil ini disusun secara personal, hangat, dan membumi. Menggabungkan pola kelahiranmu dengan kondisi langit aktual hari ini untuk membantumu mengenal diri secara utuh melalui enam area hidup esensial.</p>
                     </div>
 
                     <article class="result-card" id="result-card" aria-live="polite">
                         <div id="result-inline-warning" class="inline-warning" role="status" aria-live="polite" hidden></div>
-                        <div class="result-eyebrow">Hasil awal kenali diri</div>
-                        <h2 class="result-title" id="result-title"></h2>
-                        <p class="result-summary">Berikut identitas inti Blueprint sebagai pintu awal. Beberapa sistem membutuhkan jam dan kota lahir agar pembacaan bisa lebih presisi.</p>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Identitas Inti Blueprint</h3>
-                        <div class="identity-grid" id="identity-grid"></div>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Sintesis Kenali Diri</h3>
-                        <div class="synthesis-copy" id="synthesis-copy"></div>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin: 1.75rem 0 1rem;">Ringkasan Area Hidup</h3>
-                        <div class="summary-blocks" id="summary-blocks"></div>
-
-                        <div id="engine-loading-section" style="display:none; margin-top:2rem;">
-                          <div class="identity-item" id="hd-loading-card" style="margin-bottom:1rem;">
-                            <span class="identity-label">HUMAN DESIGN</span>
-                            <div class="identity-value">Menghitung blueprint...</div>
-                          </div>
-                          <div class="identity-item" id="vedic-loading-card">
-                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
-                            <div class="identity-value">Menghitung posisi Bulan dan periode...</div>
-                          </div>
+                        
+                        <!-- Header: Nama Pengguna & Pengantar -->
+                        <div class="result-header-block">
+                            <div class="result-eyebrow">Hasil Pembacaan Blueprint</div>
+                            <h2 class="result-title" id="result-title"></h2>
+                            <p class="result-summary" id="result-summary"></p>
                         </div>
 
-                        <div id="engine-result-section" style="display:none; margin-top:2rem;">
-                          <div class="identity-item" id="hd-result-card" style="margin-bottom:1rem; display:none;">
-                            <span class="identity-label">HUMAN DESIGN</span>
-                            <div class="identity-value" id="hd-result-value"></div>
-                          </div>
-                          <div class="identity-item" id="vedic-result-card" style="display:none;">
-                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
-                            <div class="identity-value" id="vedic-result-value"></div>
-                            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">Identitas dasar berdasarkan posisi Bulan sidereal, Nakshatra, Pada, dan periode Mahadasha.</p>
-                          </div>
+                        <!-- Peta Langit Saat Ini (Ringkasan Transit Aktual) -->
+                        <section class="sky-summary-widget" id="section-sky-summary">
+                            <div class="sky-widget-header">
+                                <div class="sky-badge-row">
+                                    <span class="sky-tag">Peta Langit Saat Ini</span>
+                                    <span class="sky-date-pill" id="sky-date-pill"></span>
+                                </div>
+                                <h3 class="sky-widget-title">Langit Saat Ini & Transit Personal</h3>
+                                <p class="sky-monthly-theme" id="sky-monthly-theme">Menyelaraskan posisi astronomis terkini...</p>
+                            </div>
+
+                            <div class="sky-quick-grid">
+                                <div class="sky-quick-item">
+                                    <span class="quick-label">Posisi Bulan Hari Ini</span>
+                                    <div class="quick-val" id="sky-quick-moon">Bulan Sidereal...</div>
+                                </div>
+                                <div class="sky-quick-item">
+                                    <span class="quick-label">Retrograde Terkonfirmasi</span>
+                                    <div class="quick-val" id="sky-quick-retrograde">Memeriksa ephemeris...</div>
+                                </div>
+                            </div>
+
+                            <div class="sky-top-transits" id="sky-top-transits">
+                                <h4 class="transits-subtitle">Transit Paling Relevan dengan Dirimu:</h4>
+                                <div class="transit-cards-list" id="transit-cards-list"></div>
+                                <div class="precision-note" id="precision-note" hidden></div>
+                            </div>
+
+                            <details class="sky-details-toggle">
+                                <summary>Lihat rincian stasioner retrograde & garis waktu langit</summary>
+                                <div class="sky-details-body">
+                                    <div class="retrograde-chips" id="retrograde-chips"></div>
+                                    <div class="timeline-items" id="timeline-items" style="margin-top:0.75rem;"></div>
+                                </div>
+                            </details>
+                        </section>
+
+                        <!-- 6 Kategori Pembacaan Utama -->
+                        <div class="reading-categories-container" id="reading-categories">
+                            <!-- 1. Secara Umum (3-4 Paragraf) -->
+                            <section class="reading-category-card" id="cat-secara-umum">
+                                <div class="category-header">
+                                    <span class="category-num">01</span>
+                                    <h3 class="category-title">Secara Umum</h3>
+                                </div>
+                                <div class="category-content" id="content-secara-umum"></div>
+                            </section>
+
+                            <!-- 2. Ekonomi & Karier (3-4 Paragraf) -->
+                            <section class="reading-category-card" id="cat-ekonomi-karier">
+                                <div class="category-header">
+                                    <span class="category-num">02</span>
+                                    <h3 class="category-title">Ekonomi & Karier</h3>
+                                </div>
+                                <div class="category-content" id="content-ekonomi-karier"></div>
+                            </section>
+
+                            <!-- 3. Asmara (Single & Pasangan) -->
+                            <section class="reading-category-card" id="cat-asmara">
+                                <div class="category-header">
+                                    <span class="category-num">03</span>
+                                    <h3 class="category-title">Asmara</h3>
+                                </div>
+                                <div class="asmara-tabs" role="tablist">
+                                    <button type="button" class="asmara-tab-btn active" id="tab-btn-single" role="tab" aria-selected="true">Untuk yang Sedang Single</button>
+                                    <button type="button" class="asmara-tab-btn" id="tab-btn-couple" role="tab" aria-selected="false">Untuk yang Memiliki Pasangan</button>
+                                </div>
+                                <div class="asmara-tab-pane" id="asmara-single-pane" role="tabpanel"></div>
+                                <div class="asmara-tab-pane" id="asmara-couple-pane" role="tabpanel" style="display:none;"></div>
+                            </section>
+
+                            <!-- 4. Kesehatan (2-3 Paragraf) -->
+                            <section class="reading-category-card" id="cat-kesehatan">
+                                <div class="category-header">
+                                    <span class="category-num">04</span>
+                                    <h3 class="category-title">Kesehatan</h3>
+                                </div>
+                                <div class="category-content" id="content-kesehatan"></div>
+                            </section>
+
+                            <!-- 5. Spiritual (3-4 Paragraf) -->
+                            <section class="reading-category-card" id="cat-spiritual">
+                                <div class="category-header">
+                                    <span class="category-num">05</span>
+                                    <h3 class="category-title">Spiritual</h3>
+                                </div>
+                                <div class="category-content" id="content-spiritual"></div>
+                            </section>
+
+                            <!-- 6. Tantangan (3-4 Paragraf) -->
+                            <section class="reading-category-card" id="cat-tantangan">
+                                <div class="category-header">
+                                    <span class="category-num">06</span>
+                                    <h3 class="category-title">Tantangan</h3>
+                                </div>
+                                <div class="category-content" id="content-tantangan"></div>
+                            </section>
                         </div>
 
-                        <p class="result-disclaimer">Ini adalah pintu awal, bukan pembacaan final. Hasil ini tidak menampilkan raw calculation dan tidak dimaksudkan sebagai klaim yang mutlak.</p>
+                        <!-- Pesan untuk Dirimu Saat Ini -->
+                        <section class="reading-section closing-card" id="section-closing">
+                            <span class="closing-tag">Pesan untuk Dirimu Saat Ini</span>
+                            <blockquote class="closing-quote" id="closing-quote"></blockquote>
+                        </section>
+
+                        <!-- Detail Teknis: Accordion dasar perhitungan & posisi natal -->
+                        <details class="technical-accordion" id="technical-accordion">
+                            <summary class="accordion-summary">
+                                <span>Lihat dasar perhitungan teknis & identitas natal</span>
+                                <span style="font-size:0.8rem; color:var(--text-secondary);">▼</span>
+                            </summary>
+                            <div class="accordion-content">
+                                <p class="technical-intro">Data teknis di bawah ini adalah fondasi kalkulasi audit Bhumi Amartya. Narasi di atas disintesis secara deterministik dari perpaduan sistem ini dan diperkaya oleh kondisi transit ephemeris aktual.</p>
+                                <div class="identity-grid" id="identity-grid"></div>
+                                <div class="audit-info-box" id="audit-info-box">
+                                    <strong>Standar Ephemeris & Astrologi:</strong> Sidereal Zodiac • Lahiri Chitrapaksha Ayanamsa • VSOP87 / ELP2000-82B Ephemeris • 27 Nakshatra & Vimshottari Dasha system.
+                                </div>
+                            </div>
+                        </details>
+
+                        <p class="result-disclaimer">Ini adalah pintu awal refleksi diri, bukan pembacaan final atau kepastian nasib. Hasil ini tidak dimaksudkan sebagai diagnosis medis, psikologis kaku, atau ramalan mutlak.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-                <section class="reading-cta" id="reading-cta-section" style="display: none;">
+        <section class="reading-cta" id="reading-cta-section" style="display: none;">
             <div class="container reading-cta-inner">
                 <span class="section-tag">Blueprint Bhumi</span>
                 <h2 class="section-title">Mau membaca dirimu lebih lengkap?</h2>
@@ -518,42 +938,43 @@
             <div class="footer-about">
                 <div class="footer-brand">
                     <img src="../assets/logo.png" alt="Bhumi Amartya Logo" width="38" height="38">
-                    <h4>Bhumi Amartya</h4>
+                    <span>Bhumi Amartya</span>
                 </div>
                 <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
             </div>
-            <div class="footer-links">
-                <h5>Menu</h5>
-                <ul>
-                    <li><a href="../#beranda" class="footer-link">Beranda</a></li>
-                    <li><a href="../#tentang" class="footer-link">Tentang Bhumi</a></li>
-                    <li><a href="./" class="footer-link">Tes Kenali Diri</a></li>
-                    <li><a href="../cek-aura/" class="footer-link">Cek Aura</a></li>
-                    <li><a href="../weton/" class="footer-link">Cek Weton</a></li>
-                    <li><a href="../kalkulator-cinta/" class="footer-link">Kalkulator Cinta</a></li>
-                    <li><a href="../kenali-diri/human-design/" class="footer-link">Human Design</a></li>
-                    <li><a href="../ebook/" class="footer-link">Ebook</a></li>
+            <div>
+                <h4 class="footer-col-title">Navigasi</h4>
+                <ul class="footer-links">
+                    <li><a href="../#beranda">Beranda</a></li>
+                    <li><a href="../about/">Tentang</a></li>
+                    <li><a href="../#produk">Produk & Layanan</a></li>
+                    <li><a href="../#artikel">Ngopi Ilmu</a></li>
+                    <li><a href="../contact/">Kontak</a></li>
                 </ul>
             </div>
-            <div class="footer-contact">
-                <h5>Hubungi Kami</h5>
-                <div class="contact-item">
-                    <span>halo@bhumiamartya.my.id</span>
-                </div>
-                <div class="contact-item">
-                    <span>+62 858-1053-1892</span>
-                </div>
+            <div>
+                <h4 class="footer-col-title">Kenali Diri</h4>
+                <ul class="footer-links">
+                    <li><a href="./">Tes Kenali Diri</a></li>
+                    <li><a href="../cek-aura/">Cek Aura</a></li>
+                    <li><a href="../weton/">Cek Weton</a></li>
+                    <li><a href="../kalkulator-cinta/">Kalkulator Cinta</a></li>
+                    <li><a href="../kenali-diri/human-design/">Human Design</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-col-title">Kontak</h4>
+                <p style="font-size:0.9rem; margin-bottom:0.75rem;">Jl. Raya Cilandak, Jakarta Selatan</p>
+                <p style="font-size:0.9rem; margin-bottom:0.75rem;">Email: info@bhumiamartya.my.id</p>
+                <p style="font-size:0.9rem;">WhatsApp: +62 858-1053-1892</p>
             </div>
         </div>
         <div class="container footer-bottom">
             <p>&copy; 2026 Bhumi Amartya. All rights reserved.</p>
-            <p>Dibuat oleh <a href="https://wedhaswara.my.id" target="_blank" rel="noopener noreferrer">Amartya Creative</a> | <a href="/privacy-policy/">Kebijakan Privasi</a></p>
         </div>
     </footer>
 
-    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
-    </button>
+    <button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">↑</button>
 
     <script src="../assets/bhumi-consent.js" defer></script>
     <script src="../assets/bhumi-analytics.js" defer></script>
@@ -568,20 +989,62 @@
             const form = document.getElementById('self-test-form');
             const introNote = document.getElementById('intro-note');
             const resultCard = document.getElementById('result-card');
+            
+            // Header elements
             const resultTitle = document.getElementById('result-title');
+            const resultSummary = document.getElementById('result-summary');
+
+            // Peta Langit elements
+            const skyDatePill = document.getElementById('sky-date-pill');
+            const skyMonthlyTheme = document.getElementById('sky-monthly-theme');
+            const skyQuickMoon = document.getElementById('sky-quick-moon');
+            const skyQuickRetrograde = document.getElementById('sky-quick-retrograde');
+            const transitCardsList = document.getElementById('transit-cards-list');
+            const precisionNote = document.getElementById('precision-note');
+            const retrogradeChips = document.getElementById('retrograde-chips');
+            const timelineItems = document.getElementById('timeline-items');
+
+            // 6 Categories content elements
+            const contentSecaraUmum = document.getElementById('content-secara-umum');
+            const contentEkonomiKarier = document.getElementById('content-ekonomi-karier');
+            const tabBtnSingle = document.getElementById('tab-btn-single');
+            const tabBtnCouple = document.getElementById('tab-btn-couple');
+            const asmaraSinglePane = document.getElementById('asmara-single-pane');
+            const asmaraCouplePane = document.getElementById('asmara-couple-pane');
+            const contentKesehatan = document.getElementById('content-kesehatan');
+            const contentSpiritual = document.getElementById('content-spiritual');
+            const contentTantangan = document.getElementById('content-tantangan');
+
+            // Closing & Tech details
+            const closingQuote = document.getElementById('closing-quote');
             const identityGrid = document.getElementById('identity-grid');
-            const synthesisCopy = document.getElementById('synthesis-copy');
-            const summaryBlocks = document.getElementById('summary-blocks');
             const birthcityInput = document.getElementById('birthcity');
             const citySuggestions = document.getElementById('city-suggestions');
             const cityNote = document.getElementById('city-note');
             let selectedCity = null;
-            let citySearchTimer = null;
+
+            // Asmara Tabs switching
+            tabBtnSingle.addEventListener('click', () => {
+                tabBtnSingle.classList.add('active');
+                tabBtnSingle.setAttribute('aria-selected', 'true');
+                tabBtnCouple.classList.remove('active');
+                tabBtnCouple.setAttribute('aria-selected', 'false');
+                asmaraSinglePane.style.display = 'block';
+                asmaraCouplePane.style.display = 'none';
+            });
+
+            tabBtnCouple.addEventListener('click', () => {
+                tabBtnCouple.classList.add('active');
+                tabBtnCouple.setAttribute('aria-selected', 'true');
+                tabBtnSingle.classList.remove('active');
+                tabBtnSingle.setAttribute('aria-selected', 'false');
+                asmaraCouplePane.style.display = 'block';
+                asmaraSinglePane.style.display = 'none';
+            });
 
             const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const PASARAN_FROM_ENGINE_EPOCH = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'];
             const ARCANA = ['The Magician', 'The High Priestess', 'The Empress', 'The Emperor', 'The Hierophant', 'The Lovers', 'The Chariot', 'Justice', 'The Hermit', 'Wheel of Fortune', 'Strength', 'The Hanged Man', 'Death', 'Temperance', 'The Devil', 'The Tower', 'The Star', 'The Moon', 'The Sun', 'Judgement', 'The World', 'The Fool'];
-            const BAZI_ELEMENTS = ['Kayu', 'Api', 'Tanah', 'Logam', 'Air'];
             const BAZI_STEMS = [
                 { pinyin: 'Jia', element: 'Kayu', polarity: 'Yang' },
                 { pinyin: 'Yi', element: 'Kayu', polarity: 'Yin' },
@@ -596,16 +1059,216 @@
             ];
             const TZOLKIN_SEALS = ['Naga Merah', 'Angin Putih', 'Malam Biru', 'Benih Kuning', 'Ular Merah', 'Penghubung Dunia Putih', 'Tangan Biru', 'Bintang Kuning', 'Bulan Merah', 'Anjing Putih', 'Monyet Biru', 'Manusia Kuning', 'Penjelajah Langit Merah', 'Penyihir Putih', 'Elang Biru', 'Ksatria Kuning', 'Bumi Merah', 'Cermin Putih', 'Badai Biru', 'Matahari Kuning'];
             const TZOLKIN_TONES = ['Magnetic', 'Lunar', 'Electric', 'Self-Existing', 'Overtone', 'Rhythmic', 'Resonant', 'Galactic', 'Solar', 'Planetary', 'Spectral', 'Crystal', 'Cosmic'];
-            const LIFE_PATH_THEMES = {
-                1: 'inisiatif dan keberanian memulai',
-                2: 'kepekaan rasa dan kerja sama',
-                3: 'ekspresi, kreativitas, dan komunikasi',
-                4: 'struktur, ketekunan, dan stabilitas',
-                5: 'perubahan, kebebasan, dan adaptasi',
-                6: 'tanggung jawab, kasih, dan harmoni',
-                7: 'pencarian makna dan kedalaman batin',
-                8: 'daya kelola, karya, dan kepemimpinan',
-                9: 'welas asih, penyelesaian, dan pandangan luas'
+
+            const LIFE_PATH_DATA = {
+                1: {
+                    core: 'inisiatif mandiri dan keberanian membuka langkah pertama',
+                    strength: 'kemampuan mengambil keputusan di saat situasi belum sepenuhnya jelas dan berani memimpin arah baru',
+                    blindspot: 'dorongan untuk memikul semua tanggung jawab sendirian karena merasa paling paham atau enggan merepotkan orang lain',
+                    workStyle: 'berkembang optimal di ruang yang memberi keleluasaan inisiatif, otonomi dalam menentukan alur kerja, dan kejelasan target',
+                    financialMindset: 'cenderung berani mengambil risiko produktif untuk membangun kemandirian finansial, namun perlu menjaga cadangan dana darurat agar tidak impulsif',
+                    workChallenge: 'menghindari rasa frustrasi saat ritme kerja orang lain tidak secepat standar pribadimu',
+                    loveSingle: 'Dalam membuka hati, kamu menghargai seseorang yang percaya diri dan memiliki dunianya sendiri. Kamu tidak mencari orang untuk bergantung, melainkan rekan setara yang bisa diajak tumbuh bersama.',
+                    loveCouple: 'Dalam hubungan berpasangan, kunci keharmonisanmu adalah menjaga komunikasi dua arah sebelum memutuskan rencana besar bersama, sehingga pasangan tidak merasa ditinggalkan dalam pengambilan keputusan.',
+                    healthFocus: 'Energi fisikmu biasanya melimpah saat sedang bersemangat, namun rawan mengalami ketegangan di area kepala, leher, atau mata saat terlalu memaksakan diri bekerja melampaui batas.',
+                    spiritualTheme: 'Pencarian spiritualmu bertumbuh ketika kamu menyadari bahwa kepemimpinan sejati lahir dari kerendahan hati dan kepasrahan kepada ritme hidup yang lebih luas.',
+                    challengeCore: 'Kecenderungan untuk cepat merasa gelisah saat ada hal yang berjalan di luar kendalimu.',
+                    closing: 'Mungkin tidak semua hal harus kamu selesaikan dalam satu tarikan napas. Memberi jeda sejenak bukan berarti langkahmu terhenti, melainkan caramu mengumpulkan ketenangan untuk melangkah lebih jauh.'
+                },
+                2: {
+                    core: 'kepekaan rasa, diplomasi, dan seni merajut kerja sama yang hangat',
+                    strength: 'kemampuan membaca suasana emosional dengan jernih, mendengarkan secara tulus, dan menjadi jembatan damai di tengah perbedaan',
+                    blindspot: 'kebiasaan menunda menyampaikan apa yang sebenarnya kamu rasakan karena khawatir merusak keharmonisan atau memicu gesekan',
+                    workStyle: 'sangat efektif dalam peran kemitraan, kolaborasi tim, mediasi, dan pekerjaan yang menuntut ketelitian rasa serta konseling',
+                    financialMindset: 'memiliki orientasi kehati-hatian dalam mengelola uang, cenderung mengutamakan rasa aman bersama keluarga daripada spekulasi berisiko tinggi',
+                    workChallenge: 'merawat batas profesional agar tidak terlalu menyerap beban emosional rekan kerja atau klien ke dalam pikiran pribadimu',
+                    loveSingle: 'Bagi kamu yang sedang single, hatimu mendambakan rasa aman dan keterikatan emosional yang tulus. Penting untuk tidak terburu-buru menurunkan standar hanya karena ingin segera merasa ditemani.',
+                    loveCouple: 'Untuk yang berpasangan, hubunganmu paling mekar saat ada waktu berkualitas untuk saling mencurahkan isi hati tanpa distraksi. Percakapan kecil yang jujur akan menjaga ikatan tetap lekat.',
+                    healthFocus: 'Tubuhmu sangat responsif terhadap ketegangan batin, terutama pada area pencernaan dan kualitas tidur. Menjaga suasana makan yang tenang dan ritme istirahat yang teratur adalah obat terbaikmu.',
+                    spiritualTheme: 'Jalan spiritualmu hadir lewat rasa syukur pada keindahan hubungan antarmanusia dan latihan menjaga ketenangan batin di tengah hiruk-pikuk sekitar.',
+                    challengeCore: 'Rasa ragu yang muncul saat harus menetapkan batasan tegas terhadap permintaan orang lain.',
+                    closing: 'Menjaga perasaan orang lain adalah kebaikan yang mulia, namun jangan sampai kamu lupa menyediakan ruang aman yang sama hangatnya untuk dirimu sendiri.'
+                },
+                3: {
+                    core: 'ekspresi kreatif, komunikasi yang hidup, dan optimisme yang menular',
+                    strength: 'kelincahan menangkap ide, menyederhanakan gagasan rumit menjadi menarik, dan menghidupkan suasana di lingkungan mana pun',
+                    blindspot: 'perhatian yang mudah terpecah ketika terlalu banyak peluang baru datang bersamaan, sehingga karya yang sudah dimulai rawan tertunda',
+                    workStyle: 'berkembang pesat di bidang komunikasi, media kreatif, edukasi, penulisan, seni, atau profesi yang mengandalkan daya persuasi dan narasi',
+                    financialMindset: 'arus kas cenderung dinamis mengikuti proyek kreatif; tantangannya adalah menyisihkan tabungan konsisten di saat pendapatan sedang tinggi',
+                    workChallenge: 'menjaga disiplin harian agar ide-ide cemerlang tidak hanya berhenti sebagai rencana di atas kertas',
+                    loveSingle: 'Saat mencari pasangan, kamu tertarik pada sosok yang komunikatif, memiliki selera humor, dan bisa diajak berdiskusi tentang berbagai topik secara lepas tanpa rasa canggung.',
+                    loveCouple: 'Dalam kehidupan berpasangan, keterbukaan berekspresi adalah napas hubunganmu. Luangkan waktu untuk mengobrol santai tanpa membicarakan urusan logistik atau kewajiban praktis semata.',
+                    healthFocus: 'Tenggorokan, saluran pernapasan, dan ritme energi saraf adalah area yang perlu diperhatikan. Hindari kebiasaan begadang saat larut dalam proyek malam hari.',
+                    spiritualTheme: 'Spiritualitas bagimu adalah ungkapan rasa syukur yang dirayakan melalui kegembiraan hidup, karya yang menginspirasi sesama, dan kejujuran hati.',
+                    challengeCore: 'Kecenderungan untuk menutupi rasa sedih atau lelah dengan tetap terlihat ceria di hadapan orang lain.',
+                    closing: 'Gagasanmu indah saat dibagikan kepada dunia, namun ia akan berbuah paling manis saat kamu memberinya waktu dan ketekunan untuk benar-benar mengakar.'
+                },
+                4: {
+                    core: 'ketekunan, fondasi yang kokoh, dan tanggung jawab praktis',
+                    strength: 'keandalan tinggi dalam menjaga komitmen, menata sistem kerja, dan membangun stabilitas jangka panjang yang tahan uji',
+                    blindspot: 'kekakuan yang muncul saat rencana mendadak berubah di luar kendali, yang bisa menimbulkan kecemasan atau rasa frustrasi berlebih',
+                    workStyle: 'sangat unggul dalam manajemen operasional, perencanaan struktural, keuangan, teknik, dan pekerjaan yang menuntut presisi serta dedikasi nyata',
+                    financialMindset: 'sangat disiplin dalam menabung dan mengamankan aset riil; naluri proteksimu terhadap masa depan finansial tergolong kuat dan terukur',
+                    workChallenge: 'menghindari kebiasaan membebani diri dengan standar kesempurnaan yang terlalu kaku hingga sulit mendelegasikan tugas',
+                    loveSingle: 'Bagi yang single, kamu membutuhkan waktu untuk benar-benar percaya sebelum membuka ruang hati. Konsistensi perbuatan seseorang jauh lebih memikat bagimu daripada kata-kata manis.',
+                    loveCouple: 'Untuk yang berpasangan, caramu menunjukkan cinta sering kali berwujud tindakan nyata dan pemenuhan kebutuhan keluarga. Pasanganmu mungkin sesekali juga merindukan ungkapan kasih sayang yang lebih verbal dan spontan.',
+                    healthFocus: 'Area persendian, tulang belakang, dan otot bahu rawan tegang akibat postur kerja yang monoton atau beban mental yang ditahan lama. Lakukan peregangan rutin dan luangkan waktu relaksasi.',
+                    spiritualTheme: 'Bagi dirimu, laku spiritual hadir lewat ketulusan menjalankan tugas hidup sehari-hari dengan setia dan melihat kesucian di dalam keteraturan alam.',
+                    challengeCore: 'Rasa cemas yang tidak perlu saat menghadapi proses yang membutuhkan waktu dan belum menunjukkan hasil instan.',
+                    closing: 'Fondasi yang kuat adalah anugerah besar, namun rumah yang nyaman selalu membutuhkan jendela yang bisa dibuka agar angin segar tetap leluasa masuk.'
+                },
+                5: {
+                    core: 'jiwa merdeka, daya adaptasi yang lincah, dan rasa ingin tahu yang luas',
+                    strength: 'kemampuan membaca peluang baru, mudah menyesuaikan diri di berbagai lingkaran pergaulan, dan berani menjelajah jalan yang belum terpetakan',
+                    blindspot: 'kegelisahan yang cepat timbul saat menghadapi rutinitas yang monoton, yang kadang membuatmu ingin buru-buru berpindah sebelum hal itu membuahkan hasil',
+                    workStyle: 'berkembang di bidang yang mobile, ekspansif, konsultatif, perdagangan, diplomasi, media, atau karier yang menawarkan fleksibilitas jam kerja',
+                    financialMindset: 'peluang rezeki sering datang dari berbagai pintu tak terduga; kuncinya adalah menata pos keuangan agar pengeluaran untuk gaya hidup dan petualangan tetap berimbang',
+                    workChallenge: 'menjaga fokus penyelesaian tugas hingga tuntas saat rasa bosan mulai mengetuk pintu pikiran',
+                    loveSingle: 'Dalam urusan asmara, kamu membutuhkan pasangan yang tidak mengekang kebebasan berpikirmu dan memiliki wawasan luas untuk diajak bertualang bersama.',
+                    loveCouple: 'Bagi yang berpasangan, kejenuhan adalah hal yang wajar dalam ritme panjang hubungan. Mencoba aktivitas baru berdua atau memberi ruang pribadi yang sehat akan menyegarkan kembali keintimanmu.',
+                    healthFocus: 'Sistem saraf dan tingkat hormon stres cenderung berfluktuasi cepat. Batasi konsumsi kafein berlebih dan sediakan waktu grounding di alam terbuka untuk menenangkan pikiran.',
+                    spiritualTheme: 'Pencarian spiritualmu bertumbuh lewat perjumpaan dengan beragam tradisi dan pemahaman bahwa setiap perubahan hidup membawa pelajaran batin yang berharga.',
+                    challengeCore: 'Mengendalikan dorongan impulsif untuk mengambil keputusan mendadak saat sedang merasa tertekan.',
+                    closing: 'Dunia selalu menawarkan kebaruan yang memikat, namun kedalaman rasa dan makna sering kali baru kita temukan saat kita bersedia tinggal sedikit lebih lama di satu tempat.'
+                },
+                6: {
+                    core: 'tanggung jawab merawat, welas asih, dan menjaga keharmonisan lingkungan terdekat',
+                    strength: 'kemampuan hadir sebagai tempat berteduh yang menenangkan bagi keluarga, sahabat, dan komunitas dengan perhatian yang tulus',
+                    blindspot: 'dorongan untuk memperbaiki masalah semua orang sampai mengorbankan batas kesehatan batin dan waktu istirahat pribadimu',
+                    workStyle: 'sangat cocok di bidang pelayanan sosial, kesehatan, pendidikan, manajemen sumber daya manusia, konseling, arsitektur interior, atau bisnis bernilai etis',
+                    financialMindset: 'cenderung memprioritaskan alokasi dana untuk kenyamanan rumah dan kesejahteraan keluarga; pastikan kamu juga memiliki alokasi investasi yang terproteksi secara mandiri',
+                    workChallenge: 'menghindari rasa kecewa mendalam ketika pengorbanan dan ketulusanmu tidak direspons dengan kadar yang sepadan oleh rekan kerja',
+                    loveSingle: 'Untuk yang single, kamu mencari relasi yang mengarah pada kehangatan rumah tangga dan komitmen jangka panjang. Berhati-hatilah agar tidak tertarik pada seseorang hanya karena ingin "menyelamatkannya".',
+                    loveCouple: 'Bagi yang berpasangan, hubunganmu terasa kokoh saat ada rasa saling menghargai peran masing-masing. Beri ruang bagi pasangan untuk berkontribusi dengan caranya sendiri tanpa perlu kamu koreksi terus-menerus.',
+                    healthFocus: 'Area dada, sirkulasi pernapasan, dan ritme metabolisme tubuh sangat dipengaruhi oleh suasana hati. Menjaga batas emosional akan melindungi energimu dari kelelahan kronis.',
+                    spiritualTheme: 'Bakti dan pelayanan tulus adalah pintu spiritualmu. Kebaikanmu akan paling bermakna saat bersumber dari cangkir batin yang sudah terisi penuh.',
+                    challengeCore: 'Rasa bersalah yang muncul ketika kamu harus menolak permintaan tolong orang lain demi menjaga kesehatanmu.',
+                    closing: 'Kasih yang paling sehat adalah kasih yang tidak menuntutmu untuk terus kehabisan napas demi menyenangkan semua pihak. Rawatlah dirimu terlebih dahulu dengan kehangatan yang sama.'
+                },
+                7: {
+                    core: 'pencarian kebenaran batin, ketajaman analisis, dan kedalaman kontemplasi',
+                    strength: 'kemampuan mengamati apa yang tersembunyi di balik permukaan, berpikir mendalam tanpa terpengaruh opini massa, dan intuisi intelektual yang tajam',
+                    blindspot: 'kecenderungan menarik diri terlalu jauh ke dalam ruang kesendirian hingga terasa dingin atau sulit dijangkau oleh orang terdekat',
+                    workStyle: 'sangat unggul dalam penelitian, analisis data, teknologi, filsafat, strategi kebijakan, penulisan mendalam, dan profesi yang membutuhkan waktu berpikir tanpa gangguan',
+                    financialMindset: 'memiliki pandangan rasional terhadap materi; uang dipandang sebagai instrumen untuk menjaga kemerdekaan berpikir dan ketenangan hidup, bukan semata-mata untuk status sosial',
+                    workChallenge: 'menghindari sikap skeptis berlebihan atau overthinking yang menghambat langkah eksekusi nyata di lapangan',
+                    loveSingle: 'Bagi kamu yang single, kamu membutuhkan seseorang yang bisa diajak berbicara mendalam tentang makna hidup dan menghormati kebutuhanmu akan ruang hening pribadi.',
+                    loveCouple: 'Untuk yang berpasangan, tantangan terbesarmu adalah mengekspresikan rasa sayang secara hangat. Jangan biarkan pasangan merasa harus menebak-nebak apa yang sedang berkecamuk di dalam kepalamu.',
+                    healthFocus: 'Kesehatan mental dan kualitas tidur adalah fondasi utamamu. Otak yang aktif bekerja hingga larut malam membutuhkan ritual pendinginan pikiran sebelum tidur, seperti meditasi atau membaca bacaan ringan.',
+                    spiritualTheme: 'Pencarian spiritualmu adalah kebutuhan esensial jiwa. Keheningan dan studi mendalam adalah caramu menyelaraskan diri dengan hakikat alam semesta.',
+                    challengeCore: 'Kecenderungan untuk mengisolasi diri saat sedang terluka atau merasa tidak dipahami oleh lingkungan sekitar.',
+                    closing: 'Mencari jawaban ke dalam diri adalah anugerah yang jernih. Namun jangan lupa untuk sesekali duduk bersama orang terdekat dan menikmati obrolan biasa yang hangat tanpa perlu membedah maknanya.'
+                },
+                8: {
+                    core: 'daya kelola, kepemimpinan strategis, dan orientasi pada dampak nyata',
+                    strength: 'keberanian mengambil tanggung jawab besar, ketegasan menavigasi krisis, dan visi tajam dalam mengorganisasi sumber daya untuk mencapai hasil optimal',
+                    blindspot: 'dorongan mengendalikan segala aspek yang bisa membuatmu terlihat terlalu keras atau menuntut standar yang membebani orang di sekitarmu',
+                    workStyle: 'sangat berkembang di posisi kepemimpinan korporasi, kewirausahaan, manajemen investasi, hukum bisnis, dan proyek-proyek berskala besar',
+                    financialMindset: 'memiliki naluri alami dalam memutar modal dan melihat peluang ekspansi; penting untuk menjaga keseimbangan etika dan tidak terjebak dalam perlombaan materi tanpa batas',
+                    workChallenge: 'menjaga tensi emosi agar tidak mudah meledak saat eksekusi tim di lapangan berjalan lebih lambat dari ekspektasimu',
+                    loveSingle: 'Bagi yang single, kamu tertarik pada sosok yang tangguh, mandiri, dan memiliki integritas moral yang sepadan dengan karaktermu yang kuat.',
+                    loveCouple: 'Dalam kehidupan berpasangan, hindari memperlakukan hubungan seperti negosiasi bisnis. Kehangatan rumah tangga membutuhkan kelembutan, kerelaan mengalah, dan ruang untuk saling menerima kelemahan.',
+                    healthFocus: 'Tekanan darah, sirkulasi peredaran darah, dan tingkat ketegangan otot perlu dijaga secara cermat. Luangkan waktu untuk olahraga aerobik yang teratur dan istirahat yang berkualitas.',
+                    spiritualTheme: 'Spiritualitas bagimu adalah memahami hukum sebab-akibat (karma) dan menggunakan kekuatan serta kelimpahan materi sebagai sarana berbuat kebaikan bagi banyak orang.',
+                    challengeCore: 'Rasa takut kehilangan kendali atas reputasi, posisi, atau hasil kerja keras yang telah kamu bangun.',
+                    closing: 'Pencapaian besar terasa paling manis ketika dibangun di atas tubuh yang sehat dan hati yang tidak terbebani rasa harus selalu menjadi pemenang dalam setiap keadaan.'
+                },
+                9: {
+                    core: 'pandangan luas, welas asih universal, dan keikhlasan melepaskan',
+                    strength: 'kemampuan melihat gambaran besar kehidupan, empati mendalam pada mereka yang terpinggirkan, dan jiwa dermawan yang tulus',
+                    blindspot: 'menyimpan kekecewaan dalam diam ketika kenyataan dunia atau perilaku orang lain tidak seindah idealisme tinggi yang ada di kepalamu',
+                    workStyle: 'sangat cocok di bidang kemanusiaan, diplomasi internasional, seni inspiratif, hukum publik, lingkungan hidup, dan edukasi transformatif',
+                    financialMindset: 'rezeki cenderung mengalir deras saat kamu berniat memberi manfaat bagi orang banyak; tetaplah disiplin dalam memisahkan pos keuangan pribadi dengan bantuan sosial',
+                    workChallenge: 'merawat motivasi kerja agar tidak mudah merasa lelah mental (burnout) saat menghadapi birokrasi atau sistem yang lambat berubah',
+                    loveSingle: 'Untuk kamu yang single, kamu mendambakan koneksi jiwa yang melampaui ketertarikan fisik semata. Pastikan kamu melihat calon pasangan apa adanya, bukan memproyeksikan citra idealmu kepadanya.',
+                    loveCouple: 'Bagi yang berpasangan, hubunganmu bertumbuh saat kalian berdua memiliki visi bersama untuk memberi dampak positif bagi sekitar. Jaga komunikasi harian agar tidak terlalu abstrak dan tetap menyentuh kebutuhan praktis berdua.',
+                    healthFocus: 'Sistem imunitas dan kesehatan kelenjar getah bening sangat peka terhadap suasana batin. Aktivitas detoksifikasi tubuh dan tidur yang cukup adalah kunci menjaga daya tahan fisikmu.',
+                    spiritualTheme: 'Keikhlasan melepaskan apa yang telah usai dan memaafkan masa lalu adalah inti evolusi batinmu. Di sanalah letak kedamaian sejatimu.',
+                    challengeCore: 'Kecenderungan untuk memendam luka batin masa lalu dan sulit melepaskan harapan yang sudah tidak lagi realistis.',
+                    closing: 'Kamu tidak perlu membenahi seluruh dunia hari ini. Cukup rawat apa yang ada di hadapanmu saat ini dengan ketulusan dan kelembutan yang sama.'
+                },
+                11: {
+                    core: 'intuisi yang jernih, kepekaan batin, dan inspirasi bagi sesama',
+                    strength: 'daya tangkap naluriah yang peka membaca dinamika terselubung dan kemampuan menyalurkan wawasan yang mencerahkan pikiran orang lain',
+                    blindspot: 'kepekaan sensorik yang berlebihan terhadap energi lingkungan sekitar sehingga mudah merasa lelah tanpa alasan fisik yang jelas',
+                    workStyle: 'unggul dalam konseling, kepemimpinan spiritual, psikologi, media kreatif, arsitektur ide, dan peran penasihat strategis',
+                    financialMindset: 'keuangan bertumbuh saat karyamu selaras dengan nilai kebenaran batinmu; hindari spekulasi finansial yang didorong oleh kepanikan emosional',
+                    workChallenge: 'menghindari kecemasan mental akibat terlalu banyak menyerap ekspektasi orang-orang di sekitarmu',
+                    loveSingle: 'Bagi yang single, kamu mencari belahan jiwa yang bisa memahami kedalaman intuisi dan gelombang perasaanmu tanpa menilaimu aneh atau berlebihan.',
+                    loveCouple: 'Dalam berpasangan, komunikasi telepati sering terasa, namun tetap membutuhkan kata-kata yang jelas untuk mengonfirmasi rasa agar tidak timbul asumsi keliru.',
+                    healthFocus: 'Sistem saraf pusat dan ketegangan mata sangat rentan overstimulasi. Mengurangi waktu di depan layar dan berjalan tanpa alas kaki di atas rumput akan membantu grounding energimu.',
+                    spiritualTheme: 'Jalanmu adalah menjadi lentera yang tenang. Kamu tidak perlu berteriak untuk didengar; kehadiranmu yang hening sudah membawa pengaruh menenangkan.',
+                    challengeCore: 'Mengelola gelombang keraguan diri saat intuisi batinmu berbenturan dengan logika umum masyarakat.',
+                    closing: 'Kepekaanmu adalah anugerah yang lembut. Rawatlah dengan istirahat yang cukup, batas pergaulan yang sehat, dan kebiasaan sederhana yang menenangkan jiwa.'
+                },
+                22: {
+                    core: 'pembangunan visi besar yang berpijak kokoh di bumi',
+                    strength: 'perpaduan langka antara impian transformatif berskala luas dan ketangguhan praktis untuk mewujudkannya batu demi batu hingga selesai',
+                    blindspot: 'beban ekspektasi yang terlalu berat pada pundak sendiri karena merasa harus selalu menghasilkan karya besar yang sempurna',
+                    workStyle: 'sangat berpengaruh dalam pembangunan infrastruktur, perencanaan kota, filantropi terstruktur, kepemimpinan institusi besar, dan manajemen makro',
+                    financialMindset: 'mampu mengelola arus modal besar dengan perhitungan matang; kuncinya adalah menjaga diversifikasi aset dan tidak menaruh semua beban pada satu proyek',
+                    workChallenge: 'menjaga kesabaran saat orang lain di sekitarmu membutuhkan waktu lebih lama untuk memahami cetak biru gagasanmu',
+                    loveSingle: 'Untuk yang single, kamu membutuhkan pasangan yang matang secara emosional dan mampu menjadi tempat berteduh yang stabil di tengah kesibukan proyek besarmu.',
+                    loveCouple: 'Bagi yang berpasangan, luangkan waktu berkualitas yang murni untuk berdua tanpa membicarakan urusan pekerjaan, target masa depan, atau tanggung jawab publik.',
+                    healthFocus: 'Kelelahan fisik menyeluruh dan ketegangan sistem otot punggung sering mengintai jika kamu lupa mengambil cuti berkala. Jadwalkan istirahat sebagai bagian wajib dari rencana kerjamu.',
+                    spiritualTheme: 'Bagi dirimu, spiritualitas adalah kerja nyata yang mewujudkan kebaikan ilahi menjadi struktur fisik yang bermanfaat bagi generasi mendatang.',
+                    challengeCore: 'Rasa frustrasi yang muncul ketika kenyataan praktis berjalan lambat dan terhambat oleh keterbatasan sumber daya.',
+                    closing: 'Karya besar dibangun dari hari-hari biasa yang dijalani dengan kesetiaan. Jangan abaikan kebahagiaan sederhana dan tawa hangat di sepanjang perjalananmu.'
+                },
+                33: {
+                    core: 'pelayanan tanpa pamrih, welas asih mendalam, dan keteladanan yang meneduhkan',
+                    strength: 'kemampuan mendengarkan tanpa menghakimi, kehangatan empati yang menyembuhkan luka batin sesama, dan ketulusan hati yang tulus',
+                    blindspot: 'mudah merasa bersalah saat harus beristirahat atau menolak permintaan bantuan orang lain',
+                    workStyle: 'sangat menonjol dalam bidang penyembuhan, pengasuhan, konseling keluarga, advokasi kemanusiaan, seni terapeutik, dan pelayanan publik',
+                    financialMindset: 'rezeki cenderung selalu cukup saat dialirkan untuk kebaikan; tetaplah memiliki penasihat keuangan yang objektif untuk menjaga pos dana pribadimu',
+                    workChallenge: 'menghindari penyerapan energi negatif dari lingkungan yang sedang menghadapi krisis emosional',
+                    loveSingle: 'Bagi yang single, carilah pasangan yang bisa merawatmu kembali dengan kadar ketulusan yang sama, bukan seseorang yang hanya ingin menikmati perhatianmu.',
+                    loveCouple: 'Untuk yang berpasangan, hubunganmu adalah oasis ketenangan. Jaga agar komunikasi di rumah tetap menjadi ruang relaksasi yang bebas dari tuntutan peran di luar.',
+                    healthFocus: 'Energi vital dan sistem limfatik membutuhkan perhatian. Beri tubuh asupan makanan segar, air yang cukup, dan tidur malam yang tidak terpotong-potong.',
+                    spiritualTheme: 'Spiritualitasmu bersinar lewat kelembutan kata dan ketulusan doa. Kehadiranmu yang damai adalah obat bagi hati yang sedang gundah.',
+                    challengeCore: 'Beban emosional yang menumpuk akibat merasa bertanggung jawab atas kebahagiaan semua orang di sekitarmu.',
+                    closing: 'Bahkan pohon yang paling rindang pun membutuhkan hujan dan tanah subur untuk merawat dirinya sendiri. Sayangilah dirimu dengan kehangatan yang sama seperti kamu menyayangi sesama.'
+                }
+            };
+
+            const ARCANA_DATA = {
+                'The Magician': { quality: 'daya kreasi dan inisiatif aktif', career: 'memiliki kelincahan mengubah sumber daya yang ada menjadi peluang nyata dengan komunikasi yang meyakinkan', love: 'membawa kesegaran dalam percakapan dan keterbukaan mencoba hal-hal baru bersama pasangan', challenge: 'waspada terhadap godaan untuk memanipulasi situasi demi mencapai tujuan secara instan' },
+                'The High Priestess': { quality: 'ketenangan batin dan ketajaman intuisi', career: 'sangat jeli mengamati celah yang luput dari pandangan orang lain dan tepat dalam membaca waktu yang tepat untuk bertindak', love: 'menghargai kedalaman emosional dan hubungan batin yang tidak perlu diobral dengan kata-kata berlebihan', challenge: 'waspada terhadap kecenderungan menyimpan rahasia atau bersikap terlalu tertutup hingga sulit dipahami' },
+                'The Empress': { quality: 'daya rawat yang subur dan kehangatan rasa', career: 'mampu menciptakan suasana kerja yang harmonis dan menumbuhkan proyek-proyek kreatif dengan kesabaran alami', love: 'menunjukkan kasih sayang lewat perhatian fisik, kenyamanan rumah, dan penerimaan yang tulus', challenge: 'menghindari sikap protektif berlebihan atau memanjakan orang lain sampai mengabaikan kemandirian mereka' },
+                'The Emperor': { quality: 'ketegasan struktur dan kepemimpinan yang stabil', career: 'unggul dalam menegakkan keteraturan, menetapkan batas wewenang yang jelas, dan mengawal target hingga tercapai', love: 'memberikan rasa aman, kepastian komitmen, dan perlindungan nyata bagi pasangan serta keluarga', challenge: 'menghindari kekakuan berpikir atau kesulitan berkompromi saat situasi membutuhkan kelenturan' },
+                'The Hierophant': { quality: 'pencarian nilai luhur dan kearifan tradisi', career: 'berkembang sebagai pembimbing, rujukan etika, atau penjaga nilai-nilai luhur di dalam organisasi', love: 'menjunjung tinggi keselarasan nilai hidup, komitmen pernikahan, dan rasa hormat yang mendalam', challenge: 'waspada terhadap sikap dogmatis atau kecenderungan menilai orang lain berdasarkan standar moral pribadi' },
+                'The Lovers': { quality: 'keselarasan pilihan hati dan komunikasi terbuka', career: 'bekerja paling produktif saat proyek yang dikerjakan benar-benar selaras dengan suara hati dan nilai pribadimu', love: 'sangat peka terhadap kehangatan komunikasi dua arah dan kejujuran emosional tanpa kepura-puraan', challenge: 'menghindari keraguan berkepanjangan saat dihadapkan pada pilihan sulit yang menuntut komitmen tegas' },
+                'The Chariot': { quality: 'fokus tekad dan disiplin mengarahkan energi', career: 'memiliki daya dorong tinggi untuk menuntaskan tantangan sulit dan tidak mudah menyerah oleh rintangan awal', love: 'membutuhkan pasangan yang bisa berjalan beriringan dan tidak menahan laju pertumbuhan pribadimu', challenge: 'menghindari dorongan untuk terus melaju kencang tanpa memberi waktu istirahat yang cukup bagi tubuh' },
+                'Justice': { quality: 'kejujuran menimbang dan kesadaran sebab-akibat', career: 'cermat dalam menganalisis fakta, menyusun kontrak kerja yang adil, dan mengambil keputusan yang berimbang', love: 'menghargai kesetaraan peran, keterbukaan informasi, dan komitmen yang dipegang dengan penuh tanggung jawab', challenge: 'menghindari sikap terlalu kritis atau menghakimi kesalahan kecil orang lain dengan standar yang kaku' },
+                'The Hermit': { quality: 'kebijaksanaan hening dan refleksi mendalam', career: 'sangat mandiri dalam bekerja, menghasilkan analisis yang mendalam dan tidak terburu-buru mengejar popularitas semata', love: 'membutuhkan pasangan yang menghargai waktu kesendirianmu dan bisa diajak berdiskusi tentang esensi hidup', challenge: 'waspada agar kesendirian yang menyehatkan tidak berubah menjadi isolasi sosial yang memisahkanmu dari dunia' },
+                'Wheel of Fortune': { quality: 'keluwesan menyikapi dinamika pasang-surut kehidupan', career: 'pandai membaca momentum perubahan pasar dan berani memanfaatkan peluang di saat situasi sedang bergeser', love: 'memahami bahwa setiap hubungan memiliki musimnya sendiri, ada saatnya dekat dan ada saatnya memberi ruang', challenge: 'menghindari sikap pasrah berlebihan seolah nasib tidak bisa diupayakan melalui ikhtiar sadar' },
+                'Strength': { quality: 'kelembutan yang teguh dan penguasaan emosi', career: 'mampu menyelesaikan konflik kerja yang pelik dengan pendekatan persuasif tanpa perlu menggunakan kekerasan kata', love: 'menghadirkan kesabaran yang menyejukkan saat menghadapi pasangan yang sedang dalam kondisi emosi sensitif', challenge: 'menghindari kebiasaan memendam rasa lelah batin demi terlihat selalu kuat di mata orang lain' },
+                'The Hanged Man': { quality: 'kerelaan melihat dari sudut pandang baru dan kesabaran menunggu', career: 'mampu menemukan solusi kreatif yang tidak terpikirkan orang lain saat sebuah proyek sedang mengalami kebuntuan', love: 'bersedia memberi ruang dan waktu bagi hubungan untuk matang tanpa memaksakan kehendak sepihak', challenge: 'waspada terhadap rasa enggan melangkah atau menunda keputusan penting dengan dalih sedang menunggu waktu' },
+                'Death': { quality: 'keberanian melepaskan hal usai untuk pembaruan babak baru', career: 'tegas dalam memutus strategi usang yang tidak lagi relevan dan berani bertransformasi menuju bidang baru', love: 'bersedia melepaskan pola lama dalam berkomunikasi agar hubungan bisa berevolusi ke tingkat kedewasaan yang lebih sehat', challenge: 'waspada terhadap rasa takut berlebihan menghadapi perpisahan atau perubahan mendasar dalam hidup' },
+                'Temperance': { quality: 'seni merajut keseimbangan dan kesabaran memadukan perbedaan', career: 'unggul dalam menjembatani berbagai kepentingan yang berbeda dan menjaga kestabilan alur kerja jangka panjang', love: 'membawa ketenangan dalam relasi harian, meredam pertengkaran kecil, dan merawat harmoni yang seimbang', challenge: 'menghindari kompromi yang berlebihan sampai mengorbankan prinsip dasar yang sebenarnya sangat kamu pegang' },
+                'The Devil': { quality: 'kepekaan menyadari keterikatan emosi dan daya pembebasan diri', career: 'sangat memahami psikologi keinginan manusia dan daya tarik materi, cerdas dalam negosiasi yang menantang', love: 'menyadari pentingnya menjaga batas sehat dalam hubungan agar ketertarikan intens tidak berubah menjadi ketergantungan obsesif', challenge: 'waspada agar tidak terjebak dalam pola kebiasaan yang merugikan kesehatan fisik atau batin' },
+                'The Tower': { quality: 'daya lentur bangkit dari goncangan dan membangun fondasi jujur', career: 'tangguh dalam menghadapi krisis mendadak dan mampu membangun kembali sistem yang lebih kokoh dan transparan', love: 'berani meruntuhkan kepura-puraan dalam hubungan demi mencapai kejujuran emosional yang sejati', challenge: 'mengelola rasa terkejut dan tidak terburu-buru mengambil kesimpulan negatif saat terjadi perubahan mendadak' },
+                'The Star': { quality: 'harapan jernih, ketulusan rasa, dan optimisme yang tenang', career: 'mampu menghadirkan visi masa depan yang menginspirasi tim dan bekerja dengan niat tulus tanpa pamrih berlebih', love: 'membawa kesegaran, kehangatan empati, dan kepercayaan yang meneduhkan di dalam hubungan asmara', challenge: 'menjaga agar harapan idealis tetap berpijak pada langkah-langkah praktis dan realitas yang ada' },
+                'The Moon': { quality: 'imajinasi mendalam, kepekaan rasa, dan eksplorasi alam bawah sadar', career: 'memiliki intuisi tajam dalam menangkap tren artistik atau perubahan sentimen psikologis di masyarakat', love: 'sangat peka terhadap getaran rasa pasangan; penting untuk membedakan antara firasat nyata dan rasa cemas pribadi', challenge: 'menghindari overthinking atau membiarkan ilusi kekhawatiran mengaburkan kejernihan logika berpikir' },
+                'The Sun': { quality: 'kejujuran berekspresi, kehangatan rasa syukur, dan vitalitas membumi', career: 'memancarkan daya kepemimpinan yang ramah, menghadirkan transparansi kerja, dan mudah menarik dukungan rekanan', love: 'menghadirkan kegembiraan yang tulus, keterbukaan hati, dan kebahagiaan sederhana dalam kebersamaan sehari-hari', challenge: 'menjaga kerendahan hati agar rasa percaya diri yang tinggi tidak tergelincir menjadi sikap arogan' },
+                'Judgement': { quality: 'kejujuran pada panggilan jiwa dan kesadaran babak baru', career: 'mampu mengevaluasi masa lalu dengan objektif dan berani mengambil langkah berani untuk menjawab panggilan karier sejati', love: 'membuka pintu pengampunan, memulihkan luka komunikasi lama, dan menyambut babak kedewasaan relasi yang lebih utuh', challenge: 'menghindari rasa sesal yang berlarut-larut atas keputusan di masa lalu; jadikan pelajaran sebagai bekal melangkah' },
+                'The World': { quality: 'kemampuan menuntaskan amanah dan keutuhan rasa syukur', career: 'mampu menyelesaikan proyek besar dengan tuntas, merangkum hasil kerja secara komprehensif, dan siap melangkah ke jenjang global', love: 'merasakan kepuasan batin saat hubungan mencapai titik kedewasaan, saling menghargai, dan merasa utuh bersama', challenge: 'bersedia memulai kembali dari awal saat satu siklus keberhasilan telah mencapai garis akhirnya' },
+                'The Fool': { quality: 'keterbukaan pada pengalaman baru dengan hati yang ringan', career: 'berani mengambil inisiatif rintisan baru, tidak terkekang oleh paradigma usang, dan terbuka pada metode modern', love: 'menghadirkan spontanitas yang manis dan keberanian membuka lembaran baru tanpa dibebani prasangka masa lalu', challenge: 'waspada terhadap sikap tergesa-gesa atau kurang cermat memeriksa detail praktis sebelum melangkah' }
+            };
+
+            const SUN_SIGN_DATA = {
+                Aries: { trait: 'dorongan inisiatif dinamis dan keberanian melangkah' },
+                Taurus: { trait: 'ketekunan membumi, apresiasi estetika, dan stabilitas nilai' },
+                Gemini: { trait: 'kelincahan komunikasi, rasa ingin tahu luas, dan adaptasi ide' },
+                Cancer: { trait: 'kepekaan intuitif, daya rawat emosional, dan perlindungan keluarga' },
+                Leo: { trait: 'kehangatan memimpin, kemurahan hati, dan ekspresi martabat diri' },
+                Virgo: { trait: 'ketelitian analisis, pengabdian pelayanan, dan perbaikan berkelanjutan' },
+                Libra: { trait: 'diplomasi rasa, keadilan pertimbangan, dan keharmonisan relasi' },
+                Scorpio: { trait: 'kedalaman observasi, daya tahan transformasi, dan keteguhan batin' },
+                Sagittarius: { trait: 'wawasan filosofis, optimisme mencari kebenaran, dan jiwa petualang' },
+                Capricorn: { trait: 'disiplin integritas, ketahanan jangka panjang, dan tanggung jawab praktis' },
+                Aquarius: { trait: 'visi kemanusiaan, pemikiran independen, dan orisinalitas gagasan' },
+                Pisces: { trait: 'empati welas asih, imajinasi batin, dan kepekaan spiritual mendalam' }
             };
 
             const sunSign = (month, day) => {
@@ -622,12 +1285,8 @@
             const locationAutocomplete = window.BhumiLocationAutocomplete ? window.BhumiLocationAutocomplete.attach(birthcityInput, {
                 suggestionsContainer: citySuggestions,
                 noteEl: cityNote,
-                onSelect: (loc) => {
-                    selectedCity = loc;
-                },
-                onClear: () => {
-                    selectedCity = null;
-                }
+                onSelect: (loc) => { selectedCity = loc; },
+                onClear: () => { selectedCity = null; }
             }) : null;
 
             const resolveCityFallback = (value) => {
@@ -656,9 +1315,7 @@
                         event.preventDefault();
                         return;
                     }
-                    if (navMenu.classList.contains('open')) {
-                        toggleMenu();
-                    }
+                    if (navMenu.classList.contains('open')) toggleMenu();
                 });
             });
 
@@ -723,7 +1380,6 @@
                     const hour = Number(birthtime.split(':')[0]);
                     if (hour >= 18) effective.setDate(effective.getDate() + 1);
                 }
-
                 const pasaranIndex = positiveModulo(daysBetween(effective, new Date(2020, 6, 5)), 5);
                 return `${HARI[effective.getDay()]} ${PASARAN_FROM_ENGINE_EPOCH[pasaranIndex]}`;
             };
@@ -731,10 +1387,7 @@
             const julianDayNumber = (year, month, day) => {
                 let y = year;
                 let m = month;
-                if (m <= 2) {
-                    y -= 1;
-                    m += 12;
-                }
+                if (m <= 2) { y -= 1; m += 12; }
                 const a = Math.floor(y / 100);
                 const b = 2 - a + Math.floor(a / 4);
                 return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
@@ -771,7 +1424,8 @@
                 return `Kin ${kin} - ${seal} ${tone}`;
             };
 
-            const renderIdentity = (items) => {
+            // Render Technical Identity Grid
+            const renderIdentityGrid = (items) => {
                 identityGrid.innerHTML = items.map((item) => `
                     <div class="identity-item"${item.id ? ` id="${item.id}-item"` : ''}>
                         <span class="identity-label">${item.label}</span>
@@ -780,165 +1434,82 @@
                 `).join('');
             };
 
-            const renderSummary = (items) => {
-                summaryBlocks.innerHTML = items.map((item) => `
-                    <section class="summary-item">
-                        <h3>${item.label}</h3>
-                        <p>${item.text}</p>
-                    </section>
-                `).join('');
-            };
+            // Render Initial Core Reading (Instant Client-Side Fallback)
+            const renderInitialReading = ({ nickname, lifePath, arcanaName, sun, weton, baziElement, hasBirthTime }) => {
+                const lp = LIFE_PATH_DATA[lifePath] || LIFE_PATH_DATA[9];
+                const arcana = ARCANA_DATA[arcanaName] || ARCANA_DATA['The Sun'];
+                const sunObj = SUN_SIGN_DATA[sun] || SUN_SIGN_DATA['Aries'];
+                const todayFormatted = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-            const buildCanonicalSynthesis = ({ nickname, lifePath, arcanaName, sun, baziElement, hasPreciseCity }) => {
-                const coreNeed = LIFE_PATH_THEMES[lifePath] || 'mengenali pola hidup personal';
-                const grounding = hasPreciseCity ? 'ritme yang lebih presisi dan membumi' : 'ritme yang lebih stabil';
-                const reflection = `membaca arah batin melalui ${arcanaName}`;
-                const action = `menghidupi kualitas ${coreNeed} dengan langkah kecil`;
-                const energyTone = `perpaduan ${sun}, elemen ${baziElement}, dan pola dasar ${coreNeed}`;
+                // Header
+                resultTitle.textContent = `Halo, ${nickname}. Yuk, kenali sedikit lebih dalam tentang dirimu.`;
+                resultSummary.textContent = `Setiap orang membawa ritme dan kecenderungannya masing-masing dalam memandang dunia. Dari data lahirmu, tampak perpaduan menarik antara kualitas ${lp.core} dan ${arcana.quality}. Pola ini bukan ramalan kaku, melainkan cermin tenang untuk memahami caramu bergerak, memilih, dan pulang ke diri sendiri.`;
 
-                return {
-                    blueprintSummary: `Dari keseluruhan pola lahirmu, ${nickname} cenderung sedang belajar memberi ruang untuk ${grounding}, ${reflection}, dan ${action}. Pola ini menggambarkan pintu awal untuk memahami cara energimu bekerja tanpa menjadikannya kesimpulan mutlak.`,
-                    secondSummary: `Secara umum, ${energyTone} mengajakmu bergerak dengan lebih sadar: mengenali kebutuhan diri, menjaga arah, lalu memilih satu langkah yang benar-benar bisa dilakukan.`,
-                    coreNeeds: [grounding, reflection, action],
-                    practiceThemes: {
-                        grounding,
-                        reflection,
-                        action
-                    },
-                    identitySignals: {
-                        lifePath,
-                        arcanaCenter: arcanaName,
-                        sunSign: sun,
-                        baziElement
-                    }
-                };
-            };
+                // Peta Langit initial state
+                skyDatePill.textContent = `${todayFormatted} • Waktu Indonesia Barat`;
+                skyMonthlyTheme.textContent = `Menghubungkan posisi langit saat ini dengan posisi kelahiranmu dari ephemeris astronomis...`;
+                skyQuickMoon.textContent = `Bulan Sidereal (Memuat ephemeris...)`;
+                skyQuickRetrograde.textContent = `Memeriksa kecepatan bujur geosentris...`;
+                transitCardsList.innerHTML = `<div class="transit-item-card"><p>Menghitung relasi transit planet terhadap chart kelahiranmu...</p></div>`;
 
-            const renderSynthesis = (synthesis) => {
-                synthesisCopy.innerHTML = `
-                    <p>${synthesis.blueprintSummary}</p>
-                    <p>${synthesis.secondSummary}</p>
-                `;
-            };
+                if (!hasBirthTime) {
+                    precisionNote.textContent = 'Catatan: Jam atau kota lahir tidak dicantumkan secara lengkap. Posisi Ascendant dan rumah astrologi tidak dihitung secara spekulatif. Transit difokuskan pada relasi langit saat ini dengan posisi Matahari kelahiranmu.';
+                    precisionNote.hidden = false;
+                } else {
+                    precisionNote.hidden = true;
+                }
 
-            const createReadingFromSynthesis = (synthesis) => {
-                const grounding = synthesis.practiceThemes.grounding;
-                const reflection = synthesis.practiceThemes.reflection;
-                const action = synthesis.practiceThemes.action;
-                return [
-                    {
-                        label: 'Keadaan Umum',
-                        text: `Dari keseluruhan pola lahirmu, kamu cenderung membutuhkan ${grounding}. Ini mengajakmu menjaga hari tetap sederhana dan tidak terburu-buru membaca diri secara mutlak.`
-                    },
-                    {
-                        label: 'Karir dan Ekonomi',
-                        text: `Di area karya dan ekonomi, pola ini mengajak ${action}. Ruang bertumbuhmu ada pada memilih fokus yang membumi dan bisa ditindaklanjuti.`
-                    },
-                    {
-                        label: 'Asmara dan Cinta - Untuk Single',
-                        text: `Untuk yang sedang sendiri, ${reflection} bisa membantu mengenali kebutuhan hati dengan lebih jujur. Bisa jadi relasi yang sehat dimulai dari cara kamu hadir untuk diri sendiri.`
-                    },
-                    {
-                        label: 'Asmara dan Cinta - Untuk Berpasangan',
-                        text: `Untuk yang berpasangan, pola ini menggambarkan kebutuhan akan komunikasi yang lebih hangat dan jelas. Hubungan cenderung bertumbuh saat ada ruang aman untuk saling mendengar.`
-                    },
-                    {
-                        label: 'Keluarga',
-                        text: `Dalam keluarga, sintesis ini mengajakmu merawat kedekatan tanpa memikul semuanya sendirian. Ada bagian dari dirimu yang sedang belajar membedakan kasih, batas, dan tanggung jawab.`
-                    },
-                    {
-                        label: 'Kesehatan',
-                        text: `Untuk keseharian tubuh, pola ini mengajak ritme yang lembut, istirahat yang cukup, dan kebiasaan kecil yang menenangkan. Ini bukan diagnosis medis, melainkan pengingat untuk mendengar tubuh dengan lebih sadar.`
-                    },
-                    {
-                        label: 'Spiritual',
-                        text: `Secara spiritual, kamu cenderung bertumbuh saat makna dibawa ke langkah sederhana. Pintu awalnya adalah hadir, jujur pada rasa, dan memberi ruang pada proses.`
-                    },
-                    {
-                        label: 'Tantangan',
-                        text: `Tantangan yang muncul bisa jadi berkaitan dengan menyeimbangkan dorongan bergerak dan kebutuhan untuk jeda. Ruang bertumbuhnya adalah memilih respons yang selaras, bukan sekadar reaktif.`
-                    }
-                ];
-            };
+                // 1. Secara Umum (4 Paragraf)
+                const suP1 = `Halo, ${nickname}. Setiap individu terlahir dengan perpaduan ritme dan kecenderungan yang khas dalam memandang dunia. Dari struktur blueprint lahirmu, terpancar perpaduan yang memikat antara kualitas ${lp.core} dan ${sunObj.trait}. Kehadiran pola ini memberimu ${lp.strength}, terutama saat kamu dihadapkan pada situasi baru yang membutuhkan pijakan tenang dan arah yang jelas.`;
+                const suP2 = `Dalam berinteraksi dengan dinamika hidup, perpaduan karakter ini diperkuat oleh kualitas ${arcana.quality}. ${weton ? `Nuansa rasa dari weton kelahiran ${weton} turut memperhalus caramu merespons keadaan, membantumu menjaga harmoni dengan orang-orang di sekitarmu tanpa harus kehilangan jati diri pribadi.` : `Kamu cenderung merespons situasi melalui pertimbangan batin yang matang, mengutamakan kenyamanan rasa sebelum memutuskan langkah nyata.`}`;
+                const suP3 = `Namun, setiap kekuatan naturally membawa sisi bayang-bayangnya sendiri. Hal yang mungkin sesekali perlu kamu perhatikan secara sadar adalah ${lp.blindspot}. Pola ini sering kali muncul tanpa kamu sadari saat kamu merasa sangat peduli pada hasil akhir. Menyadari kecenderungan ini sejak dini akan membantumu terhindar dari rasa lelah mental yang berlebihan.`;
+                const suP4 = `Pada akhirnya, mengenali diri bukanlah upaya membatasi potensi dalam kotak-kotak sempit, melainkan memahami bagaimana caramu bekerja dan pulang ke titik seimbang. Luangkan waktu untuk memberi jeda di sela-sela kesibukanmu, hargai setiap fase belajar yang sedang berjalan, dan percayalah bahwa setiap langkah kecil yang kamu ambil dengan penuh kesadaran akan membawamu ke arah yang semakin membumi.`;
+                contentSecaraUmum.innerHTML = `<p>${suP1}</p><p>${suP2}</p><p>${suP3}</p><p>${suP4}</p>`;
 
-            const createBhumiStructuredInput = ({ nickname, birthdate, birthtime, birthcity, city }) => {
-                const trimmedBirthCity = (city?.formattedCity || birthcity).trim();
-                const now = new Date().toISOString();
+                // 2. Ekonomi & Karier (4 Paragraf)
+                const ekP1 = `Di area karya, profesionalisme, dan mata pencaharian, potensi terbaikmu cenderung mekar saat kamu berada di lingkungan yang menghargai integritas dan nilai nyata. Berdasarkan Life Path ${lifePath}, kamu ${lp.workStyle}. Ditunjang oleh karakter ${arcana.career}, kamu memiliki kemampuan alami untuk membangun kepercayaan jangka panjang dengan rekanan maupun atasan.`;
+                const ekP2 = `Dalam hal pengelolaan finansial dan sumber daya materi, ${lp.financialMindset}. ${baziElement ? `Elemen ${baziElement} pada pilar harimu mengingatkan pentingnya menjaga arus kas yang sehat dan mengutamakan alokasi aset yang berkelanjutan daripada spekulasi jangka pendek yang menguras energi.` : `Membangun pos tabungan yang terstruktur dan menjaga gaya hidup tetap berimbang adalah fondasi utama yang akan memberimu ketenangan pikiran dalam berkarya.`}`;
+                const ekP3 = `Tantangan profesional yang paling sering menguji kesabaranmu adalah ${lp.workChallenge}. Ketika tekanan tenggat waktu atau ekspektasi pasar sedang tinggi, penting untuk mengingat kembali prioritas terpentingmu dan berani mendelegasikan hal-hal teknis yang memang bisa dikerjakan bersama orang lain.`;
+                const ekP4 = `Ritme langit saat ini mendukung konsistensi dan penyempurnaan karya yang sedang berjalan. Jaga fokusmu pada proyek-proyek yang membawa manfaat nyata, rawat relasi profesional dengan komunikasi yang hangat, dan biarkan reputasimu bertumbuh melalui bukti kerja nyata yang konsisten.`;
+                contentEkonomiKarier.innerHTML = `<p>${ekP1}</p><p>${ekP2}</p><p>${ekP3}</p><p>${ekP4}</p>`;
 
-                return {
-                    profilePayload: {
-                        fullName: nickname,
-                        displayName: nickname,
-                        birthDate: birthdate,
-                        birthTime: birthtime || '',
-                        birthCity: trimmedBirthCity,
-                        birthPlace: trimmedBirthCity,
-                        birthCountry: city?.country || null,
-                        latitude: city?.latitude ?? null,
-                        longitude: city?.longitude ?? null,
-                        timezone: city?.timezone || null,
-                        timezoneSource: city?.timezone ? 'longitude-approx' : 'not-resolved-static-site',
-                        language: 'id',
-                        setupCompleted: false,
-                        blueprintStatus: 'preview',
-                        createdAt: now,
-                        updatedAt: now
-                    },
-                    blueprintInput: {
-                        uid: 'website-preview',
-                        fullName: nickname,
-                        birthDate: birthdate,
-                        birthTime: birthtime || undefined,
-                        birthCity: trimmedBirthCity,
-                        birthCountry: city?.country || null,
-                        latitude: city?.latitude ?? null,
-                        longitude: city?.longitude ?? null,
-                        timezone: city?.timezone || null
-                    }
-                };
+                // 3. Asmara Single (3 Paragraf) & Pasangan (3 Paragraf)
+                const asP1 = `${lp.loveSingle} ${arcana.love}. Kamu cenderung membutuhkan koneksi yang dimulai dari percakapan yang jujur dan rasa saling menghargai ruang pribadi, bukan hubungan yang dibangun di atas ketergesa-gesaan atau tuntutan status semata.`;
+                const asP2 = `Ketika kamu mulai tertarik pada seseorang, perhatikan bagaimana caramu merespons dinamika awal perkenalan. Beri waktu bagi karakter aslinya untuk terlihat secara wajar melalui tindakannya sehari-hari. Mengembangkan relasi yang sehat selalu dimulai dari rasa utuh dengan diri sendiri, sehingga kamu tidak mencari pasangan untuk melengkapi kekurangan, melainkan untuk berbagi kebahagiaan yang sudah kamu miliki.`;
+                const asP3 = `Tetaplah terbuka pada perjumpaan-perjumpaan baru tanpa membebani dirimu dengan ekspektasi yang kaku. Ketika kamu merasa damai dan nyaman dengan dirimu sendiri, kamu secara alami akan memancarkan daya tarik yang tulus bagi orang yang tepat.`;
+                asmaraSinglePane.innerHTML = `<p>${asP1}</p><p>${asP2}</p><p>${asP3}</p>`;
+
+                const acP1 = `${lp.loveCouple} Dalam dinamika keseharian bersama pasangan, ${arcana.love}. Hubunganmu akan terasa paling hangat saat kalian berdua membiasakan diri untuk saling mendengarkan tanpa langsung memotong atau memberi penghakiman ketika ada hal yang terasa mengganjal.`;
+                const acP2 = `Tantangan yang kerap muncul dalam relasi panjang biasanya berkisar pada kejenuhan rutinitas atau kebiasaan menahan unek-unek kecil hingga menumpuk. Luangkan waktu untuk melakukan hal-hal sederhana berdua di luar pembicaraan tentang urusan domestik atau tanggung jawab praktis. Saling memberi ruang bernapas secara mandiri justru akan mempererat kelekatan emosional kalian saat kembali bersama.`;
+                const acP3 = `Merawat cinta adalah seni merawat hal-hal kecil setiap hari: ucapan terima kasih yang tulus, pelukan hangat sebelum beraktivitas, dan kesediaan untuk saling memaafkan kesalahan-kesalahan kecil dengan lapang dada.`;
+                asmaraCouplePane.innerHTML = `<p>${acP1}</p><p>${acP2}</p><p>${acP3}</p>`;
+
+                // 4. Kesehatan (3 Paragraf)
+                const ksP1 = `Dalam menjaga vitalitas dan kebugaran tubuh, penting untuk dipahami bahwa catatan ini bukanlah diagnosis medis, melainkan panduan reflektif untuk mendengar sinyal alami tubuhmu. Berdasarkan cetak biru energimu, ${lp.healthFocus} Tubuhmu membutuhkan ritme istirahat yang seimbang agar energi fisik dan kejernihan pikiran tetap terjaga prima.`;
+                const ksP2 = `Kondisi fisikmu sangat erat kaitannya dengan beban pikiran dan suasana batin yang kamu simpan. Saat pikiran sedang terlalu padat atau kamu menahan ketegangan emosional, tubuh biasanya merespons melalui ketegangan otot bahu, gangguan lambung, atau kualitas tidur yang berkurang. Membiasakan jeda sejenak untuk menarik napas dalam secara teratur adalah langkah sederhana yang sangat efektif untuk merilekskan sistem sarafmu.`;
+                const ksP3 = `Sebagai langkah perawatan harian yang membumi, utamakan hal-hal mendasar: minum air putih yang cukup sepanjang hari, mengonsumsi makanan yang bernutrisi seimbang, dan meluangkan waktu setidaknya 15–30 menit untuk bergerak aktif atau berjalan santai di udara terbuka. Menghindari paparan layar gawai menjelang waktu tidur akan sangat membantumu mendapatkan istirahat malam yang benar-benar memulihkan daya hidup.`;
+                contentKesehatan.innerHTML = `<p>${ksP1}</p><p>${ksP2}</p><p>${ksP3}</p>`;
+
+                // 5. Spiritual (4 Paragraf)
+                const spP1 = `Pencarian spiritual bagimu bukanlah pelarian dari realitas duniawi, melainkan seni menemukan makna dan kedamaian di tengah kehidupan sehari-hari. Berdasarkan perpaduan Life Path ${lifePath} dan Arcana ${arcanaName}, ${lp.spiritualTheme}. Ada kerinduan alami di dalam jiwamu untuk memahami hukum-hukum kehidupan yang lebih mendalam dan hidup dengan integritas yang utuh.`;
+                const spP2 = `Dalam tradisi Bhumi Amartya, spiritualitas dipahami sebagai kehadiran yang penuh kesadaran (mindfulness) dalam setiap tindakan: bagaimana caramu memperlakukan sesama, menjaga kebersihan niat dalam berkarya, dan menerima pasang surut nasib dengan ketenangan batin. Kamu tidak perlu mencari pengalaman batin yang rumit; ketulusan menjalankan peran hidupmu saat ini sudah merupakan laku spiritual yang sangat luhur.`;
+                const spP3 = `Saat kamu meluangkan waktu untuk duduk hening, bermeditasi, atau berdoa dengan tenang, kamu akan merasakan betapa batinmu memiliki kapasitas besar untuk pulih dari kepenatan. Percayalah pada bisikan nuranimu yang tenang, terutama ketika logika pikiran terasa buntu menghadapi banyak pilihan.`;
+                const spP4 = `Jadikan setiap perjumpaan dan peristiwa hari ini sebagai cermin untuk mengenal diri lebih dekat. Di sanalah letak kedamaian sejati: ketika kamu mampu menerima dirimu seutuhnya dan berjalan dengan penuh rasa syukur.`;
+                contentSpiritual.innerHTML = `<p>${spP1}</p><p>${spP2}</p><p>${spP3}</p><p>${spP4}</p>`;
+
+                // 6. Tantangan (4 Paragraf)
+                const ttP1 = `Setiap fase pertumbuhan hidup selalu diiringi oleh area-area gesekan yang menuntut kesabaran dan kedewasaan respons. Tantangan utama yang paling sering muncul dari cetak biru ini adalah ${lp.challengeCore} Ketika situasi berjalan tidak sesuai rencana atau orang lain tidak merespons seperti yang kamu harapkan, ada kecenderungan spontan untuk merasa tegang atau menarik diri.`;
+                const ttP2 = `Pola reaktif yang perlu kamu sadari adalah ${arcana.challenge}. Saat berada di bawah tekanan tinggi, pikiran rasionalmu bisa sangat cepat menyusun skenario kekhawatiran yang belum tentu terjadi di dunia nyata. Menyadari reaksi awal ini sebelum kamu bertindak atau berbicara akan menyelamatkanmu dari konflik yang tidak perlu.`;
+                const ttP3 = `Ujian terbesarmu sering kali bukan datang dari rintangan di luar, melainkan dari standar kesempurnaan yang kamu bebankan pada dirimu sendiri. Belajarlah berdamai dengan ketidaksempurnaan dan berikan apresiasi pada setiap pencapaian kecil yang telah berhasil kamu selesaikan.`;
+                const ttP4 = `Kunci untuk melewati setiap tantangan adalah kembali ke hal-hal membumi: luangkan waktu untuk bernapas panjang, bicarakan beban pikiranmu dengan sahabat atau mentor yang kamu percayai, dan fokuskan energi hanya pada satu hal yang bisa kamu kendalikan hari ini. Kamu memiliki ketangguhan yang cukup untuk melewati setiap musim hidupmu.`;
+                contentTantangan.innerHTML = `<p>${ttP1}</p><p>${ttP2}</p><p>${ttP3}</p><p>${ttP4}</p>`;
+
+                // Closing
+                closingQuote.textContent = `"${lp.closing}"`;
             };
 
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn ? submitBtn.textContent : 'Lihat Hasil Kenali Diri';
-
-            const runOfflineFallback = (nickname, birthdate, birthtime, birthcity, structuredInput, resolvedCityData) => {
-                const [year, month, day] = birthdate.split('-').map(Number);
-                const lifePath = calculateLifePathNumber(birthdate);
-                const arcanaNumber = calculateArcanaCenter(year, month, day);
-                const arcanaName = ARCANA[arcanaNumber - 1];
-                const sun = sunSign(month, day);
-                const weton = wetonName(new Date(year, month - 1, day), birthtime);
-                const bazi = calculateBaziIdentity(year, month, day, birthtime);
-                const tzolkin = calculateTzolkinIdentity(birthdate);
-                const unavailableMsg = 'Membutuhkan data koordinat kota lahir yang lebih spesifik.';
-                const canonicalSynthesis = buildCanonicalSynthesis({
-                    nickname,
-                    lifePath,
-                    arcanaName,
-                    sun,
-                    baziElement: bazi ? bazi.element : BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
-                    hasPreciseCity: Boolean(resolvedCityData?.latitude)
-                });
-
-                resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
-                renderIdentity([
-                    { label: 'Life Path', value: `${displayLifePath(lifePath)} - ${LIFE_PATH_THEMES[lifePath] || 'pola hidup personal'}` },
-                    { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
-                    { label: 'Type Human Design', value: unavailableMsg, id: 'identity-hd' },
-                    { label: 'Sun Natal Chart', value: sun },
-                    { label: 'Weton', value: weton },
-                    { label: 'BaZi', value: bazi ? `${bazi.label}` : 'Membutuhkan jam lahir.' },
-                    { label: 'Vedic', value: unavailableMsg, id: 'identity-vedic' },
-                    { label: 'Tzolkin', value: tzolkin }
-                ]);
-                renderSynthesis(canonicalSynthesis);
-                renderSummary(createReadingFromSynthesis(canonicalSynthesis));
-
-                introNote.style.display = 'none';
-                resultCard.classList.add('show');
-                document.getElementById('reading-cta-section').style.display = 'block';
-                resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            };
 
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
@@ -956,28 +1527,206 @@
                 window.BhumiAnalytics?.trackOnce('tes_kenali_diri_started', { feature: 'tes-kenali-diri', status: 'started' });
 
                 const resolvedCityData = selectedCity || resolveCityFallback(birthcity);
-                const structuredInput = createBhumiStructuredInput({
+                const [year, month, day] = birthdate.split('-').map(Number);
+                const lifePath = calculateLifePathNumber(birthdate);
+                const arcanaNumber = calculateArcanaCenter(year, month, day);
+                const arcanaName = ARCANA[arcanaNumber - 1];
+                const sun = sunSign(month, day);
+                const weton = wetonName(new Date(year, month - 1, day), birthtime);
+                const bazi = calculateBaziIdentity(year, month, day, birthtime);
+                const tzolkin = calculateTzolkinIdentity(birthdate);
+                const hasBirthTime = Boolean(birthtime);
+
+                // Initial technical values
+                renderIdentityGrid([
+                    { label: 'Life Path', value: `${displayLifePath(lifePath)} - ${LIFE_PATH_DATA[lifePath]?.core || 'Pola hidup personal'}` },
+                    { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
+                    { label: 'Type Human Design', value: hasBirthTime ? 'Menghitung blueprint...' : 'Perlu jam lahir', id: 'identity-hd' },
+                    { label: 'Sun Natal Chart', value: sun },
+                    { label: 'Weton', value: weton },
+                    { label: 'BaZi', value: bazi ? bazi.label : 'Perlu jam lahir.' },
+                    { label: 'Vedic', value: hasBirthTime ? 'Menghitung rashi & nakshatra...' : 'Perlu jam lahir', id: 'identity-vedic' },
+                    { label: 'Tzolkin', value: tzolkin }
+                ]);
+
+                // Render initial reading immediately
+                renderInitialReading({
                     nickname,
-                    birthdate,
-                    birthtime,
-                    birthcity,
-                    city: resolvedCityData
+                    lifePath,
+                    arcanaName,
+                    sun,
+                    weton,
+                    baziElement: bazi?.element || 'Tanah',
+                    hasBirthTime
                 });
 
-                try {
-                    sessionStorage.setItem('bhumiSelfTestPreviewInput', JSON.stringify(structuredInput));
-                } catch {
-                    // Preview can continue even when browser storage is unavailable.
-                }
+                introNote.style.display = 'none';
+                resultCard.classList.add('show');
+                document.getElementById('reading-cta-section').style.display = 'block';
+                resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-                // Show loading state
                 if (submitBtn) {
                     submitBtn.disabled = true;
-                    submitBtn.textContent = 'Membaca Blueprint...';
+                    submitBtn.textContent = 'Menyelaraskan Peta Langit...';
                 }
 
+                // Call Canonical Sky Transit API
+                const todayIso = new Date().toISOString().slice(0, 10);
+                const skyPayload = {
+                    birthDate: birthdate,
+                    birthTime: birthtime || undefined,
+                    birthCity: resolvedCityData?.formattedCity || birthcity,
+                    latitude: resolvedCityData?.latitude ?? null,
+                    longitude: resolvedCityData?.longitude ?? null,
+                    timezone: resolvedCityData?.timezone || undefined,
+                    nickname,
+                    lifePath,
+                    arcanaName,
+                    weton,
+                    baziElement: bazi?.element || 'Tanah',
+                    asOfDate: todayIso
+                };
+
                 try {
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput, resolvedCityData);
+                    const skyPromise = fetch('/api/sky-transit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(skyPayload)
+                    }).then(r => r.json()).catch(() => null);
+
+                    let enginePromise = null;
+                    if (hasBirthTime) {
+                        enginePromise = fetch('/api/blueprint-engines', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                birthDate: birthdate,
+                                birthTime: birthtime,
+                                birthCity: resolvedCityData?.formattedCity || birthcity,
+                                latitude: resolvedCityData?.latitude ?? null,
+                                longitude: resolvedCityData?.longitude ?? null,
+                                asOfDate: todayIso
+                            })
+                        }).then(r => r.json()).catch(() => null);
+                    }
+
+                    const [skyData, engineData] = await Promise.all([skyPromise, enginePromise]);
+
+                    // Hydrate Live Sky & Retrogrades
+                    if (skyData && skyData.ok) {
+                        const sky = skyData.current_sky;
+                        const moon = sky.moon;
+                        const retrogrades = skyData.retrograde_planets || [];
+                        const narrative = skyData.narrative || skyData.humanized_reading;
+                        const skyNarrative = narrative?.currentSky || skyData.narrative?.sections?.currentSky;
+
+                        skyDatePill.textContent = `${new Date(sky.calculationTime).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} • Waktu Indonesia Barat`;
+                        skyQuickMoon.textContent = `Bulan di ${moon.rashi.name} • Nakshatra ${moon.nakshatra.name} (Pada ${moon.nakshatra.pada})`;
+                        
+                        if (skyNarrative?.monthlyTheme) {
+                            skyMonthlyTheme.textContent = skyNarrative.monthlyTheme;
+                        } else {
+                            skyMonthlyTheme.textContent = `Hari ini Bulan sidereal berada di rashi ${moon.rashi.name}, dinaungi Nakshatra ${moon.nakshatra.name}. Suasana langit ini secara simbolis menghadirkan nuansa yang mengundang kita menyelaraskan ritme pikiran dan memperhatikan apa yang sedang terasa paling penting saat ini.`;
+                        }
+
+                        if (retrogrades.length > 0) {
+                            skyQuickRetrograde.textContent = `${retrogrades.length} Planet Retrograde (${retrogrades.map(r => r.name || r.indonesianName).join(', ')})`;
+                            retrogradeChips.innerHTML = retrogrades.map(r => {
+                                const win = r.retrogradeWindow;
+                                const dateRange = win ? ` (${new Date(win.startDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })} – ${new Date(win.endDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })})` : '';
+                                return `<span class="retrograde-chip">${r.name || r.indonesianName}: Retrograde di ${r.rashi.name}${dateRange}</span>`;
+                            }).join('');
+                        } else {
+                            skyQuickRetrograde.textContent = `Semua Planet Utama Direct (Bergerak Maju)`;
+                            retrogradeChips.innerHTML = `<span class="retrograde-chip" style="background:rgba(45,75,52,0.1); color:var(--forest-green); border-color:rgba(45,75,52,0.2);">Semua Planet Bergerak Maju (Direct)</span>`;
+                        }
+
+                        // Hydrate Personal Transits
+                        const primaryTransits = skyData.personal_transits || [];
+                        if (primaryTransits.length > 0) {
+                            transitCardsList.innerHTML = primaryTransits.map(t => `
+                                <div class="transit-item-card">
+                                    <div class="transit-item-header">
+                                        <h5>${t.title}</h5>
+                                        ${t.tag ? `<span class="transit-badge">${t.tag}</span>` : ''}
+                                    </div>
+                                    <p>${t.reflection}</p>
+                                </div>
+                            `).join('');
+                        }
+
+                        // Sky Timeline
+                        const timelineData = [];
+                        retrogrades.forEach(r => {
+                            if (r.retrogradeWindow?.endDate) {
+                                const endFormatted = new Date(r.retrogradeWindow.endDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                                timelineData.push(`Fase retrograde ${r.name || r.indonesianName} di rashi ${r.rashi.name} selesai pada ${endFormatted}.`);
+                            }
+                        });
+                        sky.planets.forEach(p => {
+                            if (!p.isRetrograde && p.upcomingRetrograde?.startDate) {
+                                const startFormatted = new Date(p.upcomingRetrograde.startDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                                timelineData.push(`Fase retrograde ${p.name || p.indonesianName} berikutnya diperkirakan mulai pada ${startFormatted}.`);
+                            }
+                        });
+
+                        if (timelineData.length > 0) {
+                            timelineItems.innerHTML = timelineData.slice(0, 4).map(text => `
+                                <div class="timeline-item">
+                                    <span class="timeline-dot"></span>
+                                    <span>${text}</span>
+                                </div>
+                            `).join('');
+                        } else {
+                            timelineItems.innerHTML = `
+                                <div class="timeline-item">
+                                    <span class="timeline-dot"></span>
+                                    <span>Ritme langit saat ini berjalan stabil tanpa pergantian fase planet besar dalam waktu dekat.</span>
+                                </div>
+                            `;
+                        }
+
+                        // Seamlessly enrich the 6 categories from server narrative
+                        const cats = narrative?.categories || narrative?.sections;
+                        if (cats) {
+                            const su = cats.secaraUmum || cats.patterns;
+                            if (su && su.paragraphs) {
+                                contentSecaraUmum.innerHTML = su.paragraphs.map(p => `<p>${p}</p>`).join('');
+                            }
+                            const ek = cats.ekonomiKarier;
+                            if (ek && ek.paragraphs) {
+                                contentEkonomiKarier.innerHTML = ek.paragraphs.map(p => `<p>${p}</p>`).join('');
+                            }
+                            const as = cats.asmara;
+                            if (as) {
+                                if (as.single) asmaraSinglePane.innerHTML = as.single.map(p => `<p>${p}</p>`).join('');
+                                if (as.couple) asmaraCouplePane.innerHTML = as.couple.map(p => `<p>${p}</p>`).join('');
+                            }
+                            const ks = cats.kesehatan;
+                            if (ks && ks.paragraphs) {
+                                contentKesehatan.innerHTML = ks.paragraphs.map(p => `<p>${p}</p>`).join('');
+                            }
+                            const sp = cats.spiritual;
+                            if (sp && sp.paragraphs) {
+                                contentSpiritual.innerHTML = sp.paragraphs.map(p => `<p>${p}</p>`).join('');
+                            }
+                            const tt = cats.tantangan;
+                            if (tt && tt.paragraphs) {
+                                contentTantangan.innerHTML = tt.paragraphs.map(p => `<p>${p}</p>`).join('');
+                            }
+                        }
+                    }
+
+                    // Hydrate Human Design & Vedic if available
+                    if (engineData && engineData.ok) {
+                        const hd = engineData.humanDesign;
+                        const v = engineData.vedic;
+                        const idHd = document.getElementById('identity-hd');
+                        if (idHd) idHd.textContent = `${hd.type} (${hd.profile}, ${hd.authority} Authority)`;
+                        const idVedic = document.getElementById('identity-vedic');
+                        if (idVedic) idVedic.textContent = `Bulan di ${v.rashi}, Nakshatra ${v.nakshatra} (Pada ${v.pada}) • Dasha ${v.currentMahadasha.planet}`;
+                    }
+
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
@@ -986,93 +1735,8 @@
                         hasBirthCity: Boolean(birthcity)
                     });
 
-                    // Engine integration: call blueprint-engines without timezone
-                    const engineLoading = document.getElementById('engine-loading-section');
-                    const engineResult = document.getElementById('engine-result-section');
-                    const hdLoading = document.getElementById('hd-loading-card');
-                    const vedicLoading = document.getElementById('vedic-loading-card');
-                    const hdResultCard = document.getElementById('hd-result-card');
-                    const vedicResultCard = document.getElementById('vedic-result-card');
-                    const hdResultValue = document.getElementById('hd-result-value');
-                    const vedicResultValue = document.getElementById('vedic-result-value');
-                    const inlineWarning = document.getElementById('result-inline-warning');
-
-                    if (engineLoading) engineLoading.style.display = 'block';
-                    if (engineResult) engineResult.style.display = 'block';
-
-                    const enginePayload = {
-                        birthDate: birthdate,
-                        birthTime: birthtime || undefined,
-                        birthCity: resolvedCityData?.formattedCity || birthcity,
-                        latitude: resolvedCityData?.latitude ?? null,
-                        longitude: resolvedCityData?.longitude ?? null,
-                        asOfDate: new Date().toISOString().slice(0, 10)
-                    };
-
-                    try {
-                        const engineRes = await fetch('/api/blueprint-engines', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(enginePayload)
-                        });
-                        const engineBody = await engineRes.json();
-
-                        if (engineRes.ok && engineBody.ok) {
-                            if (hdLoading) hdLoading.style.display = 'none';
-                            if (vedicLoading) vedicLoading.style.display = 'none';
-                            if (hdResultValue) {
-                                hdResultValue.innerHTML = `
-                                    Type: ${engineBody.humanDesign.type}<br>
-                                    Profile ${engineBody.humanDesign.profile}<br>
-                                    ${engineBody.humanDesign.authority} Authority<br>
-                                    ${engineBody.humanDesign.strategy}
-                                `;
-                            }
-                            if (hdResultCard) hdResultCard.style.display = 'block';
-                            if (vedicResultValue) {
-                                const v = engineBody.vedic;
-                                vedicResultValue.innerHTML = `
-                                    Rashi: ${v.rashi}<br>
-                                    Nakshatra: ${v.nakshatra}<br>
-                                    Pada ${v.pada}<br>
-                                    Nakshatra Lord: ${v.nakshatraLord}<br>
-                                    Current Mahadasha: ${v.currentMahadasha.planet}
-                                `;
-                            }
-                            if (vedicResultCard) vedicResultCard.style.display = 'block';
-
-                            const identityHd = document.getElementById('identity-hd');
-                            if (identityHd) identityHd.textContent = engineBody.humanDesign.type;
-                            const identityVedic = document.getElementById('identity-vedic');
-                            if (identityVedic) identityVedic.textContent = `Rashi ${engineBody.vedic.rashi}, Nakshatra ${engineBody.vedic.nakshatra}`;
-                        } else {
-                            if (engineLoading) engineLoading.style.display = 'none';
-                            if (inlineWarning) {
-                                inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
-                                inlineWarning.hidden = false;
-                            }
-                        }
-                    } catch (e) {
-                        if (engineLoading) engineLoading.style.display = 'none';
-                        if (inlineWarning) {
-                            inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
-                            inlineWarning.hidden = false;
-                        }
-                    }
-                } catch (error) {
-                    console.warn('[TES KENALI DIRI] Calculation failed:', error);
-                    const inlineWarning = document.getElementById('result-inline-warning');
-                    if (inlineWarning) {
-                        inlineWarning.textContent = 'Terjadi kesalahan saat menghitung hasil. Silakan coba lagi.';
-                        inlineWarning.hidden = false;
-                    }
-                    window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
-                        feature: 'tes-kenali-diri',
-                        status: 'submitted',
-                        resultOk: false,
-                        hasBirthTime: Boolean(birthtime),
-                        hasBirthCity: Boolean(birthcity)
-                    });
+                } catch (err) {
+                    console.warn('[TES KENALI DIRI API]', err);
                 } finally {
                     if (submitBtn) {
                         submitBtn.disabled = false;
@@ -1080,26 +1744,22 @@
                     }
                 }
             });
-        });
 
-            // --- PERSONAL BLUEPRINT CTA (manual Google Form flow) ---
+            // Analytics CTAs
             const personalBlueprintCta = document.getElementById('personal-blueprint-cta');
-
             if (personalBlueprintCta) {
                 personalBlueprintCta.addEventListener('click', () => {
                     window.BhumiAnalytics?.track('personal_blueprint_click', { feature: 'blueprint_reading' });
                 });
             }
 
-            // --- WHATSAPP CTA ---
             const whatsappCta = document.getElementById('whatsapp-cta');
-
             if (whatsappCta) {
                 whatsappCta.addEventListener('click', () => {
                     window.BhumiAnalytics?.track('whatsapp_cta_click', { feature: 'tes_kenali_diri' });
                 });
             }
-
+        });
     </script>
 </body>
 </html>
