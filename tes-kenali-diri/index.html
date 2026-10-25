@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-0971666335614952">
     <title>Tes Kenali Diri | Bhumi Amartya</title>
-    <meta name="description" content="Tes Kenali Diri Bhumi Amartya. Masukkan data lahir sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuh.">
-    <meta name="keywords" content="Tes Kenali Diri, Bhumi Amartya, blueprint reading, numerologi, refleksi diri, pengembangan diri">
+    <meta name="description" content="Tes Kenali Diri Bhumi Amartya. Masukkan data lahir sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu secara personal dan membumi.">
+    <meta name="keywords" content="Tes Kenali Diri, Bhumi Amartya, blueprint reading, numerologi, refleksi diri, peta langit, transit personal, pengembangan diri">
     <meta name="author" content="Widhi Wedhaswara">
     <link rel="canonical" href="https://www.bhumiamartya.my.id/tes-kenali-diri">
 
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.bhumiamartya.my.id/tes-kenali-diri">
     <meta property="og:title" content="Tes Kenali Diri | Bhumi Amartya">
-    <meta property="og:description" content="Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu.">
+    <meta property="og:description" content="Kenali pola, potensi, dan arah bertumbuhmu melalui pembacaan blueprint yang hangat, reflektif, dan membumi.">
     <meta property="og:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.bhumiamartya.my.id/tes-kenali-diri">
     <meta name="twitter:title" content="Tes Kenali Diri | Bhumi Amartya">
-    <meta name="twitter:description" content="Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu.">
+    <meta name="twitter:description" content="Kenali pola, potensi, dan arah bertumbuhmu melalui pembacaan blueprint yang hangat, reflektif, dan membumi.">
     <meta name="twitter:image" content="https://www.bhumiamartya.my.id/assets/og-image.jpg">
 
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
@@ -28,18 +28,18 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/bhumi-design-system.css">
 
     <style>
         .self-test-section {
-            padding: 5rem 0 6rem;
+            padding: 4.5rem 0 6rem;
         }
 
         .self-test-grid {
             display: grid;
             grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-            gap: 2rem;
+            gap: 2.25rem;
             align-items: start;
         }
 
@@ -53,7 +53,7 @@
         }
 
         .self-test-card {
-            padding: 2rem;
+            padding: 2.25rem;
         }
 
         .self-test-card .btn {
@@ -86,8 +86,9 @@
 
         .result-card {
             display: none;
-            padding: 2rem;
+            padding: 2.5rem;
             border-top: 4px solid var(--earth-gold);
+            transition: all 0.3s ease;
         }
 
         .result-card.show {
@@ -111,22 +112,405 @@
             font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.12em;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
         }
 
         .result-title {
             font-family: var(--font-headings);
-            font-size: 2.1rem;
+            font-size: 2.25rem;
             font-weight: 600;
             color: var(--forest-green);
-            margin-bottom: 0.75rem;
+            line-height: 1.25;
+            margin-bottom: 0.85rem;
         }
 
         .result-summary {
-            font-size: 1rem;
-            line-height: 1.75;
-            margin-bottom: 1.5rem;
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
+        }
+
+        /* Reading Sections */
+        .reading-section {
+            margin-bottom: 2.25rem;
+        }
+
+        .section-title-sm {
+            font-family: var(--font-headings);
+            font-size: 1.55rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .reflection-paragraphs p {
+            font-size: 0.98rem;
+            line-height: 1.82;
+            color: var(--text-primary);
+            margin-bottom: 0.95rem;
+        }
+
+        .reflection-paragraphs p:last-child {
+            margin-bottom: 0;
+        }
+
+        .reflection-quote-card {
+            background: var(--sand-light);
+            border-left: 3px solid var(--earth-gold);
+            border-radius: 12px;
+            padding: 1.25rem 1.4rem;
+            font-size: 0.96rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .daily-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .daily-card {
+            background: var(--bg-primary);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 14px;
+            padding: 1.15rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .daily-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .daily-card h4 {
+            color: var(--forest-green);
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .daily-card p {
+            font-size: 0.92rem;
+            line-height: 1.68;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Current Sky Module */
+        .sky-card {
+            background: linear-gradient(135deg, rgba(244, 247, 244, 0.85) 0%, rgba(250, 248, 245, 0.95) 100%);
+            border: 1px solid rgba(45, 75, 52, 0.12);
+            border-radius: 18px;
+            padding: 1.75rem;
+            margin: 2.25rem 0;
+        }
+
+        .sky-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .sky-tag {
+            background-color: var(--forest-green);
+            color: var(--white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .sky-timestamp {
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 500;
+        }
+
+        .sky-moon-box {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-radius: 14px;
+            padding: 1.15rem;
+            margin: 1.15rem 0;
+        }
+
+        .sky-moon-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            font-size: 0.92rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .sky-moon-desc {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .sky-retrogrades {
+            margin: 1.25rem 0;
+        }
+
+        .sky-retrogrades h4,
+        .personal-transits-block h4,
+        .sky-timeline h4 {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.6rem;
+            text-transform: uppercase;
+        }
+
+        .retrograde-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.6rem 0 0.85rem;
+        }
+
+        .retrograde-chip {
+            background: rgba(194, 155, 56, 0.12);
+            color: var(--gold-dark);
+            border: 1px solid rgba(194, 155, 56, 0.3);
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+        }
+
+        .sky-retrograde-note {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        .transit-cards {
+            display: grid;
+            gap: 0.85rem;
+            margin-top: 0.75rem;
+        }
+
+        .transit-item-card {
+            background: var(--white);
+            border: 1px solid rgba(45, 75, 52, 0.08);
+            border-left: 4px solid var(--earth-gold);
+            border-radius: 12px;
+            padding: 1.15rem 1.35rem;
+        }
+
+        .transit-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.35rem;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .transit-item-card h5 {
+            font-family: var(--font-body);
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: var(--forest-green);
+            margin: 0;
+        }
+
+        .transit-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            background: var(--forest-light);
+            color: var(--forest-green);
+            padding: 0.2rem 0.55rem;
+            border-radius: 10px;
+        }
+
+        .transit-item-card p {
+            font-size: 0.92rem;
+            line-height: 1.7;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .precision-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            background: rgba(45, 75, 52, 0.04);
+            border-radius: 8px;
+            padding: 0.65rem 0.9rem;
+            margin-top: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .sky-timeline {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed rgba(45, 75, 52, 0.15);
+        }
+
+        .timeline-items {
+            display: grid;
+            gap: 0.65rem;
+            margin-top: 0.5rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+
+        .timeline-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--earth-gold);
+            margin-top: 0.45rem;
+            flex-shrink: 0;
+        }
+
+        /* Closing Message Card */
+        .closing-card {
+            background-color: var(--forest-light);
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            border-radius: 18px;
+            padding: 1.85rem;
+            margin: 2.25rem 0;
+            text-align: center;
+        }
+
+        .closing-tag {
+            color: var(--gold-dark);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.65rem;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        .closing-quote {
+            font-family: var(--font-headings);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--forest-green);
+            line-height: 1.65;
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        /* Technical Accordion */
+        .technical-accordion {
+            border: 1px solid rgba(45, 75, 52, 0.1);
+            border-radius: 14px;
+            overflow: hidden;
+            background: var(--bg-primary);
+            margin: 2rem 0 1.5rem;
+        }
+
+        .accordion-summary {
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-summary:hover {
+            background-color: rgba(45, 75, 52, 0.04);
+        }
+
+        .accordion-content {
+            padding: 1.25rem;
+            border-top: 1px solid rgba(45, 75, 52, 0.08);
+            background: var(--white);
+        }
+
+        .technical-intro {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            line-height: 1.65;
+        }
+
+        .identity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .identity-item {
+            background-color: var(--bg-primary);
+            border: 1px solid rgba(45, 75, 52, 0.07);
+            border-radius: 12px;
+            padding: 0.9rem;
+        }
+
+        .identity-label {
+            color: var(--gold-dark);
+            display: block;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+        }
+
+        .identity-value {
+            color: var(--text-primary);
+            font-size: 0.92rem;
+            font-weight: 600;
+            line-height: 1.45;
+        }
+
+        .audit-info-box {
+            background: var(--forest-light);
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .result-disclaimer {
+            background-color: var(--forest-light);
+            border-radius: 14px;
+            color: var(--text-secondary);
+            font-size: 0.86rem;
+            line-height: 1.65;
+            padding: 1rem 1.25rem;
+            margin-top: 1.5rem;
         }
 
         .city-suggestions {
@@ -162,135 +546,6 @@
             outline: none;
         }
 
-        .identity-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.85rem;
-            margin: 1.5rem 0 2rem;
-        }
-
-        .identity-item {
-            background-color: var(--bg-primary);
-            border: 1px solid rgba(45, 75, 52, 0.07);
-            border-radius: 14px;
-            padding: 1rem;
-        }
-
-        .identity-label {
-            color: var(--gold-dark);
-            display: block;
-            font-size: 0.76rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            margin-bottom: 0.35rem;
-            text-transform: uppercase;
-        }
-
-        .identity-value {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            font-weight: 600;
-            line-height: 1.45;
-        }
-
-        .summary-blocks {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .synthesis-copy {
-            background-color: var(--forest-light);
-            border-radius: 16px;
-            display: grid;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            padding: 1.25rem;
-        }
-
-        .synthesis-copy p {
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .summary-item {
-            border-bottom: 1px solid rgba(45, 75, 52, 0.08);
-            padding-bottom: 1rem;
-        }
-
-        .summary-item:last-child {
-            border-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .summary-item h3 {
-            color: var(--forest-green);
-            font-family: var(--font-body);
-            font-size: 0.98rem;
-            font-weight: 700;
-            margin-bottom: 0.35rem;
-        }
-
-        .summary-item p {
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-
-        .result-lists {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .result-list {
-            background-color: var(--bg-primary);
-            border: 1px solid rgba(45, 75, 52, 0.07);
-            border-radius: 16px;
-            padding: 1.25rem;
-        }
-
-        .result-list h3 {
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            color: var(--text-primary);
-        }
-
-        .result-list ul {
-            list-style: none;
-            display: grid;
-            gap: 0.65rem;
-        }
-
-        .result-list li {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.55;
-            padding-left: 1rem;
-            position: relative;
-        }
-
-        .result-list li::before {
-            content: "";
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: var(--earth-gold);
-            left: 0;
-            top: 0.6rem;
-            position: absolute;
-        }
-
-        .result-disclaimer {
-            background-color: var(--forest-light);
-            border-radius: 14px;
-            color: var(--text-secondary);
-            font-size: 0.88rem;
-            line-height: 1.65;
-            padding: 1rem;
-        }
-
         .reading-cta {
             background-color: var(--bg-secondary);
             padding: 5rem 0;
@@ -310,21 +565,24 @@
         }
 
         @media (max-width: 860px) {
-            .self-test-grid,
-            .result-lists,
-            .identity-grid {
+            .self-test-grid {
                 grid-template-columns: 1fr;
             }
-        }
 
-        @media (max-width: 480px) {
-            .self-test-card,
             .result-card {
                 padding: 1.5rem;
             }
 
-            .result-title {
-                font-size: 1.75rem;
+            .identity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .daily-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sky-card {
+                padding: 1.25rem;
             }
         }
     </style>
@@ -347,7 +605,8 @@
                             <li><a href="../cek-aura/" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="../weton/" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="../kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
-                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a><li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li></li>
+                            <li><a href="../kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="../kenali-diri/mbti/" class="dropdown-item">MBTI</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -396,7 +655,7 @@
                     <span class="breadcrumb-item active">Tes Kenali Diri</span>
                 </div>
                 <h1>Tes Kenali Diri</h1>
-                <p class="page-tagline">Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu.</p>
+                <p class="page-tagline">Masukkan data lahirmu sebagai pintu awal untuk mengenali pola, potensi, dan arah bertumbuhmu secara personal dan membumi.</p>
             </div>
         </section>
 
@@ -429,51 +688,94 @@
                 <div>
                     <div class="gentle-note" id="intro-note">
                         <h2>Ruang untuk Pulang dan Kenali Diri</h2>
-                        <p>Hasil singkat ini memakai pola tanggal lahir sebagai pembuka yang ringan. Untuk pembacaan yang lebih utuh, Blueprint Bhumi tetap membutuhkan sintesis lebih lengkap dari sistem yang tersedia.</p>
+                        <p>Hasil ini disusun seperti jurnal refleksi pribadi—hangat, mengalir, dan membumi. Menggabungkan pola kelahiranmu dengan kondisi langit aktual hari ini untuk membantumu mengenal diri tanpa klaim yang kaku.</p>
                     </div>
 
                     <article class="result-card" id="result-card" aria-live="polite">
                         <div id="result-inline-warning" class="inline-warning" role="status" aria-live="polite" hidden></div>
-                        <div class="result-eyebrow">Hasil awal kenali diri</div>
+                        
+                        <!-- A. Sapaan Personal -->
+                        <div class="result-eyebrow">Refleksi Personal Blueprint</div>
                         <h2 class="result-title" id="result-title"></h2>
-                        <p class="result-summary">Berikut identitas inti Blueprint sebagai pintu awal. Beberapa sistem membutuhkan jam dan kota lahir agar pembacaan bisa lebih presisi.</p>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Identitas Inti Blueprint</h3>
-                        <div class="identity-grid" id="identity-grid"></div>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin-bottom: 1rem;">Sintesis Kenali Diri</h3>
-                        <div class="synthesis-copy" id="synthesis-copy"></div>
-                        <h3 class="section-title" style="font-size: 1.55rem; margin: 1.75rem 0 1rem;">Ringkasan Area Hidup</h3>
-                        <div class="summary-blocks" id="summary-blocks"></div>
+                        <p class="result-summary" id="result-summary"></p>
 
-                        <div id="engine-loading-section" style="display:none; margin-top:2rem;">
-                          <div class="identity-item" id="hd-loading-card" style="margin-bottom:1rem;">
-                            <span class="identity-label">HUMAN DESIGN</span>
-                            <div class="identity-value">Menghitung blueprint...</div>
-                          </div>
-                          <div class="identity-item" id="vedic-loading-card">
-                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
-                            <div class="identity-value">Menghitung posisi Bulan dan periode...</div>
-                          </div>
-                        </div>
+                        <!-- B. Mengenal Pola Dirimu -->
+                        <section class="reading-section" id="section-patterns">
+                            <h3 class="section-title-sm">Mengenal Pola Dirimu</h3>
+                            <div class="reflection-paragraphs" id="patterns-paragraphs"></div>
+                        </section>
 
-                        <div id="engine-result-section" style="display:none; margin-top:2rem;">
-                          <div class="identity-item" id="hd-result-card" style="margin-bottom:1rem; display:none;">
-                            <span class="identity-label">HUMAN DESIGN</span>
-                            <div class="identity-value" id="hd-result-value"></div>
-                          </div>
-                          <div class="identity-item" id="vedic-result-card" style="display:none;">
-                            <span class="identity-label">VEDIC ASTROLOGY DASAR</span>
-                            <div class="identity-value" id="vedic-result-value"></div>
-                            <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">Identitas dasar berdasarkan posisi Bulan sidereal, Nakshatra, Pada, dan periode Mahadasha.</p>
-                          </div>
-                        </div>
+                        <!-- C. Hal yang Mungkin Sedang Kamu Pelajari -->
+                        <section class="reading-section" id="section-learning">
+                            <h3 class="section-title-sm">Hal yang Mungkin Sedang Kamu Pelajari</h3>
+                            <div class="reflection-quote-card" id="learning-text"></div>
+                        </section>
 
-                        <p class="result-disclaimer">Ini adalah pintu awal, bukan pembacaan final. Hasil ini tidak menampilkan raw calculation dan tidak dimaksudkan sebagai klaim yang mutlak.</p>
+                        <!-- D. Hubungan, Aktivitas, dan Keseharian -->
+                        <section class="reading-section" id="section-daily">
+                            <h3 class="section-title-sm">Hubungan, Aktivitas, dan Keseharian</h3>
+                            <div class="daily-cards-grid" id="daily-cards"></div>
+                        </section>
+
+                        <!-- E. Langit Saat Ini, dan Apa yang Bisa Kamu Renungkan -->
+                        <section class="reading-section sky-card" id="section-sky">
+                            <div class="sky-header">
+                                <span class="sky-tag">Peta Langit Saat Ini</span>
+                                <span class="sky-timestamp" id="sky-timestamp">Menghitung posisi langit aktual...</span>
+                            </div>
+                            <h3 class="section-title-sm" style="margin-top:0.4rem; font-size:1.4rem;">Langit Saat Ini, dan Apa yang Bisa Kamu Renungkan</h3>
+                            
+                            <div class="sky-moon-box" id="sky-moon-box">
+                                <div class="sky-moon-badge" id="sky-moon-badge">Posisi Bulan Hari Ini</div>
+                                <p class="sky-moon-desc" id="sky-moon-desc">Menyelaraskan posisi Bulan sidereal...</p>
+                            </div>
+
+                            <div class="sky-retrogrades" id="sky-retrogrades">
+                                <h4>Status Gerak Planet (Retrograde Terkonfirmasi)</h4>
+                                <div class="retrograde-chips" id="retrograde-chips"></div>
+                                <p class="sky-retrograde-note" id="sky-retrograde-note">Memeriksa kecepatan bujur geosentris planet dari ephemeris...</p>
+                            </div>
+
+                            <div class="personal-transits-block" id="personal-transits-block">
+                                <h4>Transit Langit yang Terhubung dengan Kelahiranmu</h4>
+                                <div class="transit-cards" id="transit-cards"></div>
+                                <div class="precision-note" id="precision-note" hidden></div>
+                            </div>
+
+                            <div class="sky-timeline" id="sky-timeline">
+                                <h4>Garis Waktu Langit Ringkas</h4>
+                                <div class="timeline-items" id="timeline-items"></div>
+                            </div>
+                        </section>
+
+                        <!-- F. Pesan untuk Dirimu Saat Ini -->
+                        <section class="reading-section closing-card" id="section-closing">
+                            <span class="closing-tag">Pesan untuk Dirimu</span>
+                            <blockquote class="closing-quote" id="closing-quote"></blockquote>
+                        </section>
+
+                        <!-- G. Accordion Detail Teknis & Identitas Inti -->
+                        <details class="technical-accordion" id="technical-accordion">
+                            <summary class="accordion-summary">
+                                <span>Lihat dasar perhitungan & identitas teknis</span>
+                                <span style="font-size:0.8rem; color:var(--text-secondary);">▼</span>
+                            </summary>
+                            <div class="accordion-content">
+                                <p class="technical-intro">Data teknis di bawah ini adalah fondasi kalkulasi audit kami. Narasi di atas disusun secara deterministik dari perpaduan sistem ini tanpa menambahkan klaim yang tidak berdasar.</p>
+                                <div class="identity-grid" id="identity-grid"></div>
+                                <div class="audit-info-box" id="audit-info-box">
+                                    <strong>Standar Ephemeris & Astrologi:</strong> Sidereal Zodiac • Lahiri Chitrapaksha Ayanamsa • VSOP87 / ELP2000-82B Ephemeris • 27 Nakshatra & Vimshottari Dasha system.
+                                </div>
+                            </div>
+                        </details>
+
+                        <p class="result-disclaimer">Ini adalah pintu awal refleksi diri, bukan pembacaan final atau kepastian nasib. Hasil ini tidak dimaksudkan sebagai diagnosis medis, psikologis kaku, atau ramalan mutlak.</p>
                     </article>
                 </div>
             </div>
         </section>
 
-                <section class="reading-cta" id="reading-cta-section" style="display: none;">
+        <section class="reading-cta" id="reading-cta-section" style="display: none;">
             <div class="container reading-cta-inner">
                 <span class="section-tag">Blueprint Bhumi</span>
                 <h2 class="section-title">Mau membaca dirimu lebih lengkap?</h2>
@@ -569,14 +871,24 @@
             const introNote = document.getElementById('intro-note');
             const resultCard = document.getElementById('result-card');
             const resultTitle = document.getElementById('result-title');
+            const resultSummary = document.getElementById('result-summary');
+            const patternsParagraphs = document.getElementById('patterns-paragraphs');
+            const learningText = document.getElementById('learning-text');
+            const dailyCards = document.getElementById('daily-cards');
+            const skyTimestamp = document.getElementById('sky-timestamp');
+            const skyMoonBadge = document.getElementById('sky-moon-badge');
+            const skyMoonDesc = document.getElementById('sky-moon-desc');
+            const retrogradeChips = document.getElementById('retrograde-chips');
+            const skyRetrogradeNote = document.getElementById('sky-retrograde-note');
+            const transitCards = document.getElementById('transit-cards');
+            const precisionNote = document.getElementById('precision-note');
+            const timelineItems = document.getElementById('timeline-items');
+            const closingQuote = document.getElementById('closing-quote');
             const identityGrid = document.getElementById('identity-grid');
-            const synthesisCopy = document.getElementById('synthesis-copy');
-            const summaryBlocks = document.getElementById('summary-blocks');
             const birthcityInput = document.getElementById('birthcity');
             const citySuggestions = document.getElementById('city-suggestions');
             const cityNote = document.getElementById('city-note');
             let selectedCity = null;
-            let citySearchTimer = null;
 
             const HARI = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
             const PASARAN_FROM_ENGINE_EPOCH = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'];
@@ -596,16 +908,129 @@
             ];
             const TZOLKIN_SEALS = ['Naga Merah', 'Angin Putih', 'Malam Biru', 'Benih Kuning', 'Ular Merah', 'Penghubung Dunia Putih', 'Tangan Biru', 'Bintang Kuning', 'Bulan Merah', 'Anjing Putih', 'Monyet Biru', 'Manusia Kuning', 'Penjelajah Langit Merah', 'Penyihir Putih', 'Elang Biru', 'Ksatria Kuning', 'Bumi Merah', 'Cermin Putih', 'Badai Biru', 'Matahari Kuning'];
             const TZOLKIN_TONES = ['Magnetic', 'Lunar', 'Electric', 'Self-Existing', 'Overtone', 'Rhythmic', 'Resonant', 'Galactic', 'Solar', 'Planetary', 'Spectral', 'Crystal', 'Cosmic'];
-            const LIFE_PATH_THEMES = {
-                1: 'inisiatif dan keberanian memulai',
-                2: 'kepekaan rasa dan kerja sama',
-                3: 'ekspresi, kreativitas, dan komunikasi',
-                4: 'struktur, ketekunan, dan stabilitas',
-                5: 'perubahan, kebebasan, dan adaptasi',
-                6: 'tanggung jawab, kasih, dan harmoni',
-                7: 'pencarian makna dan kedalaman batin',
-                8: 'daya kelola, karya, dan kepemimpinan',
-                9: 'welas asih, penyelesaian, dan pandangan luas'
+
+            const LIFE_PATH_PROFILES = {
+                1: {
+                    core: 'inisiatif mandiri dan keberanian membuka langkah pertama',
+                    strength: 'tidak mudah ragu saat harus memulai sesuatu yang baru, terutama ketika situasi menuntut arah yang jelas',
+                    blindspot: 'terlalu cepat merasa harus memikul semuanya sendirian tanpa memberi kesempatan orang lain untuk terlibat',
+                    learning: 'belajar bahwa menjadi mandiri bukan berarti harus selalu berjalan sendirian',
+                    work: 'cenderung bersemangat ketika memiliki keleluasaan untuk memimpin inisiatif dan menentukan ritme kerjamu',
+                    closing: 'Mungkin tidak semua jalan harus kamu selesaikan dalam satu tarikan napas. Kadang, keberanian terbesar justru ada pada kesediaan untuk membagi beban dan melangkah perlahan.'
+                },
+                2: {
+                    core: 'kepekaan rasa, diplomasi, dan kemampuan merajut kerja sama',
+                    strength: 'kepekaan alami untuk menangkap suasana hati orang di sekitarmu dan menjaga keharmonisan bersama',
+                    blindspot: 'kecenderungan menunda menyampaikan isi hati karena khawatir merusak suasana atau mengecewakan orang lain',
+                    learning: 'belajar bahwa kejujuran yang disampaikan dengan tenang adalah bentuk cinta dan kepedulian yang paling nyata',
+                    work: 'bekerja paling nyaman di lingkungan yang saling mendukung dan menghargai dialog dua arah',
+                    closing: 'Menjaga perasaan orang lain adalah kebaikan yang berharga, tapi pastikan kamu juga menyediakan ruang aman yang sama hangatnya untuk dirimu sendiri.'
+                },
+                3: {
+                    core: 'ekspresi kreatif, komunikasi yang hidup, dan kelincahan ide',
+                    strength: 'kemampuan melihat sisi cerah dari keadaan dan menyalurkan gagasan melalui kata atau karya dengan spontan',
+                    blindspot: 'perhatian yang mudah terbagi ketika terlalu banyak hal menarik datang bersamaan, sehingga hal-hal penting terhenti di tengah jalan',
+                    learning: 'belajar memberi batas pada ide-ide baru agar apa yang sudah kamu mulai bisa selesai dengan utuh',
+                    work: 'membutuhkan ruang untuk bereksplorasi dan tidak terlalu terkekang oleh aturan yang kaku tanpa alasan jelas',
+                    closing: 'Gagasanmu indah saat dibagikan, tapi akan jauh lebih bermakna ketika kamu memberi waktu bagi satu ide sederhana untuk benar-benar berakar dan tumbuh.'
+                },
+                4: {
+                    core: 'ketekunan, struktur yang kokoh, dan tanggung jawab praktis',
+                    strength: 'keandalan dalam menjaga komitmen, menata proses, dan memastikan fondasi hidup tetap stabil',
+                    blindspot: 'kecemasan yang muncul ketika rencana berubah mendadak di luar kendalimu, sehingga kamu cenderung bertahan terlalu kaku',
+                    learning: 'belajar membedakan antara menjaga kestabilan dan bersikap fleksibel saat keadaan memang membutuhkan penyesuaian',
+                    work: 'unggul dalam hal-hal yang membutuhkan keteraturan, metode jelas, dan konsistensi jangka panjang',
+                    closing: 'Fondasi yang kuat memang penting, tapi jangan lupa memberi sedikit ruang longgar bagi hal-hal baik yang datang tanpa rencana.'
+                },
+                5: {
+                    core: 'jiwa petualang, adaptabilitas tinggi, dan kebebasan bereksplorasi',
+                    strength: 'kemampuan beradaptasi dengan cepat di lingkungan baru serta keterbukaan pada pengalaman yang beragam',
+                    blindspot: 'rasa gelisah yang cepat muncul saat rutinitas terasa monoton, yang kadang membuatmu ingin berpindah sebelum hal tersebut matang',
+                    learning: 'belajar menemukan kebebasan di dalam komitmen yang kamu pilih sendiri, bukan melulu dengan cara lari dari batasan',
+                    work: 'paling hidup di peran yang dinamis, tidak monoton, dan memberi ruang gerak yang leluasa',
+                    closing: 'Dunia selalu menawarkan hal baru yang menggoda. Namun kedalaman sering kali baru terasa saat kamu bersedia tinggal sedikit lebih lama di satu tempat.'
+                },
+                6: {
+                    core: 'tanggung jawab merawat, welas asih, dan menjaga keharmonisan orang terdekat',
+                    strength: 'kemampuan hadir sebagai tempat bersandar yang hangat dan kepedulian tulus terhadap kesejahteraan keluarga serta sahabat',
+                    blindspot: 'dorongan untuk memperbaiki masalah semua orang sampai lupa bahwa setiap orang punya proses belajarnya masing-masing',
+                    learning: 'belajar merawat tanpa mengorbankan batas kesehatan batin dan fisikmu sendiri',
+                    work: 'berkembang di lingkungan yang bernilai sosial, mementingkan etika, dan memberi dampak nyata bagi orang lain',
+                    closing: 'Kasih yang paling sehat adalah kasih yang tidak menuntutmu untuk terus kehabisan napas demi menyenangkan semua pihak.'
+                },
+                7: {
+                    core: 'pencarian makna batin, ketajaman analisis, dan kedalaman berpikir',
+                    strength: 'kemampuan mengamati apa yang ada di balik permukaan dan tidak mudah puas dengan jawaban yang dangkal',
+                    blindspot: 'terlalu banyak menarik diri ke dalam kepala sendiri hingga terasa berjarak dari lingkungan sosial',
+                    learning: 'belajar mempercayai rasa dan membiarkan orang lain mengenal sisi rentanmu, bukan hanya pikiranmu',
+                    work: 'bekerja paling jernih saat diberi waktu hening untuk meneliti, merenung, dan memecahkan persoalan yang kompleks',
+                    closing: 'Mencari jawaban ke dalam diri adalah anugerah yang tenang. Luangkan pula waktu untuk sesekali duduk bersama orang terdekat dan menikmati obrolan biasa tanpa perlu membedah maknanya.'
+                },
+                8: {
+                    core: 'daya kelola, ketegasan memimpin, dan orientasi pada dampak nyata',
+                    strength: 'keberanian mengambil keputusan praktis, mengelola sumber daya, dan membangun sistem yang berdampak besar',
+                    blindspot: 'dorongan untuk selalu memegang kendali penuh, yang bisa membuatmu mudah tegang saat hasil tidak sesuai standar tinggimu',
+                    learning: 'belajar bahwa kepemimpinan yang bijak lahir dari kerendahan hati dan kesabaran mendampingi proses orang lain',
+                    work: 'nyaman memegang tanggung jawab terukur, mengarahkan tujuan, dan melihat pencapaian nyata dari kerja kerasmu',
+                    closing: 'Pencapaian luar biasa terasa lebih manis ketika dibangun di atas tubuh yang cukup istirahat dan hati yang tidak terbebani rasa harus selalu menang.'
+                },
+                9: {
+                    core: 'pandangan luas, welas asih kemanusiaan, dan keikhlasan melepaskan',
+                    strength: 'kemampuan melihat gambaran besar kehidupan dan empati yang tulus pada mereka yang membutuhkan dukungan',
+                    blindspot: 'sering kali menyimpan kekecewaan dalam diam ketika kenyataan dunia tidak seindah idealisme yang ada di pikiranmu',
+                    learning: 'belajar merangkul ketidaksempurnaan dunia dan menerima bahwa melepaskan hal-hal yang selesai adalah bagian dari pembaruan hidup',
+                    work: 'terpanggil pada bidang-bidang yang membawa manfaat sosial, pendidikan, atau karya yang menginspirasi',
+                    closing: 'Kamu tidak perlu membenahi seluruh dunia hari ini. Cukup rawat apa yang ada di hadapanmu dengan ketulusan yang sama.'
+                },
+                11: {
+                    core: 'intuisi yang peka dan inspirasi praktis untuk sesama',
+                    strength: 'ketajaman naluri yang bisa menangkap getaran rasa sebelum kata-kata terucap',
+                    blindspot: 'kepekaan yang berlebihan terhadap energi lingkungan sehingga mudah merasa lelah tanpa alasan yang jelas',
+                    learning: 'belajar menyaring informasi batin dan membumikan wawasan ke dalam kebiasaan hidup sehari-hari',
+                    work: 'cocok di peran yang menghubungkan orang, membimbing, atau menuangkan inspirasi ke media kreatif',
+                    closing: 'Kepekaan batinmu adalah kompas yang lembut. Jagalah dengan tidur yang cukup, waktu jeda, dan kebiasaan sederhana yang menenangkan.'
+                },
+                22: {
+                    core: 'pembangunan visi jangka panjang yang berpijak di bumi',
+                    strength: 'perpaduan antara impian besar dan ketangguhan praktis untuk mewujudkannya batu demi batu',
+                    blindspot: 'beban ekspektasi yang terlalu berat pada diri sendiri karena merasa harus selalu menghasilkan karya besar',
+                    learning: 'belajar menikmati langkah-langkah kecil tanpa terus terburu-buru mengejar hasil akhir',
+                    work: 'unggul dalam merancang proyek jangka panjang, tata kelola, dan arsitektur gagasan',
+                    closing: 'Karya besar dibangun dari hari-hari biasa yang dijalani dengan setia. Jangan abaikan kebahagiaan sederhana di sepanjang perjalananmu.'
+                },
+                33: {
+                    core: 'pelayanan penuh kasih dan keteladanan yang meneduhkan',
+                    strength: 'kehadiran yang menenangkan dan kerelaan mendengarkan tanpa menghakimi',
+                    blindspot: 'mudah merasa bersalah saat harus beristirahat atau berkata "tidak" pada permintaan orang lain',
+                    learning: 'belajar bahwa menjaga batas diri adalah bagian penting agar kamu bisa terus melayani dengan sehat',
+                    work: 'berkembang di bidang pengasuhan, pendampingan, konseling, dan karya kemanusiaan',
+                    closing: 'Bahkan lilin yang paling terang pun butuh tempat berteduh agar apinya tidak padam oleh angin. Rawatlah dirimu terlebih dahulu.'
+                }
+            };
+
+            const ARCANA_PROFILES = {
+                'The Magician': 'daya kreasi dan inisiatif untuk mewujudkan gagasan menjadi tindakan nyata',
+                'The High Priestess': 'intuisi yang tenang dan kebiasaan mendengarkan bisikan batin sebelum memutuskan',
+                'The Empress': 'kehangatan merawat, kreativitas yang subur, dan penghargaan pada proses pertumbuhan alami',
+                'The Emperor': 'ketegasan menata, kepemimpinan yang terstruktur, dan perlindungan pada orang-orang sekitar',
+                'The Hierophant': 'pencarian nilai luhur, etika, dan pembelajaran dari kearifan tradisi',
+                'The Lovers': 'kepekaan pada pilihan hati, keselarasan nilai, dan komunikasi yang terbuka',
+                'The Chariot': 'fokus yang teguh, disiplin arah, dan tekad mengatasi rintangan dengan kepala dingin',
+                'Justice': 'kejujuran menimbang, keadilan, dan kesadaran akan sebab-akibat dari setiap pilihan',
+                'The Hermit': 'kebijaksanaan hening, kemampuan berefleksi mendalam, dan keberanian menatap diri sendiri',
+                'Wheel of Fortune': 'keluwesan menerima dinamika pasang surut kehidupan dengan lapang dada',
+                'Strength': 'kelembutan yang teguh dan kemampuan mengelola emosi tanpa perlu bersikap keras',
+                'The Hanged Man': 'kerelaan melihat keadaan dari sudut pandang baru dan kesabaran menunggu waktu yang tepat',
+                'Death': 'keberanian melepaskan hal-hal yang telah usai untuk membuka ruang bagi babak baru',
+                'Temperance': 'seni menjaga keseimbangan, kesabaran memadukan perbedaan, dan ketenangan batin',
+                'The Devil': 'kepekaan menyadari keterikatan emosi dan keberanian membebaskan diri dari pola yang mengikat',
+                'The Tower': 'kemampuan bangkit dari perubahan mendadak dan membangun kembali fondasi yang lebih jujur',
+                'The Star': 'harapan yang jernih, ketulusan rasa, dan keyakinan tenang pada arah masa depan',
+                'The Moon': 'imajinasi yang dalam, kepekaan terhadap rasa yang tak terucapkan, dan kesadaran batin',
+                'The Sun': 'kejujuran berekspresi, rasa syukur yang hangat, dan optimisme yang membumi',
+                'Judgement': 'panggilan untuk jujur pada diri sendiri dan menyambut babak kedewasaan yang lebih utuh',
+                'The World': 'kemampuan menyelesaikan apa yang telah dimulai dan merasakan keutuhan dalam diri',
+                'The Fool': 'keterbukaan pada pengalaman baru dengan hati yang ringan dan tanpa prasangka'
             };
 
             const sunSign = (month, day) => {
@@ -618,16 +1043,11 @@
                 return z.find((item) => value < item[1])[0];
             };
 
-            // Canonical Indonesian Location Autocomplete (SSoT)
             const locationAutocomplete = window.BhumiLocationAutocomplete ? window.BhumiLocationAutocomplete.attach(birthcityInput, {
                 suggestionsContainer: citySuggestions,
                 noteEl: cityNote,
-                onSelect: (loc) => {
-                    selectedCity = loc;
-                },
-                onClear: () => {
-                    selectedCity = null;
-                }
+                onSelect: (loc) => { selectedCity = loc; },
+                onClear: () => { selectedCity = null; }
             }) : null;
 
             const resolveCityFallback = (value) => {
@@ -647,18 +1067,12 @@
                 navMenu.classList.toggle('open');
                 document.body.classList.toggle('menu-open', navMenu.classList.contains('open'));
             };
-
             burgerBtn.addEventListener('click', toggleMenu);
 
             navLinks.forEach((link) => {
                 link.addEventListener('click', (event) => {
-                    if (link.classList.contains('dropdown-toggle')) {
-                        event.preventDefault();
-                        return;
-                    }
-                    if (navMenu.classList.contains('open')) {
-                        toggleMenu();
-                    }
+                    if (link.classList.contains('dropdown-toggle')) { event.preventDefault(); return; }
+                    if (navMenu.classList.contains('open')) toggleMenu();
                 });
             });
 
@@ -723,7 +1137,6 @@
                     const hour = Number(birthtime.split(':')[0]);
                     if (hour >= 18) effective.setDate(effective.getDate() + 1);
                 }
-
                 const pasaranIndex = positiveModulo(daysBetween(effective, new Date(2020, 6, 5)), 5);
                 return `${HARI[effective.getDay()]} ${PASARAN_FROM_ENGINE_EPOCH[pasaranIndex]}`;
             };
@@ -731,10 +1144,7 @@
             const julianDayNumber = (year, month, day) => {
                 let y = year;
                 let m = month;
-                if (m <= 2) {
-                    y -= 1;
-                    m += 12;
-                }
+                if (m <= 2) { y -= 1; m += 12; }
                 const a = Math.floor(y / 100);
                 const b = 2 - a + Math.floor(a / 4);
                 return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
@@ -771,7 +1181,8 @@
                 return `Kin ${kin} - ${seal} ${tone}`;
             };
 
-            const renderIdentity = (items) => {
+            // Render Technical Identity Grid
+            const renderIdentityGrid = (items) => {
                 identityGrid.innerHTML = items.map((item) => `
                     <div class="identity-item"${item.id ? ` id="${item.id}-item"` : ''}>
                         <span class="identity-label">${item.label}</span>
@@ -780,165 +1191,73 @@
                 `).join('');
             };
 
-            const renderSummary = (items) => {
-                summaryBlocks.innerHTML = items.map((item) => `
-                    <section class="summary-item">
-                        <h3>${item.label}</h3>
-                        <p>${item.text}</p>
-                    </section>
-                `).join('');
-            };
+            // Render Humanized Reading UI
+            const renderHumanizedReading = ({ nickname, lifePath, arcanaName, sun, weton, baziElement, hasBirthTime }) => {
+                const lp = LIFE_PATH_PROFILES[lifePath] || LIFE_PATH_PROFILES[9];
+                const arcanaDesc = ARCANA_PROFILES[arcanaName] || 'kepekaan membaca arah batin dan nilai hidup';
+                const todayFormatted = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
 
-            const buildCanonicalSynthesis = ({ nickname, lifePath, arcanaName, sun, baziElement, hasPreciseCity }) => {
-                const coreNeed = LIFE_PATH_THEMES[lifePath] || 'mengenali pola hidup personal';
-                const grounding = hasPreciseCity ? 'ritme yang lebih presisi dan membumi' : 'ritme yang lebih stabil';
-                const reflection = `membaca arah batin melalui ${arcanaName}`;
-                const action = `menghidupi kualitas ${coreNeed} dengan langkah kecil`;
-                const energyTone = `perpaduan ${sun}, elemen ${baziElement}, dan pola dasar ${coreNeed}`;
+                // A. Sapaan Personal
+                resultTitle.textContent = `Halo, ${nickname}. Yuk, kenali sedikit lebih dalam tentang dirimu.`;
+                resultSummary.textContent = `Setiap orang membawa ritme dan kecenderungannya masing-masing dalam memandang dunia. Dari data lahirmu, tampak perpaduan menarik antara kualitas ${lp.core} dan ${arcanaDesc}. Pola ini bukan ramalan kaku, melainkan cermin tenang untuk memahami caramu bergerak, memilih, dan pulang ke diri sendiri.`;
 
-                return {
-                    blueprintSummary: `Dari keseluruhan pola lahirmu, ${nickname} cenderung sedang belajar memberi ruang untuk ${grounding}, ${reflection}, dan ${action}. Pola ini menggambarkan pintu awal untuk memahami cara energimu bekerja tanpa menjadikannya kesimpulan mutlak.`,
-                    secondSummary: `Secara umum, ${energyTone} mengajakmu bergerak dengan lebih sadar: mengenali kebutuhan diri, menjaga arah, lalu memilih satu langkah yang benar-benar bisa dilakukan.`,
-                    coreNeeds: [grounding, reflection, action],
-                    practiceThemes: {
-                        grounding,
-                        reflection,
-                        action
-                    },
-                    identitySignals: {
-                        lifePath,
-                        arcanaCenter: arcanaName,
-                        sunSign: sun,
-                        baziElement
-                    }
-                };
-            };
+                // B. Mengenal Pola Dirimu
+                let p1 = `Dalam keseharian, ada bagian dari dirimu yang memiliki ${lp.strength}. Ketika menghadapi situasi yang baru atau tidak menentu, kamu cenderung mencari pijakan yang jelas sebelum melangkah.`;
+                if (weton) {
+                    p1 += ` Ditambah dengan kepekaan rasa dari weton ${weton}, ada naluri alami untuk menjaga harmoni tanpa harus kehilangan arah pribadimu.`;
+                }
 
-            const renderSynthesis = (synthesis) => {
-                synthesisCopy.innerHTML = `
-                    <p>${synthesis.blueprintSummary}</p>
-                    <p>${synthesis.secondSummary}</p>
+                const p2 = `Ketika berhadapan dengan banyak pilihan atau situasi yang menuntut, caramu merespons biasanya sangat dipengaruhi oleh rasa kenyamanan batin. Bila pikiran terasa terlalu bising, memberi jeda sejenak untuk menarik napas sering kali lebih membantu daripada langsung memaksakan keputusan di tempat.`;
+                const p3 = `Di sisi lain, hal yang mungkin sesekali perlu kamu sadari adalah ${lp.blindspot}. Ini wajar terjadi ketika kamu merasa peduli pada hasil, tapi menyadari pola ini sejak awal bisa membantumu tidak cepat merasa lelah.`;
+
+                patternsParagraphs.innerHTML = `
+                    <p>${p1}</p>
+                    <p>${p2}</p>
+                    <p>${p3}</p>
                 `;
-            };
 
-            const createReadingFromSynthesis = (synthesis) => {
-                const grounding = synthesis.practiceThemes.grounding;
-                const reflection = synthesis.practiceThemes.reflection;
-                const action = synthesis.practiceThemes.action;
-                return [
-                    {
-                        label: 'Keadaan Umum',
-                        text: `Dari keseluruhan pola lahirmu, kamu cenderung membutuhkan ${grounding}. Ini mengajakmu menjaga hari tetap sederhana dan tidak terburu-buru membaca diri secara mutlak.`
-                    },
-                    {
-                        label: 'Karir dan Ekonomi',
-                        text: `Di area karya dan ekonomi, pola ini mengajak ${action}. Ruang bertumbuhmu ada pada memilih fokus yang membumi dan bisa ditindaklanjuti.`
-                    },
-                    {
-                        label: 'Asmara dan Cinta - Untuk Single',
-                        text: `Untuk yang sedang sendiri, ${reflection} bisa membantu mengenali kebutuhan hati dengan lebih jujur. Bisa jadi relasi yang sehat dimulai dari cara kamu hadir untuk diri sendiri.`
-                    },
-                    {
-                        label: 'Asmara dan Cinta - Untuk Berpasangan',
-                        text: `Untuk yang berpasangan, pola ini menggambarkan kebutuhan akan komunikasi yang lebih hangat dan jelas. Hubungan cenderung bertumbuh saat ada ruang aman untuk saling mendengar.`
-                    },
-                    {
-                        label: 'Keluarga',
-                        text: `Dalam keluarga, sintesis ini mengajakmu merawat kedekatan tanpa memikul semuanya sendirian. Ada bagian dari dirimu yang sedang belajar membedakan kasih, batas, dan tanggung jawab.`
-                    },
-                    {
-                        label: 'Kesehatan',
-                        text: `Untuk keseharian tubuh, pola ini mengajak ritme yang lembut, istirahat yang cukup, dan kebiasaan kecil yang menenangkan. Ini bukan diagnosis medis, melainkan pengingat untuk mendengar tubuh dengan lebih sadar.`
-                    },
-                    {
-                        label: 'Spiritual',
-                        text: `Secara spiritual, kamu cenderung bertumbuh saat makna dibawa ke langkah sederhana. Pintu awalnya adalah hadir, jujur pada rasa, dan memberi ruang pada proses.`
-                    },
-                    {
-                        label: 'Tantangan',
-                        text: `Tantangan yang muncul bisa jadi berkaitan dengan menyeimbangkan dorongan bergerak dan kebutuhan untuk jeda. Ruang bertumbuhnya adalah memilih respons yang selaras, bukan sekadar reaktif.`
-                    }
-                ];
-            };
+                // C. Hal yang Mungkin Sedang Kamu Pelajari
+                learningText.innerHTML = `
+                    <p style="margin:0;">Berdasarkan perpaduan pola ini, kamu mungkin sedang belajar ${lp.learning}. Proses belajar ini jarang sekali terjadi secara instan—bentuknya sering kali hadir lewat hal-hal kecil: kapan saatnya kamu berbicara jujur, kapan saatnya mendengarkan, dan kapan saatnya melepaskan hal-hal yang memang tidak bisa kamu kendalikan.</p>
+                `;
 
-            const createBhumiStructuredInput = ({ nickname, birthdate, birthtime, birthcity, city }) => {
-                const trimmedBirthCity = (city?.formattedCity || birthcity).trim();
-                const now = new Date().toISOString();
+                // D. Hubungan, Aktivitas, dan Keseharian
+                dailyCards.innerHTML = `
+                    <div class="daily-card">
+                        <h4>Komunikasi & Relasi</h4>
+                        <p>Dalam berhubungan dengan orang lain, kamu cenderung menghargai keterbukaan yang hangat. Hubunganmu terasa paling bertumbuh saat ada ruang aman untuk saling mendengar tanpa tergesa-gesa menilai.</p>
+                    </div>
+                    <div class="daily-card">
+                        <h4>Kerja & Keputusan</h4>
+                        <p>Dalam berkarya, ${lp.work}. Memilih satu atau dua fokus yang benar-benar bisa kamu selesaikan hari ini akan terasa jauh lebih melegakan daripada memikirkan seluruh rencana sekaligus.</p>
+                    </div>
+                    <div class="daily-card">
+                        <h4>Energi & Istirahat</h4>
+                        <p>Tubuhmu biasanya memberi sinyal cukup jelas ketika sudah lelah. Luangkan waktu untuk istirahat yang benar-benar hening agar energimu kembali segar secara alami.</p>
+                    </div>
+                `;
 
-                return {
-                    profilePayload: {
-                        fullName: nickname,
-                        displayName: nickname,
-                        birthDate: birthdate,
-                        birthTime: birthtime || '',
-                        birthCity: trimmedBirthCity,
-                        birthPlace: trimmedBirthCity,
-                        birthCountry: city?.country || null,
-                        latitude: city?.latitude ?? null,
-                        longitude: city?.longitude ?? null,
-                        timezone: city?.timezone || null,
-                        timezoneSource: city?.timezone ? 'longitude-approx' : 'not-resolved-static-site',
-                        language: 'id',
-                        setupCompleted: false,
-                        blueprintStatus: 'preview',
-                        createdAt: now,
-                        updatedAt: now
-                    },
-                    blueprintInput: {
-                        uid: 'website-preview',
-                        fullName: nickname,
-                        birthDate: birthdate,
-                        birthTime: birthtime || undefined,
-                        birthCity: trimmedBirthCity,
-                        birthCountry: city?.country || null,
-                        latitude: city?.latitude ?? null,
-                        longitude: city?.longitude ?? null,
-                        timezone: city?.timezone || null
-                    }
-                };
+                // E. Current Sky Initial State
+                skyTimestamp.textContent = `Dihitung untuk ${todayFormatted} • Waktu Indonesia Barat`;
+                skyMoonBadge.textContent = `Posisi Langit Aktual`;
+                skyMoonDesc.textContent = `Sedang menyelaraskan posisi Bulan dan planet aktual dari ephemeris astronomis...`;
+                retrogradeChips.innerHTML = `<span class="retrograde-chip">Memeriksa ephemeris...</span>`;
+                skyRetrogradeNote.textContent = `Mengambil data kecepatan geosentris planet untuk mendeteksi gerak mundur semu (retrograde)...`;
+                transitCards.innerHTML = `<div class="transit-item-card"><p>Menghubungkan posisi langit saat ini dengan chart kelahiranmu...</p></div>`;
+
+                if (!hasBirthTime) {
+                    precisionNote.textContent = 'Catatan: Jam atau kota lahir tidak dicantumkan secara lengkap. Posisi Ascendant dan rumah astrologi tidak dihitung secara spekulatif. Transit difokuskan pada relasi langit saat ini dengan posisi Matahari kelahiranmu.';
+                    precisionNote.hidden = false;
+                } else {
+                    precisionNote.hidden = true;
+                }
+
+                // F. Pesan untuk Dirimu
+                closingQuote.textContent = `"${lp.closing}"`;
             };
 
             const submitBtn = form.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn ? submitBtn.textContent : 'Lihat Hasil Kenali Diri';
-
-            const runOfflineFallback = (nickname, birthdate, birthtime, birthcity, structuredInput, resolvedCityData) => {
-                const [year, month, day] = birthdate.split('-').map(Number);
-                const lifePath = calculateLifePathNumber(birthdate);
-                const arcanaNumber = calculateArcanaCenter(year, month, day);
-                const arcanaName = ARCANA[arcanaNumber - 1];
-                const sun = sunSign(month, day);
-                const weton = wetonName(new Date(year, month - 1, day), birthtime);
-                const bazi = calculateBaziIdentity(year, month, day, birthtime);
-                const tzolkin = calculateTzolkinIdentity(birthdate);
-                const unavailableMsg = 'Membutuhkan data koordinat kota lahir yang lebih spesifik.';
-                const canonicalSynthesis = buildCanonicalSynthesis({
-                    nickname,
-                    lifePath,
-                    arcanaName,
-                    sun,
-                    baziElement: bazi ? bazi.element : BAZI_ELEMENTS[Math.floor(((year - 4) % 10 + 10) % 10 / 2)],
-                    hasPreciseCity: Boolean(resolvedCityData?.latitude)
-                });
-
-                resultTitle.textContent = `${nickname}, ini pintu awal Blueprint-mu`;
-                renderIdentity([
-                    { label: 'Life Path', value: `${displayLifePath(lifePath)} - ${LIFE_PATH_THEMES[lifePath] || 'pola hidup personal'}` },
-                    { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
-                    { label: 'Type Human Design', value: unavailableMsg, id: 'identity-hd' },
-                    { label: 'Sun Natal Chart', value: sun },
-                    { label: 'Weton', value: weton },
-                    { label: 'BaZi', value: bazi ? `${bazi.label}` : 'Membutuhkan jam lahir.' },
-                    { label: 'Vedic', value: unavailableMsg, id: 'identity-vedic' },
-                    { label: 'Tzolkin', value: tzolkin }
-                ]);
-                renderSynthesis(canonicalSynthesis);
-                renderSummary(createReadingFromSynthesis(canonicalSynthesis));
-
-                introNote.style.display = 'none';
-                resultCard.classList.add('show');
-                document.getElementById('reading-cta-section').style.display = 'block';
-                resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            };
 
             form.addEventListener('submit', async (event) => {
                 event.preventDefault();
@@ -956,28 +1275,189 @@
                 window.BhumiAnalytics?.trackOnce('tes_kenali_diri_started', { feature: 'tes-kenali-diri', status: 'started' });
 
                 const resolvedCityData = selectedCity || resolveCityFallback(birthcity);
-                const structuredInput = createBhumiStructuredInput({
+                const [year, month, day] = birthdate.split('-').map(Number);
+                const lifePath = calculateLifePathNumber(birthdate);
+                const arcanaNumber = calculateArcanaCenter(year, month, day);
+                const arcanaName = ARCANA[arcanaNumber - 1];
+                const sun = sunSign(month, day);
+                const weton = wetonName(new Date(year, month - 1, day), birthtime);
+                const bazi = calculateBaziIdentity(year, month, day, birthtime);
+                const tzolkin = calculateTzolkinIdentity(birthdate);
+                const hasBirthTime = Boolean(birthtime);
+
+                // Initial technical values
+                renderIdentityGrid([
+                    { label: 'Life Path', value: `${displayLifePath(lifePath)} - ${LIFE_PATH_PROFILES[lifePath]?.core || 'Pola hidup personal'}` },
+                    { label: 'Arcana Center', value: `${arcanaNumber} - ${arcanaName}` },
+                    { label: 'Type Human Design', value: hasBirthTime ? 'Menghitung blueprint...' : 'Perlu jam lahir', id: 'identity-hd' },
+                    { label: 'Sun Natal Chart', value: sun },
+                    { label: 'Weton', value: weton },
+                    { label: 'BaZi', value: bazi ? bazi.label : 'Perlu jam lahir.' },
+                    { label: 'Vedic', value: hasBirthTime ? 'Menghitung rashi & nakshatra...' : 'Perlu jam lahir', id: 'identity-vedic' },
+                    { label: 'Tzolkin', value: tzolkin }
+                ]);
+
+                // Render humanized experience immediately
+                renderHumanizedReading({
                     nickname,
-                    birthdate,
-                    birthtime,
-                    birthcity,
-                    city: resolvedCityData
+                    lifePath,
+                    arcanaName,
+                    sun,
+                    weton,
+                    baziElement: bazi?.element || 'Tanah',
+                    hasBirthTime
                 });
 
-                try {
-                    sessionStorage.setItem('bhumiSelfTestPreviewInput', JSON.stringify(structuredInput));
-                } catch {
-                    // Preview can continue even when browser storage is unavailable.
-                }
+                introNote.style.display = 'none';
+                resultCard.classList.add('show');
+                document.getElementById('reading-cta-section').style.display = 'block';
+                resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-                // Show loading state
                 if (submitBtn) {
                     submitBtn.disabled = true;
-                    submitBtn.textContent = 'Membaca Blueprint...';
+                    submitBtn.textContent = 'Menyelaraskan Peta Langit...';
                 }
 
+                // Call Canonical Sky Transit API
+                const todayIso = new Date().toISOString().slice(0, 10);
+                const skyPayload = {
+                    birthDate: birthdate,
+                    birthTime: birthtime || undefined,
+                    birthCity: resolvedCityData?.formattedCity || birthcity,
+                    latitude: resolvedCityData?.latitude ?? null,
+                    longitude: resolvedCityData?.longitude ?? null,
+                    timezone: resolvedCityData?.timezone || undefined,
+                    nickname,
+                    lifePath,
+                    arcanaName,
+                    weton,
+                    baziElement: bazi?.element || 'Tanah',
+                    asOfDate: todayIso
+                };
+
                 try {
-                    runOfflineFallback(nickname, birthdate, birthtime, birthcity, structuredInput, resolvedCityData);
+                    const skyPromise = fetch('/api/sky-transit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(skyPayload)
+                    }).then(r => r.json()).catch(() => null);
+
+                    let enginePromise = null;
+                    if (hasBirthTime) {
+                        enginePromise = fetch('/api/blueprint-engines', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                birthDate: birthdate,
+                                birthTime: birthtime,
+                                birthCity: resolvedCityData?.formattedCity || birthcity,
+                                latitude: resolvedCityData?.latitude ?? null,
+                                longitude: resolvedCityData?.longitude ?? null,
+                                asOfDate: todayIso
+                            })
+                        }).then(r => r.json()).catch(() => null);
+                    }
+
+                    const [skyData, engineData] = await Promise.all([skyPromise, enginePromise]);
+
+                    // Hydrate Live Sky & Retrogrades
+                    if (skyData && skyData.ok) {
+                        const sky = skyData.current_sky;
+                        const moon = sky.moon;
+                        const retrogrades = skyData.retrograde_planets || [];
+
+                        skyTimestamp.textContent = `Dihitung untuk ${new Date(sky.calculationTime).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })} • Waktu Indonesia Barat`;
+                        skyMoonBadge.innerHTML = `Bulan di ${moon.rashi.name} • Nakshatra ${moon.nakshatra.name} (Pada ${moon.nakshatra.pada})`;
+                        skyMoonDesc.textContent = `Hari ini Bulan sidereal berada di rashi ${moon.rashi.name}, dinaungi Nakshatra ${moon.nakshatra.name}. Suasana langit ini secara simbolis menghadirkan nuansa yang mengundang kita menyelaraskan ritme pikiran dan memperhatikan apa yang sedang terasa paling penting saat ini.`;
+
+                        if (retrogrades.length > 0) {
+                            retrogradeChips.innerHTML = retrogrades.map(r => {
+                                const win = r.retrogradeWindow;
+                                const dateRange = win ? ` (${new Date(win.startDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })} – ${new Date(win.endDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })})` : '';
+                                return `<span class="retrograde-chip">${r.indonesianName}: Retrograde di ${r.rashi.name}${dateRange}</span>`;
+                            }).join('');
+                            skyRetrogradeNote.textContent = `Dalam tradisi astrologi reflektif, masa gerak mundur semu (retrograde) bukanlah pertanda kesialan, melainkan kesempatan alami untuk meninjau kembali percakapan, memeriksa ulang kesepakatan, dan tidak tergesa-gesa menyimpulkan sesuatu.`;
+                        } else {
+                            retrogradeChips.innerHTML = `<span class="retrograde-chip" style="background:rgba(45,75,52,0.1); color:var(--forest-green); border-color:rgba(45,75,52,0.2);">Semua Planet Bergerak Maju (Direct)</span>`;
+                            skyRetrogradeNote.textContent = `Saat ini seluruh planet utama bergerak maju (direct). Kondisi ini secara simbolis mendukung kelancaran komunikasi dan keberanian untuk menjalankan rencana-rencana yang telah matang.`;
+                        }
+
+                        // Hydrate Personal Transits
+                        const primaryTransits = skyData.personal_transits || [];
+                        if (primaryTransits.length > 0) {
+                            transitCards.innerHTML = primaryTransits.map(t => `
+                                <div class="transit-item-card">
+                                    <div class="transit-item-header">
+                                        <h5>${t.title}</h5>
+                                        ${t.tag ? `<span class="transit-badge">${t.tag}</span>` : ''}
+                                    </div>
+                                    <p>${t.reflection}</p>
+                                </div>
+                            `).join('');
+                        }
+
+                        // Sky Timeline
+                        const timelineData = [];
+                        retrogrades.forEach(r => {
+                            if (r.retrogradeWindow?.endDate) {
+                                const endFormatted = new Date(r.retrogradeWindow.endDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                                timelineData.push(`Fase retrograde ${r.indonesianName} di rashi ${r.rashi.name} selesai pada ${endFormatted}.`);
+                            }
+                        });
+                        sky.planets.forEach(p => {
+                            if (!p.isRetrograde && p.upcomingRetrograde?.startDate) {
+                                const startFormatted = new Date(p.upcomingRetrograde.startDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                                timelineData.push(`Fase retrograde ${p.indonesianName} berikutnya diperkirakan mulai pada ${startFormatted}.`);
+                            }
+                        });
+
+                        if (timelineData.length > 0) {
+                            timelineItems.innerHTML = timelineData.slice(0, 4).map(text => `
+                                <div class="timeline-item">
+                                    <span class="timeline-dot"></span>
+                                    <span>${text}</span>
+                                </div>
+                            `).join('');
+                        } else {
+                            timelineItems.innerHTML = `
+                                <div class="timeline-item">
+                                    <span class="timeline-dot"></span>
+                                    <span>Ritme langit saat ini berjalan stabil tanpa pergantian fase planet besar dalam waktu dekat.</span>
+                                </div>
+                            `;
+                        }
+                    }
+
+                    // Hydrate Human Design & Vedic if available
+                    if (engineData && engineData.ok) {
+                        const hd = engineData.humanDesign;
+                        const v = engineData.vedic;
+                        const idHd = document.getElementById('identity-hd');
+                        if (idHd) idHd.textContent = `${hd.type} (${hd.profile}, ${hd.authority} Authority)`;
+                        const idVedic = document.getElementById('identity-vedic');
+                        if (idVedic) idVedic.textContent = `Bulan di ${v.rashi}, Nakshatra ${v.nakshatra} (Pada ${v.pada}) • Dasha ${v.currentMahadasha.planet}`;
+
+                        // Refine energy pattern if Human Design is ready
+                        const hdNarratives = {
+                            Generator: 'Energimu bekerja paling nyaman saat merespons hal-hal di sekitarmu. Ketika ada hal yang benar-benar memanggil minatmu, tenagamu bisa bertahan lama.',
+                            'Manifesting Generator': 'Kamu memiliki ritme yang lincah dan sering kali bisa mengerjakan beberapa minat sekaligus. Melangkah dengan memberi kabar singkat kepada orang terdekat akan membuat langkahmu jauh lebih lancar.',
+                            Projector: 'Kekuatanmu terletak pada ketajaman melihat pola, mengarahkan, dan membaca dinamika orang lain. Istirahat yang cukup adalah kuncimu menjaga kejernihan pandangan.',
+                            Manifestor: 'Ada dorongan alami untuk memulai dan membuka jalan baru. Memberi kabar singkat sebelum bertindak akan menghindarkanmu dari gesekan yang tidak perlu.',
+                            Reflector: 'Kamu memiliki keterbukaan yang sangat peka terhadap lingkungan di sekitarmu. Beri dirimu waktu yang cukup sebelum mengambil keputusan besar.'
+                        };
+                        if (hdNarratives[hd.type]) {
+                            const secondP = patternsParagraphs.querySelectorAll('p')[1];
+                            if (secondP) secondP.textContent = hdNarratives[hd.type];
+                        }
+
+                        // Refine learning theme if Vedic Nakshatra is known
+                        if (v.nakshatra) {
+                            learningText.innerHTML = `
+                                <p style="margin:0;">Berdasarkan perpaduan pola ini, kamu mungkin sedang belajar ${LIFE_PATH_PROFILES[lifePath]?.learning || 'mengenali arah diri'}. Di bawah naungan energi Nakshatra ${v.nakshatra}, ada dorongan batin untuk menyelaraskan antara apa yang kamu inginkan di dalam hati dan tindakan nyata yang kamu ambil sehari-hari. Bentuknya hadir lewat hal-hal kecil: kapan saatnya kamu berbicara jujur, kapan saatnya mendengarkan, dan kapan saatnya melepaskan apa yang di luar kendalimu.</p>
+                            `;
+                        }
+                    }
+
                     window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
                         feature: 'tes-kenali-diri',
                         status: 'submitted',
@@ -986,93 +1466,9 @@
                         hasBirthCity: Boolean(birthcity)
                     });
 
-                    // Engine integration: call blueprint-engines without timezone
-                    const engineLoading = document.getElementById('engine-loading-section');
-                    const engineResult = document.getElementById('engine-result-section');
-                    const hdLoading = document.getElementById('hd-loading-card');
-                    const vedicLoading = document.getElementById('vedic-loading-card');
-                    const hdResultCard = document.getElementById('hd-result-card');
-                    const vedicResultCard = document.getElementById('vedic-result-card');
-                    const hdResultValue = document.getElementById('hd-result-value');
-                    const vedicResultValue = document.getElementById('vedic-result-value');
-                    const inlineWarning = document.getElementById('result-inline-warning');
-
-                    if (engineLoading) engineLoading.style.display = 'block';
-                    if (engineResult) engineResult.style.display = 'block';
-
-                    const enginePayload = {
-                        birthDate: birthdate,
-                        birthTime: birthtime || undefined,
-                        birthCity: resolvedCityData?.formattedCity || birthcity,
-                        latitude: resolvedCityData?.latitude ?? null,
-                        longitude: resolvedCityData?.longitude ?? null,
-                        asOfDate: new Date().toISOString().slice(0, 10)
-                    };
-
-                    try {
-                        const engineRes = await fetch('/api/blueprint-engines', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(enginePayload)
-                        });
-                        const engineBody = await engineRes.json();
-
-                        if (engineRes.ok && engineBody.ok) {
-                            if (hdLoading) hdLoading.style.display = 'none';
-                            if (vedicLoading) vedicLoading.style.display = 'none';
-                            if (hdResultValue) {
-                                hdResultValue.innerHTML = `
-                                    Type: ${engineBody.humanDesign.type}<br>
-                                    Profile ${engineBody.humanDesign.profile}<br>
-                                    ${engineBody.humanDesign.authority} Authority<br>
-                                    ${engineBody.humanDesign.strategy}
-                                `;
-                            }
-                            if (hdResultCard) hdResultCard.style.display = 'block';
-                            if (vedicResultValue) {
-                                const v = engineBody.vedic;
-                                vedicResultValue.innerHTML = `
-                                    Rashi: ${v.rashi}<br>
-                                    Nakshatra: ${v.nakshatra}<br>
-                                    Pada ${v.pada}<br>
-                                    Nakshatra Lord: ${v.nakshatraLord}<br>
-                                    Current Mahadasha: ${v.currentMahadasha.planet}
-                                `;
-                            }
-                            if (vedicResultCard) vedicResultCard.style.display = 'block';
-
-                            const identityHd = document.getElementById('identity-hd');
-                            if (identityHd) identityHd.textContent = engineBody.humanDesign.type;
-                            const identityVedic = document.getElementById('identity-vedic');
-                            if (identityVedic) identityVedic.textContent = `Rashi ${engineBody.vedic.rashi}, Nakshatra ${engineBody.vedic.nakshatra}`;
-                        } else {
-                            if (engineLoading) engineLoading.style.display = 'none';
-                            if (inlineWarning) {
-                                inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
-                                inlineWarning.hidden = false;
-                            }
-                        }
-                    } catch (e) {
-                        if (engineLoading) engineLoading.style.display = 'none';
-                        if (inlineWarning) {
-                            inlineWarning.textContent = 'Human Design dan Vedic belum dapat dihitung saat ini. Enam hasil dasar lainnya tetap tersedia.';
-                            inlineWarning.hidden = false;
-                        }
-                    }
-                } catch (error) {
-                    console.warn('[TES KENALI DIRI] Calculation failed:', error);
-                    const inlineWarning = document.getElementById('result-inline-warning');
-                    if (inlineWarning) {
-                        inlineWarning.textContent = 'Terjadi kesalahan saat menghitung hasil. Silakan coba lagi.';
-                        inlineWarning.hidden = false;
-                    }
-                    window.BhumiAnalytics?.track('tes_kenali_diri_submitted', {
-                        feature: 'tes-kenali-diri',
-                        status: 'submitted',
-                        resultOk: false,
-                        hasBirthTime: Boolean(birthtime),
-                        hasBirthCity: Boolean(birthcity)
-                    });
+                } catch (err) {
+                    console.warn('[TES KENALI DIRI API]', err);
+                    // Graceful fallback: the initial humanized reading is already active on screen!
                 } finally {
                     if (submitBtn) {
                         submitBtn.disabled = false;
@@ -1080,26 +1476,22 @@
                     }
                 }
             });
-        });
 
-            // --- PERSONAL BLUEPRINT CTA (manual Google Form flow) ---
+            // Analytics CTAs
             const personalBlueprintCta = document.getElementById('personal-blueprint-cta');
-
             if (personalBlueprintCta) {
                 personalBlueprintCta.addEventListener('click', () => {
                     window.BhumiAnalytics?.track('personal_blueprint_click', { feature: 'blueprint_reading' });
                 });
             }
 
-            // --- WHATSAPP CTA ---
             const whatsappCta = document.getElementById('whatsapp-cta');
-
             if (whatsappCta) {
                 whatsappCta.addEventListener('click', () => {
                     window.BhumiAnalytics?.track('whatsapp_cta_click', { feature: 'tes_kenali_diri' });
                 });
             }
-
+        });
     </script>
 </body>
 </html>
