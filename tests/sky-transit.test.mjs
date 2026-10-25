@@ -1,8 +1,9 @@
 import { strict as assert } from 'node:assert';
-import skyTransitHandler from '../api/sky-transit.mjs';
+import blueprintEnginesHandler from '../api/blueprint-engines.mjs';
 import { calculateCurrentSky, findCurrentRetrogradeWindow, getPlanetarySpeed } from '../lib/sky-transit/ephemeris.mjs';
 import { calculatePersonalTransits, getBhavaDistance } from '../lib/sky-transit/personal-transit.mjs';
 import { composeHumanizedReading } from '../lib/narrative/humanized-composer.mjs';
+import { handleSkyTransit } from '../lib/sky-transit/service.mjs';
 
 function makeRes() {
   return {
@@ -14,13 +15,13 @@ function makeRes() {
   };
 }
 
-function makeReq(method, headers, body) {
-  return { method, headers, body: typeof body === 'string' ? body : JSON.stringify(body || {}) };
+function makeReq(method, headers, body, url = '/api/blueprint-engines?mode=sky') {
+  return { method, headers, url, body: typeof body === 'string' ? body : JSON.stringify(body || {}) };
 }
 
 async function call(req) {
   const res = makeRes();
-  await skyTransitHandler(req, res);
+  await blueprintEnginesHandler(req, res);
   return { status: res.statusCode, body: res.body ? JSON.parse(res.body) : null };
 }
 

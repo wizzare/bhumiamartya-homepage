@@ -5,10 +5,11 @@ import { isValidIanaTimeZone, localDateTimeToUtc } from '../lib/timezone.mjs';
 import { resolveTimezoneFromCoordinates } from '../lib/timezone-resolver.mjs';
 import { calculateCurrentSky } from '../lib/sky-transit/ephemeris.mjs';
 import { calculatePersonalTransits } from '../lib/sky-transit/personal-transit.mjs';
+import { handleSkyTransit } from '../lib/sky-transit/service.mjs';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 const MAX_BODY_BYTES = 32768;
@@ -52,6 +53,17 @@ export default async function handler(req, res) {
     return;
   }
 
+  const isSkyMode = req.url?.includes('mode=sky');
+
+  // If GET in sky mode, handle live current sky immediately
+  if (req.method === 'GET') {
+    if (isSkyMode) {
+      const result = handleSkyTransit({});
+      return json(res, result.status, result.data);
+    }
+    return json(res, 405, { ok: false, code: 'METHOD_NOT_ALLOWED', message: 'Method not allowed.' });
+  }
+
   if (req.method !== 'POST') {
     json(res, 405, { ok: false, code: 'METHOD_NOT_ALLOWED', message: 'Method not allowed.' });
     return;
@@ -79,6 +91,12 @@ export default async function handler(req, res) {
   if (Buffer.byteLength(serializedBody, 'utf8') > MAX_BODY_BYTES) {
     json(res, 413, { ok: false, code: 'PAYLOAD_TOO_LARGE', message: 'Request payload is too large.' });
     return;
+  }
+
+  // Route to dedicated Sky Transit service if mode=sky or scope=sky-transit
+  if (isSkyMode || body.scope === 'sky-transit') {
+    const result = handleSkyTransit(body);
+    return json(res, result.status, result.data);
   }
 
   const {
