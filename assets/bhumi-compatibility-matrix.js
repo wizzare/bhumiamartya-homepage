@@ -1186,6 +1186,53 @@ async function ensureJsPdf() {
   });
 }
 
+function svgToPngDataUrl(svgElement, width = 600, height = 600) {
+  return new Promise((resolve) => {
+    try {
+      if (!svgElement) return resolve(null);
+      const clonedSvg = svgElement.cloneNode(true);
+      clonedSvg.setAttribute("width", String(width));
+      clonedSvg.setAttribute("height", String(height));
+      const svgString = new XMLSerializer().serializeToString(clonedSvg);
+      const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+      const URL = window.URL || window.webkitURL || window;
+      const blobUrl = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = function() {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#FFFFFF";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+        URL.revokeObjectURL(blobUrl);
+        resolve(canvas.toDataURL("image/png"));
+      };
+      img.onerror = function() {
+        URL.revokeObjectURL(blobUrl);
+        resolve(null);
+      };
+      img.src = blobUrl;
+    } catch (e) {
+      resolve(null);
+    }
+  });
+}
+
+function cleanPdfText(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/[—–]/g, "-")
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[☌☍△□⚹]/g, "")
+    .replace(/℞/g, "Rx")
+    .replace(/′/g, "'")
+    .replace(/″/g, '"')
+    .trim();
+}
+
 async function exportCouplePdfReport(matrixRes, synastryRes) {
   const JsPDF = await ensureJsPdf();
   const pdf = new JsPDF({ orientation: "portrait", unit: "mm", format: "a4", compress: true });
@@ -1195,6 +1242,20 @@ async function exportCouplePdfReport(matrixRes, synastryRes) {
   const dateA = matrixRes.input.malePartner.birthDate || "-";
   const dateB = matrixRes.input.femalePartner.birthDate || "-";
   const filename = buildCouplePdfFilename(nameA, nameB);
+
+  // Capture SVG diagrams from DOM if present
+  let octagonPng = null;
+  let biwheelPng = null;
+  if (typeof document !== "undefined") {
+    const octSvg = document.querySelector("svg.compatibility-svg");
+    if (octSvg) {
+      octagonPng = await svgToPngDataUrl(octSvg, 500, 500);
+    }
+    const bwSvg = document.querySelector("svg.synastry-biwheel-svg");
+    if (bwSvg) {
+      biwheelPng = await svgToPngDataUrl(bwSvg, 600, 600);
+    }
+  }
 
   const pageWidth = 210, pageHeight = 297, margin = 16, contentWidth = 178;
   const colDark = [45, 75, 52];    // #2D4B34
@@ -1210,7 +1271,7 @@ async function exportCouplePdfReport(matrixRes, synastryRes) {
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(7.5);
     pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-    pdf.text("BHUMI AMARTYA — RUANG UNTUK PULANG DAN KENALI DIRI", margin, 9.5);
+    pdf.text("BHUMI AMARTYA - RUANG UNTUK PULANG DAN KENALI DIRI", margin, 9.5);
 
     pdf.line(margin, pageHeight - 12, pageWidth - margin, pageHeight - 12);
     pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
@@ -1222,404 +1283,423 @@ async function exportCouplePdfReport(matrixRes, synastryRes) {
   drawHeaderFooter(1, 4);
 
   // Brand Eyebrow
-  let y = 24;
+  let y = 20;
   pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(9);
+  pdf.setFontSize(8.5);
   pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
   pdf.text("BHUMI AMARTYA", pageWidth / 2, y, { align: "center" });
 
-  y += 7;
+  y += 6;
   pdf.setFont("times", "bold");
-  pdf.setFontSize(20);
+  pdf.setFontSize(18);
   pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
   pdf.text("Compatibility Matrix & Synastry Natal Chart", pageWidth / 2, y, { align: "center" });
 
-  y += 7;
+  y += 6;
   pdf.setFont("times", "italic");
-  pdf.setFontSize(14);
+  pdf.setFontSize(13);
   pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-  pdf.text(nameA + " & " + nameB, pageWidth / 2, y, { align: "center" });
+  pdf.text(cleanPdfText(nameA) + " & " + cleanPdfText(nameB), pageWidth / 2, y, { align: "center" });
 
-  y += 10;
+  y += 7;
   // Partner identity card
   pdf.setFillColor(250, 247, 240);
-  pdf.roundedRect(margin, y, contentWidth, 24, 3, 3, "F");
+  pdf.roundedRect(margin, y, contentWidth, 20, 2.5, 2.5, "F");
   pdf.setDrawColor(220, 215, 205);
-  pdf.roundedRect(margin, y, contentWidth, 24, 3, 3, "S");
-
-  pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(9);
-  pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-  pdf.text("Pasangan 1: " + nameA, margin + 6, y + 7);
-  pdf.text("Pasangan 2: " + nameB, margin + 92, y + 7);
-
-  pdf.setFont("helvetica", "normal");
-  pdf.setFontSize(8);
-  pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
-  pdf.text("Tanggal Lahir: " + dateA, margin + 6, y + 13);
-  pdf.text("Tanggal Lahir: " + dateB, margin + 92, y + 13);
-
-  const todayStr = new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
-  pdf.text("Tanggal Laporan: " + todayStr + " · Transient Local Privacy Verified", margin + 6, y + 19);
-
-  y += 32;
-  // Section 1: Compatibility Matrix
-  pdf.setFont("times", "bold");
-  pdf.setFontSize(13);
-  pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-  pdf.text("I. COMPATIBILITY MATRIX (PETA OKTAGON TAKDIR)", margin, y);
-
-  y += 4;
-  pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
-  pdf.setLineWidth(0.8);
-  pdf.line(margin, y, margin + 50, y);
-
-  y += 7;
-  // Hero Center Arcana Box
-  const centerIdentity = ARCANA_DICTIONARY[String(matrixRes.zones.centerArcana)] || { name: "The Arcana", meaning: "" };
-  pdf.setFillColor(248, 245, 238);
-  pdf.roundedRect(margin, y, contentWidth, 26, 3, 3, "F");
-  pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
-  pdf.roundedRect(margin, y, contentWidth, 26, 3, 3, "S");
+  pdf.roundedRect(margin, y, contentWidth, 20, 2.5, 2.5, "S");
 
   pdf.setFont("helvetica", "bold");
   pdf.setFontSize(8);
-  pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-  pdf.text("PUSAT RELASI & ESENSI UTAMA (CENTER ARCANA)", margin + 6, y + 7);
-
-  pdf.setFont("times", "bold");
-  pdf.setFontSize(14);
   pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-  pdf.text(matrixRes.zones.centerArcana + " · " + centerIdentity.name, margin + 6, y + 14);
+  pdf.text("Pasangan 1: " + cleanPdfText(nameA), margin + 5, y + 5.5);
+  pdf.text("Pasangan 2: " + cleanPdfText(nameB), margin + 92, y + 5.5);
 
   pdf.setFont("helvetica", "normal");
   pdf.setFontSize(7.5);
-  pdf.setTextColor(colText[0], colText[1], colText[2]);
-  const splitCenterMeaning = pdf.splitTextToSize(centerIdentity.meaning || "Penyatuan energi utama yang menaungi ikatan hubungan.", contentWidth - 12);
-  pdf.text(splitCenterMeaning.slice(0, 2), margin + 6, y + 20);
+  pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
+  pdf.text("Tanggal Lahir: " + dateA, margin + 5, y + 10.5);
+  pdf.text("Tanggal Lahir: " + dateB, margin + 92, y + 10.5);
 
-  y += 34;
-  // Matrix Zones Table
+  const todayStr = new Date().toLocaleDateString("id-ID", { day: "numeric", month: "long", year: "numeric" });
+  pdf.text("Tanggal Laporan: " + todayStr + " - Transient Local Privacy Verified", margin + 5, y + 15.5);
+
+  y += 24;
+  // Section 1: Compatibility Matrix
+  pdf.setFont("times", "bold");
+  pdf.setFontSize(12);
+  pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
+  pdf.text("I. COMPATIBILITY MATRIX (PETA OKTAGON TAKDIR)", margin, y);
+
+  y += 3;
+  pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
+  pdf.setLineWidth(0.8);
+  pdf.line(margin, y, margin + 45, y);
+
+  y += 6;
+  // Hero Center Arcana Box
+  const centerIdentity = ARCANA_DICTIONARY[String(matrixRes.zones.centerArcana)] || { name: "The Arcana", meaning: "" };
+  pdf.setFillColor(248, 245, 238);
+  pdf.roundedRect(margin, y, contentWidth, 19, 2.5, 2.5, "F");
+  pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
+  pdf.roundedRect(margin, y, contentWidth, 19, 2.5, 2.5, "S");
+
   pdf.setFont("helvetica", "bold");
-  pdf.setFontSize(9);
+  pdf.setFontSize(7.5);
+  pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
+  pdf.text("PUSAT RELASI & ESENSI UTAMA (CENTER ARCANA)", margin + 5, y + 5);
+
+  pdf.setFont("times", "bold");
+  pdf.setFontSize(13);
+  pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
+  pdf.text(matrixRes.zones.centerArcana + " - " + cleanPdfText(centerIdentity.name), margin + 5, y + 11.5);
+
+  pdf.setFont("helvetica", "normal");
+  pdf.setFontSize(7.2);
+  pdf.setTextColor(colText[0], colText[1], colText[2]);
+  const splitCenterMeaning = pdf.splitTextToSize(cleanPdfText(centerIdentity.meaning) || "Penyatuan energi utama yang menaungi ikatan hubungan.", contentWidth - 10);
+  pdf.text(splitCenterMeaning.slice(0, 1), margin + 5, y + 16);
+
+  y += 22;
+
+  // Render Octagon SVG diagram if available
+  if (octagonPng) {
+    const octSize = 65;
+    const octX = (pageWidth - octSize) / 2;
+    pdf.addImage(octagonPng, "PNG", octX, y, octSize, octSize);
+    y += octSize + 4;
+  }
+
+  // Matrix Zones Table (Compact 5 key rows)
+  pdf.setFont("helvetica", "bold");
+  pdf.setFontSize(8.5);
   pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
   pdf.text("Zona & Jalur Takdir Relasi", margin, y);
 
-  y += 4;
+  y += 3.5;
   const matrixRows = [
-    ["Tujuan Pertemuan (Meeting Purpose)", matrixRes.zones.meetingPurpose.code.join("–"), "Tugas spiritual dan material yang dihadirkan bersama."],
-    ["Ekor Karma Relasi (Karmic Tail)", matrixRes.zones.karmicTail.code.join("–"), "Pola bawah sadar dan pelajaran karma masa lalu yang perlu diuraikan."],
-    ["Jalur Cinta (Love Line)", matrixRes.zones.loveLine.code.join("–"), "Kunci menjaga kemesraan dan ruang pembuka keharmonisan batin."],
-    ["Jalur Finansial (Economic Lane)", matrixRes.zones.economicLane.code.join("–"), "Aliran kelimpahan materi dan kerjasama ekonomi pasangan."],
-    ["Relationships (Sky & Earth)", "Langit " + matrixRes.relationships.sky + " + Bumi " + matrixRes.relationships.earth + " = " + matrixRes.relationships.result, "Sintesis energi spiritual dan material relasi."],
-    ["Merger (Dinamika Energi)", "Maskulin " + matrixRes.merger.masculineEnergy + " + Feminin " + matrixRes.merger.feminineEnergy + " = " + matrixRes.merger.result, "Keseimbangan peran energi aktif dan reseptif."],
-    ["Total Harmony (Harmoni Akhir)", matrixRes.harmony.result + " · " + (ARCANA_DICTIONARY[String(matrixRes.harmony.result)]?.name || ""), "Energi puncak yang menaungi keutuhan hubungan."]
+    ["Tujuan Pertemuan (Meeting Purpose)", matrixRes.zones.meetingPurpose.code.join("-"), "Tugas spiritual dan material yang dihadirkan bersama."],
+    ["Ekor Karma Relasi (Karmic Tail)", matrixRes.zones.karmicTail.code.join("-"), "Pola bawah sadar dan pelajaran karma masa lalu yang perlu diuraikan."],
+    ["Jalur Cinta (Love Line)", matrixRes.zones.loveLine.code.join("-"), "Kunci menjaga kemesraan dan ruang pembuka keharmonisan batin."],
+    ["Jalur Finansial (Economic Lane)", matrixRes.zones.economicLane.code.join("-"), "Aliran kelimpahan materi dan kerjasama ekonomi pasangan."],
+    ["Total Harmony (Harmoni Akhir)", matrixRes.harmony.result + " - " + cleanPdfText(ARCANA_DICTIONARY[String(matrixRes.harmony.result)]?.name || ""), "Energi puncak yang menaungi keutuhan hubungan."]
   ];
 
   for (const row of matrixRows) {
     pdf.setFillColor(255, 255, 255);
     pdf.setDrawColor(235, 230, 222);
-    pdf.rect(margin, y, contentWidth, 11, "S");
+    pdf.rect(margin, y, contentWidth, 8, "S");
 
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(8);
+    pdf.setFontSize(7.5);
     pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-    pdf.text(row[0], margin + 4, y + 5);
+    pdf.text(row[0], margin + 3.5, y + 3.8);
 
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(8);
+    pdf.setFontSize(7.5);
     pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-    pdf.text(row[1], pageWidth - margin - 4, y + 5, { align: "right" });
+    pdf.text(row[1], pageWidth - margin - 3.5, y + 3.8, { align: "right" });
 
     pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(7);
+    pdf.setFontSize(6.5);
     pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
-    pdf.text(row[2], margin + 4, y + 9);
+    pdf.text(row[2], margin + 3.5, y + 6.8);
 
-    y += 11;
+    y += 8;
   }
 
-  // ---------------- PAGE 2: SYNASTRY NATAL POSISI PLANET ----------------
+  // ---------------- PAGE 2: SYNASTRY BI-WHEEL & RINGKASAN ----------------
   pdf.addPage();
   drawHeaderFooter(2, 4);
 
-  y = 22;
+  y = 20;
   pdf.setFont("times", "bold");
-  pdf.setFontSize(13);
+  pdf.setFontSize(12);
   pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
   pdf.text("II. SYNASTRY NATAL CHART COUPLE (KIMIAWI ASTROLOGI)", margin, y);
 
-  y += 4;
+  y += 3;
   pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
   pdf.setLineWidth(0.8);
-  pdf.line(margin, y, margin + 50, y);
+  pdf.line(margin, y, margin + 45, y);
 
-  y += 7;
+  y += 6;
   if (!synastryRes) {
     pdf.setFont("helvetica", "italic");
-    pdf.setFontSize(9);
+    pdf.setFontSize(8.5);
     pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
     pdf.text("Data Synastry Natal Chart belum tersedia atau belum lengkap. Compatibility Matrix tetap valid di atas.", margin, y);
   } else {
-    // Summary Cards for Both Partners
     const pA = synastryRes.personA;
     const pB = synastryRes.personB;
+    const synth = synastryRes.synthesis;
 
+    // Partner A Card
     pdf.setFillColor(250, 247, 240);
-    pdf.roundedRect(margin, y, 86, 32, 2.5, 2.5, "F");
+    pdf.roundedRect(margin, y, 86, 26, 2.5, 2.5, "F");
     pdf.setDrawColor(colDark[0], colDark[1], colDark[2]);
-    pdf.roundedRect(margin, y, 86, 32, 2.5, 2.5, "S");
+    pdf.roundedRect(margin, y, 86, 26, 2.5, 2.5, "S");
 
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(8.5);
+    pdf.setFontSize(8);
     pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-    pdf.text(nameA, margin + 5, y + 6);
+    pdf.text(cleanPdfText(nameA), margin + 4.5, y + 5);
 
     pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(7.5);
+    pdf.setFontSize(7);
     pdf.setTextColor(colText[0], colText[1], colText[2]);
-    pdf.text("Matahari (Sun): " + pA.sunSignId + " (" + pA.planets.Sun.formatted + ")", margin + 5, y + 12);
-    pdf.text("Bulan (Moon): " + pA.moonSignId + " (" + pA.planets.Moon.formatted + ")", margin + 5, y + 17);
-    pdf.text("Titik Terbit (Rising): " + (pA.risingSignId || "Perlu jam lahir"), margin + 5, y + 22);
-    pdf.text("Elemen Dominan: " + pA.balances.dominantElementId, margin + 5, y + 27);
+    pdf.text("Matahari (Sun): " + pA.sunSignId + " (" + cleanPdfText(pA.planets.Sun.formatted) + ")", margin + 4.5, y + 10);
+    pdf.text("Bulan (Moon): " + pA.moonSignId + " (" + cleanPdfText(pA.planets.Moon.formatted) + ")", margin + 4.5, y + 14.5);
+    pdf.text("Titik Terbit (Rising): " + (pA.risingSignId || "Perlu jam lahir"), margin + 4.5, y + 19);
+    pdf.text("Elemen Dominan: " + pA.balances.dominantElementId, margin + 4.5, y + 23.5);
 
     // Partner B Card
     pdf.setFillColor(250, 247, 240);
-    pdf.roundedRect(margin + 92, y, 86, 32, 2.5, 2.5, "F");
+    pdf.roundedRect(margin + 92, y, 86, 26, 2.5, 2.5, "F");
     pdf.setDrawColor(154, 95, 120);
-    pdf.roundedRect(margin + 92, y, 86, 32, 2.5, 2.5, "S");
+    pdf.roundedRect(margin + 92, y, 86, 26, 2.5, 2.5, "S");
+
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(8);
+    pdf.setTextColor(154, 95, 120);
+    pdf.text(cleanPdfText(nameB), margin + 96.5, y + 5);
+
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(7);
+    pdf.setTextColor(colText[0], colText[1], colText[2]);
+    pdf.text("Matahari (Sun): " + pB.sunSignId + " (" + cleanPdfText(pB.planets.Sun.formatted) + ")", margin + 96.5, y + 10);
+    pdf.text("Bulan (Moon): " + pB.moonSignId + " (" + cleanPdfText(pB.planets.Moon.formatted) + ")", margin + 96.5, y + 14.5);
+    pdf.text("Titik Terbit (Rising): " + (pB.risingSignId || "Perlu jam lahir"), margin + 96.5, y + 19);
+    pdf.text("Elemen Dominan: " + pB.balances.dominantElementId, margin + 96.5, y + 23.5);
+
+    y += 29;
+
+    // Bi-Wheel SVG Diagram
+    if (biwheelPng) {
+      const bwSize = 85;
+      const bwX = (pageWidth - bwSize) / 2;
+      pdf.addImage(biwheelPng, "PNG", bwX, y, bwSize, bwSize);
+      y += bwSize + 5;
+    }
+
+    // Sinergi Elemen Card
+    pdf.setFillColor(248, 245, 238);
+    pdf.roundedRect(margin, y, contentWidth, 23, 2.5, 2.5, "F");
+    pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
+    pdf.roundedRect(margin, y, contentWidth, 23, 2.5, 2.5, "S");
+
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(7.5);
+    pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
+    pdf.text("SINERGI ELEMEN: " + synth.elementSynergy.partnerAElement.toUpperCase() + " & " + synth.elementSynergy.partnerBElement.toUpperCase(), margin + 5, y + 5.5);
+
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(7);
+    pdf.setTextColor(colText[0], colText[1], colText[2]);
+    const elemLines = pdf.splitTextToSize(cleanPdfText(synth.elementSynergy.description), contentWidth - 10);
+    pdf.text(elemLines.slice(0, 2), margin + 5, y + 11.5);
+
+    y += 26;
+
+    // Komposisi Aliran Aspek Card
+    pdf.setFillColor(250, 247, 240);
+    pdf.roundedRect(margin, y, contentWidth, 17, 2.5, 2.5, "F");
+    pdf.setDrawColor(colDark[0], colDark[1], colDark[2]);
+    pdf.roundedRect(margin, y, contentWidth, 17, 2.5, 2.5, "S");
+
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(7.5);
+    pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
+    pdf.text("KOMPOSISI ALIRAN ASPEK ASTROLOGI", margin + 5, y + 5.5);
+
+    pdf.setFont("times", "bold");
+    pdf.setFontSize(9.5);
+    pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
+    pdf.text(cleanPdfText(synth.aspectMetrics.harmonyFlowRatio), margin + 5, y + 11.5);
+  }
+
+  // ---------------- PAGE 3: TABEL PLANET & ASPEK ANTARPLANET ----------------
+  pdf.addPage();
+  drawHeaderFooter(3, 4);
+
+  y = 20;
+  pdf.setFont("times", "bold");
+  pdf.setFontSize(12);
+  pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
+  pdf.text("III. POSISI PLANET NATAL & ASPEK ANTARPLANET", margin, y);
+
+  y += 3;
+  pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
+  pdf.setLineWidth(0.8);
+  pdf.line(margin, y, margin + 45, y);
+
+  y += 6;
+  if (synastryRes) {
+    const pA = synastryRes.personA;
+    const pB = synastryRes.personB;
 
     pdf.setFont("helvetica", "bold");
     pdf.setFontSize(8.5);
-    pdf.setTextColor(154, 95, 120);
-    pdf.text(nameB, margin + 97, y + 6);
-
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(7.5);
-    pdf.setTextColor(colText[0], colText[1], colText[2]);
-    pdf.text("Matahari (Sun): " + pB.sunSignId + " (" + pB.planets.Sun.formatted + ")", margin + 97, y + 12);
-    pdf.text("Bulan (Moon): " + pB.moonSignId + " (" + pB.planets.Moon.formatted + ")", margin + 97, y + 17);
-    pdf.text("Titik Terbit (Rising): " + (pB.risingSignId || "Perlu jam lahir"), margin + 97, y + 22);
-    pdf.text("Elemen Dominan: " + pB.balances.dominantElementId, margin + 97, y + 27);
-
-    y += 38;
-    // Planetary Positions Table
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(9);
     pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-    pdf.text("Tabel Posisi Planet Natal", margin, y);
+    pdf.text("Tabel Posisi Planet Natal Pasangan", margin, y);
 
-    y += 4;
+    y += 3.5;
     // Header
     pdf.setFillColor(colDark[0], colDark[1], colDark[2]);
-    pdf.rect(margin, y, contentWidth, 6, "F");
+    pdf.rect(margin, y, contentWidth, 5.5, "F");
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
+    pdf.setFontSize(7);
     pdf.setTextColor(255, 255, 255);
-    pdf.text("Objek / Planet", margin + 4, y + 4.2);
-    pdf.text(nameA + " (Pasangan 1)", margin + 65, y + 4.2);
-    pdf.text(nameB + " (Pasangan 2)", margin + 125, y + 4.2);
+    pdf.text("Objek / Planet", margin + 4, y + 3.8);
+    pdf.text(cleanPdfText(nameA) + " (Pasangan 1)", margin + 65, y + 3.8);
+    pdf.text(cleanPdfText(nameB) + " (Pasangan 2)", margin + 125, y + 3.8);
 
-    y += 6;
+    y += 5.5;
     for (const pName of PLANET_ORDER) {
       const plA = pA.planets[pName];
       const plB = pB.planets[pName];
 
       pdf.setFillColor(255, 255, 255);
       pdf.setDrawColor(235, 230, 222);
-      pdf.rect(margin, y, contentWidth, 6, "S");
+      pdf.rect(margin, y, contentWidth, 5.2, "S");
 
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(7);
+      pdf.setFontSize(6.8);
       pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-      pdf.text(plA.indonesianName + " (" + plA.short + ")", margin + 4, y + 4.2);
+      pdf.text(plA.indonesianName + " (" + plA.short + ")", margin + 4, y + 3.6);
 
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(colText[0], colText[1], colText[2]);
-      pdf.text(plA.formatted + (plA.retrograde ? " ℞" : ""), margin + 65, y + 4.2);
-      pdf.text(plB.formatted + (plB.retrograde ? " ℞" : ""), margin + 125, y + 4.2);
+      pdf.text(cleanPdfText(plA.formatted) + (plA.retrograde ? " (Rx)" : ""), margin + 65, y + 3.6);
+      pdf.text(cleanPdfText(plB.formatted) + (plB.retrograde ? " (Rx)" : ""), margin + 125, y + 3.6);
 
-      y += 6;
+      y += 5.2;
     }
 
     y += 6;
-    // Inter-planetary Aspects Table
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(9);
+    pdf.setFontSize(8.5);
     pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
     pdf.text("Daftar Aspek Antarplanet Utama (Synastry)", margin, y);
 
-    y += 4;
+    y += 3.5;
     pdf.setFillColor(colDark[0], colDark[1], colDark[2]);
-    pdf.rect(margin, y, contentWidth, 6, "F");
+    pdf.rect(margin, y, contentWidth, 5.5, "F");
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
+    pdf.setFontSize(7);
     pdf.setTextColor(255, 255, 255);
-    pdf.text("Planet Pasangan 1", margin + 4, y + 4.2);
-    pdf.text("Tipe Aspek", margin + 60, y + 4.2);
-    pdf.text("Planet Pasangan 2", margin + 105, y + 4.2);
-    pdf.text("Toleransi (Orb)", margin + 150, y + 4.2);
+    pdf.text("Planet Pasangan 1", margin + 4, y + 3.8);
+    pdf.text("Tipe Aspek", margin + 60, y + 3.8);
+    pdf.text("Planet Pasangan 2", margin + 105, y + 3.8);
+    pdf.text("Toleransi (Orb)", margin + 150, y + 3.8);
 
-    y += 6;
-    const topAspects = synastryRes.aspects.slice(0, 14);
+    y += 5.5;
+    const topAspects = synastryRes.aspects.slice(0, 16);
     for (const asp of topAspects) {
       pdf.setFillColor(255, 255, 255);
       pdf.setDrawColor(235, 230, 222);
-      pdf.rect(margin, y, contentWidth, 5.5, "S");
+      pdf.rect(margin, y, contentWidth, 4.8, "S");
 
       pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(7);
+      pdf.setFontSize(6.8);
       pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-      pdf.text(asp.planetAIndo, margin + 4, y + 4);
+      pdf.text(asp.planetAIndo, margin + 4, y + 3.4);
 
       pdf.setFont("helvetica", "bold");
-      pdf.setTextColor(asp.type === "Square" || asp.type === "Opposition" ? 180 : 45, asp.type === "Square" ? 40 : 100, 50);
-      pdf.text(asp.symbol + " " + asp.indonesianName, margin + 60, y + 4);
+      const isDynamic = asp.type === "Square" || asp.type === "Opposition";
+      pdf.setTextColor(isDynamic ? 180 : 45, isDynamic ? 40 : 100, 50);
+      pdf.text(asp.indonesianName, margin + 60, y + 3.4);
 
       pdf.setFont("helvetica", "bold");
       pdf.setTextColor(154, 95, 120);
-      pdf.text(asp.planetBIndo, margin + 105, y + 4);
+      pdf.text(asp.planetBIndo, margin + 105, y + 3.4);
 
       pdf.setFont("helvetica", "normal");
       pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
-      pdf.text(asp.formattedOrb, margin + 150, y + 4);
+      pdf.text(cleanPdfText(asp.formattedOrb), margin + 150, y + 3.4);
 
-      y += 5.5;
+      y += 4.8;
     }
   }
 
-  // ---------------- PAGE 3: INTERPRETASI ASPEK & RELASI ----------------
-  pdf.addPage();
-  drawHeaderFooter(3, 4);
-
-  y = 22;
-  pdf.setFont("times", "bold");
-  pdf.setFontSize(13);
-  pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-  pdf.text("III. INTERPRETASI ASPEK & DINAMIKA HUBUNGAN", margin, y);
-
-  y += 4;
-  pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
-  pdf.setLineWidth(0.8);
-  pdf.line(margin, y, margin + 50, y);
-
-  y += 8;
-  if (synastryRes && synastryRes.aspects.length > 0) {
-    const keyAspects = synastryRes.aspects.slice(0, 5);
-    for (const asp of keyAspects) {
-      pdf.setFillColor(250, 247, 240);
-      pdf.roundedRect(margin, y, contentWidth, 32, 2.5, 2.5, "F");
-      pdf.setDrawColor(220, 215, 205);
-      pdf.roundedRect(margin, y, contentWidth, 32, 2.5, 2.5, "S");
-
-      pdf.setFont("helvetica", "bold");
-      pdf.setFontSize(8);
-      pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-      pdf.text(asp.interpretation.categoryTitle.toUpperCase() + " · " + asp.symbol + " " + asp.indonesianName.toUpperCase() + " (" + asp.formattedOrb + ")", margin + 5, y + 6);
-
-      pdf.setFont("times", "bold");
-      pdf.setFontSize(10.5);
-      pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-      pdf.text(asp.interpretation.title, margin + 5, y + 12);
-
-      pdf.setFont("helvetica", "normal");
-      pdf.setFontSize(7.5);
-      pdf.setTextColor(colText[0], colText[1], colText[2]);
-      const lines = pdf.splitTextToSize(asp.interpretation.summary, contentWidth - 10);
-      pdf.text(lines.slice(0, 3), margin + 5, y + 18);
-
-      y += 36;
-    }
-  }
-
-  // ---------------- PAGE 4: SINTESIS & KESIMPULAN REFLEKTIF ----------------
+  // ---------------- PAGE 4: INTERPRETASI & REFLEKSI RELASI ----------------
   pdf.addPage();
   drawHeaderFooter(4, 4);
 
-  y = 22;
+  y = 20;
   pdf.setFont("times", "bold");
-  pdf.setFontSize(13);
+  pdf.setFontSize(12);
   pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-  pdf.text("IV. SINTESIS DINAMIKA & KESIMPULAN RELASI", margin, y);
+  pdf.text("IV. INTERPRETASI ASPEK & KESIMPULAN RELASI", margin, y);
 
-  y += 4;
+  y += 3;
   pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
   pdf.setLineWidth(0.8);
-  pdf.line(margin, y, margin + 50, y);
+  pdf.line(margin, y, margin + 45, y);
 
-  y += 8;
-  if (synastryRes) {
+  y += 6;
+  if (synastryRes && synastryRes.aspects.length > 0) {
+    const keyAspects = synastryRes.aspects.slice(0, 4);
+    for (const asp of keyAspects) {
+      pdf.setFillColor(250, 247, 240);
+      pdf.roundedRect(margin, y, contentWidth, 27, 2.5, 2.5, "F");
+      pdf.setDrawColor(220, 215, 205);
+      pdf.roundedRect(margin, y, contentWidth, 27, 2.5, 2.5, "S");
+
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(7);
+      pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
+      pdf.text(asp.interpretation.categoryTitle.toUpperCase() + " - " + asp.indonesianName.toUpperCase() + " (" + cleanPdfText(asp.formattedOrb) + ")", margin + 4.5, y + 5);
+
+      pdf.setFont("times", "bold");
+      pdf.setFontSize(9.5);
+      pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
+      pdf.text(cleanPdfText(asp.interpretation.title), margin + 4.5, y + 10);
+
+      pdf.setFont("helvetica", "normal");
+      pdf.setFontSize(7);
+      pdf.setTextColor(colText[0], colText[1], colText[2]);
+      const lines = pdf.splitTextToSize(cleanPdfText(asp.interpretation.summary), contentWidth - 9);
+      pdf.text(lines.slice(0, 2), margin + 4.5, y + 15);
+
+      y += 30;
+    }
+
     const synth = synastryRes.synthesis;
 
-    // Sinergi Elemen Card
-    pdf.setFillColor(248, 245, 238);
-    pdf.roundedRect(margin, y, contentWidth, 26, 3, 3, "F");
-    pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
-    pdf.roundedRect(margin, y, contentWidth, 26, 3, 3, "S");
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(8);
-    pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-    pdf.text("SINERGI ELEMEN: " + synth.elementSynergy.partnerAElement.toUpperCase() + " & " + synth.elementSynergy.partnerBElement.toUpperCase(), margin + 6, y + 7);
-
-    pdf.setFont("helvetica", "normal");
-    pdf.setFontSize(8);
-    pdf.setTextColor(colText[0], colText[1], colText[2]);
-    const elemLines = pdf.splitTextToSize(synth.elementSynergy.description, contentWidth - 12);
-    pdf.text(elemLines.slice(0, 2), margin + 6, y + 14);
-
-    y += 32;
-    // Rasio Harmoni Card
-    pdf.setFillColor(250, 247, 240);
-    pdf.roundedRect(margin, y, contentWidth, 22, 3, 3, "F");
-    pdf.setDrawColor(colDark[0], colDark[1], colDark[2]);
-    pdf.roundedRect(margin, y, contentWidth, 22, 3, 3, "S");
-
-    pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(8);
-    pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-    pdf.text("KOMPOSISI ALIRAN ASPEK ASTROLOGI", margin + 6, y + 7);
-
-    pdf.setFont("times", "bold");
-    pdf.setFontSize(11);
-    pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-    pdf.text(synth.aspectMetrics.harmonyFlowRatio, margin + 6, y + 14);
-
-    y += 28;
-    // Kesimpulan Reflektif
+    // Kesimpulan Reflektif Box
     pdf.setFillColor(255, 255, 255);
-    pdf.roundedRect(margin, y, contentWidth, 52, 3, 3, "F");
+    pdf.roundedRect(margin, y, contentWidth, 42, 2.5, 2.5, "F");
     pdf.setDrawColor(colGold[0], colGold[1], colGold[2]);
-    pdf.setLineWidth(1);
-    pdf.roundedRect(margin, y, contentWidth, 52, 3, 3, "S");
+    pdf.setLineWidth(0.8);
+    pdf.roundedRect(margin, y, contentWidth, 42, 2.5, 2.5, "S");
 
     pdf.setFont("times", "bold");
-    pdf.setFontSize(11);
+    pdf.setFontSize(10);
     pdf.setTextColor(colDark[0], colDark[1], colDark[2]);
-    pdf.text("Refleksi Relasi Berkesadaran", margin + 8, y + 9);
+    pdf.text("Refleksi Relasi Berkesadaran", margin + 6, y + 7);
 
     pdf.setFont("times", "italic");
-    pdf.setFontSize(8.5);
+    pdf.setFontSize(7.5);
     pdf.setTextColor(colText[0], colText[1], colText[2]);
-    const refLines = pdf.splitTextToSize(synth.reflectiveConclusion, contentWidth - 16);
-    pdf.text(refLines, margin + 8, y + 17);
+    const refLines = pdf.splitTextToSize(cleanPdfText(synth.reflectiveConclusion), contentWidth - 12);
+    pdf.text(refLines.slice(0, 4), margin + 6, y + 13.5);
 
     pdf.setFont("helvetica", "bold");
-    pdf.setFontSize(7.5);
+    pdf.setFontSize(7);
     pdf.setTextColor(colGold[0], colGold[1], colGold[2]);
-    pdf.text("“Hubungan bukan ketiadaan gesekan, melainkan ruang aman untuk bertumbuh bersama.”", margin + 8, y + 45);
+    pdf.text('"Hubungan bukan ketiadaan gesekan, melainkan ruang aman untuk bertumbuh bersama."', margin + 6, y + 36);
 
-    y += 60;
+    y += 46;
   }
 
   // Legal / Spiritual Disclaimer Box
   pdf.setFillColor(248, 249, 250);
-  pdf.roundedRect(margin, y, contentWidth, 20, 2, 2, "F");
+  pdf.roundedRect(margin, y, contentWidth, 16, 2, 2, "F");
   pdf.setFont("helvetica", "normal");
-  pdf.setFontSize(6.8);
+  pdf.setFontSize(6.5);
   pdf.setTextColor(colMuted[0], colMuted[1], colMuted[2]);
-  const discLines = pdf.splitTextToSize("Disclaimer: Laporan Compatibility Matrix dan Synastry Natal Chart Bhumi Amartya adalah sarana refleksi diri dan komunikasi sadar. Hasil ini bukan ramalan mutlak, deterministik, atau pengganti konseling psikologis profesional.", contentWidth - 10);
-  pdf.text(discLines, margin + 5, y + 6);
+  const discLines = pdf.splitTextToSize("Disclaimer: Laporan Compatibility Matrix dan Synastry Natal Chart Bhumi Amartya adalah sarana refleksi diri dan komunikasi sadar. Hasil ini bukan ramalan mutlak, deterministik, atau pengganti konseling psikologis profesional.", contentWidth - 8);
+  pdf.text(discLines, margin + 4, y + 5);
 
   // Trigger Save / Download Blob
   pdf.save(filename);
