@@ -83,6 +83,18 @@
       "destination": "/matrixcompability/"
     },
     {
+      "source": "/api/compatibility",
+      "destination": "/api/blueprint-engines?mode=compatibility"
+    },
+    {
+      "source": "/api/compatibility/",
+      "destination": "/api/blueprint-engines?mode=compatibility"
+    },
+    {
+      "source": "/api/compatibility/:path*",
+      "destination": "/api/blueprint-engines?mode=compatibility"
+    },
+    {
       "source": "/articles/:slug",
       "destination": "/api/article-page?slug=:slug"
     },
