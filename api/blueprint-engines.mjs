@@ -6,6 +6,8 @@ import { resolveTimezoneFromCoordinates } from '../lib/timezone-resolver.mjs';
 import { calculateCurrentSky } from '../lib/sky-transit/ephemeris.mjs';
 import { calculatePersonalTransits } from '../lib/sky-transit/personal-transit.mjs';
 import { handleSkyTransit } from '../lib/sky-transit/service.mjs';
+import { calculateCompatibilityMatrix } from '../lib/kecocokan-matrix/calculate.mjs';
+import { calculateSynastryCouple } from '../lib/synastry/calculate.mjs';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -54,6 +56,7 @@ export default async function handler(req, res) {
   }
 
   const isSkyMode = req.url?.includes('mode=sky');
+  const isCompatibilityMode = req.url?.includes('mode=compatibility');
 
   // If GET in sky mode, handle live current sky immediately
   if (req.method === 'GET') {
@@ -94,6 +97,66 @@ export default async function handler(req, res) {
   }
 
   // Route to dedicated Sky Transit service if mode=sky or scope=sky-transit
+  if (isCompatibilityMode || body.scope === 'compatibility' || (body.malePartner && body.femalePartner) || (body.personA && body.personB)) {
+    const male = body.malePartner || body.personA;
+    const female = body.femalePartner || body.personB;
+
+    if (!male?.birthDate || !female?.birthDate) {
+      return json(res, 400, { ok: false, code: 'MISSING_PARTNER_DATA', message: 'Tanggal lahir kedua pasangan diperlukan.' });
+    }
+
+    try {
+      const matrix = calculateCompatibilityMatrix({
+        malePartner: { name: male.name || 'Pasangan 1', birthDate: male.birthDate },
+        femalePartner: { name: female.name || 'Pasangan 2', birthDate: female.birthDate }
+      });
+
+      let synastry = null;
+      let synastryError = null;
+      try {
+        synastry = calculateSynastryCouple(
+          {
+            name: male.name || 'Pasangan 1',
+            birthDate: male.birthDate,
+            birthTime: male.birthTime,
+            isTimeUnknown: Boolean(male.isTimeUnknown || !male.birthTime),
+            birthCity: male.birthCity || male.birthplaceLabel,
+            latitude: male.latitude,
+            longitude: male.longitude,
+            timezone: male.timezone
+          },
+          {
+            name: female.name || 'Pasangan 2',
+            birthDate: female.birthDate,
+            birthTime: female.birthTime,
+            isTimeUnknown: Boolean(female.isTimeUnknown || !female.birthTime),
+            birthCity: female.birthCity || female.birthplaceLabel,
+            latitude: female.latitude,
+            longitude: female.longitude,
+            timezone: female.timezone
+          }
+        );
+      } catch (err) {
+        synastryError = err.message || 'Perhitungan synastry gagal';
+      }
+
+      return json(res, 200, {
+        ok: true,
+        matrix,
+        synastry,
+        synastryStatus: synastry ? 'completed' : 'error',
+        synastryError,
+        metadata: {
+          requestId,
+          durationMs: Date.now() - startedAt,
+          calculatedAt: new Date().toISOString()
+        }
+      });
+    } catch (err) {
+      return json(res, 400, { ok: false, code: 'CALCULATION_FAILED', message: err.message || 'Perhitungan gagal.' });
+    }
+  }
+
   if (isSkyMode || body.scope === 'sky-transit') {
     const result = handleSkyTransit(body);
     return json(res, result.status, result.data);
