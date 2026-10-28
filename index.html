@@ -1264,94 +1264,6 @@
             }
         }
 
-        /* Section: Testimonials (Slider) */
-        .testimonials-slider-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slider-wrapper {
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            width: 100%;
-        }
-
-        .slide {
-            min-width: 100%;
-            padding: 1.5rem;
-            box-sizing: border-box;
-            opacity: 0.3;
-            transform: scale(0.95);
-            transition: var(--transition);
-        }
-
-        .slide.active {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .testimonial-card {
-            background-color: var(--white);
-            border-radius: 24px;
-            padding: 3.5rem 3rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            text-align: center;
-            position: relative;
-        }
-
-        .testimonial-quote-icon {
-            font-family: var(--font-headings);
-            font-size: 5rem;
-            color: var(--forest-light);
-            line-height: 0;
-            position: absolute;
-            top: 2rem;
-            left: 2.5rem;
-            user-select: none;
-        }
-
-        .testimonial-text {
-            font-family: var(--font-headings);
-            font-size: 1.6rem;
-            line-height: 1.5;
-            color: var(--forest-green);
-            margin-bottom: 2rem;
-            font-weight: 400;
-            position: relative;
-            z-index: 2;
-        }
-
-        .testimonial-stars {
-            display: flex;
-            justify-content: center;
-            gap: 0.25rem;
-            color: var(--earth-gold);
-            margin-bottom: 1.5rem;
-            }
-
-        .testimonial-stars svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .testimonial-author {
-            font-family: var(--font-body);
-            font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 0.05em;
-            color: var(--text-primary);
-        }
-
-        .testimonial-role {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 0.25rem;
-        }
-
         /* Slider Controls */
         .slider-controls {
             display: flex;
@@ -1812,9 +1724,15 @@
                 padding: 4.5rem 0;
             }
             
+            .hero-section {
+                padding-top: 6.5rem;
+                padding-bottom: 3.5rem;
+                min-height: auto;
+            }
+
             .hero-grid {
                 grid-template-columns: 1fr;
-                gap: 3rem;
+                gap: 2.25rem;
                 text-align: center;
             }
 
@@ -1903,7 +1821,10 @@
             .nav-menu {
                 position: fixed;
                 top: 0;
-                right: -100%;
+                right: 0;
+                transform: translateX(100%);
+                visibility: hidden;
+                pointer-events: none;
                 width: 80%;
                 max-width: 320px;
                 height: 100vh;
@@ -1912,13 +1833,15 @@
                 align-items: flex-start;
                 padding: 7rem 3rem 3rem 3rem;
                 box-shadow: -10px 0 30px rgba(45, 75, 52, 0.08);
-                transition: var(--transition);
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
                 z-index: 1005;
                 overflow-y: auto;
             }
 
             .nav-menu.open {
-                right: 0;
+                transform: translateX(0);
+                visibility: visible;
+                pointer-events: auto;
             }
 
             .nav-menu li {
@@ -1994,65 +1917,51 @@
 
         @media (max-width: 480px) {
             .hero-shapes {
-                max-width: 320px;
-                height: 370px;
+                max-width: 240px;
+                height: 240px;
+                margin: 0 auto;
             }
 
             .mandala-outer {
                 top: 0;
-                left: calc(50% - 140px);
-                width: 280px;
-                height: 280px;
+                left: 0;
+                width: 100%;
+                height: 100%;
             }
 
             .mandala-inner {
-                top: 28px;
-                left: calc(50% - 112px);
-                width: 224px;
-                height: 224px;
+                top: 10%;
+                left: 10%;
+                width: 80%;
+                height: 80%;
             }
 
             .mandala-core {
-                top: 70px;
-                left: calc(50% - 70px);
-                width: 140px;
+                top: 25%;
+                left: 25%;
+                width: 50%;
+                height: 50%;
+            }
+
+            .mandala-symbol {
+                width: 44px;
+                height: 44px;
+            }
+
+            .product-visual {
                 height: 140px;
             }
 
-            .floating-deco {
-                padding: 0.55rem 0.6rem;
-                gap: 0.25rem;
-                font-size: 0.67rem;
-                white-space: nowrap;
+            .product-body {
+                padding: 1.35rem 1.25rem;
             }
 
-            .floating-deco svg {
-                width: 13px;
-                height: 13px;
+            .article-img-wrapper {
+                height: 160px;
             }
 
-            .deco-1 {
-                top: 8px;
-                left: 0;
-            }
-
-            .deco-2 {
-                top: 8px;
-                right: 0;
-            }
-
-            .deco-3 {
-                bottom: 74px;
-                left: 0;
-            }
-
-            .deco-4 {
-                right: 0;
-                bottom: 74px;
-            }
-
-            .deco-5 {
-                bottom: 10px;
+            .article-body {
+                padding: 1.35rem 1.25rem;
             }
 
             .system-grid, .product-grid {
@@ -2068,7 +1977,7 @@
                 width: 100%;
             }
             .hero-headline {
-                font-size: 2.25rem;
+                font-size: 2.15rem;
             }
 
             .cta-title {
@@ -2077,14 +1986,6 @@
 
             .about-features-list {
                 grid-template-columns: 1fr;
-            }
-
-            .testimonial-card {
-                padding: 2.5rem 1.5rem;
-            }
-
-            .testimonial-text {
-                font-size: 1.25rem;
             }
         }
 
@@ -2179,13 +2080,92 @@
             height: 100%;
             border: 0;
         }
+    
+        /* === NEW REDESIGN STYLES: SIMPLIFIED, EDITORIAL & BALANCED === */
+        
+        /* Tools Pills in Kenali Diri */
+        .tools-directory-note {
+            margin-top: 3.5rem;
+            padding: 1.75rem 2rem;
+            background-color: var(--white);
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+
+        .tools-directory-note p {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .tools-pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tool-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.55rem 1.15rem;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid rgba(45, 75, 52, 0.12);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .tool-pill:hover {
+            background-color: var(--forest-light);
+            color: var(--forest-green);
+            border-color: var(--forest-green);
+            transform: translateY(-2px);
+        }
+
+        .tool-pill-primary {
+            background-color: var(--forest-green);
+            color: var(--white);
+            border-color: var(--forest-green);
+        }
+
+        .tool-pill-primary:hover {
+            background-color: var(--forest-dark);
+            color: var(--white);
+        }
+
+        /* Ruang Video YouTube Section */
+        .video-duration-badge {
+            position: absolute;
+            bottom: 0.75rem;
+            right: 0.75rem;
+            background: rgba(18, 32, 22, 0.82);
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.55rem;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+            z-index: 3;
+            backdrop-filter: blur(4px);
+        }
+
     </style>    <!-- Google AdSense -->
     <script src="/assets/bhumi-adsense.js" defer></script>
 
+
 </head>
+
 <body>
 
-    <!-- Header Navigation -->
+    <!-- 1. HEADER & NAVIGATION -->
     <header class="header" id="header">
         <div class="container nav-container">
             <a href="#beranda" class="logo">
@@ -2196,42 +2176,22 @@
             <nav>
                 <ul class="nav-menu" id="nav-menu">
                     <li><a href="#beranda" class="nav-link">Beranda</a></li>
+                    <li><a href="#tentang" class="nav-link">Tentang</a></li>
                     <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
+                        <a href="#kenali-diri" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Kenali Diri <span class="chevron"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="tes-kenali-diri/" class="dropdown-item">Tes Kenali Diri</a></li>
-                            <li><a href="cek-aura/" class="dropdown-item">Cek Aura</a></li>
-                            <li><a href="weton/" class="dropdown-item">Cek Weton</a></li>
                             <li><a href="kenali-diri/human-design/" class="dropdown-item">Human Design</a></li>
+                            <li><a href="weton/" class="dropdown-item">Cek Weton</a></li>
+                            <li><a href="cek-aura/" class="dropdown-item">Cek Aura</a></li>
                             <li><a href="kenali-diri/mbti/" class="dropdown-item">MBTI</a></li>
                             <li><a href="kalkulator-cinta/" class="dropdown-item">Kalkulator Cinta</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Produk <span class="chevron"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#produk" class="dropdown-item">Aplikasi Bhumi</a></li>
-                            <li><a href="/tes-kenali-diri/" class="dropdown-item">Blueprint Reading</a></li>
-                            <li><a href="#produk" class="dropdown-item">Reiki dan Sound Healing</a></li>
-                            <li><a href="ebook/" class="dropdown-item">Ebook</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Konten <span class="chevron"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#youtube" class="dropdown-item">Youtube</a></li>
-                            <li><a href="#artikel" class="dropdown-item">Ngopi Ilmu</a></li>
-                            <li><a href="#testimoni" class="dropdown-item">Testimoni</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tentang <span class="chevron"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="about/" class="dropdown-item">Tentang Bhumi</a></li>
-                            <li><a href="#founder" class="dropdown-item">Our Team</a></li>
-                            <li><a href="#founder" class="dropdown-item">Founder</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="#jurnal" class="nav-link">Jurnal</a></li>
+                    <li><a href="#layanan" class="nav-link">Layanan</a></li>
+                    <li><a href="#komunitas" class="nav-link">Komunitas</a></li>
+                    <li><a href="#video" class="nav-link">Video</a></li>
                     <li><a href="contact/" class="nav-link">Kontak</a></li>
                 </ul>
             </nav>
@@ -2244,29 +2204,18 @@
         </div>
     </header>
 
-    <!-- 1. HERO SECTION -->
+    <!-- 2. HERO SECTION -->
     <section class="hero-section" id="beranda">
         <div class="container hero-grid">
             <div class="hero-content reveal">
-                <span class="hero-tag">Ekosistem Self-Discovery &amp; Personal Growth</span>
-                <h1 class="hero-headline">Kenali Dirimu<br>Lebih Dalam</h1>
+                <span class="hero-tag">Ruang untuk Pulang &amp; Bertumbuh</span>
+                <h1 class="hero-headline">Kenali Dirimu,<br>Pahami Polamu.</h1>
                 <p class="hero-subheadline">
-                    Human Design, Life Path, Destiny Matrix, Natal Chart, dan berbagai perspektif self-discovery dalam satu ruang untuk membantu kamu memahami pola diri.
+                    Ruang refleksi diri yang memadukan berbagai perspektif pengetahuan, kearifan lokal, dan teknologi untuk membantu kamu memahami diri dan menjalani kehidupan dengan lebih sadar.
                 </p>
                 <div class="hero-btns hero-btns-primary">
                     <a href="/tes-kenali-diri/" class="btn btn-primary" id="hero-primary-cta">Mulai Kenali Diri</a>
-                    <a href="#komunitas" class="btn btn-secondary" id="hero-community-cta">Gabung Komunitas</a>
-                </div>
-                <p class="hero-microcopy">Bukan untuk menentukan siapa kamu. Tetapi membantu kamu melihat pola yang mungkin selama ini belum kamu sadari.</p>
-                <p class="hero-microcopy hero-microcopy-label">Atau coba langsung salah satu tools gratis kami:</p>
-                <div class="hero-btns">
-                    <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Download Aplikasi</a>
-                    <a href="/tes-kenali-diri/" class="btn btn-primary hero-tool-btn">Tes Kenali Diri</a>
-                    <a href="/weton/" class="btn btn-primary hero-tool-btn">Cek Weton</a>
-                    <a href="/cek-aura/" class="btn btn-primary hero-tool-btn">Cek Aura</a>
-                    <a href="/kalkulator-cinta/" class="btn btn-primary hero-tool-btn">Kalkulator Cinta</a>
-                    <a href="/kenali-diri/human-design/" class="btn btn-primary hero-tool-btn">Human Design</a>
-                    <a href="/kenali-diri/mbti/" class="btn btn-primary hero-tool-btn" id="hero-mbti-cta">MBTI</a>
+                    <a href="#tentang" class="btn btn-secondary" id="hero-explore-cta">Jelajahi Bhumi Amartya</a>
                 </div>
             </div>
             
@@ -2275,168 +2224,72 @@
                     <div class="mandala-outer"></div>
                     <div class="mandala-inner"></div>
                     <div class="mandala-core">
-                        <img src="assets/logo.png" alt="Bhumi Amartya Logo" style="width: 75%; height: 75%; object-fit: contain;">
-                    </div>
-                    <div class="floating-deco deco-1">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-                        <span>Self Awareness</span>
-                    </div>
-                    <div class="floating-deco deco-2">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 22h20L12 2z"/></svg>
-                        <span>Self Development</span>
-                    </div>
-                    <div class="floating-deco deco-3">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h16M12 4v16"/></svg>
-                        <span>Self Reflection</span>
-                    </div>
-                    <div class="floating-deco deco-4">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-                        <span>Self Love</span>
-                    </div>
-                    <div class="floating-deco deco-5">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V8M5 12c3.5 0 7-3 7-7 0 4 3.5 7 7 7-3.5 0-7 3-7 7 0-4-3.5-7-7-7z"/></svg>
-                        <span>Self Healing</span>
+                        <img src="assets/logo.png" alt="Bhumi Amartya Logo" style="width: 72%; height: 72%; object-fit: contain;">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 2. PERSONAL BLUEPRINT (dahulu: 11 Sistem Bhumi) -->
-    <section class="section" id="sistem">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Personal Blueprint</span>
-                <h2 class="section-title">Satu Diri. Berbagai Perspektif.</h2>
-                <p class="section-desc">Tidak ada satu sistem yang bisa menjelaskan manusia sepenuhnya. Bhumi menggunakan berbagai perspektif untuk membantu kamu melihat pola diri dari sudut yang berbeda, lalu membawanya kembali ke kehidupan nyata. Setiap sistem di bawah ini adalah pendekatan reflektif dan eksploratif, bukan kepastian ilmiah.</p>
+    <!-- 3. TENTANG & FILOSOFI BHUMI AMARTYA -->
+    <section class="section section-alt" id="tentang">
+        <div class="container about-grid">
+            <div class="about-visual reveal">
+                <div class="about-visual-bg"></div>
+                <blockquote class="about-quote">
+                    "Memahami diri sendiri adalah awal dari seluruh kebijaksanaan sejati. Perjalanan terjauh kita adalah ke dalam diri."
+                </blockquote>
+                <div class="about-author">
+                    <span class="about-author-line"></span>
+                    <span class="about-author-name">Bhumi Amartya Philosophy</span>
+                </div>
             </div>
 
-            <div class="system-grid">
-                <!-- 1. Numerologi -->
-                <div class="system-card reveal">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 22V4c0-.5.2-1 .6-1.4C5 2.2 5.5 2 6 2h12c.5 0 1 .2 1.4.6.4.4.6.9.6 1.4v18l-8-4-8 4z"/>
-                            <path d="M9 7h6M9 11h6"/>
-                        </svg>
+            <div class="about-content reveal" style="transition-delay: 0.15s;">
+                <span class="section-tag">Tentang Kami</span>
+                <h2 class="section-title">Ruang untuk Pulang &amp; Mengenali Diri</h2>
+                <p style="margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.7;">
+                    Bhumi Amartya adalah ruang untuk mengenal diri, memahami pola kehidupan, dan bertumbuh dengan lebih sadar. Kami percaya bahwa setiap manusia adalah jalinan pola yang unik dan berharga.
+                </p>
+                <p style="margin-bottom: 1.75rem; font-size: 1.05rem; line-height: 1.7;">
+                    Melalui integrasi pendekatan reflektif, kearifan lokal Nusantara, dan psikologi modern, kami mendampingi kamu memetakan dinamika batin, potensi diri, serta relasi secara objektif tanpa dogma kaku.
+                </p>
+
+                <div class="about-features-list">
+                    <div class="about-feat-item">
+                        <div class="about-feat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <div class="about-feat-text">
+                            <h4>Pendekatan Multidisiplin</h4>
+                            <p>Memadukan psikologi analitis dengan kearifan timur dan barat untuk melihat pola dari berbagai sudut.</p>
+                        </div>
                     </div>
-                    <h3>Numerologi</h3>
-                    <p>Mengeksplorasi getaran energi nama dan tanggal lahir Anda untuk memahami pola hidup serta siklus kehidupan.</p>
+                    <div class="about-feat-item">
+                        <div class="about-feat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <div class="about-feat-text">
+                            <h4>Refleksi Praktis</h4>
+                            <p>Wawasan yang membumi dan dapat diaplikasikan dalam keputusan karier, relasi, dan keseharian.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- 1b. Life Path -->
-                <div class="system-card reveal" style="transition-delay: 0.05s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 20c3-7 6 7 9 0s5-8 7 0"/>
-                            <circle cx="4" cy="20" r="1.5" fill="currentColor" stroke="none"/>
-                            <circle cx="20" cy="20" r="1.5" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </div>
-                    <h3>Life Path</h3>
-                    <p>Eksplorasi pola karakter dan tahapan perjalanan hidup melalui angka inti dari tanggal lahirmu.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="about/" class="btn btn-outline">Pelajari Lebih Lanjut Tentang Bhumi &rarr;</a>
                 </div>
-
-                <!-- 2. Human Design -->
-                <div class="system-card reveal" style="transition-delay: 0.1s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 21a6 6 0 0 0-12 0"/>
-                            <circle cx="12" cy="10" r="4"/>
-                            <path d="M12 2v4"/>
-                        </svg>
-                    </div>
-                    <h3>Human Design</h3>
-                    <p>Sistem self-discovery modern untuk mengeksplorasi pola energi, cara mengambil keputusan, dan cara berinteraksi.</p>
-                </div>
-
-                <!-- 3. Natal Chart -->
-                <div class="system-card reveal" style="transition-delay: 0.2s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 2v20M2 12h20"/>
-                            <circle cx="12" cy="12" r="4"/>
-                        </svg>
-                    </div>
-                    <h3>Natal Chart</h3>
-                    <p>Peta langit kosmis pada momen kelahiran Anda, digunakan untuk mengeksplorasi pola kepribadian dan berbagai tema kehidupan.</p>
-                </div>
-
-                <!-- 4. Destiny Matrix -->
-                <div class="system-card reveal" style="transition-delay: 0.3s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2"/>
-                            <path d="m21 3-9 9-9-9M3 21l9-9 9 9"/>
-                        </svg>
-                    </div>
-                    <h3>Destiny Matrix</h3>
-                    <p>Sistem pengenalan diri berbasis 22 Arcana Tarot untuk mengeksplorasi tema reflektif, potensi, dan pola perjalanan personal.</p>
-                </div>
-
-                <!-- 5. Weton Jawa -->
-                <div class="system-card reveal">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                        </svg>
-                    </div>
-                    <h3>Weton Jawa</h3>
-                    <p>Kearifan lokal Nusantara yang memadukan hari dan pasaran lahir untuk mengeksplorasi karakter, potensi rezeki, dan relasi sosial.</p>
-                </div>
-
-                <!-- 6. BaZi -->
-                <div class="system-card reveal" style="transition-delay: 0.1s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5 3h14v18H5z"/>
-                            <path d="M12 3v18M5 12h14"/>
-                        </svg>
-                    </div>
-                    <h3>BaZi</h3>
-                    <p>Analisis Empat Pilar dari astrologi Tiongkok untuk mengeksplorasi keseimbangan energi Yin-Yang dan Lima Elemen.</p>
-                </div>
-
-                <!-- 7. Vedic Astrology -->
-                <div class="system-card reveal" style="transition-delay: 0.2s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 3v18M3 12h18M12 12 3 3m18 18L12 12m0 0 9-9M3 21l9-9"/>
-                        </svg>
-                    </div>
-                    <h3>Vedic Astrology</h3>
-                    <p>Vedic Astrology digunakan untuk mengeksplorasi tema kehidupan dan siklus waktu berdasarkan tradisi Jyotish.</p>
-                </div>
-
-                <!-- 8. Tzolkin Maya -->
-                <div class="system-card reveal" style="transition-delay: 0.3s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                            <circle cx="12" cy="12" r="6"/>
-                            <path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>
-                        </svg>
-                    </div>
-                    <h3>Tzolkin Maya</h3>
-                    <p>Kalender kosmis suku Maya kuno yang digunakan untuk mengeksplorasi energi harian dan potensi arah spiritual personal.</p>
-                </div>
-
-            </div>
-
-            <div class="section-cta reveal" style="text-align:center; margin-top: 3rem;">
-                <a href="/tes-kenali-diri/" class="btn btn-primary" id="blueprint-section-cta">Lihat Personal Blueprint</a>
             </div>
         </div>
     </section>
-<!-- 3. MULAI DARI SINI (FREE SELF-DISCOVERY TOOLS) -->
-    <section class="section section-alt" id="mulai-kenali-diri">
+
+    <!-- 4. KENALI DIRI — TOOLS & SISTEM REFLEKSI -->
+    <section class="section" id="kenali-diri">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-tag">Coba Gratis</span>
-                <h2 class="section-title">Mulai dari Sini</h2>
-                <p class="section-desc">Empat pintu masuk paling populer untuk mulai mengenali pola dirimu &mdash; gratis, dan jadi langkah pertama menuju Personal Blueprint.</p>
+                <span class="section-tag">Pintu Masuk Refleksi</span>
+                <h2 class="section-title">Kenali Diri — Tools &amp; Sistem Refleksi</h2>
+                <p class="section-desc">Satu diri, berbagai perspektif. Empat instrumen refleksi utama untuk membantu kamu memetakan pola karakter, energi, dan arah perjalanan hidup.</p>
             </div>
 
             <div class="product-grid">
@@ -2449,12 +2302,12 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-title">Human Design</h3>
-                        <p class="product-desc">Kenali Type, Strategy, Authority, Profile, Gates, dan Channels berdasarkan data kelahiranmu.</p>
-                        <a href="/kenali-diri/human-design/" class="btn btn-outline">Hitung Human Design</a>
+                        <p class="product-desc">Kenali Type, Strategy, Authority, Profile, dan pola energi berdasarkan data kelahiranmu.</p>
+                        <a href="/kenali-diri/human-design/" class="btn btn-outline">Hitung Human Design &rarr;</a>
                     </div>
                 </div>
 
-                <!-- Life Path -->
+                <!-- Life Path & Numerologi -->
                 <div class="product-card reveal" style="transition-delay: 0.1s;">
                     <div class="product-visual">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2462,9 +2315,9 @@
                         </svg>
                     </div>
                     <div class="product-body">
-                        <h3 class="product-title">Life Path</h3>
-                        <p class="product-desc">Eksplorasi pola karakter dan perjalanan personal melalui angka tanggal lahirmu.</p>
-                        <a href="/tes-kenali-diri/" class="btn btn-outline">Hitung Life Path</a>
+                        <h3 class="product-title">Life Path &amp; Numerologi</h3>
+                        <p class="product-desc">Eksplorasi siklus kehidupan dan pola kepribadian melalui angka inti tanggal lahirmu.</p>
+                        <a href="/tes-kenali-diri/" class="btn btn-outline">Hitung Life Path &rarr;</a>
                     </div>
                 </div>
 
@@ -2477,8 +2330,8 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-title">Destiny Matrix</h3>
-                        <p class="product-desc">Lihat pola reflektif dari tanggal lahir melalui pendekatan Destiny Matrix.</p>
-                        <a href="/tes-kenali-diri/" class="btn btn-outline">Eksplorasi Destiny Matrix</a>
+                        <p class="product-desc">Lihat pola reflektif 22 Arcana untuk memahami potensi, tantangan, dan perjalanan jiwa.</p>
+                        <a href="/tes-kenali-diri/" class="btn btn-outline">Eksplorasi Matrix &rarr;</a>
                     </div>
                 </div>
 
@@ -2491,272 +2344,170 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-title">Natal Chart</h3>
-                        <p class="product-desc">Eksplorasi Sun, Moon, Rising, Houses, dan tema astrologi berdasarkan data kelahiran.</p>
-                        <a href="/tes-kenali-diri/" class="btn btn-outline">Eksplorasi Natal Chart</a>
+                        <p class="product-desc">Peta langit kosmis momen kelahiran untuk mengeksplorasi tema astrologi dan kepribadian.</p>
+                        <a href="/tes-kenali-diri/" class="btn btn-outline">Eksplorasi Chart &rarr;</a>
                     </div>
+                </div>
+            </div>
+
+            <!-- Directory Note & Other Tools -->
+            <div class="tools-directory-note reveal">
+                <p>Ingin mengeksplorasi sudut pandang dan tools lainnya?</p>
+                <div class="tools-pill-group">
+                    <a href="/weton/" class="tool-pill">Cek Weton Jawa</a>
+                    <a href="/cek-aura/" class="tool-pill">Cek Aura</a>
+                    <a href="/kenali-diri/mbti/" class="tool-pill">MBTI Test</a>
+                    <a href="/kalkulator-cinta/" class="tool-pill">Kalkulator Cinta</a>
+                    <a href="/tes-kenali-diri/" class="tool-pill tool-pill-primary">Lihat Semua Sistem di Personal Blueprint &rarr;</a>
                 </div>
             </div>
         </div>
     </section>
 
-<!-- 4. KOMUNITAS BHUMI AMARTYA -->
-    <section class="section" id="komunitas">
+    <!-- 5. JURNAL BHUMI AMARTYA — 6 ARTIKEL (KHUSUS BHUMI AMARTYA) -->
+    <section class="section section-alt" id="jurnal">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-tag">Terhubung</span>
-                <h2 class="section-title">Tidak Harus Bertumbuh Sendirian</h2>
-                <p class="section-desc">Bhumi bukan hanya tempat membaca blueprint. Ada ruang untuk ngobrol, belajar, bertanya, berefleksi, dan bertumbuh bersama.</p>
+                <span class="section-tag">Jurnal &amp; Catatan Refleksi</span>
+                <h2 class="section-title">Jurnal Bhumi Amartya</h2>
+                <p class="section-desc">Ruang membaca, merenung, dan menemukan perspektif baru tentang diri dan kehidupan.</p>
             </div>
 
-            <div class="community-grid">
-                <!-- Sobat Mistis -->
-                <div class="product-card reveal">
-                    <div class="product-visual">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <div class="product-body">
-                        <span class="community-program-tag">Identitas Komunitas</span>
-                        <h3 class="product-title">Sobat Mistis</h3>
-                        <p class="community-subtitle">Meeting Spiritual Tiap Saat</p>
-                        <p class="product-desc">Ruang bertemu dan berbagi untuk mereka yang ingin mengenali diri, bertumbuh, dan mengeksplorasi kehidupan dari berbagai perspektif.</p>
-                    </div>
-                </div>
+            <div class="articles-grid" id="article-container" data-bhumi-feed="/api/bhumi-articles?limit=6">
+                <!-- Artikel 1 -->
+                <article class="article-card reveal reveal-visible">
+                    <a href="/articles/morning-brew-28-oktober-2026/" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel Morning Brew 28 Oktober 2026">
+                        <div class="article-img-wrapper">
+                            <div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>
+                            <span class="article-meta">Morning Brew</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="article-source-badge bhumi">Bhumi Amartya</span>
+                            <h3 class="article-title">Morning Brew - 28 Oktober 2026</h3>
+                            <div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">28 Oktober 2026 &bull; 3 menit baca</div>
+                            <p class="article-excerpt">Menemukan Pijakan Saat Semuanya Terlalu Bising. Tarik napas sebentar. Letakkan dulu cangkir kopimu dan rasakan kehadiran tubuhmu hari ini.</p>
+                            <span class="article-link">
+                                <span>Baca Selengkapnya</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
 
-                <!-- Ngopi Ilmu -->
-                <div class="product-card reveal" style="transition-delay: 0.1s;">
-                    <div class="product-visual">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/>
-                        </svg>
-                    </div>
-                    <div class="product-body">
-                        <span class="community-program-tag">Program Komunitas</span>
-                        <h3 class="product-title">Ngopi Ilmu</h3>
-                        <p class="product-desc">Obrolan warung kopi tentang kehidupan, self-discovery, psikologi, spiritualitas, hubungan, karier, finansial, dan skill hidup.</p>
-                        <a href="/ngopi-ilmu/" class="btn btn-outline">Kunjungi Ngopi Ilmu</a>
-                    </div>
-                </div>
+                <!-- Artikel 2 -->
+                <article class="article-card reveal reveal-visible" style="transition-delay:0.1s;">
+                    <a href="/articles/moon-sign-kelelahan-fisik-perempuan-bekerja/" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel Ketika Tubuh Membayar Harga Rasa">
+                        <div class="article-img-wrapper">
+                            <div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>
+                            <span class="article-meta">Astrologi</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="article-source-badge bhumi">Bhumi Amartya</span>
+                            <h3 class="article-title">Ketika Tubuh Membayar Harga Rasa: Membaca Sinyal Kelelahan Perempuan Lewat Moon Sign</h3>
+                            <div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">27 Oktober 2026 &bull; 7 menit baca</div>
+                            <p class="article-excerpt">Bedah 6 dimensi Moon Sign untuk memahami bagaimana reaksi emosional bawah sadar memicu kelelahan fisik dan burnout pada perempuan bekerja.</p>
+                            <span class="article-link">
+                                <span>Baca Selengkapnya</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
 
-                <!-- Ngopi Rasa -->
-                <div class="product-card reveal" style="transition-delay: 0.2s;">
-                    <div class="product-visual">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l2.5 2.5"/>
-                        </svg>
-                    </div>
-                    <div class="product-body">
-                        <span class="community-program-tag">Program Komunitas</span>
-                        <h3 class="product-title">Ngopi Rasa</h3>
-                        <p class="product-desc">Ruang refleksi untuk berhenti sejenak, mengenali rasa, bermeditasi, dan kembali hadir kepada diri sendiri.</p>
-                    </div>
-                </div>
+                <!-- Artikel 3 -->
+                <article class="article-card reveal reveal-visible" style="transition-delay:0.2s;">
+                    <a href="/articles/mother-wound-receptivity-menerima-tanpa-rasa-bersalah/" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel Ketika Beristirahat Terasa Seperti Kejahatan">
+                        <div class="article-img-wrapper">
+                            <div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>
+                            <span class="article-meta">Inner Child</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="article-source-badge bhumi">Bhumi Amartya</span>
+                            <h3 class="article-title">Ketika Beristirahat Terasa Seperti Kejahatan: Menembus Mother Wound dan Belajar Menerima</h3>
+                            <div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">27 Oktober 2026 &bull; 6 menit baca</div>
+                            <p class="article-excerpt">Mengapa orang dewasa sering merasa bersalah saat jeda dan sulit menerima bantuan? Menelusuri Mother Wound dan melatih seni receptivity.</p>
+                            <span class="article-link">
+                                <span>Baca Selengkapnya</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Artikel 4 -->
+                <article class="article-card reveal reveal-visible">
+                    <a href="/articles/morning-brew-27-oktober-2026/" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel Morning Brew 27 Oktober 2026">
+                        <div class="article-img-wrapper">
+                            <div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>
+                            <span class="article-meta">Morning Brew</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="article-source-badge bhumi">Bhumi Amartya</span>
+                            <h3 class="article-title">Morning Brew - 27 Oktober 2026</h3>
+                            <div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">27 Oktober 2026 &bull; 2 menit baca</div>
+                            <p class="article-excerpt">Mengakar Kembali di Tanah yang Tenang. Selamat pagi Sobat Mistis. Tarik napas panjang sebelum menyambut aktivitas harian dengan kesadaran.</p>
+                            <span class="article-link">
+                                <span>Baca Selengkapnya</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Artikel 5 -->
+                <article class="article-card reveal reveal-visible" style="transition-delay:0.1s;">
+                    <a href="/articles/human-design-manifesting-generator-perempuan-indonesia/" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel Menari di Atas Banyak Panggung">
+                        <div class="article-img-wrapper">
+                            <div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>
+                            <span class="article-meta">Human Design</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="article-source-badge bhumi">Bhumi Amartya</span>
+                            <h3 class="article-title">Menari di Atas Banyak Panggung: Membaca Blueprint Manifesting Generator di Tengah Tuntutan Linier</h3>
+                            <div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">26 Oktober 2026 &bull; 6 menit baca</div>
+                            <p class="article-excerpt">Bedah 6 dimensi blueprint Manifesting Generator: membebaskan energi multi-passion dari jebakan rasa bersalah dan tuntutan karier linier.</p>
+                            <span class="article-link">
+                                <span>Baca Selengkapnya</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
+
+                <!-- Artikel 6 -->
+                <article class="article-card reveal reveal-visible" style="transition-delay:0.2s;">
+                    <a href="/articles/cara-istirahat-sesuai-tipe-energi-human-design/" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel Rehat Tapi Malah Makin Lelah">
+                        <div class="article-img-wrapper">
+                            <div class="article-img-placeholder"><svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/><path d="M50 20 A30 30 0 0 0 50 80" fill="currentColor"/></svg></div>
+                            <span class="article-meta">Human Design</span>
+                        </div>
+                        <div class="article-body">
+                            <span class="article-source-badge bhumi">Bhumi Amartya</span>
+                            <h3 class="article-title">Rehat Tapi Malah Makin Lelah? Saatnya Kalibrasi Energi Sesuai Tipe Human Design-mu</h3>
+                            <div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">26 Oktober 2026 &bull; 7 menit baca</div>
+                            <p class="article-excerpt">Mengapa scrolling atau staycation terkadang tidak memulihkan lelah? Temukan panduan rehat otentik sesuai tipe energi Human Design.</p>
+                            <span class="article-link">
+                                <span>Baca Selengkapnya</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </div>
+                    </a>
+                </article>
             </div>
 
-            <div class="community-cta-row reveal">
-                <a href="/komunitas/" class="btn btn-primary" id="community-cta-primary">Gabung Komunitas Bhumi</a>
-                <a href="/ngopi-ilmu/" class="btn btn-secondary" id="community-cta-secondary">Lihat Ngopi Ilmu</a>
+            <div class="section-cta reveal" style="text-align: center; margin-top: 3.5rem;">
+                <a href="/articles/" class="btn btn-primary">Jelajahi Semua Artikel &rarr;</a>
             </div>
         </div>
     </section>
 
-<!-- 5. RUANG BERTUMBUH DI BHUMI (COMMUNITY ACTIVITY TEASER) -->
-    <section class="section section-alt" id="aktivitas-komunitas">
+    <!-- 6. LAYANAN & EKOSISTEM BHUMI -->
+    <section class="section" id="layanan">
         <div class="container">
             <div class="section-header reveal">
-                <span class="section-tag">Komunitas Bhumi Amartya</span>
-                <h2 class="section-title">Ruang Bertumbuh di Bhumi</h2>
-                <p class="section-desc">Beberapa ruang rutin yang bisa kamu ikuti bersama Sobat Mistis lainnya. Jadwal dan detail terbaru diinformasikan melalui kanal komunitas resmi Bhumi.</p>
-            </div>
-
-            <div class="system-grid">
-                <div class="system-card reveal">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
-                    </div>
-                    <h3>Ngopi Ilmu</h3>
-                    <p>Obrolan reflektif seputar kehidupan, self-discovery, psikologi, dan spiritualitas.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.1s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l2.5 2.5"/></svg>
-                    </div>
-                    <h3>Ngopi Rasa</h3>
-                    <p>Ruang refleksi dan meditasi untuk kembali hadir kepada diri sendiri.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.2s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
-                    </div>
-                    <h3>Rabu Bertumbuh</h3>
-                    <p>Sesi rutin bertumbuh bersama Sobat Mistis seputar pola diri dan kehidupan sehari-hari.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.3s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                    </div>
-                    <h3>Kelas Sobat Mistis</h3>
-                    <p>Kelas dan pembelajaran lanjutan seputar sistem self-discovery dan personal growth.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- 6. BERTUMBUH -->
-    <section class="section" id="bertumbuh">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Bertumbuh</span>
-                <h2 class="section-title">Mengenal Diri Hanya Awal</h2>
-                <p class="section-desc">Insight dari Personal Blueprint akan lebih bermakna saat dibawa ke tema kehidupan sehari-hari.</p>
-            </div>
-
-            <div class="system-grid">
-                <div class="system-card reveal">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9m3-3-3 3 3 3"/><path d="M4 17h9m-3 3 3-3-3-3"/></svg>
-                    </div>
-                    <h3>Karier & Potensi</h3>
-                    <p>Mengenali kekuatan dan arah kerja yang paling selaras dengan caramu bertumbuh.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.05s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.5 7.5c-1-1-3-1-4 0l-.5.5-.5-.5c-1-1-3-1-4 0s-1 3 0 4l4.5 4.5 4.5-4.5c1-1 1-3 0-4Z"/></svg>
-                    </div>
-                    <h3>Relationship</h3>
-                    <p>Memahami pola relasi dan komunikasi dalam hubungan personal maupun sosial.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.1s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9 9.5c0-1.5 1.5-2.5 3-2.5s3 1 3 2.5-1.5 2-3 2.5-3 1-3 2.5 1.5 2.5 3 2.5 3-1 3-2.5"/></svg>
-                    </div>
-                    <h3>Keuangan</h3>
-                    <p>Refleksi pola dan kebiasaan finansial sebagai bagian dari pertumbuhan diri.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.15s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.35-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.65-9.5 9-9.5 9z"/></svg>
-                    </div>
-                    <h3>Emotional Awareness</h3>
-                    <p>Mengenali dan menerima ragam emosi tanpa menghakimi diri sendiri.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.2s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg>
-                    </div>
-                    <h3>Inner Work</h3>
-                    <p>Proses reflektif untuk mengenali pola batin dan luka yang perlu dipulihkan.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.25s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                    </div>
-                    <h3>Life Skill</h3>
-                    <p>Keterampilan hidup praktis untuk menghadapi keseharian dengan lebih sadar.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.3s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
-                    </div>
-                    <h3>Mindfulness</h3>
-                    <p>Praktik hadir penuh di masa kini sebagai dasar dari kesadaran sehari-hari.</p>
-                </div>
-                <div class="system-card reveal" style="transition-delay: 0.35s;">
-                    <div class="system-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V8M5 12c3.5 0 7-3 7-7 0 4 3.5 7 7 7-3.5 0-7 3-7 7 0-4-3.5-7-7-7z"/></svg>
-                    </div>
-                    <h3>Personal Growth</h3>
-                    <p>Perjalanan bertumbuh yang berkelanjutan, bukan sebuah tujuan akhir.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<!-- 7. NGOPI ILMU (ARTICLE FEED) -->
-    <section class="section section-alt" id="artikel">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Komunitas Bhumi Amartya</span>
-                <h2 class="section-title">Ngopi Ilmu</h2>
-                <p class="section-desc">Obrolan santai untuk membawa pengetahuan kembali ke kehidupan sehari-hari.</p>
-            </div>
-
-            <div class="articles-grid" id="article-container"
-                 data-bhumi-feed="/api/bhumi-articles?limit=6"
-                 data-wedhaswara-feed="/api/wedhaswara-articles">
-                <!-- 6 skeleton cards -->
-                <article class="article-card skeleton-card" aria-hidden="true">
-                    <div class="article-img-wrapper skeleton-shimmer"></div>
-                    <div class="article-body">
-                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
-                    </div>
-                </article>
-                <article class="article-card skeleton-card" aria-hidden="true">
-                    <div class="article-img-wrapper skeleton-shimmer"></div>
-                    <div class="article-body">
-                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
-                    </div>
-                </article>
-                <article class="article-card skeleton-card" aria-hidden="true">
-                    <div class="article-img-wrapper skeleton-shimmer"></div>
-                    <div class="article-body">
-                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
-                    </div>
-                </article>
-                <article class="article-card skeleton-card" aria-hidden="true">
-                    <div class="article-img-wrapper skeleton-shimmer"></div>
-                    <div class="article-body">
-                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
-                    </div>
-                </article>
-                <article class="article-card skeleton-card" aria-hidden="true">
-                    <div class="article-img-wrapper skeleton-shimmer"></div>
-                    <div class="article-body">
-                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
-                    </div>
-                </article>
-                <article class="article-card skeleton-card" aria-hidden="true">
-                    <div class="article-img-wrapper skeleton-shimmer"></div>
-                    <div class="article-body">
-                        <div class="skeleton-line skeleton-shimmer" style="width: 40%; height: 1rem; margin-bottom: 0.75rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 90%; height: 1.4rem; margin-bottom: 0.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 100%; height: 1rem; margin-bottom: 0.35rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 70%; height: 1rem; margin-bottom: 1.5rem;"></div>
-                        <div class="skeleton-line skeleton-shimmer" style="width: 35%; height: 1rem;"></div>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- 8. PRODUK BHUMI (reframed: Personal Blueprint -> Practice -> Aplikasi) -->
-    <section class="section section-alt" id="produk">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Personal Blueprint &rarr; Practice &rarr; Aplikasi</span>
+                <span class="section-tag">Layanan &amp; Ekosistem</span>
                 <h2 class="section-title">Kenali Dirimu Tidak Berhenti di Sebuah Hasil</h2>
-                <p class="section-desc">Hasil Personal Blueprint akan lebih bermakna saat dibawa ke praktik nyata &mdash; lewat pembacaan yang lebih mendalam, aplikasi harian, dan sesi pemulihan energi.</p>
+                <p class="section-desc">Hasil pemetaan diri akan lebih bermakna saat dibawa ke praktik nyata — lewat pembacaan mendalam, pendamping harian, dan sesi penyelarasan energi.</p>
             </div>
 
             <div class="product-grid">
@@ -2771,8 +2522,8 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-title">Blueprint Reading</h3>
-                        <p class="product-desc">Pembacaan Personal Blueprint untuk membantu mengenali karakter, potensi, tantangan, pola relasi, pekerjaan, keuangan, dan arah pertumbuhan diri secara lebih utuh.</p>
-                        <a href="/tes-kenali-diri/" class="btn btn-outline">Pelajari</a>
+                        <p class="product-desc">Pembacaan personal menyeluruh untuk memetakan karakter, potensi, dinamika relasi, karier, dan arah pertumbuhan jiwa secara utuh.</p>
+                        <a href="/tes-kenali-diri/" class="btn btn-outline">Pelajari Blueprint</a>
                     </div>
                 </div>
 
@@ -2786,12 +2537,12 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-title">Compatibility Reading</h3>
-                        <p class="product-desc">Pembacaan kecocokan dua individu untuk memahami pola hubungan, potensi harmoni, tantangan komunikasi, dan dinamika hubungan pasangan.</p>
-                        <a href="/kalkulator-cinta/" class="btn btn-outline">Pelajari</a>
+                        <p class="product-desc">Pembacaan harmoni dua individu untuk memahami dinamika komunikasi, potensi sinergi, dan tantangan hubungan pasangan.</p>
+                        <a href="/kalkulator-cinta/" class="btn btn-outline">Pelajari Kompatibilitas</a>
                     </div>
                 </div>
 
-                <!-- 3. Reiki dan Sound Healing -->
+                <!-- 3. Reiki & Sound Healing -->
                 <div class="product-card reveal" style="transition-delay: 0.2s;">
                     <div class="product-visual">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2800,16 +2551,16 @@
                         </svg>
                     </div>
                     <div class="product-body">
-                        <h3 class="product-title">Reiki dan Sound Healing</h3>
-                        <p class="product-desc">Kumpulan sesi Reiki, sound healing, dan instrumental meditasi untuk relaksasi saraf, pelepasan stres, pemulihan energi, dan penyelarasan cakra tubuh.</p>
-                        <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20Audio%20Healing" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Pelajari</a>
+                        <h3 class="product-title">Reiki &amp; Sound Healing</h3>
+                        <p class="product-desc">Sesi relaksasi saraf, pelepasan stres, pemulihan energi batin, dan penyelarasan cakra tubuh melalui vibrasi suara dan meditasi.</p>
+                        <a href="https://wa.me/6285810531892?text=Halo%20Bhumi%20Amartya,%20saya%20tertarik%20dengan%20layanan%20Reiki%20dan%20Sound%20Healing" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Konsultasi Sesi</a>
                     </div>
                 </div>
 
                 <!-- 4. Bhumi App -->
                 <div class="product-card reveal" style="transition-delay: 0.3s;">
                     <div class="product-visual">
-                        <span class="product-badge">Terbaru</span>
+                        <span class="product-badge">Aplikasi Android</span>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
                             <path d="M12 18h.01"/>
@@ -2817,7 +2568,7 @@
                     </div>
                     <div class="product-body">
                         <h3 class="product-title">Bhumi App</h3>
-                        <p class="product-desc">Aplikasi pendamping harian Anda di Android. Berisi meditasi terbimbing, jurnal emosi digital, kutipan kebijaksanaan harian, dan ringkasan dasar profil spiritual Anda.</p>
+                        <p class="product-desc">Aplikasi pendamping harian di Android: meditasi terpandu, jurnal emosi digital, kutipan kebijaksanaan, dan ringkasan profil diri.</p>
                         <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Download Aplikasi</a>
                     </div>
                 </div>
@@ -2825,385 +2576,147 @@
         </div>
     </section>
 
-    <!-- 9. VIDEO TERBARU (YOUTUBE) -->
-    <section class="section" id="youtube">
+    <!-- 7. KOMUNITAS BHUMI AMARTYA -->
+    <section class="section section-alt" id="komunitas">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Terhubung &amp; Bertumbuh</span>
+                <h2 class="section-title">Tidak Harus Bertumbuh Sendirian</h2>
+                <p class="section-desc">Bhumi bukan hanya tentang membaca peta diri. Ada ruang hangat untuk ngobrol, belajar, bertanya, berefleksi, dan bertumbuh bersama.</p>
+            </div>
+
+            <div class="community-grid">
+                <!-- Sobat Mistis -->
+                <div class="product-card reveal">
+                    <div class="product-visual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="product-body">
+                        <span class="community-program-tag">Identitas Komunitas</span>
+                        <h3 class="product-title">Sobat Mistis</h3>
+                        <p class="community-subtitle">Meeting Spiritual Tiap Saat</p>
+                        <p class="product-desc">Ruang bertemu dan berbagi untuk mereka yang ingin mengenali diri, bertumbuh, dan mengeksplorasi kehidupan dari berbagai sudut pandang.</p>
+                    </div>
+                </div>
+
+                <!-- Ngopi Ilmu -->
+                <div class="product-card reveal" style="transition-delay: 0.1s;">
+                    <div class="product-visual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/>
+                        </svg>
+                    </div>
+                    <div class="product-body">
+                        <span class="community-program-tag">Obrolan &amp; Pembelajaran</span>
+                        <h3 class="product-title">Ngopi Ilmu</h3>
+                        <p class="community-subtitle">Edukasi Kehidupan Sehari-hari</p>
+                        <p class="product-desc">Obrolan santai seputar self-discovery, psikologi praktis, relasi, karier, dan keterampilan hidup dengan nuansa warung kopi yang akrab.</p>
+                    </div>
+                </div>
+
+                <!-- Ngopi Rasa -->
+                <div class="product-card reveal" style="transition-delay: 0.2s;">
+                    <div class="product-visual">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l2.5 2.5"/>
+                        </svg>
+                    </div>
+                    <div class="product-body">
+                        <span class="community-program-tag">Ruang Refleksi</span>
+                        <h3 class="product-title">Ngopi Rasa</h3>
+                        <p class="community-subtitle">Jeda &amp; Hening Batin</p>
+                        <p class="product-desc">Ruang hening untuk berhenti sejenak, mengurai emosi, bermeditasi, dan kembali hadir utuh kepada diri sendiri.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="community-cta-row reveal" style="margin-top: 3rem; text-align: center;">
+                <a href="/komunitas/" class="btn btn-primary" id="community-cta-primary">Jelajahi Komunitas &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. RUANG VIDEO BHUMI AMARTYA — 3 VIDEO PLAYLIST RESMI -->
+    <section class="section" id="video">
         <div class="container">
             <div class="section-header reveal">
                 <span class="section-tag">Konten Edukasi Visual</span>
-                <h2 class="section-title">Video Terbaru Bhumi</h2>
-                <p class="section-desc">Saksikan pembahasan mendalam seputar kesehatan mental, meditasi, dan filosofi hidup dari official playlist Bhumi Amartya.</p>
+                <h2 class="section-title">Ruang Video Bhumi Amartya</h2>
+                <p class="section-desc">Percakapan, pengetahuan, dan refleksi untuk menemani perjalanan mengenal diri.</p>
             </div>
 
-            <!-- YouTube Video Grid: Loaded dynamically from official playlist. Fallback to 6 static cards if API is offline. -->
-            <div class="youtube-grid" id="youtube-playlist-container" data-playlist-feed="https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fplaylist_id%3DPLN0jIpB58Ed4g2pL8I6n8C05eaC1Fqvhx">
-                <!-- Fallback Video 1: Sleep Healing -->
-                <div class="video-card reveal" data-video-id="eU-v9u1XGZc">
+            <div class="youtube-grid" id="youtube-playlist-container" data-playlist-id="PLN0jIpB58Ed61d4yMXRCeStxro5dJJ-qA">
+                <!-- Video 1: Deep Sleep Piano Music -->
+                <div class="video-card reveal" data-video-id="Xt2rqfO5w_o">
                     <div class="video-wrapper">
-                        <div class="video-placeholder" aria-label="Putar video Sleep Healing">
-                            <img src="https://img.youtube.com/vi/eU-v9u1XGZc/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Sleep Healing">
+                        <div class="video-placeholder" aria-label="Putar video Deep Sleep Piano Music">
+                            <img src="https://i.ytimg.com/vi/Xt2rqfO5w_o/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Deep Sleep Piano Music">
                             <div class="play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
-                            <span class="video-placeholder-tag">Sleep & Relaxation</span>
-                            <span class="video-placeholder-title">Sleep Healing</span>
+                            <span class="video-placeholder-tag">Sleep &amp; Relaxation</span>
+                            <span class="video-duration-badge">1:01:11</span>
                         </div>
                     </div>
                     <div class="video-info">
-                        <h4 class="video-info-title">Sleep Healing</h4>
-                        <p class="video-info-desc">Audio relaksasi ini dirancang untuk membantu menciptakan suasana tenang menjelang waktu istirahat.</p>
+                        <h4 class="video-info-title">Deep Sleep Piano Music 🌙 Relaxing Piano for Sleep, Stress Relief &amp; Peaceful Dreams (1 Hour)</h4>
+                        <p class="video-info-desc">Musik piano relaksasi yang dirancang untuk melepaskan ketegangan, menenangkan pikiran, dan mendukung tidur lelap.</p>
                     </div>
                 </div>
 
-                <!-- Fallback Video 2: Emotional Healing -->
-                <div class="video-card reveal" style="transition-delay: 0.1s;" data-video-id="U7-8Z6-t7F0">
+                <!-- Video 2: Inner Child Healing Subliminal Instrumental -->
+                <div class="video-card reveal" style="transition-delay: 0.1s;" data-video-id="tJFNnxqDYdY">
                     <div class="video-wrapper">
-                        <div class="video-placeholder" aria-label="Putar video Emotional Healing">
-                            <img src="https://img.youtube.com/vi/U7-8Z6-t7F0/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Emotional Healing">
+                        <div class="video-placeholder" aria-label="Putar video Inner Child Healing Subliminal Instrumental">
+                            <img src="https://i.ytimg.com/vi/tJFNnxqDYdY/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Inner Child Healing Subliminal Instrumental">
                             <div class="play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
-                            <span class="video-placeholder-tag">Emotional Release</span>
-                            <span class="video-placeholder-title">Emotional Healing</span>
+                            <span class="video-placeholder-tag">Inner Child &amp; Healing</span>
+                            <span class="video-duration-badge">7:11</span>
                         </div>
                     </div>
                     <div class="video-info">
-                        <h4 class="video-info-title">Emotional Healing</h4>
-                        <p class="video-info-desc">Panduan pelepasan emosi negatif terpendam melalui teknik pernapasan dan afirmasi kesadaran.</p>
+                        <h4 class="video-info-title">Inner Child Healing Subliminal Instrumental</h4>
+                        <p class="video-info-desc">Frekuensi instrumental meditatif untuk membantu proses rekonsiliasi dan pemulihan luka batin masa lalu secara lembut.</p>
                     </div>
                 </div>
 
-                <!-- Fallback Video 3: Warkop Jiwa -->
-                <div class="video-card reveal" style="transition-delay: 0.2s;" data-video-id="Qc6J7x3Vl_k">
+                <!-- Video 3: Meditasi Kubah Emas Perlindungan Diri -->
+                <div class="video-card reveal" style="transition-delay: 0.2s;" data-video-id="F2wgDviUHCQ">
                     <div class="video-wrapper">
-                        <div class="video-placeholder" aria-label="Putar video Warkop Jiwa">
-                            <img src="https://img.youtube.com/vi/Qc6J7x3Vl_k/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Warkop Jiwa">
+                        <div class="video-placeholder" aria-label="Putar video Meditasi Kubah Emas Perlindungan Diri">
+                            <img src="https://i.ytimg.com/vi/F2wgDviUHCQ/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Meditasi Kubah Emas Perlindungan Diri">
                             <div class="play-btn">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             </div>
-                            <span class="video-placeholder-tag">Obrolan Ringan Spiritual</span>
-                            <span class="video-placeholder-title">Warkop Jiwa</span>
+                            <span class="video-placeholder-tag">Meditasi &amp; Kesadaran</span>
+                            <span class="video-duration-badge">15:00</span>
                         </div>
                     </div>
                     <div class="video-info">
-                        <h4 class="video-info-title">Warkop Jiwa</h4>
-                        <p class="video-info-desc">Bincang santai membahas spiritualitas praktis dalam keseharian tanpa dogma kaku bersama tamu undangan.</p>
-                    </div>
-                </div>
-
-                <!-- Fallback Video 4: Meditasi Hening -->
-                <div class="video-card reveal" style="transition-delay: 0.3s;" data-video-id="77M6yPjTq3Q">
-                    <div class="video-wrapper">
-                        <div class="video-placeholder" aria-label="Putar video Meditasi Hening">
-                            <img src="https://img.youtube.com/vi/77M6yPjTq3Q/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Meditasi Hening">
-                            <div class="play-btn">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                            <span class="video-placeholder-tag">Mindfulness Meditation</span>
-                            <span class="video-placeholder-title">Meditasi Hening</span>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h4 class="video-info-title">Meditasi Hening</h4>
-                        <p class="video-info-desc">Latihan kesadaran murni untuk menenangkan pikiran bising dan masuk ke dalam keheningan diri.</p>
-                    </div>
-                </div>
-
-                <!-- Fallback Video 5: Penyelarasan Cakra -->
-                <div class="video-card reveal" style="transition-delay: 0.4s;" data-video-id="wN30Ea9k_uA">
-                    <div class="video-wrapper">
-                        <div class="video-placeholder" aria-label="Putar video Penyelarasan Cakra">
-                            <img src="https://img.youtube.com/vi/wN30Ea9k_uA/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Penyelarasan Cakra">
-                            <div class="play-btn">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                            <span class="video-placeholder-tag">Energy Balancing</span>
-                            <span class="video-placeholder-title">Penyelarasan Cakra</span>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h4 class="video-info-title">Penyelarasan Cakra</h4>
-                        <p class="video-info-desc">Panduan visualisasi suara untuk menyelaraskan pusat-pusat energi utama di sepanjang tulang belakang.</p>
-                    </div>
-                </div>
-
-                <!-- Fallback Video 6: Filosofi Berserah -->
-                <div class="video-card reveal" style="transition-delay: 0.5s;" data-video-id="z4P1J18e5bA">
-                    <div class="video-wrapper">
-                        <div class="video-placeholder" aria-label="Putar video Filosofi Berserah">
-                            <img src="https://img.youtube.com/vi/z4P1J18e5bA/hqdefault.jpg" class="video-thumbnail" loading="lazy" alt="Filosofi Berserah">
-                            <div class="play-btn">
-                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                            <span class="video-placeholder-tag">Surrender Philosophy</span>
-                            <span class="video-placeholder-title">Filosofi Berserah</span>
-                        </div>
-                    </div>
-                    <div class="video-info">
-                        <h4 class="video-info-title">Filosofi Berserah</h4>
-                        <p class="video-info-desc">Memahami esensi berserah diri (surrender) untuk melepaskan beban kontrol ego dan mengikuti aliran kehidupan.</p>
+                        <h4 class="video-info-title">Meditasi Kubah Emas Perlindungan Diri | Perlindungan dari Santet, Pelet, Guna-guna &amp; Energi Negatif</h4>
+                        <p class="video-info-desc">Panduan visualisasi suara untuk menyelaraskan aura, menjaga stabilitas energi batin, dan membentengi diri dari pengaruh negatif.</p>
                     </div>
                 </div>
             </div>
 
-            <div class="youtube-cta reveal">
-                <a href="https://youtube.com/playlist?list=PLN0jIpB58Ed4g2pL8I6n8C05eaC1Fqvhx" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Lihat Semua Video</a>
+            <div class="youtube-cta reveal" style="margin-top: 3rem; text-align: center;">
+                <a href="https://www.youtube.com/playlist?list=PLN0jIpB58Ed61d4yMXRCeStxro5dJJ-qA" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px; margin-right: 0.5rem; vertical-align: middle;"><path d="M23 12s0-3.85-.46-5.58c-.25-.95-1-1.7-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46c-.95.25-1.69 1-1.94 1.96C1 8.15 1 12 1 12s0 3.85.46 5.58c.25.95 1 1.7 1.94 1.96 1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46c.95-.25 1.69-1 1.94-1.96.46-1.73.46-5.58.46-5.58zM9.75 8.4l6.5 3.6-6.5 3.6V8.4z"/></svg>
+                    Lihat Playlist di YouTube
+                </a>
             </div>
         </div>
     </section>
 
-
-
-    <!-- 10. TENTANG BHUMI -->
-    <section class="section section-alt" id="tentang">
-        <div class="container about-grid">
-            <div class="about-visual reveal">
-                <div class="about-visual-bg"></div>
-                <blockquote class="about-quote">
-                    "Memahami diri sendiri adalah awal dari seluruh kebijaksanaan sejati. Perjalanan terjauh kita adalah ke dalam diri."
-                </blockquote>
-                <div class="about-author">
-                    <span class="about-author-line"></span>
-                    <span class="about-author-name">Bhumi Amartya Philosophy</span>
-                </div>
-            </div>
-
-            <div class="about-content reveal" style="transition-delay: 0.2s;">
-                <span class="section-tag">Tentang Kami</span>
-                <h2 class="section-title">Apa itu Bhumi Amartya?</h2>
-                <p style="margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.7;">
-                    Bhumi Amartya adalah ekosistem pengembangan diri dan kesadaran batin yang dirancang khusus untuk memandu manusia modern dalam proses mengenal dan menerima jati diri mereka secara sejati. 
-                </p>
-                <p style="margin-bottom: 2rem; font-size: 1.05rem; line-height: 1.7;">
-                    Melalui integrasi berbagai sistem refleksi kuno, ilmu kebijaksanaan lokal, dan psikologi analitis modern, kami membantu Anda memetakan pola perilaku, emosi, potensi karir, dinamika hubungan, serta memahami rintangan karma atau luka shadow yang menghambat pertumbuhan jiwa Anda.
-                </p>
-
-                <div class="about-features-list">
-                    <div class="about-feat-item">
-                        <div class="about-feat-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                        </div>
-                        <div class="about-feat-text">
-                            <h4>Pendekatan Multidisiplin</h4>
-                            <p>Memadukan psikologi modern dengan berbagai perspektif self-discovery dan refleksi diri dari timur dan barat.</p>
-                        </div>
-                    </div>
-                    <div class="about-feat-item">
-                        <div class="about-feat-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                        </div>
-                        <div class="about-feat-text">
-                            <h4>Refleksi Praktis</h4>
-                            <p>Saran actionable dan peta panduan kehidupan yang disesuaikan secara unik untuk Anda.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 11. CARA MENGGUNAKAN HASIL DENGAN BIJAK -->
-    <section class="section" id="testimoni">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Panduan Refleksi</span>
-                <h2 class="section-title">Cara Menggunakan Hasil dengan Bijak</h2>
-                <p class="section-desc">Lima langkah praktis agar hasil pemetaan diri menjadi bahan refleksi, bukan label atau kepastian.</p>
-            </div>
-
-            <!-- Slider Container -->
-            <div class="testimonials-slider-container reveal">
-                <div class="slider-wrapper" id="slider-wrapper">
-                    <!-- Slide 1 -->
-                    <div class="slide active">
-                        <div class="testimonial-card">
-                            <span class="testimonial-quote-icon">“</span>
-                            <div class="testimonial-stars">
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                            <p class="testimonial-text">
-                                Mulai dari satu bagian yang paling relevan. Catat hal yang terasa sesuai, hal yang belum sesuai, dan pertanyaan yang muncul tanpa memaksa semua interpretasi menjadi benar.
-                            </p>
-                            <h4 class="testimonial-author">1. Baca Perlahan</h4>
-                            <p class="testimonial-role">Observasi sebelum menyimpulkan</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide 2 -->
-                    <div class="slide">
-                        <div class="testimonial-card">
-                            <span class="testimonial-quote-icon">“</span>
-                            <div class="testimonial-stars">
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                            <p class="testimonial-text">
-                                Bandingkan hasil dengan pengalaman nyata. Contoh konkret dari kehidupan sehari-hari lebih berguna daripada menerima sebuah label tanpa konteks.
-                            </p>
-                            <h4 class="testimonial-author">2. Periksa Konteks</h4>
-                            <p class="testimonial-role">Gunakan pengalaman sebagai pembanding</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide 3 -->
-                    <div class="slide">
-                        <div class="testimonial-card">
-                            <span class="testimonial-quote-icon">“</span>
-                            <div class="testimonial-stars">
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                            <p class="testimonial-text">
-                                Ubah wawasan menjadi eksperimen kecil yang aman dan dapat diamati. Tinjau kembali dampaknya setelah beberapa waktu, lalu pertahankan hanya yang benar-benar membantu.
-                            </p>
-                            <h4 class="testimonial-author">3. Coba Secara Bertahap</h4>
-                            <p class="testimonial-role">Hindari keputusan besar yang tergesa-gesa</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide 4 -->
-                    <div class="slide">
-                        <div class="testimonial-card">
-                            <span class="testimonial-quote-icon">“</span>
-                            <div class="testimonial-stars">
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                            <p class="testimonial-text">
-                                Hasil alat refleksi tidak menggantikan diagnosis, terapi, atau nasihat profesional. Cari bantuan yang tepat bila menyangkut kesehatan, keselamatan, hukum, atau keuangan.
-                            </p>
-                            <h4 class="testimonial-author">4. Kenali Batasnya</h4>
-                            <p class="testimonial-role">Pisahkan refleksi dari nasihat profesional</p>
-                        </div>
-                    </div>
-
-                    <!-- Slide 5 -->
-                    <div class="slide">
-                        <div class="testimonial-card">
-                            <span class="testimonial-quote-icon">“</span>
-                            <div class="testimonial-stars">
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                                <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-                            </div>
-                            <p class="testimonial-text">
-                                Simpan catatan refleksi yang penting dan evaluasi ulang. Diri manusia terus berkembang; sebuah hasil tidak harus menjadi identitas yang permanen.
-                            </p>
-                            <h4 class="testimonial-author">5. Tinjau Kembali</h4>
-                            <p class="testimonial-role">Berikan ruang untuk perubahan</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slider Controls -->
-                <div class="slider-controls">
-                    <button class="slider-btn" id="slider-prev" aria-label="Slide sebelumnya">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>
-                    </button>
-                    <div class="slider-dots" id="slider-dots">
-                        <!-- Dots rendered dynamically in JS -->
-                    </div>
-                    <button class="slider-btn" id="slider-next" aria-label="Slide berikutnya">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 12. DI BALIK BHUMI (TEAM) -->
-    <section class="section section-alt" id="founder">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="section-tag">Di Balik Bhumi</span>
-                <h2 class="section-title">Founder dan Pengelola</h2>
-                <p class="section-desc">Bhumi Amartya adalah usaha privat yang didirikan dan dikelola oleh Widhi Wedhaswara di Nusa Dua, Bali.</p>
-            </div>
-
-            <div class="team-grid">
-                <!-- Card 1: Widhi Wedhaswara -->
-                <div class="team-card reveal">
-                    <div class="team-img-wrapper">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="team-avatar-placeholder">
-                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-                            <path d="M50 90 L50 45" stroke="currentColor" stroke-width="2.5"/>
-                            <path d="M50 45 C50 45, 65 30, 75 40 C75 40, 70 25, 50 35 C50 35, 30 25, 25 40 C25 40, 35 30, 50 45 Z" fill="currentColor"/>
-                            <path d="M50 60 C50 60, 68 50, 72 65 C50 55, 50 60, 50 60 Z" fill="currentColor"/>
-                            <path d="M50 65 C50 65, 32 55, 28 70 C50 60, 50 65, 50 65 Z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <div class="team-body">
-                        <h3 class="team-name">Widhi Wedhaswara</h3>
-                        <p class="team-role">Founder Bhumi Amartya</p>
-                        <p class="team-bio">
-                            Seorang penggiat pengembangan diri, edukator, penulis, dan tech developer yang menggabungkan teknologi, refleksi diri, serta berbagai sistem pemetaan potensi manusia ke dalam satu ekosistem bernama Bhumi Amartya. Melalui Bhumi, ia berupaya menghadirkan ruang yang membumi, rasional, dan mudah diakses untuk membantu setiap orang mengenali dirinya lebih dalam dan bertumbuh dengan kesadaran.
-                        </p>
-                        <a href="https://wedhaswara.my.id" target="_blank" rel="noopener noreferrer" class="btn btn-outline team-btn">Kunjungi Wedhaswara.my.id</a>
-                    </div>
-                </div>
-
-                <!-- Card 2: Firna Firdaus -->
-                <div class="team-card reveal" style="transition-delay: 0.1s;">
-                    <div class="team-img-wrapper">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="team-avatar-placeholder">
-                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 2"/>
-                            <path d="M50 90 L50 50" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="50" cy="35" r="10" stroke="currentColor" stroke-width="2"/>
-                            <path d="M30 65 C30 50, 45 45, 50 50 C55 45, 70 50, 70 65" stroke="currentColor" stroke-width="2"/>
-                            <path d="M50 25 C52 20, 48 15, 50 10 C52 15, 48 20, 50 25 Z" fill="#D4AF37"/>
-                        </svg>
-                    </div>
-                    <div class="team-body">
-                        <h3 class="team-name">Metodologi Transparan</h3>
-                        <p class="team-role">Prinsip Editorial</p>
-                        <p class="team-bio">
-                            Kami membedakan perhitungan, interpretasi, dan fakta. Hasil alat disajikan sebagai bahan refleksi dengan batasan yang jelas, bukan diagnosis atau kepastian masa depan.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3: Coming Soon -->
-                <div class="team-card reveal" style="transition-delay: 0.2s;">
-                    <div class="team-img-wrapper">
-                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="team-avatar-placeholder" style="opacity: 0.5;">
-                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3 3"/>
-                            <circle cx="50" cy="40" r="12" fill="currentColor"/>
-                            <path d="M30 75 C30 60, 40 58, 50 58 C60 58, 70 60, 70 75" fill="currentColor"/>
-                            <path d="M50 20 L50 15" stroke="currentColor" stroke-width="1.5"/>
-                            <path d="M45 17.5 L55 17.5" stroke="currentColor" stroke-width="1.5"/>
-                        </svg>
-                    </div>
-                    <div class="team-body">
-                        <h3 class="team-name">Hubungi Pengelola</h3>
-                        <p class="team-role">Dukungan dan Koreksi</p>
-                        <p class="team-bio">
-                            Pertanyaan, koreksi konten, atau permintaan terkait privasi dapat dikirim ke halo@bhumiamartya.my.id. Kami meninjau masukan yang disertai konteks yang dapat diperiksa.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 13. DOWNLOAD APP CTA -->
+    <!-- 9. DOWNLOAD APLIKASI -->
     <section class="cta-section" id="download-cta">
         <div class="container cta-container reveal">
-            <h2 class="cta-title">Ruang untuk Pulang dan Kenali Diri</h2>
-            <p class="cta-desc">Unduh aplikasi Bhumi Amartya sekarang di Google Play Store untuk memulai evaluasi kesadaran harian, jurnal refleksi pribadi, dan akses meditasi terpadu secara gratis.</p>
+            <h2 class="cta-title">Ruang untuk Pulang dan Kenali Diri di Genggamanmu</h2>
+            <p class="cta-desc">Unduh aplikasi Bhumi Amartya sekarang di Google Play Store untuk evaluasi kesadaran harian, jurnal refleksi pribadi, dan akses meditasi terpadu secara gratis.</p>
             <div class="cta-btns">
                 <a href="https://play.google.com/store/apps/details?id=com.bhumiamartya.app" target="_blank" rel="noopener noreferrer" class="btn btn-playstore">
                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -3211,12 +2724,12 @@
                     </svg>
                     <span>Google Play</span>
                 </a>
-                <a href="#tentang" class="btn btn-cta-outline btn">Pelajari Lebih Lanjut</a>
+                <a href="/tes-kenali-diri/" class="btn btn-cta-outline">Mulai Lewat Web &rarr;</a>
             </div>
         </div>
     </section>
 
-    <!-- 14. FOOTER & KONTAK -->
+    <!-- 10. FOOTER & KONTAK -->
     <footer class="footer" id="kontak">
         <div class="container footer-grid">
             <div class="footer-about">
@@ -3226,19 +2739,15 @@
                 </div>
                 <p>Ekosistem refleksi dan pengembangan diri modern yang menggabungkan integrasi data psikologis dengan kearifan spiritual Nusantara dan dunia.</p>
                 <div class="footer-socials">
-                    <!-- Instagram -->
                     <a href="https://instagram.com/wedhaswara" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Widhi Wedhaswara">
                         <svg viewBox="0 0 24 24"><path d="M7.75 2h8.5C19.42 2 22 4.58 22 7.75v8.5C22 19.42 19.42 22 16.25 22h-8.5C4.58 22 2 19.42 2 16.25v-8.5C2 4.58 4.58 2 7.75 2zm0 1.5c-2.35 0-4.25 1.9-4.25 4.25v8.5c0 2.35 1.9 4.25 4.25 4.25h8.5c2.35 0 4.25-1.9 4.25-4.25v-8.5c0-2.35-1.9-4.25-4.25-4.25h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm5.25-.75a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>
                     </a>
-                    <!-- Spotify -->
                     <a href="https://spotify.com/show/bhumiamartya" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Spotify Bhumi Amartya">
                         <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.565.387-.86.207-2.377-1.454-5.37-1.783-8.893-.98-.336.075-.668-.135-.745-.47-.077-.337.135-.668.47-.746 3.856-.88 7.15-.503 9.822 1.13.295.18.387.563.206.86zm1.225-2.72c-.226.367-.707.487-1.074.26-2.72-1.672-6.87-2.157-10.076-1.182-.413.125-.85-.107-.975-.52-.125-.413.107-.85.52-.975 3.666-1.112 8.232-.573 11.346 1.343.367.227.488.707.26 1.074zm.107-2.847C14.654 8.922 9.27 8.743 6.16 9.686c-.48.146-.983-.128-1.13-.608-.145-.48.128-.983.608-1.13 3.585-1.088 9.525-.882 13.29 1.353.433.256.574.812.317 1.245-.256.432-.812.574-1.245.317z"/></svg>
                     </a>
-                    <!-- Youtube -->
                     <a href="https://youtube.com/@BhumiAmartya" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube Bhumi Amartya">
                         <svg viewBox="0 0 24 24"><path d="M23 12s0-3.85-.46-5.58c-.25-.95-1-1.7-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46c-.95.25-1.69 1-1.94 1.96C1 8.15 1 12 1 12s0 3.85.46 5.58c.25.95 1 1.7 1.94 1.96 1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46c.95-.25 1.69-1 1.94-1.96.46-1.73.46-5.58.46-5.58zM9.75 8.4l6.5 3.6-6.5 3.6V8.4z"/></svg>
                     </a>
-                    <!-- Twitter/X -->
                     <a href="https://twitter.com/bhumiamartya" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter Bhumi Amartya">
                         <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
@@ -3290,7 +2799,7 @@
                 burgerBtn.classList.toggle('open');
                 navMenu.classList.toggle('open');
                 if (navMenu.classList.contains('open')) {
-                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                    document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
                 }
@@ -3300,11 +2809,8 @@
 
             const navCtaAnalytics = [
                 ['hero-primary-cta', 'navigation_click', 'mulai_kenali_diri'],
-                ['hero-community-cta', 'navigation_click', 'gabung_komunitas'],
-                ['hero-mbti-cta', 'navigation_click', 'mbti'],
-                ['blueprint-section-cta', 'personal_blueprint_click', null],
-                ['community-cta-primary', 'community_join_click', null],
-                ['community-cta-secondary', 'navigation_click', 'lihat_ngopi_ilmu']
+                ['hero-explore-cta', 'navigation_click', 'jelajahi_bhumi'],
+                ['community-cta-primary', 'community_join_click', null]
             ];
             navCtaAnalytics.forEach(([id, eventName, toolName]) => {
                 const el = document.getElementById(id);
@@ -3359,128 +2865,19 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('reveal-visible');
-                        // Unobserve once revealed to optimize performance
                         observer.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
             });
 
             revealElements.forEach(element => {
                 revealOnScroll.observe(element);
             });
 
-            // --- 4. TESTIMONIAL SLIDER ---
-            const sliderWrapper = document.getElementById('slider-wrapper');
-            const slides = document.querySelectorAll('.slide');
-            const dotsContainer = document.getElementById('slider-dots');
-            const prevBtn = document.getElementById('slider-prev');
-            const nextBtn = document.getElementById('slider-next');
-
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-            let slideInterval;
-
-            // Render navigation dots
-            slides.forEach((_, index) => {
-                const dot = document.createElement('button');
-                dot.classList.add('slider-dot');
-                dot.setAttribute('aria-label', `Pindah ke slide ${index + 1}`);
-                if (index === 0) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    goToSlide(index);
-                    resetAutoplay();
-                });
-                dotsContainer.appendChild(dot);
-            });
-
-            const dots = document.querySelectorAll('.slider-dot');
-
-            const updateSlider = () => {
-                sliderWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                slides.forEach((slide, index) => {
-                    if (index === currentSlide) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-
-                dots.forEach((dot, index) => {
-                    if (index === currentSlide) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-            };
-
-            const goToSlide = (n) => {
-                currentSlide = (n + totalSlides) % totalSlides;
-                updateSlider();
-            };
-
-            const nextSlide = () => {
-                goToSlide(currentSlide + 1);
-            };
-
-            const prevSlide = () => {
-                goToSlide(currentSlide - 1);
-            };
-
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                resetAutoplay();
-            });
-
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                resetAutoplay();
-            });
-
-            // Autoplay
-            const startAutoplay = () => {
-                slideInterval = setInterval(nextSlide, 6000);
-            };
-
-            const resetAutoplay = () => {
-                clearInterval(slideInterval);
-                startAutoplay();
-            };
-
-            // Swipe/Touch Support for Mobile
-            let startX = 0;
-            let endX = 0;
-
-            sliderWrapper.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            }, { passive: true });
-
-            sliderWrapper.addEventListener('touchend', (e) => {
-                endX = e.changedTouches[0].clientX;
-                handleSwipe();
-            }, { passive: true });
-
-            const handleSwipe = () => {
-                const diff = startX - endX;
-                const threshold = 50; // min distance in px
-                if (Math.abs(diff) > threshold) {
-                    if (diff > 0) {
-                        nextSlide(); // swipe left -> next
-                    } else {
-                        prevSlide(); // swipe right -> prev
-                    }
-                    resetAutoplay();
-                }
-            };
-
-            // Init slider
-            startAutoplay();
-
-            // --- 5. YOUTUBE LIGHTBOX MODAL & DYNAMIC PLAYLIST FETCH ---
+            // --- 4. YOUTUBE LIGHTBOX MODAL ---
             const videoModal = document.getElementById('video-modal');
             const videoIframe = document.getElementById('video-modal-iframe');
             const videoOverlay = document.getElementById('video-modal-overlay');
@@ -3491,25 +2888,28 @@
                 videoIframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
                 videoModal.classList.add('open');
                 videoModal.setAttribute('aria-hidden', 'false');
-                document.body.style.overflow = 'hidden'; // Lock scrolling
+                document.body.style.overflow = 'hidden';
             };
 
             const closeVideoModal = () => {
                 videoModal.classList.remove('open');
                 videoModal.setAttribute('aria-hidden', 'true');
                 videoIframe.src = '';
-                document.body.style.overflow = ''; // Unlock scrolling
+                document.body.style.overflow = '';
             };
 
-            videoClose.addEventListener('click', closeVideoModal);
-            videoOverlay.addEventListener('click', closeVideoModal);
+            if (videoClose && videoOverlay) {
+                videoClose.addEventListener('click', closeVideoModal);
+                videoOverlay.addEventListener('click', closeVideoModal);
+            }
+
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && videoModal.classList.contains('open')) {
+                if (e.key === 'Escape' && videoModal && videoModal.classList.contains('open')) {
                     closeVideoModal();
                 }
             });
 
-            // Initialize click triggers on static/fallback cards
+            // Hook click triggers on the 3 official playlist video cards
             const initVideoClickTriggers = () => {
                 const videoCards = document.querySelectorAll('.video-card');
                 videoCards.forEach(card => {
@@ -3524,81 +2924,9 @@
                 });
             };
 
-            // Fetch latest 6 videos from playlist via RSS-to-JSON
-            async function fetchYouTubeVideos() {
-                const container = document.getElementById('youtube-playlist-container');
-                if (!container) return;
-                
-                const feedUrl = container.getAttribute('data-playlist-feed');
-                
-                try {
-                    const response = await fetch(feedUrl);
-                    if (!response.ok) throw new Error('YouTube Playlist API response was not ok');
-                    
-                    const data = await response.json();
-                    if (data.status !== 'ok' || !data.items || data.items.length === 0) {
-                        throw new Error('YouTube Playlist RSS feed parsing failed');
-                    }
-                    
-                    // Clear fallbacks and render latest 6 items
-                    container.innerHTML = '';
-                    
-                    // Limit to 6
-                    const playlistItems = data.items.slice(0, 6);
-                    
-                    const getVideoId = (url) => {
-                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-                        const match = url.match(regExp);
-                        return (match && match[2].length === 11) ? match[2] : null;
-                    };
-                    
-                    playlistItems.forEach((item, index) => {
-                        const videoId = getVideoId(item.link) || item.guid.split(':').pop();
-                        const title = item.title || 'Video Terbaru';
-                        const thumbnail = item.thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-                        const category = 'Edukasi Kesadaran'; 
-                        
-                        const card = document.createElement('div');
-                        card.className = 'video-card reveal reveal-visible';
-                        card.style.transitionDelay = `${index * 0.1}s`;
-                        card.setAttribute('data-video-id', videoId);
-                        
-                        card.innerHTML = `
-                            <div class="video-wrapper">
-                                <div class="video-placeholder" aria-label="Putar video ${title}">
-                                    <img src="${thumbnail}" class="video-thumbnail" loading="lazy" alt="${title}">
-                                    <div class="play-btn">
-                                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                    </div>
-                                    <span class="video-placeholder-tag">${category}</span>
-                                    <span class="video-placeholder-title">${title}</span>
-                                </div>
-                            </div>
-                            <div class="video-info">
-                                <h4 class="video-info-title">${title}</h4>
-                                <p class="video-info-desc">Klik untuk menonton video terbaru dari playlist official Bhumi Amartya.</p>
-                            </div>
-                        `;
-                        
-                        // Hook up click to modal directly
-                        const clickArea = card.querySelector('.video-placeholder');
-                        clickArea.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            openVideoModal(videoId);
-                        });
-                        
-                        container.appendChild(card);
-                    });
-                    
-                } catch (error) {
-                    console.error('Bhumi Amartya YouTube Feed API Error:', error);
-                    // Fall back to static cards, just initialize their modal click hooks
-                    initVideoClickTriggers();
-                }
-            }
+            initVideoClickTriggers();
 
-            // --- 6. ARTICLE FEED (BHUMI + WEDHASWARA) ---
-
+            // --- 5. JURNAL ARTICLE FEED (KHUSUS BHUMI AMARTYA — 6 ARTIKEL) ---
             function normalizeExcerpt(text) {
                 if (!text) return 'Baca catatan refleksi terbaru.';
                 return String(text)
@@ -3639,124 +2967,30 @@
                 return ph;
             }
 
-            function slugify(str) {
-                return String(str).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-            }
-
-            function isDuplicate(article, existing) {
-                return existing.some((e) =>
-                    e.canonicalUrl === article.canonicalUrl ||
-                    slugify(e.title) === slugify(article.title) ||
-                    slugify(e.slug) === slugify(article.slug)
-                );
-            }
-
-            function transformBhumiArticle(raw) {
-                return {
-                    source: 'bhumi',
-                    title: raw.title || 'Artikel Bhumi',
-                    slug: raw.slug || '',
-                    excerpt: truncateText(normalizeExcerpt(raw.excerpt), 140),
-                    date: raw.publishedAt,
-                    category: raw.category || 'Ngopi Ilmu',
-                    imageUrl: raw.coverImageUrl || '',
-                    url: raw.slug ? `https://www.bhumiamartya.my.id/articles/${encodeURIComponent(raw.slug)}/` : '',
-                    canonicalUrl: raw.slug ? `https://www.bhumiamartya.my.id/articles/${encodeURIComponent(raw.slug)}/` : '',
-                };
-            }
-
-            function transformWedhaswaraArticle(raw) {
-                const title = normalizeExcerpt(raw.title?.rendered);
-                const excerpt = truncateText(normalizeExcerpt(raw.excerpt?.rendered), 140);
-                const cat = raw._embedded?.['wp:term']?.[0]?.[0]?.name || '';
-                const imageUrl = raw._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
-                return {
-                    source: 'wedhaswara',
-                    title: title || 'Artikel Wedhaswara',
-                    slug: raw.slug || '',
-                    excerpt: excerpt,
-                    date: raw.date || '',
-                    category: cat || 'Refleksi',
-                    imageUrl: imageUrl,
-                    url: raw.link || '',
-                    canonicalUrl: raw.link || raw.slug || '',
-                };
-            }
-
-            function interleaveArticles(bhumiList, wedhaswaraList) {
-                const result = [];
-                const maxSlots = 6;
-                const bhumiQuota = 3;
-                const wedhaswaraQuota = 3;
-                const used = [];
-
-                const bhumi = bhumiList.filter((a) => a.title).slice(0, bhumiQuota);
-                const wedhaswara = wedhaswaraList.filter((a) => a.title).slice(0, wedhaswaraQuota);
-
-                for (let i = 0; i < Math.max(bhumi.length, wedhaswara.length) && result.length < maxSlots; i++) {
-                    if (i < bhumi.length) {
-                        if (!isDuplicate(bhumi[i], used)) {
-                            used.push(bhumi[i]);
-                            result.push(bhumi[i]);
-                        }
-                    }
-                    if (result.length >= maxSlots) break;
-                    if (i < wedhaswara.length) {
-                        if (!isDuplicate(wedhaswara[i], used)) {
-                            used.push(wedhaswara[i]);
-                            result.push(wedhaswara[i]);
-                        }
-                    }
-                }
-
-                while (result.length < maxSlots) {
-                    const next = bhumi.length > result.length / 2 ? wedhaswara : bhumi;
-                    const candidates = bhumi.concat(wedhaswara).filter((a) => !isDuplicate(a, used));
-                    if (!candidates.length) break;
-                    used.push(candidates[0]);
-                    result.push(candidates[0]);
-                }
-
-                return result;
-            }
-
             function renderArticles(articles, container) {
-                if (!articles.length) {
-                    container.innerHTML = `
-                        <div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;">
-                            <p style="color:var(--text-secondary);margin-bottom:1rem;">Artikel terbaru sedang belum dapat dimuat. Silakan kembali beberapa saat lagi.</p>
-                            <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                                <a href="/articles/" class="btn btn-outline">Artikel Bhumi</a>
-                                <a href="https://wedhaswara.my.id/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Wedhaswara</a>
-                            </div>
-                        </div>
-                    `;
-                    return;
-                }
+                if (!articles.length) return; // Keep static fallback
 
                 container.innerHTML = articles.map((article, index) => {
                     const title = escapeHtml(article.title);
                     const excerpt = escapeHtml(article.excerpt);
-                    const category = escapeHtml(article.category);
+                    const category = escapeHtml(article.category || 'Refleksi');
                     const date = formatArticleDate(article.date);
-                    const isBhumi = article.source === 'bhumi';
-                    const badgeClass = isBhumi ? 'bhumi' : 'wedhaswara';
-                    const badgeText = isBhumi ? 'Bhumi Amartya' : 'Wedhaswara';
+                    const readingTime = article.readingTimeMinutes ? `${article.readingTimeMinutes} menit baca` : '';
+                    const dateMeta = [date, readingTime].filter(Boolean).join(' &bull; ');
                     const coverHtml = buildCoverHtml(article.imageUrl, article.title);
-                    const linkTarget = isBhumi ? '' : 'target="_blank" rel="noopener noreferrer"';
-                    const linkAria = isBhumi ? `Baca artikel lengkap ${title}` : `Baca artikel lengkap ${title} di Wedhaswara`;
+                    const linkUrl = article.slug ? `/articles/${encodeURIComponent(article.slug)}/` : '/articles/';
 
                     return `
-                        <article class="article-card reveal reveal-visible" style="transition-delay:${index * 0.1}s;">
-                            <a href="${escapeHtml(article.url)}" ${linkTarget} class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="${linkAria}">
+                        <article class="article-card reveal reveal-visible" style="transition-delay:${(index % 3) * 0.1}s;">
+                            <a href="${escapeHtml(linkUrl)}" class="article-card-link" style="display:contents;color:inherit;text-decoration:none;" aria-label="Baca artikel ${title}">
                                 <div class="article-img-wrapper">
                                     ${coverHtml}
-                                    <span class="article-meta">${category ? escapeHtml(category) : 'Ngopi Ilmu'}</span>
+                                    <span class="article-meta">${category}</span>
                                 </div>
                                 <div class="article-body">
-                                    <span class="article-source-badge ${badgeClass}">${badgeText}</span>
+                                    <span class="article-source-badge bhumi">Bhumi Amartya</span>
                                     <h3 class="article-title">${title}</h3>
-                                    ${date ? `<div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">${date}</div>` : ''}
+                                    ${dateMeta ? `<div class="article-date" style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500;">${dateMeta}</div>` : ''}
                                     <p class="article-excerpt">${excerpt}</p>
                                     <span class="article-link">
                                         <span>Baca Selengkapnya</span>
@@ -3774,42 +3008,30 @@
                 if (!container) return;
 
                 const bhumiUrl = container.getAttribute('data-bhumi-feed');
-                const wedhaswaraUrl = container.getAttribute('data-wedhaswara-feed');
-                if (!bhumiUrl && !wedhaswaraUrl) return;
+                if (!bhumiUrl) return;
 
-                const results = await Promise.allSettled([
-                    bhumiUrl ? fetch(bhumiUrl).then((r) => { if (!r.ok) throw new Error('Bhumi API ' + r.status); return r.json(); }) : Promise.reject('no-url'),
-                    wedhaswaraUrl ? fetch(wedhaswaraUrl).then((r) => { if (!r.ok) throw new Error('Wedhaswara API ' + r.status); return r.json(); }) : Promise.reject('no-url'),
-                ]);
-
-                let bhumiArticles = [];
-                let wedhaswaraArticles = [];
-
-                if (results[0].status === 'fulfilled') {
-                    const data = results[0].value;
-                    const raw = Array.isArray(data.articles) ? data.articles : [];
-                    bhumiArticles = raw.map(transformBhumiArticle);
-                } else {
-                    console.warn('[articles] Bhumi source failed:', results[0].reason);
+                try {
+                    const res = await fetch(bhumiUrl);
+                    if (!res.ok) throw new Error('Bhumi Articles API returned status ' + res.status);
+                    const data = await res.json();
+                    if (data && Array.isArray(data.articles) && data.articles.length > 0) {
+                        const formatted = data.articles.slice(0, 6).map(raw => ({
+                            title: raw.title || 'Artikel Bhumi',
+                            slug: raw.slug || '',
+                            excerpt: truncateText(normalizeExcerpt(raw.excerpt), 135),
+                            date: raw.publishedAt,
+                            category: raw.category || 'Refleksi Diri',
+                            imageUrl: raw.coverImageUrl || '',
+                            readingTimeMinutes: raw.readingTimeMinutes || 0
+                        }));
+                        renderArticles(formatted, container);
+                    }
+                } catch (err) {
+                    console.warn('[articles] Could not refresh articles from API, keeping verified static cards:', err);
                 }
-
-                if (results[1].status === 'fulfilled') {
-                    const raw = Array.isArray(results[1].value) ? results[1].value : [];
-                    wedhaswaraArticles = raw.map(transformWedhaswaraArticle);
-                } else {
-                    console.warn('[articles] Wedhaswara source failed:', results[1].reason);
-                }
-
-                const combined = interleaveArticles(bhumiArticles, wedhaswaraArticles);
-                requestAnimationFrame(() => {
-                    renderArticles(combined, container);
-                });
             }
 
             fetchArticles();
-            
-            // Execute the YouTube hook fetch
-            fetchYouTubeVideos();
         });
     </script>
 
